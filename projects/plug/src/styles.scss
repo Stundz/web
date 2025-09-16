@@ -8,6 +8,7 @@
 @use "tailwindcss";
 @use "./theme";
 @use '@angular/material' as mat;
+@plugin "@iconify/tailwind4";
 
 html {
   @include mat.theme((
