@@ -1,0 +1,52 @@
+<div class="p-10 space-y-8 w-full max-w-md bg-white rounded-2xl shadow-lg">
+  <div>
+    <h2 class="text-3xl font-extrabold text-center text-text-primary">Welcome back</h2>
+    <p class="mt-2 text-sm text-center text-text-secondary">
+      Sign in to continue your academic journey.
+    </p>
+  </div>
+  <form action="#" class="mt-8 space-y-6" method="POST">
+    <input name="remember" type="hidden" value="true" />
+    <div class="space-y-4 rounded-md shadow-sm">
+      <div>
+        <label class="sr-only" for="email-address">Email or Username</label>
+        <input
+          class="block relative py-3 px-4 w-full placeholder-gray-500 rounded-md border border-gray-300 appearance-none sm:text-sm focus:z-10 focus:outline-none text-text-primary focus:border-primary focus:ring-primary"
+          id="email-address"
+          name="email"
+          placeholder="Email or Username"
+          required=""
+          type="text"
+        />
+      </div>
+      <div>
+        <label class="sr-only" for="password">Password</label>
+        <input
+          class="block relative py-3 px-4 w-full placeholder-gray-500 rounded-md border border-gray-300 appearance-none sm:text-sm focus:z-10 focus:outline-none text-text-primary focus:border-primary focus:ring-primary"
+          id="password"
+          name="password"
+          placeholder="Password"
+          required=""
+          type="password"
+        />
+      </div>
+    </div>
+    <div class="flex justify-end items-center">
+      <div class="text-sm">
+        <a class="font-medium hover:text-blue-600 text-primary" href="#"> Forgot your password? </a>
+      </div>
+    </div>
+    <div>
+      <button
+        class="flex relative justify-center py-3 px-4 w-full text-sm font-semibold text-white rounded-md border border-transparent transition-colors hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:outline-none group bg-primary focus:ring-primary"
+        type="submit"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+  <p class="mt-6 text-sm text-center text-text-secondary">
+    Don't have an account?
+    <a class="font-medium hover:text-blue-600 text-primary" href="#"> Sign up </a>
+  </p>
+</div>
