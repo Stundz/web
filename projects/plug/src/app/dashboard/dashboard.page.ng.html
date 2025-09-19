@@ -1,0 +1,89 @@
+<header class="mb-8">
+  <h1 class="text-4xl font-bold text-white">Dashboard</h1>
+  <p class="mt-1 text-lg text-neutral-400">
+    Welcome back, Sarah! Here's an overview of your activity.
+  </p>
+</header>
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+  <div class="lg:col-span-2">
+    <section>
+      <h2 class="mb-4 text-2xl font-bold text-white">Active Tutorials</h2>
+      <div class="flex flex-col gap-6 items-center p-6 rounded-xl md:flex-row bg-neutral-800">
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-white">Calculus 101</h3>
+          <p class="mt-1 text-neutral-400">Tutor: Alex Chen | Next Session: Tomorrow, 3 PM</p>
+          <button
+            class="flex overflow-hidden justify-center items-center px-6 mt-4 h-10 text-sm font-bold tracking-wide rounded-full transition-opacity cursor-pointer hover:bg-opacity-90 min-w-[84px]"
+            matButton="filled"
+          >
+            <span>View Details</span>
+          </button>
+        </div>
+        <div
+          class="w-full h-32 bg-center bg-no-repeat bg-cover rounded-lg md:w-48"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5CR3d2g_fGLQ84_9sIjdaF2EvpIwxGsFJfkns6KeAkA_tyforiC8S2wZr_T7pisM98Swm6jgzoMonwQmbuuXdIHm0ilMPZAuFXuA4E0_qIMyqpX1m_oSkspUhoEznTN6YsJ85dMIzcAJG6t7fAIiXT26cVHrbpuMcySlWvIOascsx0PVHw1z2OssBSE6Uw4Z56YxHfj9dA20n6YmGz3xcKKcCzIFB6OOIcy5iqNtazMmuVq2Q_rdjPWcJrkiaEJ6fXzrZVuAHICI');
+          "
+        ></div>
+      </div>
+    </section>
+    <section class="mt-8">
+      <h2 class="mb-4 text-2xl font-bold text-white">Recent Past Questions Activity</h2>
+      <div class="space-y-4">
+        <div class="flex gap-4 items-center p-4 rounded-xl bg-neutral-800">
+          <div
+            class="flex justify-center items-center rounded-full text-primary-500 bg-neutral-700 shrink-0 size-12"
+          >
+            <span class="text-3xl material-symbols-outlined">quiz</span>
+          </div>
+          <div>
+            <p class="font-medium text-white">Question: How to solve differential equations?</p>
+            <p class="text-sm text-neutral-400">Posted 2 days ago</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-center p-4 rounded-xl bg-neutral-800">
+          <div
+            class="flex justify-center items-center rounded-full text-primary-500 bg-neutral-700 shrink-0 size-12"
+          >
+            <span class="text-3xl material-symbols-outlined">quiz</span>
+          </div>
+          <div>
+            <p class="font-medium text-white">Question: Explain the concept of limits</p>
+            <p class="text-sm text-neutral-400">Answered 1 week ago</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="lg:col-span-1">
+    <section>
+      <h2 class="mb-4 text-2xl font-bold text-white">Quick Links</h2>
+      <div class="flex flex-col p-6 space-y-4 rounded-xl bg-neutral-800">
+        <a
+          class="flex overflow-hidden gap-2 justify-center items-center px-6 w-full h-12 text-base font-bold tracking-wide rounded-full transition-opacity cursor-pointer hover:bg-opacity-90 bg-primary-500 text-neutral-900"
+          href="#"
+          matButton="tonal"
+        >
+          <span class="material-symbols-outlined">science</span>
+          <span class="truncate">Defense Projects</span>
+        </a>
+        <a matButton="outlined" routerLink="/tutorials">
+          <span
+            class="icon-[material-symbols--school-outline-rounded]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+          <span class="truncate">View All Tutorials</span>
+        </a>
+        <a
+          class="flex overflow-hidden gap-2 justify-center items-center px-6 w-full h-12 text-base font-bold tracking-wide text-white rounded-full transition-colors cursor-pointer bg-neutral-700 hover:bg-neutral-600"
+          routerLink="/help"
+          matButton="filled"
+        >
+          <span class="material-symbols-outlined">help_center</span>
+          <span class="truncate">Browse Questions</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</div>

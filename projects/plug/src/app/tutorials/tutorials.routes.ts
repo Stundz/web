@@ -15,7 +15,7 @@ export const routes: Routes = [
 				redirectTo: "../tutorials",
 			},
 			{
-				path: "tutorial/:tutorial",
+				path: ":tutorial",
 				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
 			},
 		],
