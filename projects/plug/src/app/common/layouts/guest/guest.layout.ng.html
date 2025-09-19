@@ -1,0 +1,29 @@
+<header
+  class="flex justify-between items-center py-4 px-10 whitespace-nowrap border-b border-solid border-b-[#29382f]"
+>
+  <div class="flex gap-3 items-center">
+    <span
+      class="text-3xl icon-[material-symbols--school] text-(--mat-sys-primary)"
+      role="img"
+      aria-hidden="true"
+    ></span>
+    <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Academic Plug</h2>
+  </div>
+  <nav class="flex gap-6 items-center text-sm font-medium">
+    <a class="transition-colors hover:text-white" routerLink="/">Home</a>
+    <a class="transition-colors hover:text-white" href="#">Tutorials</a>
+    <a class="transition-colors hover:text-white" href="#">Past Questions</a>
+    <a class="transition-colors hover:text-white" href="#">Projects</a>
+  </nav>
+  <div class="flex gap-2 items-center">
+    <a matButton="outlined" routerLink="/signup">
+      <span class="truncate">Join</span>
+    </a>
+    <a routerLink="/login" class="" matButton="filled">
+      <span class="truncate">Log In</span>
+    </a>
+  </div>
+</header>
+<main class="flex flex-1 justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+  <router-outlet />
+</main>

@@ -1,0 +1,78 @@
+<div
+  class="flex relative flex-col min-h-screen size-full group/design-root dark"
+  style="font-family: 'Spline Sans', 'Noto Sans', sans-serif"
+>
+  <div class="flex flex-1">
+    <aside class="flex flex-col p-4 w-64 border-r bg-neutral-900 border-neutral-800">
+      <div class="flex gap-3 items-center p-2 mb-8">
+        <div
+          class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-12"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwvDPSybdCFL3ruzkeW3UmFKgtclPMJeYC_dyHilRPMqS0MONpJlaQCAMq88By24lF_ATr8f8P1P63WGoCgPuSzoZtMTuMmrWLODKtmXp1gjxzs5lMrfpMtK93CvXyL4BXRcOWp6R90wzFxjpq6JCcAGET9eiYmdqgLWPvSbKXDL395x7ui5ciHBJscIUI-Wc8HdOVNCyowYQa8W27ILQUR6oA_96R-EHmJ21Dt7-w7afSWljnUNsARiXQcHXwmOjWmy5m1v16zaY');
+          "
+        ></div>
+        <div class="flex flex-col">
+          <h1 class="text-lg font-bold text-white">Sarah</h1>
+          <p class="text-sm text-neutral-400">Student</p>
+        </div>
+      </div>
+      <nav class="flex flex-col gap-2">
+        <a
+          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
+          routerLink="/dashboard"
+          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
+          matRipple
+        >
+          <span
+            class="icon-[material-symbols--dashboard-outline-rounded]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+          <span>Dashboard</span>
+        </a>
+        <a
+          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
+          routerLink="/tutorials"
+          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
+          [routerLinkActiveOptions]="{ exact: false }"
+          matRipple
+        >
+          <span
+            class="icon-[material-symbols--school-outline-rounded]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+          <span>Tutorials</span>
+        </a>
+        <a
+          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
+          routerLink="/past-questions"
+          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
+          matRipple
+        >
+          <span class="icon-[ic--outline-fact-check]" role="img" aria-hidden="true"></span>
+          <span>Past Questions</span>
+        </a>
+        <a
+          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
+          routerLink="/projects"
+          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
+          matRipple
+        >
+          <span class="icon-[ic--outline-biotech]" role="img" aria-hidden="true"></span>
+          <span>Defense Projects</span>
+        </a>
+      </nav>
+      <a
+        class="flex gap-3 items-center py-3 px-4 mt-auto text-base font-medium text-white rounded-full transition-colors duration-200 hover:bg-neutral-800"
+        href="#"
+      >
+        <span class="icon-[ic--sharp-settings]" role="img" aria-hidden="true"></span>
+        <span>Settings</span>
+      </a>
+    </aside>
+    <main class="overflow-y-auto flex-1 p-8">
+      <router-outlet />
+    </main>
+  </div>
+</div>
