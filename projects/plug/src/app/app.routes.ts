@@ -36,10 +36,10 @@ export const routes: Routes = [
 					import("./dashboard/dashboard.page").then((m) => m.DashboardPage),
 			},
 			{
-				path: "past-questions",
-				loadComponent: () =>
-					import("./past-questions/past-questions.page").then(
-						(m) => m.PastQuestionsPage,
+				path: "",
+				loadChildren: () =>
+					import("./past-questions/past-questions.routes").then(
+						(m) => m.routes,
 					),
 			},
 			{
@@ -51,6 +51,11 @@ export const routes: Routes = [
 				path: "",
 				loadChildren: () =>
 					import("./tutorials/tutorials.routes").then((m) => m.routes),
+			},
+			{
+				path: "",
+				loadChildren: () =>
+					import("./settings/settings.routes").then((m) => m.routes),
 			},
 		],
 	},
