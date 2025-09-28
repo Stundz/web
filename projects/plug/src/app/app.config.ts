@@ -9,6 +9,7 @@ import { routes } from "./app.routes";
 import {
 	provideClientHydration,
 	withEventReplay,
+	withIncrementalHydration,
 } from "@angular/platform-browser";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
 		provideBrowserGlobalErrorListeners(),
 		provideZonelessChangeDetection(),
 		provideRouter(routes, withComponentInputBinding()),
-		provideClientHydration(withEventReplay()),
+		provideClientHydration(withEventReplay(), withIncrementalHydration()),
 		provideHttpClient(withFetch()),
 	],
 };
