@@ -6,19 +6,19 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use "tailwindcss";
-@use "./theme";
+@use "theme" as theme;
 @use '@angular/material' as mat;
 @plugin "@iconify/tailwind4";
 
 html {
-  @include mat.theme((
-    color: (
-      primary: mat.$magenta-palette,
-      tertiary: mat.$violet-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((theme-type: color-scheme,
+      color: (primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
+      ),
+      density: 0,
+    ));
+
+  @apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary);
 }
 
 body {
@@ -38,5 +38,12 @@ body {
   margin: 0;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
