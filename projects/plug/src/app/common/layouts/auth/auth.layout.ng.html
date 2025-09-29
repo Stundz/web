@@ -1,77 +1,150 @@
-<div
-  class="flex relative flex-col min-h-screen size-full group/design-root dark"
-  style="font-family: 'Spline Sans', 'Noto Sans', sans-serif"
->
-  <div class="flex flex-1">
-    <aside class="flex flex-col p-4 w-64 border-r bg-neutral-900 border-neutral-800">
-      <div class="flex gap-3 items-center p-2 mb-8">
-        <div
-          class="bg-center bg-no-repeat bg-cover rounded-full aspect-square size-12"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwvDPSybdCFL3ruzkeW3UmFKgtclPMJeYC_dyHilRPMqS0MONpJlaQCAMq88By24lF_ATr8f8P1P63WGoCgPuSzoZtMTuMmrWLODKtmXp1gjxzs5lMrfpMtK93CvXyL4BXRcOWp6R90wzFxjpq6JCcAGET9eiYmdqgLWPvSbKXDL395x7ui5ciHBJscIUI-Wc8HdOVNCyowYQa8W27ILQUR6oA_96R-EHmJ21Dt7-w7afSWljnUNsARiXQcHXwmOjWmy5m1v16zaY');
-          "
-        ></div>
-        <div class="flex flex-col">
-          <h1 class="text-lg font-bold text-white">Sarah</h1>
-          <p class="text-sm text-neutral-400">Student</p>
-        </div>
-      </div>
-      <nav class="flex flex-col gap-2">
-        <a
-          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
-          routerLink="/dashboard"
-          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
-          matRipple
-        >
-          <span
-            class="icon-[material-symbols--dashboard-outline-rounded]"
-            role="img"
-            aria-hidden="true"
-          ></span>
-          <span>Dashboard</span>
-        </a>
-        <a
-          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
-          routerLink="/tutorials"
-          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
-          [routerLinkActiveOptions]="{ exact: false }"
-          matRipple
-        >
-          <span
-            class="icon-[material-symbols--school-outline-rounded]"
-            role="img"
-            aria-hidden="true"
-          ></span>
-          <span>Tutorials</span>
-        </a>
-        <a
-          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
-          routerLink="/past-questions"
-          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
-          matRipple
-        >
-          <span class="icon-[ic--outline-fact-check]" role="img" aria-hidden="true"></span>
-          <span>Past Questions</span>
-        </a>
-        <a
-          class="flex gap-3 items-center py-3 px-4 text-base font-medium rounded-full transition-colors duration-200 not-[.active]:hover:bg-(--mat-sys-neutral10)"
-          routerLink="/projects"
-          [routerLinkActive]="['bg-(--mat-sys-primary)', 'text-(--mat-sys-on-primary)', 'active']"
-          matRipple
-        >
-          <span class="icon-[ic--outline-biotech]" role="img" aria-hidden="true"></span>
-          <span>Defense Projects</span>
-        </a>
-      </nav>
+<div class="flex h-screen">
+  <aside
+    class="hidden flex-col flex-shrink-0 w-64 border-r md:flex bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low)"
+  >
+    <div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
+      <span class="text-2xl icon-[material-symbols--school]" role="img" aria-hidden="true"></span>
+      <span class="ml-3 text-lg font-bold">Academic Plug</span>
+    </div>
+    <nav class="flex-1 py-4 px-4 space-y-2">
       <a
-        class="flex gap-3 items-center py-3 px-4 mt-auto text-base font-medium text-white rounded-full transition-colors duration-200 hover:bg-neutral-800"
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md bg-primary-lighter text-primary dark:bg-primary/20 dark:text-primary-light"
+        routerLink="/dashboard"
+      >
+        <span
+          class="text-xl icon-[material-symbols--space-dashboard-outline]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        Dashboard
+      </a>
+      <a
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md hover:bg-gray-100 text-text-light dark:hover:bg-white/10 dark:text-text-dark"
+        routerLink="/dashboard"
+      >
+        <span
+          class="text-xl icon-[material-symbols--school-outline-rounded]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        My Courses
+      </a>
+      <a
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md hover:bg-gray-100 text-text-light dark:hover:bg-white/10 dark:text-text-dark"
+        routerLink="/tutorials"
+      >
+        <span
+          class="text-xl icon-[material-symbols--event-outline-rounded]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        Tutorial Sessions
+      </a>
+      <a
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md hover:bg-gray-100 text-text-light dark:hover:bg-white/10 dark:text-text-dark"
+        routerLink="/past-questions"
+      >
+        <span
+          class="text-xl icon-[material-symbols--description-outline-sharp]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        Past Questions
+      </a>
+      <a
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md hover:bg-gray-100 text-text-light dark:hover:bg-white/10"
+        routerLink="/projects"
+      >
+        <span
+          class="text-xl icon-[material-symbols--folder-shared-outline-rounded]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        Project Resources
+      </a>
+    </nav>
+    <div class="p-4 border-t">
+      <a
+        class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md"
+        routerLink="/settings"
         href="#"
       >
-        <span class="icon-[ic--sharp-settings]" role="img" aria-hidden="true"></span>
-        <span>Settings</span>
+        <span
+          class="icon-[material-symbols--settings-account-box-outline-sharp]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        Settings
       </a>
-    </aside>
-    <main class="overflow-y-auto flex-1 p-8">
+      <button class="flex gap-3 items-center py-2 px-4 text-sm font-medium rounded-md" matButton>
+        <span class="icon-[material-symbols--logout-rounded]" role="img" aria-hidden="true"></span>
+        Logout
+      </button>
+    </div>
+  </aside>
+  <div class="flex overflow-hidden flex-col flex-1">
+    <header
+      class="flex flex-shrink-0 justify-between items-center px-6 h-16 border-b bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low)"
+    >
+      <div class="flex items-center">
+        <button class="mr-4 md:hidden">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h2 class="text-xl font-semibold">Welcome, Alex!</h2>
+      </div>
+      <div class="flex gap-4 items-center">
+        <button class="flex relative items-center">
+          <span
+            class="icon-[material-symbols--notifications-outline-rounded]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+
+          <span class="flex absolute -top-1 -right-1 w-3 h-3">
+            <span
+              class="inline-flex absolute w-full h-full rounded-full opacity-75 animate-ping bg-accent"
+            ></span>
+            <span class="inline-flex relative w-3 h-3 rounded-full bg-accent"></span>
+          </span>
+        </button>
+        <button [matMenuTriggerFor]="theme">
+          <span
+            class="text-sm icon-[line-md--moon-rising-alt-loop]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+          <mat-menu #theme="matMenu">
+            <button type="button" class="flex gap-1 items-center" mat-menu-item>
+              <span
+                class="icon-[line-md--sun-rising-twotone-loop]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <span> light </span>
+            </button>
+            <button mat-menu-item type="button" class="">
+              <span
+                class="icon-[line-md--moon-rising-alt-loop]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <span>dark</span>
+            </button>
+          </mat-menu>
+        </button>
+        <img
+          [matMenuTriggerFor]="userMenu"
+          alt="User avatar"
+          class="object-cover w-8 h-8 rounded-full cursor-pointer"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhqiQgXNS4ByJhwBvazoAx0T-M5euUEuasyHs8fEa5V-cJ2nSWZpiXX6XSKvMdziRsSCC7PXIFmQaxEBw7jcNG2RJtKmaeFPvhqdkv4Ko3ULeHkTJt_HBjo0HNEwHRGT_f4H-W2Xb8MTfi-KAWpGaO0V4MyZN0r8501rNbOxslV4W3q1J23jO4RcfgzvBgSFL7mUlhvVjwSQu5JvUn5nXTZSTgYQ_kvnogaKJLX7yybouWulwrS8fdtqWPCp9qt06NoDtR9BC_vNI5"
+        />
+        <mat-menu #userMenu="matMenu">
+          <button type="button" class="flex gap-1 items-center" mat-menu-item>Item 1</button>
+          <button type="button" class="flex gap-1 items-center" mat-menu-item>Item 2</button>
+        </mat-menu>
+      </div>
+    </header>
+    <main class="overflow-y-auto flex-1 p-6">
       <router-outlet />
     </main>
   </div>
