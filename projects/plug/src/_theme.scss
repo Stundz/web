@@ -199,4 +199,10 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
     ))
 }
 
-@theme {}
+@theme {
+  @each $palette-name, $steps in $_palettes {
+    @each $step, $color-value in $steps {
+      --color-#{$palette-name}-#{$step}: #{$color-value};
+    }
+  }
+}
