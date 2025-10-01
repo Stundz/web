@@ -1,0 +1,18 @@
+<div class="flex">
+  @for (star of stars; track $index) {
+    <div class="text-transparent bg-clip-text bg-gradient-to-r">
+      <span
+        class="text-transparent bg-gradient-to-r icon-[bxs--star] [background-color:inherit]"
+        [class]="[
+          star <= value()
+            ? 'from-(--mat-sys-primary) to-(--mat-sys-primary)'
+            : star > value() && star < value() + 1
+              ? 'from-(--mat-sys-primary) via-(--mat-sys-primary) to-transparent'
+              : 'from-(--mat-sys-surface-container-low)',
+        ]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+    </div>
+  }
+</div>
