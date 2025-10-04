@@ -11,8 +11,12 @@ import {
 	withEventReplay,
 	withIncrementalHydration,
 } from "@angular/platform-browser";
-import { provideHttpClient, withFetch } from "@angular/common/http";
-import { ENVIRONMENT } from "shared";
+import {
+	provideHttpClient,
+	withFetch,
+	withInterceptors,
+} from "@angular/common/http";
+import { ENVIRONMENT, innovaInterceptor } from "shared";
 import { environment } from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
@@ -21,7 +25,7 @@ export const appConfig: ApplicationConfig = {
 		provideZonelessChangeDetection(),
 		provideRouter(routes, withComponentInputBinding()),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(withFetch()),
+		provideHttpClient(withFetch(), withInterceptors([innovaInterceptor])),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,
