@@ -6,6 +6,12 @@ export interface Model {
 
 export namespace Model {
 	export interface User {
+		first_name: string;
+
+		last_name: string;
+
+		email: string;
+
 		/**
 		 * The tutorial classes owned by the current user
 		 */
@@ -31,6 +37,10 @@ export namespace Model {
 		description: string;
 		course_code: string;
 		course_title: string;
+		tutor: User;
+		department: Department;
+    price: number;
+    start: string
 	}
 
 	export interface Institution extends Model {
