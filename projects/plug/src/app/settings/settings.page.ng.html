@@ -1,185 +1,104 @@
-<div class="mx-auto max-w-4xl">
-  <h1 class="mb-8 text-4xl font-bold leading-tight tracking-light text-(--mat-sys-primary)">
-    Profile
-  </h1>
-  <div
-    class="rounded-lg border border-gray-200 shadow-sm bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
-  >
-    <div class="p-6 border-b border-gray-200">
-      <h3 class="text-xl font-semibold leading-tight">Personal Information</h3>
-      <p class="mt-1 text-sm text-gray-500">Update your personal details here.</p>
-    </div>
-    <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">Full Name</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          value="Sarah Chen"
-        />
-      </label>
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">University</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          value="University of Example"
-        />
-      </label>
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">Email</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          value="sarah.chen@example.com"
-        />
-      </label>
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">Phone Number</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          value="+1 234 567 890"
-        />
-      </label>
-    </div>
-    <div class="p-6 border-b border-gray-200">
-      <h3 class="text-xl font-semibold leading-tight text-gray-900">Password</h3>
-      <p class="mt-1 text-sm text-gray-500">Manage your account password.</p>
-    </div>
-    <div class="p-6">
-      <button
-        class="flex overflow-hidden justify-center items-center px-5 h-10 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 min-w-[84px] max-w-[480px]"
-      >
-        <span class="truncate">Change Password</span>
-      </button>
-    </div>
-    <div class="p-6 border-b border-gray-200">
-      <h3 class="text-xl font-semibold leading-tight text-gray-900">Notification Preferences</h3>
-      <p class="mt-1 text-sm text-gray-500">Control how you receive notifications.</p>
-    </div>
-    <div class="flex flex-col gap-4 p-6">
-      <label class="flex gap-3 items-center">
-        <input
-          checked=""
-          class="w-5 h-5 text-blue-600 bg-transparent rounded border-2 border-gray-300 checked:bg-blue-600 checked:border-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none checked:bg-[image:var(--checkbox-tick-svg)]"
-          type="checkbox"
-        />
-        <p class="text-sm text-gray-700">Email Notifications</p>
-      </label>
-      <label class="flex gap-3 items-center">
-        <input
-          checked=""
-          class="w-5 h-5 text-blue-600 bg-transparent rounded border-2 border-gray-300 checked:bg-blue-600 checked:border-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none checked:bg-[image:var(--checkbox-tick-svg)]"
-          type="checkbox"
-        />
-        <p class="text-sm text-gray-700">In-App Notifications</p>
-      </label>
-    </div>
-    <div class="p-6 border-b border-gray-200">
-      <h3 class="text-xl font-semibold leading-tight text-gray-900">
-        Tutorial Expertise (For Tutors)
-      </h3>
-      <p class="mt-1 text-sm text-gray-500">Showcase your teaching skills.</p>
-    </div>
-    <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">Subjects</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          placeholder="e.g., Calculus, Physics, Chemistry"
-        />
-      </label>
-      <label class="flex flex-col gap-2">
-        <p class="text-sm font-medium text-gray-700">Availability</p>
-        <input
-          class="flex overflow-hidden flex-1 p-3 w-full min-w-0 h-12 text-sm font-normal text-gray-900 bg-white rounded-lg border border-gray-300 resize-none focus:ring-2 focus:ring-blue-500 form-input placeholder:text-gray-400 focus:outline-0"
-          placeholder="e.g., Mon-Fri, 5-8 PM"
-        />
-      </label>
-    </div>
-    <div class="flex justify-end items-center p-6 bg-gray-50 rounded-b-lg">
-      <button
-        class="flex overflow-hidden justify-center items-center px-6 h-12 text-sm font-bold text-white bg-blue-600 rounded-lg transition-colors cursor-pointer hover:bg-blue-700 min-w-[84px]"
-      >
-        <span class="truncate">Save Changes</span>
-      </button>
+<div class="grid grid-cols-1 gap-8 mx-auto max-w-4xl lg:grid-cols-3">
+  <div class="space-y-8 lg:col-span-1">
+    <div
+      class="flex flex-col items-center p-6 text-center rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest) text-(--mat-sys-on-surface-container-lowest)"
+    >
+      <div class="relative">
+        <div
+          class="w-32 h-32 bg-center bg-cover rounded-full shadow-md"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBmB0nFcuPNJ5-wRGeDavEYSjHKLk-XELq7YkuNJDxV8BoolpVfE5PXHebl-Ybl5sGwJthC3AZFaQwYJYGMxRUm-r3GFnGHxpMtAI3q45UGK-5WSpSE5We5xxsC5DoJlUpZQy1VkkxYHG1XfmZmGGaa_W1euGxF6DhSMFwt2raKZIhtzV_D33bVoyUg_hZBzDYWN0OaXpk61-u4eunIvBa0i88SRj3V1QFzpA0xRYl5YARtB_p0-3WhIHBRE9-1PzHV2tNGfS6a2YI');
+          "
+        ></div>
+        <button
+          class="absolute right-1 bottom-1 p-2 text-white rounded-full shadow-md transition-all bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/90"
+        >
+          <span class="material-symbols-outlined !text-base">edit</span>
+        </button>
+      </div>
+      <h2 class="mt-4 text-2xl font-bold">Sophia Clark</h2>
+      <p class="text-gray-500 dark:text-gray-400">Computer Science Major</p>
+      <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">Joined in 2022</p>
+      <button matButton="filled" class="rounded-lg! mt-2">Edit Profile</button>
     </div>
   </div>
-  <div
-    class="mt-8 rounded-lg border border-gray-200 shadow-sm bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
-  >
-    <div class="p-6 border-b border-gray-200">
-      <h3 class="text-xl font-semibold leading-tight text-(--mat-sys-primary)">
-        Past Sessions &amp; Contributions
-      </h3>
-      <p class="mt-1 text-sm text-(--mat-sys-secondary)">Review your activity on the platform.</p>
-    </div>
-    <mat-tab-group>
-      <mat-tab label="Tutorial Sessions">
-        <div class="p-6 @container">
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="border-b border-gray-200">
-                  <th
-                    class="py-3 px-4 text-xs font-semibold tracking-wider text-left uppercase text-(--mat-sys-secondary)"
-                  >
-                    Date
-                  </th>
-                  <th
-                    class="py-3 px-4 text-xs font-semibold tracking-wider text-left uppercase text-(--mat-sys-secondary)"
-                  >
-                    Subject
-                  </th>
-                  <th
-                    class="py-3 px-4 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase"
-                  >
-                    Student
-                  </th>
-                  <th
-                    class="py-3 px-4 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase"
-                  >
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-b border-gray-200">
-                  <td class="py-4 px-4 text-sm">2024-03-15</td>
-                  <td class="py-4 px-4 text-sm">Calculus</td>
-                  <td class="py-4 px-4 text-sm">Ethan Lee</td>
-                  <td class="py-4 px-4">
-                    <span
-                      class="inline-flex items-center py-1 px-3 text-xs font-medium text-green-800 bg-green-100 rounded-full"
-                      >Completed</span
-                    >
-                  </td>
-                </tr>
-                <tr class="border-b border-gray-200">
-                  <td class="py-4 px-4 text-sm">2024-03-22</td>
-                  <td class="py-4 px-4 text-sm">Physics</td>
-                  <td class="py-4 px-4 text-sm">Olivia Kim</td>
-                  <td class="py-4 px-4">
-                    <span
-                      class="inline-flex items-center py-1 px-3 text-xs font-medium text-yellow-800 bg-yellow-100 rounded-full"
-                      >Scheduled</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td class="py-4 px-4 text-sm">2024-03-29</td>
-                  <td class="py-4 px-4 text-sm">Chemistry</td>
-                  <td class="py-4 px-4 text-sm">Noah Patel</td>
-                  <td class="py-4 px-4">
-                    <span
-                      class="inline-flex items-center py-1 px-3 text-xs font-medium text-green-800 bg-green-100 rounded-full"
-                      >Completed</span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div class="space-y-8 lg:col-span-2">
+    <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
+      <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Contact Information</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="email"
+            >Email</label
+          >
+          <input
+            class="py-1 px-2 w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-(--mat-sys-surface-container-low) focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+            id="email"
+            placeholder="your.email@university.edu"
+            type="email"
+            value="sophia.clark@university.edu"
+          />
         </div>
-      </mat-tab>
-      <mat-tab label="Past Questions"> <div class="p-4 text-center">No data</div> </mat-tab>
-    </mat-tab-group>
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="phone"
+            >Phone Number</label
+          >
+          <input
+            class="py-1 px-2 w-full rounded-lg form-input bg-(--mat-sys-surface-container-low) focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+            id="phone"
+            placeholder="(123) 456-7890"
+            type="tel"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
+      <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Academic Details</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="major"
+            >Major</label
+          >
+          <input
+            class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+            id="major"
+            placeholder="Your Major"
+            type="text"
+            value="Computer Science"
+          />
+        </div>
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="minor"
+            >Minor</label
+          >
+          <input
+            class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+            id="minor"
+            placeholder="Your Minor (Optional)"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
+      <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Tutoring Specialties</h3>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="bio"
+          >Bio / Specialties</label
+        >
+        <textarea
+          class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-textarea bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+          id="bio"
+          placeholder="Briefly describe your tutoring skills, subjects you excel in, etc."
+          rows="4"
+        ></textarea>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button
+        class="py-2 px-6 font-bold text-white rounded-lg shadow-md transition-colors bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/90"
+      >
+        Save Changes
+      </button>
+    </div>
   </div>
 </div>
