@@ -12,6 +12,8 @@ import {
 	withIncrementalHydration,
 } from "@angular/platform-browser";
 import { provideHttpClient, withFetch } from "@angular/common/http";
+import { ENVIRONMENT } from "shared";
+import { environment } from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -20,5 +22,9 @@ export const appConfig: ApplicationConfig = {
 		provideRouter(routes, withComponentInputBinding()),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
 		provideHttpClient(withFetch()),
+		{
+			provide: ENVIRONMENT,
+			useValue: environment,
+		},
 	],
 };
