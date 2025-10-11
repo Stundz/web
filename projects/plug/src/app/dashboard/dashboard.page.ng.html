@@ -1,89 +1,246 @@
-<header class="mb-8">
-  <h1 class="text-4xl font-bold text-white">Dashboard</h1>
-  <p class="mt-1 text-lg text-neutral-400">
-    Welcome back, Sarah! Here's an overview of your activity.
-  </p>
-</header>
-<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-  <div class="lg:col-span-2">
-    <section>
-      <h2 class="mb-4 text-2xl font-bold text-white">Active Tutorials</h2>
-      <div class="flex flex-col gap-6 items-center p-6 rounded-xl md:flex-row bg-neutral-800">
-        <div class="flex-1">
-          <h3 class="text-xl font-bold text-white">Calculus 101</h3>
-          <p class="mt-1 text-neutral-400">Tutor: Alex Chen | Next Session: Tomorrow, 3 PM</p>
-          <button
-            class="flex overflow-hidden justify-center items-center px-6 mt-4 h-10 text-sm font-bold tracking-wide rounded-full transition-opacity cursor-pointer hover:bg-opacity-90 min-w-[84px]"
-            matButton="filled"
-          >
-            <span>View Details</span>
-          </button>
-        </div>
-        <div
-          class="w-full h-32 bg-center bg-no-repeat bg-cover rounded-lg md:w-48"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5CR3d2g_fGLQ84_9sIjdaF2EvpIwxGsFJfkns6KeAkA_tyforiC8S2wZr_T7pisM98Swm6jgzoMonwQmbuuXdIHm0ilMPZAuFXuA4E0_qIMyqpX1m_oSkspUhoEznTN6YsJ85dMIzcAJG6t7fAIiXT26cVHrbpuMcySlWvIOascsx0PVHw1z2OssBSE6Uw4Z56YxHfj9dA20n6YmGz3xcKKcCzIFB6OOIcy5iqNtazMmuVq2Q_rdjPWcJrkiaEJ6fXzrZVuAHICI');
-          "
-        ></div>
-      </div>
-    </section>
-    <section class="mt-8">
-      <h2 class="mb-4 text-2xl font-bold text-white">Recent Past Questions Activity</h2>
-      <div class="space-y-4">
-        <div class="flex gap-4 items-center p-4 rounded-xl bg-neutral-800">
-          <div
-            class="flex justify-center items-center rounded-full text-primary-500 bg-neutral-700 shrink-0 size-12"
-          >
-            <span class="text-3xl material-symbols-outlined">quiz</span>
-          </div>
-          <div>
-            <p class="font-medium text-white">Question: How to solve differential equations?</p>
-            <p class="text-sm text-neutral-400">Posted 2 days ago</p>
-          </div>
-        </div>
-        <div class="flex gap-4 items-center p-4 rounded-xl bg-neutral-800">
-          <div
-            class="flex justify-center items-center rounded-full text-primary-500 bg-neutral-700 shrink-0 size-12"
-          >
-            <span class="text-3xl material-symbols-outlined">quiz</span>
-          </div>
-          <div>
-            <p class="font-medium text-white">Question: Explain the concept of limits</p>
-            <p class="text-sm text-neutral-400">Answered 1 week ago</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+  <div
+    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
+  >
+    <div class="p-3 rounded-full bg-(--mat-sys-secondary)/80 text-(--mat-sys-on-secondary)">
+      <span
+        class="icon-[material-symbols--book-outline-rounded]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+    </div>
+    <div class="ml-4">
+      <p class="text-sm">Enrolled Courses</p>
+      <p class="text-2xl font-bold">5</p>
+    </div>
   </div>
-  <div class="lg:col-span-1">
-    <section>
-      <h2 class="mb-4 text-2xl font-bold text-white">Quick Links</h2>
-      <div class="flex flex-col p-6 space-y-4 rounded-xl bg-neutral-800">
-        <a
-          class="flex overflow-hidden gap-2 justify-center items-center px-6 w-full h-12 text-base font-bold tracking-wide rounded-full transition-opacity cursor-pointer hover:bg-opacity-90 bg-primary-500 text-neutral-900"
-          href="#"
-          matButton="tonal"
-        >
-          <span class="material-symbols-outlined">science</span>
-          <span class="truncate">Defense Projects</span>
-        </a>
-        <a matButton="outlined" routerLink="/tutorials">
+  <div
+    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
+  >
+    <div
+      class="p-3 text-green-600 bg-green-100 rounded-full dark:text-green-300 dark:bg-green-900/40"
+    >
+      <span
+        class="icon-[material-symbols--event-available-outline-sharp]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+    </div>
+    <div class="ml-4">
+      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+        Upcoming Sessions
+      </p>
+      <p class="text-2xl font-bold">2</p>
+    </div>
+  </div>
+  <div
+    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
+  >
+    <div
+      class="p-3 text-yellow-600 bg-yellow-100 rounded-full dark:text-yellow-400 dark:bg-yellow-900/40"
+    >
+      <span
+        class="icon-[material-symbols--history-edu-outline-rounded]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+    </div>
+    <div class="ml-4">
+      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+        Sessions as Tutor
+      </p>
+      <p class="text-2xl font-bold">8</p>
+    </div>
+  </div>
+  <div
+    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
+  >
+    <div class="p-3 text-red-600 bg-red-100 rounded-full dark:text-red-400 dark:bg-red-900/40">
+      <span
+        class="icon-[material-symbols--quiz-outline-rounded]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+    </div>
+    <div class="ml-4">
+      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Saved Questions</p>
+      <p class="text-2xl font-bold">12</p>
+    </div>
+  </div>
+</div>
+<div class="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-3">
+  <div class="p-6 rounded-lg shadow-md lg:col-span-2 bg-card-light dark:bg-card-dark">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold">My Tutorial Sessions</h3>
+      <a class="text-sm font-medium hover:underline text-primary" routerLink="/activities"
+        >View All</a
+      >
+    </div>
+    <div class="space-y-4">
+      <div
+        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
+      >
+        <div class="p-3 mr-4 rounded-full bg-primary-lighter dark:bg-primary/20">
           <span
-            class="icon-[material-symbols--school-outline-rounded]"
+            class="icon-[material-symbols--calendar-month-outline-rounded] text-(--mat-sys-primary)"
             role="img"
             aria-hidden="true"
           ></span>
-          <span class="truncate">View All Tutorials</span>
-        </a>
-        <a
-          class="flex overflow-hidden gap-2 justify-center items-center px-6 w-full h-12 text-base font-bold tracking-wide text-white rounded-full transition-colors cursor-pointer bg-neutral-700 hover:bg-neutral-600"
-          routerLink="/help"
-          matButton="filled"
-        >
-          <span class="material-symbols-outlined">help_center</span>
-          <span class="truncate">Browse Questions</span>
-        </a>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Data Structures &amp; Algorithms</p>
+          <p class="text-sm text-(--mat-sys-secondary)">with Jane Doe (Tutor)</p>
+        </div>
+        <div class="text-right">
+          <p class="font-medium">Today, 4:00 PM</p>
+          <span
+            class="py-1 px-2 text-xs text-green-800 bg-green-100 rounded-full dark:text-green-200 dark:bg-green-900"
+            >Upcoming</span
+          >
+        </div>
       </div>
-    </section>
+      <div
+        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
+      >
+        <div class="p-3 mr-4 rounded-full bg-primary-lighter dark:bg-primary/20">
+          <span
+            class="icon-[material-symbols--calendar-month-outline-rounded] text-(--mat-sys-primary)"
+            role="img"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Advanced Calculus II</p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            with John Smith (Tutor)
+          </p>
+        </div>
+        <div class="text-right">
+          <p class="font-medium">Tomorrow, 11:00 AM</p>
+          <span
+            class="py-1 px-2 text-xs text-green-800 bg-green-100 rounded-full dark:text-green-200 dark:bg-green-900"
+            >Upcoming</span
+          >
+        </div>
+      </div>
+      <div
+        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
+      >
+        <div class="p-3 mr-4 rounded-full bg-(--mat-sys-tertiary)">
+          <span
+            class="icon-[material-symbols--history-edu-outline-rounded] text-(--mat-sys-on-tertiary)"
+            role="img"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Introduction to Python</p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            with Emily White (Tutee)
+          </p>
+        </div>
+        <div class="text-right">
+          <p class="font-medium">Yesterday, 2:00 PM</p>
+          <span
+            class="py-1 px-2 text-xs text-gray-800 bg-gray-200 rounded-full dark:text-gray-200 dark:bg-gray-600"
+            >Completed</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="p-6 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
+    <h3 class="mb-4 text-lg font-semibold">Quick Access</h3>
+    <div class="space-y-3">
+      <a
+        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
+        href="#"
+      >
+        <span
+          class="icon-[material-symbols--add-circle-outline-rounded]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <span class="font-medium text-primary">Book a new Session</span>
+      </a>
+      <a
+        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
+        href="/past-questions"
+      >
+        <span class="icon-[material-symbols--search]" role="img" aria-hidden="true"></span>
+        <span class="font-medium">Find Past Papers</span>
+      </a>
+      <a
+        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
+        href="#"
+      >
+        <span
+          class="icon-[material-symbols--upload-file-outline-sharp]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <span class="font-medium">Upload a Resource</span>
+      </a>
+      <a
+        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
+        href="#"
+      >
+        <span
+          class="icon-[material-symbols--group-outline-sharp]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <span class="font-medium">My Project Groups</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="p-6 mt-8 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
+  <h3 class="mb-4 text-lg font-semibold">Recent Activity</h3>
+  <ul class="divide-y divide-divider-light dark:divide-divider-dark">
+    <li class="flex justify-between items-center py-3">
+      <div class="flex gap-3 items-center">
+        <span
+          class="text-green-500 icon-[material-symbols--check-circle-outline-rounded]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <div>
+          <p>
+            You completed a session for
+            <span class="font-semibold">Advanced Calculus II</span>.
+          </p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">2 hours ago</p>
+        </div>
+      </div>
+      <button class="text-sm font-medium hover:underline text-primary">View Details</button>
+    </li>
+    <li class="flex justify-between items-center py-3">
+      <div class="flex gap-3 items-center">
+        <span
+          class="text-blue-500 icon-[mdi--file-download-outline]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <div>
+          <p>
+            You downloaded the past paper for
+            <span class="font-semibold">PHYS101 Midterm</span>.
+          </p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">1 day ago</p>
+        </div>
+      </div>
+      <button class="text-sm font-medium hover:underline text-primary">Download Again</button>
+    </li>
+    <li class="flex justify-between items-center py-3">
+      <div class="flex items-center">
+        <span class="mr-3 material-symbols-outlined text-accent">star</span>
+        <div>
+          <p>You received a new 5-star review from a tutee.</p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">3 days ago</p>
+        </div>
+      </div>
+      <button class="text-sm font-medium hover:underline text-primary">View Review</button>
+    </li>
+  </ul>
 </div>
