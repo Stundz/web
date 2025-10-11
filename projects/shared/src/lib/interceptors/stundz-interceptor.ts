@@ -4,7 +4,7 @@ import { inject, PLATFORM_ID } from "@angular/core";
 import { HTTP_SKIP_ON_SERVER } from "../contexts";
 import { EMPTY } from "rxjs";
 
-export const innovaInterceptor: HttpInterceptorFn = (req, next) => {
+export const stundzInterceptor: HttpInterceptorFn = (req, next) => {
 	const platformId = inject(PLATFORM_ID);
 	const isServer = isPlatformServer(platformId);
 

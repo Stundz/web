@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { innovaInterceptor } from './innova-interceptor';
+import { stundzInterceptor } from './stundz-interceptor';
 
-describe('innovaInterceptor', () => {
+describe('stundzInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => innovaInterceptor(req, next));
+    TestBed.runInInjectionContext(() => stundzInterceptor(req, next));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

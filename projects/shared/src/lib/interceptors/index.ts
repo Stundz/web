@@ -1,1 +1,1 @@
-export * from "./innova-interceptor";
+export * from "./stundz-interceptor";
