@@ -1,7 +1,7 @@
 import { Component, input } from "@angular/core";
 
 @Component({
-	selector: "innova-rating",
+	selector: "stundz-rating",
 	imports: [],
 	templateUrl: "./rating.html",
 	styleUrl: "./rating.scss",

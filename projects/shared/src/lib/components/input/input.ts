@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ControlValueAccessor } from "@angular/forms";
 
 @Component({
-	selector: "innova-input",
+	selector: "stundz-input",
 	imports: [],
 	templateUrl: "./input.html",
 	styleUrl: "./input.css",
