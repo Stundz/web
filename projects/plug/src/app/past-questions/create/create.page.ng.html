@@ -1,1 +1,162 @@
-<p>create works!</p>
+<div class="p-6 sm:p-8">
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">
+      Upload Past Exam Paper
+    </h2>
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+      Share a past paper with the community. Please ensure all details are accurate.
+    </p>
+  </div>
+  <form [formGroup]="form" class="space-y-6">
+    <mat-vertical-stepper linear #stepper>
+      <mat-step
+        [stepControl]="form.controls.institution_id"
+        label="Institution"
+        state="institution"
+      >
+        <div class="py-1 px-6">
+          <label
+            class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+            for="institution"
+            >Institution</label
+          >
+          <select
+            class="w-full text-gray-800 rounded border-gray-300 dark:text-white form-select bg-background-light dark:border-primary/30 dark:bg-background-dark focus:ring-primary focus:border-primary"
+            id="institution"
+            name="institution"
+            formControlName="institution_id"
+            (change)="form.controls.institution_id.valid && stepper.next()"
+          >
+            <option disabled selected>Select Institution</option>
+            @for (institution of institutions.value(); track institution.id) {
+              <option [value]="institution.id">{{ institution.name }}</option>
+            }
+          </select>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="form.controls.faculty_id" label="Faculty" state="faculty">
+        <div>
+          <label
+            class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+            for="faculty"
+            >Faculty</label
+          >
+          <select
+            class="w-full text-gray-800 rounded border-gray-300 dark:text-white form-select bg-background-light dark:border-primary/30 dark:bg-background-dark focus:ring-primary focus:border-primary"
+            id="faculty"
+            name="faculty"
+            formControlName="faculty_id"
+            (change)="form.controls.institution_id.valid && stepper.next()"
+          >
+            <option selected disabled>Select Faculty</option>
+            @for (faculty of faculties.value(); track faculty.id) {
+              <option [value]="faculty.id">{{ faculty.name }}</option>
+            }
+          </select>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="form.controls.department_id" label="Department">
+        <div>
+          <label
+            class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+            for="department"
+            >Department</label
+          >
+          <select
+            class="w-full text-gray-800 rounded border-gray-300 dark:text-white form-select bg-background-light dark:border-primary/30 dark:bg-background-dark focus:ring-primary focus:border-primary"
+            id="department"
+            name="department"
+            formControlName="department_id"
+            (change)="form.controls.department_id.valid && stepper.next()"
+          >
+            <option selected disabled>Select department</option>
+            @for (department of departments.value(); track department.id) {
+              <option [value]="department.id">{{ department.name }}</option>
+            }
+          </select>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="form.controls.course_id" label="Course" class="p-3">
+        <div>
+          <label
+            class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+            for="course"
+            >Course</label
+          >
+          <select
+            class="w-full text-gray-800 rounded border-gray-300 dark:text-white form-select bg-background-light dark:border-primary/30 dark:bg-background-dark focus:ring-primary focus:border-primary"
+            id="course"
+            formControlName="course_id"
+            (change)="form.controls.course_id.valid && stepper.next()"
+          >
+            <option selected disabled>Select Course</option>
+            @for (course of courses.value(); track course.id) {
+              <option [value]="course.id">{{ course.code }}: {{ course.title }}</option>
+            }
+          </select>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="form.controls.year" label="Year" class="p-3">
+        <div>
+          <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300" for="year"
+            >Year</label
+          >
+          <input
+            class="w-full text-gray-800 rounded border-gray-300 dark:text-white bg-background-light dark:border-primary/30 dark:bg-background-dark focus:ring-primary focus:border-primary"
+            id="year"
+            name="year"
+            placeholder="e.g., 2023"
+            formControlName="year"
+            type="number"
+            (change)="form.controls.year.valid && stepper.next()"
+          />
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="form.controls.file" label="Upload document">
+        <div
+          innovaDropzone
+          [multiple]="false"
+          (change)="form.controls.file.setValue($event[0])"
+          class="flex justify-center items-center p-8 rounded-lg border-2 border border-dash"
+        ></div>
+      </mat-step>
+      <mat-step label="Summary">
+        <div class="py-8 space-y-3">
+          <div>
+            <span>Institution: </span>
+            <span>{{ institution()?.name }}</span>
+          </div>
+          <div>
+            <span>Faculty: </span>
+            <span>{{ faculty()?.name }}</span>
+          </div>
+          <div>
+            <span>Department: </span>
+            <span>{{ department()?.name }}</span>
+          </div>
+          <div>
+            <span>Course: </span>
+            <span>{{ course()?.title }}</span>
+          </div>
+          <div>
+            <span>year: </span>
+            <span>{{ form.controls.year.getRawValue() }}</span>
+          </div>
+          <!-- Summary here -->
+
+          <button matButton="filled" [disabled]="form.invalid || loading()">
+            @if (loading()) {
+              <span
+                class="icon-[line-md--loading-alt-loop] me-3"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            }
+            Submit
+          </button>
+        </div>
+      </mat-step>
+      <!-- TODO: Add custom icons to each tab -->
+    </mat-vertical-stepper>
+  </form>
+</div>
