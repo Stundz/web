@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "innova",
+      "name": "stundz",
       "dependencies": {
         "@angular/cdk": "20.2.3",
         "@angular/common": "^20.3.2",
