@@ -1,10 +1,24 @@
 import { Routes } from "@angular/router";
+import { Tutorial } from "../common/services/tutorial";
 
 export const routes: Routes = [
 	{
 		path: "tutorials",
-		title: "Your tutorials sessions",
-		loadComponent: () => import("./index/index.page").then((m) => m.IndexPage),
+		providers: [Tutorial],
+		children: [
+			{
+				path: "",
+				pathMatch: "full",
+				title: "Your tutorials sessions",
+				loadComponent: () =>
+					import("./index/index.page").then((m) => m.IndexPage),
+			},
+			{
+				path: "new",
+				loadComponent: () =>
+					import("./create/create.page").then((m) => m.CreatePage),
+			},
+		],
 	},
 	{
 		path: "tutorial",
