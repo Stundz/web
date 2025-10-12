@@ -1,113 +1,141 @@
-<div
-  class="flex overflow-x-hidden relative flex-col min-h-screen size-full group/design-root dark"
-  style="font-family: 'Spline Sans', 'Noto Sans', sans-serif"
->
-  <div class="flex flex-col h-full layout-container grow">
-    <main class="flex-1">
-      <section
-        class="flex relative justify-center items-center py-20 px-4 bg-center bg-cover min-h-[60vh]"
-        style="
-          background-image:
-            linear-gradient(rgba(17, 23, 20, 0.8) 0%, rgba(17, 23, 20, 1) 100%),
-            url('https://lh3.googleusercontent.com/aida-public/AB6AXuA0uuz7WVNX5_5k1EgJrhgHps6Ap16O66GHngDkyVe0SSFS3w_0-UzqJO6_WjvFWX9gxsOFGcRAlPf9dFop2Rxi0MGHvOk5X_nw1V7zUFnmWX60rWaTI8fDC-bZrxq6mWRshXR0I_2tm3Kbrh7K86f5w41u0e_jXNFth5vVhdCQDaYO2pZTWVXpg80qavLgx_Nw1q2DXzlADAwCTf5d3yuQZOBdqTWLYoWs9y4R6kIhcSNlo47-kLCxsD9vQ7jFZhvCF6EJoC8HDK8');
-        "
+<section class="relative">
+  <div
+    class="absolute inset-0 bg-center bg-cover"
+    style="
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL');
+    "
+  ></div>
+  <div class="absolute inset-0 bg-black/50 dark:bg-black/70"></div>
+  <div
+    class="container relative py-24 px-4 mx-auto text-center text-white sm:py-32 sm:px-6 lg:py-40 lg:px-8"
+  >
+    <h1 class="text-4xl font-black tracking-tighter sm:text-5xl lg:text-6xl">
+      Connect, Learn, and Succeed with Plug
+    </h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-200 sm:text-xl dark:text-gray-300">
+      Your all-in-one platform for academic support. Find tutors, share resources, and ace your
+      studies.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center mt-8">
+      <a routerLink="/tutorials" class="" matButton="tonal">Find a Tutor</a>
+      <a class="" matButton="filled">Become a Tutor</a>
+    </div>
+  </div>
+</section>
+<section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
+  <div class="container px-4 mx-auto sm:px-6 lg:px-8">
+    <div class="lg:text-center">
+      <h2 class="text-base font-semibold tracking-wider uppercase text-primary">Features</h2>
+      <p
+        class="mt-2 text-3xl font-extrabold tracking-tight leading-8 text-gray-900 sm:text-4xl dark:text-white"
       >
-        <div class="w-full max-w-4xl text-center">
-          <h1 class="text-5xl font-black leading-tight text-white md:text-6xl tracking-[-0.033em]">
-            Unlock Your Academic Potential
-          </h1>
-          <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-            Connect with top tutors, access past exam papers, and get expert help with your defense
-            projects. Academic Plug is your all-in-one platform for academic success.
+        Unlock Your Academic Potential
+      </p>
+      <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto dark:text-gray-400">
+        Plug offers a comprehensive suite of tools to help you excel in your studies.
+      </p>
+    </div>
+    <div class="mt-12">
+      <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
+        >
+          <div
+            class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
+          >
+            <span
+              class="text-2xl icon-[material-symbols--school]"
+              role="img"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">Find Expert Tutors</h3>
+          <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+            Connect with experienced tutors for personalized help in any subject.
           </p>
-          <div class="flex mx-auto mt-8 w-full max-w-2xl">
-            <div class="relative w-full">
-              <span
-                class="absolute left-4 top-1/2 text-gray-400 -translate-y-1/2 material-symbols-outlined"
-                >search</span
-              >
-              <input
-                class="py-3.5 pr-32 pl-12 w-full text-white rounded-full border-2 form-input border-[#29382f] bg-[#1c2620] placeholder:text-gray-400 focus:border-[#38e07b] focus:ring-[#38e07b]"
-                placeholder="Search for tutorials, past questions..."
-                type="text"
-              />
-              <button
-                class="flex absolute right-2 top-1/2 justify-center items-center px-6 h-10 text-sm font-bold tracking-wide rounded-full -translate-y-1/2 cursor-pointer bg-[#38e07b] text-[#111714]"
-              >
-                Search
-              </button>
-            </div>
-          </div>
         </div>
-      </section>
-      <section class="py-20 px-4 sm:px-10">
-        <div class="mx-auto max-w-5xl">
-          <div class="text-center">
-            <h2 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">What We Offer</h2>
-            <p class="mt-4 text-lg text-gray-300">
-              A comprehensive suite of tools and resources to support your academic journey.
-            </p>
+        <div
+          class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
+        >
+          <div
+            class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
+          >
+            <span
+              class="text-2xl icon-[material-symbols--description]"
+              role="img"
+              aria-hidden="true"
+            ></span>
           </div>
-          <div class="grid gap-8 mt-16 md:grid-cols-3">
-            <div
-              class="flex flex-col gap-4 p-6 rounded-2xl border transition-all hover:shadow-2xl border-[#29382f] bg-[#1c2620] hover:border-[#38e07b] hover:shadow-[#38e07b]/10"
-            >
-              <div class="flex justify-center items-center w-12 h-12 rounded-full bg-[#38e07b]/10">
-                <span class="text-xl icon-[ic--round-cast-for-education] text-[#38e07b]"></span>
-              </div>
-              <h3 class="text-xl font-bold text-white">Paid Tutorials</h3>
-              <p class="text-gray-400">
-                Connect with experienced tutors for personalized, one-on-one sessions.
-              </p>
-            </div>
-            <div
-              class="flex flex-col gap-4 p-6 rounded-2xl border transition-all hover:shadow-2xl border-[#29382f] bg-[#1c2620] hover:border-[#38e07b] hover:shadow-[#38e07b]/10"
-            >
-              <div class="flex justify-center items-center w-12 h-12 rounded-full bg-[#38e07b]/10">
-                <span
-                  class="text-xl icon-[material-symbols--history-edu-outline] text-[#38e07b]"
-                  role="img"
-                  aria-hidden="true"
-                ></span>
-              </div>
-              <h3 class="text-xl font-bold text-white">Past Questions &amp; Solutions</h3>
-              <p class="text-gray-400">
-                Access a vast library of past exam papers and detailed solutions to prepare
-                effectively.
-              </p>
-            </div>
-            <div
-              class="flex flex-col gap-4 p-6 rounded-2xl border transition-all hover:shadow-2xl border-[#29382f] bg-[#1c2620] hover:border-[#38e07b] hover:shadow-[#38e07b]/10"
-            >
-              <div class="flex justify-center items-center w-12 h-12 rounded-full bg-[#38e07b]/10">
-                <span
-                  class="text-xl icon-[material-symbols--groups-2-rounded] text-[#38e07b]"
-                  role="img"
-                  aria-hidden="true"
-                ></span>
-              </div>
-              <h3 class="text-xl font-bold text-white">Defense Project Assistance</h3>
-              <p class="text-gray-400">
-                Get expert guidance and support for your defense projects, from topic selection to
-                final presentation.
-              </p>
-            </div>
-          </div>
+          <h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">
+            Access Study Resources
+          </h3>
+          <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+            Share and access past exam papers, solutions, and study guides.
+          </p>
         </div>
-      </section>
-    </main>
-    <footer class="border-t border-[#29382f]">
-      <div class="py-10 px-5 mx-auto max-w-5xl">
-        <div class="flex flex-col gap-6 justify-between items-center sm:flex-row">
-          <div class="flex flex-wrap gap-y-2 gap-x-6 justify-center items-center">
-            <a class="text-sm text-gray-400 hover:text-white" href="#">About Us</a>
-            <a class="text-sm text-gray-400 hover:text-white" href="#">Contact</a>
-            <a class="text-sm text-gray-400 hover:text-white" href="#">Terms of Service</a>
-            <a class="text-sm text-gray-400 hover:text-white" href="#">Privacy Policy</a>
+        <div
+          class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
+        >
+          <div
+            class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
+          >
+            <span
+              class="text-2xl icon-[material-symbols--groups]"
+              role="img"
+              aria-hidden="true"
+            ></span>
           </div>
-          <p class="text-sm text-gray-400">© 2024 Academic Plug. All rights reserved.</p>
+          <h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">
+            Collaborate on Projects
+          </h3>
+          <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+            Work together on defense projects and assignments with your peers.
+          </p>
         </div>
       </div>
-    </footer>
+      <div class="mt-12 text-center">
+        <a routerLink="/features" matButton="tonal">Explore All Features</a>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+<section class="bg-white dark:bg-(--mat-sys-surface-container)/50">
+  <div class="container py-16 px-4 mx-auto text-center sm:py-24 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+      Ready to Take Your Studies to the Next Level?
+    </h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-gray-500 dark:text-gray-400">
+      Join Plug today and start connecting with tutors and resources.
+    </p>
+    <div class="mt-8">
+      <a routerLink="/signup" class="" matButton="filled">Get Started for Free</a>
+    </div>
+  </div>
+</section>
+
+<footer
+  class="border-t border-gray-200 dark:border-gray-800 bg-background-light dark:bg-background-dark"
+>
+  <div class="container py-8 px-4 mx-auto sm:px-6 lg:px-8">
+    <div class="flex justify-center space-x-6">
+      <a
+        class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+        href="#"
+        >Terms of Service</a
+      >
+      <a
+        class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+        href="#"
+        >Privacy Policy</a
+      >
+      <a
+        class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+        href="#"
+        >Contact Us</a
+      >
+    </div>
+    <p class="mt-6 text-sm text-center text-gray-400 dark:text-gray-500">
+      © 2024 Plug. All rights reserved.
+    </p>
+  </div>
+</footer>
