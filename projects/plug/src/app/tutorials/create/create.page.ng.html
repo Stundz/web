@@ -1,0 +1,253 @@
+<div class="mx-auto max-w-4xl">
+  <div class="p-6 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
+    <h3 class="mb-1 text-xl font-semibold">Create a New Tutorial Session</h3>
+    <p class="mb-6 text-sm text-(--mat-sys-secondary)">
+      Fill out the details below to offer a new paid tutorial session to other students.
+    </p>
+    <form [formGroup]="form" class="space-y-6 *:w-full">
+      <mat-card
+        stundzDropzone
+        (change)="form.controls.cover.setValue($event[0])"
+        class="overflow-hidden relative aspect-video"
+      >
+        @if (coverPreview() !== null) {
+          <img [src]="coverPreview()!" class="object-cover object-center size-full" />
+        }
+      </mat-card>
+
+      <mat-form-field>
+        <mat-label>Tutorial Name</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="name"
+          placeholder="Introduction to Computer Engineering"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Briefly describe what this session will cover"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Objectives</mat-label>
+        <mat-chip-grid #objectives>
+          @for (i of form.controls.objectives.controls; track $index) {
+            <mat-chip-row (removed)="form.controls.objectives.removeAt($index)">
+              {{ i.value }}
+              <button matChipRemove class="flex items-center text-xs">x</button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input
+          placeholder="New Objective"
+          [matChipInputFor]="objectives"
+          (matChipInputTokenEnd)="[addObjective($event.value), $event.chipInput.clear()]"
+          [disabled]="form.controls.objectives.value.length >= 5"
+        />
+      </mat-form-field>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input type="number" matInput formControlName="price" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Duration</mat-label>
+          <input type="number" step="30" min="60" matInput formControlName="duration" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-full">
+        <mat-label> Intitution </mat-label>
+        <mat-select formControlName="institution_id">
+          <mat-option selected disabled>Select and Institution</mat-option>
+          @for (institution of intitutions.value(); track institution.id) {
+            <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label> Faculty </mat-label>
+        <mat-select formControlName="faculty_id">
+          @if (!faculties.hasValue()) {
+            <mat-option disabled>Select institution to load faculties</mat-option>
+          } @else {
+            @for (faculty of faculties.value(); track faculty.id) {
+              <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label> Department </mat-label>
+        <mat-select formControlName="department_id">
+          @if (!departments.hasValue()) {
+            <mat-option disabled>Select a faculty to load departments</mat-option>
+          } @else {
+            @for (deparment of departments.value(); track deparment.id) {
+              <mat-option [value]="deparment.id">{{ deparment.name }}</mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label> Course </mat-label>
+        <mat-select formControlName="course_id">
+          @if (!courses.hasValue()) {
+            <mat-option disabled>Select a faculty to load courses</mat-option>
+          } @else {
+            @for (course of courses.value(); track course.id) {
+              <mat-option [value]="course.id">
+                <span class="font-bold">
+                  {{ course.code }}
+                </span>
+                : {{ course.title }}</mat-option
+              >
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="day" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Choose a time</mat-label>
+          <input matInput [matTimepicker]="timePicker" formControlName="time" />
+          <mat-hint>HH:MM</mat-hint>
+          <mat-timepicker-toggle matIconSuffix [for]="timePicker"></mat-timepicker-toggle>
+          <mat-timepicker #timePicker></mat-timepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="flex justify-end pt-4">
+        <button
+          class="py-2 px-4 text-sm font-medium rounded-md border shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none bg-card-light border-divider-light text-text-light dark:bg-card-dark dark:border-divider-dark dark:text-text-dark dark:hover:bg-white/10 focus:ring-(--mat-sys-primary)-light"
+          type="button"
+          (click)="[form.controls.objectives.clear(), form.reset()]"
+          matButton
+        >
+          Clear
+        </button>
+        <button matButton="filled" type="submit" [disabled]="loading() || form.invalid">
+          Create Session
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="p-6 mt-10 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Your Listed Sessions</h3>
+      <a class="text-sm font-medium hover:underline text-(--mat-sys-primary)" href="#">View All</a>
+    </div>
+    <div class="space-y-4">
+      <div
+        class="flex items-center p-3 rounded-lg border transition-colors hover:bg-gray-50 border-divider-light dark:hover:bg-white/5 dark:border-divider-dark"
+      >
+        <div
+          class="flex justify-center items-center mr-4 h-12 rounded-full aspect-square dark:bg-(--mat-sys-primary)/20"
+        >
+          <span
+            class="icon-[material-symbols--auto-stories-outline-rounded] text-(--mat-sys-primary)"
+            role="img"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Introduction to Computer Science</p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            $25.00 / hour
+          </p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span
+            class="flex justify-center items-center mr-4 h-12 rounded-full aspect-square dark:bg-(--mat-sys-primary)/20"
+            >Active</span
+          >
+          <button class="text-(--mat-sys-primary) hover:text-(--mat-sys-primary)/80">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="text-warn hover:text-warn/80">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex items-center p-3 rounded-lg border transition-colors hover:bg-gray-50 border-divider-light dark:hover:bg-white/5 dark:border-divider-dark"
+      >
+        <div
+          class="p-3 mr-4 rounded-full bg-(--mat-sys-primary)-lighter dark:bg-(--mat-sys-primary)/20"
+        >
+          <span
+            class="icon-[material-symbols--calculate-outline-rounded] text-(--mat-sys-primary)"
+            role="img"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Advanced Calculus II</p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            $30.00 / hour
+          </p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span
+            class="py-1 px-2 text-xs text-green-800 bg-green-100 rounded-full dark:text-green-200 dark:bg-green-900"
+            >Active</span
+          >
+          <button class="text-(--mat-sys-primary) hover:text-(--mat-sys-primary)/80">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="text-warn hover:text-warn/80">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex items-center p-3 rounded-lg border transition-colors hover:bg-gray-50 border-divider-light dark:hover:bg-white/5 dark:border-divider-dark"
+      >
+        <div class="p-3 mr-4 bg-gray-200 rounded-full dark:bg-gray-700">
+          <span
+            class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark"
+            >code</span
+          >
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-text-secondary-light dark:text-text-secondary-dark">
+            Data Structures &amp; Algorithms
+          </p>
+          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+            $35.00 / hour
+          </p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span
+            class="py-1 px-2 text-xs text-gray-800 bg-gray-200 rounded-full dark:text-gray-200 dark:bg-gray-600"
+            >Paused</span
+          >
+          <button class="text-(--mat-sys-primary) hover:text-(--mat-sys-primary)/80">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="text-warn hover:text-warn/80">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
