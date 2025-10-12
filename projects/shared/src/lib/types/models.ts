@@ -5,7 +5,7 @@ export interface Model {
 }
 
 export namespace Model {
-	export interface User {
+	export interface User extends Model {
 		first_name: string;
 
 		last_name: string;
@@ -29,18 +29,28 @@ export namespace Model {
 		institution: Institution;
 		solutions_count: number;
 		year: number;
-		department: Department;
+		course: Course;
 	}
 
 	export interface Tutorial extends Model {
+		course_id: string;
+		tutor_id: string;
+
 		name: string;
 		description: string;
-		course_code: string;
-		course_title: string;
-		tutor: User;
+
+		/** Time in minutes which how long a session will last */
+		duration: number;
+
+		course?: Course;
+		tutor?: User;
 		department: Department;
-    price: number;
-    start: string
+		price: number;
+		day: string;
+		time: string;
+		objectives: Array<string>;
+
+		students_count: number;
 	}
 
 	export interface Institution extends Model {
@@ -58,5 +68,11 @@ export namespace Model {
 	export interface Department extends Model {
 		name: string;
 		faculty: Faculty;
+	}
+
+	export interface Course extends Model {
+		title: string;
+		code: string;
+		department: Department;
 	}
 }
