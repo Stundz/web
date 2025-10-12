@@ -1,5 +1,6 @@
 export const environment = {
+	domain: "https://stundz.com",
 	url: {
-		api: "http://api.stundz.com",
+		api: "https://api.stundz.com",
 	},
 };
