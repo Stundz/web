@@ -1,8 +1,8 @@
 <div
-  class="flex flex-col p-8 w-full max-w-lg rounded-2xl border shadow-2xl bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) shadow-[#38e07b]/10 border-[#29382f] [--tw-shadow-color:_var(--mat-sys-surface-container-high)]"
+  class="flex flex-col p-8 mx-auto mt-6 w-full max-w-lg rounded-2xl border shadow-2xl min-w-90 bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) border-(--mat-sys-surface-tint) [--tw-shadow-color:_var(--mat-sys-surface-container-high)] md:min-w-150"
 >
   <div class="mb-8 text-center">
-    <h2 class="text-3xl font-bold tracking-tight text-white">Create your account</h2>
+    <h2 class="text-3xl font-bold text-(--mat-sys-on-surface)">Create your account</h2>
     <p class="mt-2 text-gray-400">Level up your learning journey!</p>
   </div>
 
@@ -10,7 +10,7 @@
     <div class="overflow-hidden relative w-full h-2.5 rounded-full bg-[#29382f]">
       <div
         id="progressBarFill"
-        class="absolute top-0 left-0 h-full rounded-full transition-all duration-500 ease-out progress-bar-fill bg-[#38e07b]"
+        class="absolute top-0 left-0 h-full rounded-full transition-all duration-500 ease-out progress-bar-fill bg-(--mat-sys-primary)"
         style="--progress-width: 0%"
       ></div>
     </div>
@@ -41,13 +41,17 @@
   <form id="signupForm" class="space-y-6">
     <div>
       <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium text-white" for="fullName">Full Name</label>
+        <label class="block text-sm font-medium" for="fullName">Full Name</label>
         <span id="fullNameSuccess" class="success-icon text-[#38e07b]">
-          <span class="text-base material-symbols-outlined">check_circle</span>
+          <span
+            class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
+            role="img"
+            aria-hidden="true"
+          ></span>
         </span>
       </div>
       <input
-        class="px-4 w-full h-12 text-white rounded-lg border focus:ring-2 focus:outline-none form-input border-[#3d5245] bg-[#1c2620] placeholder:text-gray-500 focus:ring-[#38e07b]"
+        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
         id="fullName"
         placeholder="Enter your full name"
         type="text"
@@ -55,13 +59,13 @@
     </div>
     <div>
       <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium text-white" for="email">Email Address</label>
-        <span id="emailSuccess" class="success-icon text-[#38e07b]">
-          <span class="text-base material-symbols-outlined">check_circle</span>
+        <label class="block text-sm font-medium" for="email">Email Address</label>
+        <span id="emailSuccess" class="success-icon text-(--mat-sys-primary)">
+          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
         </span>
       </div>
       <input
-        class="px-4 w-full h-12 text-white rounded-lg border focus:ring-2 focus:outline-none form-input border-[#3d5245] bg-[#1c2620] placeholder:text-gray-500 focus:ring-[#38e07b]"
+        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
         id="email"
         placeholder="you@example.com"
         type="email"
@@ -69,13 +73,13 @@
     </div>
     <div>
       <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium text-white" for="password">Password</label>
-        <span id="passwordSuccess" class="success-icon text-[#38e07b]">
-          <span class="text-base material-symbols-outlined">check_circle</span>
+        <label class="block text-sm font-medium" for="password">Password</label>
+        <span id="passwordSuccess" class="success-icon text-(--mat-sys-primary)">
+          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
         </span>
       </div>
       <input
-        class="px-4 w-full h-12 text-white rounded-lg border focus:ring-2 focus:outline-none form-input border-[#3d5245] bg-[#1c2620] placeholder:text-gray-500 focus:ring-[#38e07b]"
+        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
         id="password"
         placeholder="Create a strong password"
         type="password"
@@ -83,16 +87,16 @@
     </div>
     <div>
       <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium text-white" for="university">University</label>
-        <span id="universitySuccess" class="success-icon text-[#38e07b]">
-          <span class="text-base material-symbols-outlined">check_circle</span>
+        <label class="block text-sm font-medium" for="university">University</label>
+        <span id="universitySuccess" class="success-icon text-(--mat-sys-primary)">
+          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
         </span>
       </div>
       <select
-        class="px-4 w-full h-12 text-white rounded-lg border appearance-none focus:ring-2 focus:outline-none form-select border-[#3d5245] bg-[#1c2620] focus:ring-[#38e07b]"
-        id="university"
+        class="px-4 w-full h-12 rounded-lg border appearance-none focus:ring-2 focus:outline-none form-select border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
+        id="institution"
       >
-        <option disabled="" selected="">Select your university</option>
+        <option disabled="" selected="">Select your institution</option>
         <option>University of Example</option>
         <option>Another University</option>
         <option>Digital College</option>
