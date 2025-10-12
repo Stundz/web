@@ -1,43 +1,50 @@
 <div
-  class="p-10 space-y-8 w-full max-w-md rounded-2xl shadow-lg bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) [--tw-shadow-color:_var(--mat-sys-surface-container-high)]"
+  class="p-10 mx-auto mt-5 space-y-8 w-full max-w-md rounded-2xl shadow-lg bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) [--tw-shadow-color:_var(--mat-sys-surface-container-high)]"
 >
   <div>
     <h2 class="text-3xl font-extrabold text-center">Welcome back</h2>
     <p class="mt-2 text-sm text-center">Sign in to continue your academic journey.</p>
   </div>
-  <form action="#" class="mt-8 space-y-6" method="POST">
-    <input name="remember" type="hidden" value="true" />
-    <div class="space-y-4 rounded-md shadow-sm">
-      <div>
-        <label class="sr-only" for="email-address">Email or Username</label>
-        <input
-          class="block relative py-3 px-4 w-full placeholder-gray-500 rounded-md appearance-none sm:text-sm focus:z-10 outline outline-(--mat-sys-outline) hover:outline-(--may-sys-surface-tint) focus:outline-(--mat-sys-secondary) focus:border-primary focus:ring-primary"
-          id="email-address"
-          name="email"
-          placeholder="Email or Username"
-          required=""
-          type="text"
-        />
-      </div>
-      <div>
-        <label class="sr-only" for="password">Password</label>
-        <input
-          class="block relative py-3 px-4 w-full placeholder-gray-500 rounded-md appearance-none sm:text-sm focus:z-10 outline outline-(--mat-sys-outline) hover:outline-(--may-sys-surface-tint) focus:outline-(--mat-sys-secondary) focus:border-primary focus:ring-primary"
-          id="password"
-          name="password"
-          placeholder="Password"
-          required=""
-          type="password"
-        />
-      </div>
-    </div>
+  <form [formGroup]="form" class="mt-8 space-y-6 *:w-full" method="POST">
+    <mat-form-field>
+      <mat-label>Email or Username</mat-label>
+      <input type="email" matInput formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
+    </mat-form-field>
+
+    <mat-checkbox
+      [checked]="form.controls.remember.value"
+      (change)="form.controls.remember.setValue($event.checked)"
+      >Remember me</mat-checkbox
+    >
+
     <div class="flex justify-end items-center">
       <div class="text-sm">
-        <a class="font-medium text-(--mat-sys-primary)" href="#"> Forgot your password? </a>
+        <a class="font-medium text-(--mat-sys-primary)" routerLink="/forgot-password">
+          Forgot your password?
+        </a>
       </div>
     </div>
     <div>
-      <button class="w-full" type="submit" matButton="filled">Login</button>
+      <button
+        class="w-full"
+        type="submit"
+        matButton="filled"
+        [disabled]="loading() || form.invalid"
+      >
+        @if (loading()) {
+          <span
+            class="self-center icon-[eos-icons--three-dots-loading]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+        }
+        <span> Login </span>
+      </button>
     </div>
   </form>
   <p class="mt-6 text-sm text-center text-text-secondary">
