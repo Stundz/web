@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { hash } from "crypto";
 import { firstValueFrom, from, map } from "rxjs";
+import { environment } from "../../../../environments/environment";
 
 @Component({
 	selector: "app-guest",
@@ -35,7 +36,7 @@ export class GuestLayout {
 	params = computed(() =>
 		new HttpParams()
 			.set("client_id", "0199ac84-ccc4-71ed-b11b-e00a6cfb569c")
-			.set("redirect_uri", "http://plug.stundz.localhost/auth/callback")
+			.set("redirect_uri", `http://plug.${environment.domain}/auth/callback`)
 			.set("response_type", "code")
 			.set("scope", "*")
 			.set("state", "".padEnd(40, "asdf"))
@@ -44,6 +45,7 @@ export class GuestLayout {
 	);
 
 	login = computed(
-		() => "http://stundz.localhost/oauth/authorize?" + this.params().toString(),
+		() =>
+			`http://${environment.domain}/oauth/authorize?${this.params().toString()}`,
 	);
 }
