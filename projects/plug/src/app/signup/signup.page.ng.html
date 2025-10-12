@@ -38,70 +38,32 @@
     <span class="px-3 text-sm text-gray-400">OR</span>
     <hr class="flex-grow border-t border-[#29382f]" />
   </div>
-  <form id="signupForm" class="space-y-6">
-    <div>
-      <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium" for="fullName">Full Name</label>
-        <span id="fullNameSuccess" class="success-icon text-[#38e07b]">
-          <span
-            class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
-            role="img"
-            aria-hidden="true"
-          ></span>
-        </span>
-      </div>
-      <input
-        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
-        id="fullName"
-        placeholder="Enter your full name"
-        type="text"
-      />
-    </div>
-    <div>
-      <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium" for="email">Email Address</label>
-        <span id="emailSuccess" class="success-icon text-(--mat-sys-primary)">
-          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
-        </span>
-      </div>
-      <input
-        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
-        id="email"
-        placeholder="you@example.com"
-        type="email"
-      />
-    </div>
-    <div>
-      <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium" for="password">Password</label>
-        <span id="passwordSuccess" class="success-icon text-(--mat-sys-primary)">
-          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
-        </span>
-      </div>
-      <input
-        class="px-4 w-full h-12 rounded-lg border focus:ring-2 focus:outline-none form-input border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
-        id="password"
-        placeholder="Create a strong password"
-        type="password"
-      />
-    </div>
-    <div>
-      <div class="flex justify-between items-center mb-2">
-        <label class="block text-sm font-medium" for="university">University</label>
-        <span id="universitySuccess" class="success-icon text-(--mat-sys-primary)">
-          <span class="icon-[ic--sharp-check-circle-outline]" role="img" aria-hidden="true"></span>
-        </span>
-      </div>
-      <select
-        class="px-4 w-full h-12 rounded-lg border appearance-none focus:ring-2 focus:outline-none form-select border-(--mat-sys-secondary)/20 bg-(--mat-sys-primary-inverse) hover:border-(--mat-sys-primary)/60 focus:ring-(--mat-sys-primary)"
-        id="institution"
-      >
-        <option disabled="" selected="">Select your institution</option>
-        <option>University of Example</option>
-        <option>Another University</option>
-        <option>Digital College</option>
-      </select>
-    </div>
+  <form [formGroup]="form" id="signupForm" class="space-y-6 *:w-full">
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input matInput formControllName="first_name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input matInput formControllName="last_name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControllName="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControllName="password" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControllName="password_confirmation" />
+    </mat-form-field>
+
     <div class="pt-2">
       <button class="w-full" type="submit" matButton="filled">Sign Up</button>
     </div>
