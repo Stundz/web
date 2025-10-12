@@ -16,7 +16,7 @@ import {
 	withFetch,
 	withInterceptors,
 } from "@angular/common/http";
-import { ENVIRONMENT, innovaInterceptor } from "shared";
+import { ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
 		provideZonelessChangeDetection(),
 		provideRouter(routes, withComponentInputBinding()),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(withFetch(), withInterceptors([innovaInterceptor])),
+		provideHttpClient(withFetch(), withInterceptors([stundzInterceptor])),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,
