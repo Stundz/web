@@ -1,7 +1,8 @@
 /*
  * Public API Surface of shared
  */
-export * from "./lib/components";
+export * from "./lib/directives";
+export * from "./lib/utils";
 export * from "./lib/contexts";
 export * from "./lib/interceptors";
 export * from "./lib/stores";
