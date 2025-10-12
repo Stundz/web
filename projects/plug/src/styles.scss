@@ -66,4 +66,8 @@
   }
 }
 
-@layer components {}
+@layer components {
+  .skeleton {
+    @apply animate-pulse bg-gradient-to-tr from-gray-600 to-gray-400 dark:from-gray-700 to-gray-600;
+  }
+}
