@@ -13,4 +13,8 @@ export const serverRoutes: ServerRoute[] = [
 		path: "tutorial/:tutorial",
 		renderMode: RenderMode.Server,
 	},
+	{
+		path: "tutor/:tutor",
+		renderMode: RenderMode.Server,
+	},
 ];
