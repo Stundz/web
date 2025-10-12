@@ -1,0 +1,17 @@
+{
+	"version": 2,
+	"public": true,
+	"name": "Plug",
+	"devCommand": "node dist/plug/server/server.mjs",
+	"rewrites": [
+		{
+			"source": "/(.*)",
+			"destination": "/api"
+		}
+	],
+	"functions": {
+		"api/index.js": {
+			"includeFiles": "dist/plug/browser/**"
+		}
+	}
+}
