@@ -1,5 +1,5 @@
 export const environment = {
 	url: {
-		api: "http://api.stundz.localhost",
+		api: "http://api.stundz.com",
 	},
 };
