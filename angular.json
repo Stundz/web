@@ -34,6 +34,7 @@
 						"styles": ["projects/plug/src/styles.scss"],
 						"server": "projects/plug/src/main.server.ts",
 						"outputMode": "server",
+						"outputPath": "dist/plug",
 						"ssr": {
 							"entry": "projects/plug/src/server.ts"
 						}
@@ -98,6 +99,14 @@
 							}
 						],
 						"styles": ["projects/plug/src/styles.scss"]
+					}
+				},
+				"deploy": {
+					"builder": "@netlify-builder/deploy:deploy",
+					"options": {
+						"outputPath": "dist/plug/browser",
+						"netlifyToken": "nfp_GNDEfYwhntcwcfDcK2pmm3XUKhqzsCu7dc25",
+						"siteId": "17232789-f03e-4391-8739-d5a9dc81a04b"
 					}
 				}
 			}
