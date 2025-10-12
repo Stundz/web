@@ -9,7 +9,7 @@ import { environment } from "../../../environments/environment";
 import { HTTP_SKIP_ON_SERVER, Model, Paginated, toFormData } from "shared";
 import { toSignal } from "@angular/core/rxjs-interop";
 
-@Injectable()
+@Injectable({ providedIn: null })
 export class PastQuestion {
 	private _http = inject(HttpClient);
 	readonly filters = signal<Record<string, any>>({});
