@@ -1,54 +1,232 @@
-<div class="flex flex-col flex-1 gap-6">
-  <div class="flex gap-4 justify-between items-start">
-    <div>
-      <h1 class="text-3xl font-bold text-white">Past Questions</h1>
-      <p class="mt-1 text-[--text-muted]">
-        Browse past questions and solutions from various courses and years.
-      </p>
-    </div>
-    <div class="flex gap-2">
-      <button
-        class="flex gap-2 items-center py-2 px-4 text-sm font-medium text-white rounded-full border transition-colors border-white/20 bg-white/10 hover:bg-white/20"
-      >
-        <span class="text-base material-symbols-outlined">upload</span> Upload New Question
-      </button>
-    </div>
+<div class="mx-auto max-w-7xl">
+  <div class="mb-8">
+    <h2 class="text-3xl font-extrabold text-background-dark dark:text-background-light">
+      Exam Papers
+    </h2>
+    <p class="mt-1 text-base text-background-dark/60 dark:text-background-light/60">
+      Browse, upload, and contribute solutions to a searchable database of past exam papers.
+    </p>
   </div>
-  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-    @for (question of pastQuestions.value().data; track question.id) {
-      <div
-        class="relative p-6 rounded-xl border transition-shadow duration-300 hover:shadow-lg aspect-square border-(--mat-sys-surface-tint) bg-(--mat-sys-surface-container)/50 text-(--mat-sys-on-surface-container) hover:shadow-(--mat-sys-primary)/20"
-      >
-        <div class="flex flex-col justify-between h-full">
-          <div class="flex flex-col gap-2">
-            <a
-              [routerLink]="['/past-question', question.id]"
-              class="relative z-10 text-lg font-bold uppercase text-(--mat-sys-primary) line-clamp-2"
-            >
-              {{ question.course_title }}
-              <span class="absolute inset-0"></span>
-            </a>
-            <abbr [title]="question.institution.name" class="relative">
-              {{ question.institution.acronym }}
-            </abbr>
-            <h4 class="relative z-auto mb-2 font-bold text-(--mat-sys-secondary)">
-              {{ question.year }}
-            </h4>
-          </div>
+  <form [formGroup]="form" class="relative">
+    <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+      <div class="relative md:col-span-3">
+        <span
+          class="absolute left-4 top-1/2 -translate-y-1/2 icon-[material-symbols--search] text-background-dark/50 dark:text-background-light/50"
+        >
+        </span>
+        <input
+          class="py-3 pr-4 pl-12 w-full text-base rounded-lg border focus:ring-2 focus:ring-offset-2 bg-background-light border-background-dark/10 text-background-dark placeholder:text-background-dark/50 dark:bg-background-dark dark:border-background-light/10 dark:text-background-light dark:placeholder:text-background-light/50 dark:focus:ring-offset-background-dark focus:ring-primary focus:ring-offset-background-light"
+          placeholder="Search for courses, professors, or keywords"
+          formControlName="q"
+          type="search"
+        />
+      </div>
+      <div class="md:col-span-1">
+        <button
+          class="flex gap-3 justify-center items-center py-3 px-4 space-x-2 w-full text-base rounded-lg border transition-colors focus:ring-2 focus:ring-offset-2 bg-background-light border-background-dark/10 text-background-dark dark:bg-background-dark dark:border-background-light/10 dark:text-background-light dark:hover:bg-background-light/5 dark:focus:ring-offset-background-dark hover:bg-background-dark/5 focus:ring-primary focus:ring-offset-background-light"
+          (click)="filters.toggle()"
+        >
+          <span class="icon-[material-symbols--filter-list]" role="img" aria-hidden="true"></span>
+          <span>Filters</span>
+        </button>
+      </div>
+    </div>
+
+    <mat-accordion multi>
+      <mat-expansion-panel #filters class="[&_.mat-expansion-panel-body]:px-px!">
+        <div
+          class="p-4 mb-6 rounded-lg border bg-background-light border-background-dark/10 dark:bg-background-dark dark:border-background-light/10"
+        >
           <div
-            class="flex relative z-auto gap-3 justify-between mt-auto mb-4 text-sm text-(--mat-sys-secondary)"
+            [formGroup]="form.controls.filters"
+            class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5"
           >
-            <div class="flex flex-col">
-              <span> Course: </span>
-              <span class="font-medium text-white">{{ question.course_code }}</span>
+            <div>
+              <label
+                class="block mb-1 text-sm font-medium text-background-dark/80 dark:text-background-light/80"
+                for="institution"
+                >Institution</label
+              >
+              <select
+                class="py-2 px-3 w-full text-sm rounded-md border-none focus:ring-2 focus:ring-offset-1 bg-(--mat-sys-primary)/5 text-(--mat-sys-on-primary-inverse)"
+                id="institution"
+                formControlName="institution"
+              >
+                <option>All</option>
+                <option>University of Technology</option>
+                <option>City College</option>
+                <option>State University</option>
+              </select>
             </div>
-            <div class="flex flex-col">
-              <span> Solutions</span>
-              <span class="self-end font-medium text-white">{{ question.solutions_count }}</span>
+            <div>
+              <label
+                class="block mb-1 text-sm font-medium text-background-dark/80 dark:text-background-light/80"
+                for="faculty"
+                >Faculty</label
+              >
+              <select
+                class="py-2 px-3 w-full text-sm rounded-md border-none focus:ring-2 focus:ring-offset-1 bg-(--mat-sys-primary)/5 text-(--mat-sys-on-primary-inverse)"
+                id="faculty"
+              >
+                <option>All</option>
+                <option>Faculty of Engineering</option>
+                <option>Faculty of Science</option>
+                <option>Faculty of Arts &amp; Sciences</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block mb-1 text-sm font-medium text-background-dark/80 dark:text-background-light/80"
+                for="course"
+                >Course</label
+              >
+              <select
+                class="py-2 px-3 w-full text-sm rounded-md border-none focus:ring-2 focus:ring-offset-1 bg-(--mat-sys-primary)/5 text-(--mat-sys-on-primary-inverse)"
+                id="course"
+              >
+                <option>All</option>
+                <option>Calculus I</option>
+                <option>Linear Algebra</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block mb-1 text-sm font-medium text-background-dark/80 dark:text-background-light/80"
+                for="year"
+                >Year</label
+              >
+              <select
+                class="py-2 px-3 w-full text-sm rounded-md border-none focus:ring-2 focus:ring-offset-1 bg-(--mat-sys-primary)/5 text-(--mat-sys-on-primary-inverse)"
+                id="year"
+              >
+                <option>All</option>
+                <option>2023</option>
+                <option>2022</option>
+                <option>2021</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block mb-1 text-sm font-medium text-background-dark/80 dark:text-background-light/80"
+                for="type"
+                >Semester</label
+              >
+              <select
+                class="py-2 px-3 w-full text-sm rounded-md border-none focus:ring-2 focus:ring-offset-1 bg-(--mat-sys-primary)/5 text-(--mat-sys-on-primary-inverse)"
+                id="type"
+                formControlName="semester"
+              >
+                <option value="">All</option>
+                <option>First</option>
+                <option>Second</option>
+              </select>
             </div>
           </div>
         </div>
-      </div>
-    }
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+  <div class="mb-6" id="past-question">
+    <mat-tab-group class="@container">
+      <mat-tab label="All Papers">
+        <div class="grid gap-4 @4xl:gap-8 p-3 @md:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4">
+          @if (pastQuestions.isLoading()) {
+            @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12]; track $index) {
+              <div
+                class="animate-pulse aspect-square bg-(--mat-sys-surface-container-highest)"
+              ></div>
+            }
+          } @else {
+            @for (pastQuestion of pastQuestions.value().data; track pastQuestion.id) {
+              <div
+                class="flex overflow-hidden flex-col rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-md bg-(--mat-sys-surface-container-low)"
+              >
+                <div class="flex-grow p-5">
+                  <h3 class="text-lg font-semibold text-(--mat-sys-primary) line-clamp-1">
+                    {{ pastQuestion.course.title }}
+                  </h3>
+                  <p class="mt-1 text-sm text-background-dark/70 dark:text-background-light/70">
+                    {{ pastQuestion.course.code }}
+                  </p>
+                  <div
+                    class="mt-4 space-y-2 text-xs text-background-dark/60 dark:text-background-light/60"
+                  >
+                    <div class="flex items-center">
+                      <span class="mr-2 text-base icon-[material-symbols--school-outline]"></span>
+                      <span class="text-primary-80 line-clamp-1">
+                        {{ pastQuestion.course.department.faculty.institution.name }}
+                      </span>
+                    </div>
+                    <div class="flex items-center">
+                      <span
+                        class="mr-2 text-base icon-[material-symbols--apartment-rounded]"
+                        role="img"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="line-clamp-1">{{
+                        pastQuestion.course.department.faculty.name
+                      }}</span>
+                    </div>
+                    <div class="flex items-center">
+                      <span
+                        class="mr-2 text-base icon-[material-symbols--business-center-outline]"
+                      ></span>
+                      <span class="line-clamp-1">{{ pastQuestion.course.department.name }}</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex items-center">
+                        <span
+                          class="mr-2 text-base icon-[material-symbols--calendar-today-outline]"
+                        ></span>
+                        <span>{{ pastQuestion.year }}</span>
+                      </div>
+                      <div class="flex items-center">
+                        <span
+                          class="mr-2 text-base icon-[material-symbols--schedule-outline]"
+                        ></span>
+                        <span>Fall</span>
+                      </div>
+                      <div class="flex items-center">
+                        <span
+                          class="mr-2 text-base icon-[material-symbols--business-center-outline]"
+                        ></span>
+                        <span>{{ pastQuestion.solutions_count }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a
+                  class="flex gap-1 justify-center items-center p-5 text-sm font-medium transition duration-300 group/link bg-(--mat-sys-primary) text-(--mat-sys-on-primary) hover:bg-(--mat-sys-primary)/95"
+                  [routerLink]="['/past-question', pastQuestion.id]"
+                >
+                  <span class="transition duration-700 group-hover/link:tracking-wider"
+                    >View Paper</span
+                  >
+                  <span
+                    class="text-lg icon-[material-symbols--arrow-forward-rounded]"
+                    role="img"
+                    aria-hidden="true"
+                  ></span>
+                </a>
+              </div>
+            }
+          }
+        </div>
+      </mat-tab>
+      <mat-tab label="My Contributions"></mat-tab>
+      <mat-tab label="Saved Papers"></mat-tab>
+    </mat-tab-group>
   </div>
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 20, 25, 50]"
+    [pageIndex]="pastQuestions.value().meta.current_page - 1"
+    [pageSize]="pastQuestions.value().meta.per_page"
+    [length]="pastQuestions.value().meta.total"
+    (page)="
+      [
+        form.patchValue({ filters: { page: $event.pageIndex + 1, limit: $event.pageSize } }),
+        viewPortScroller.scrollToAnchor('past-questions'),
+      ]
+    "
+  />
 </div>
