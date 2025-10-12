@@ -8,7 +8,7 @@ export const routes: Routes = [
 		children: [
 			{
 				path: "",
-				title: "Academic Plug, Where your academic success resides",
+				title: "Plug, Where your academic success resides",
 				loadComponent: () => import("./home/home.page").then((m) => m.HomePage),
 			},
 			{
