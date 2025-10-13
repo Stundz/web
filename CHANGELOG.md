@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/Stundz/web/compare/v2.0.0...v2.1.0) (2025-10-13)
+
+
+### Features
+
+* Created compatible function to help with netlify CI/CD deployments ([ff5d9c7](https://github.com/Stundz/web/commit/ff5d9c7bb8473313cd351a79b538de953fc96eb0))
+
 ## [2.0.0](https://github.com/Stundz/web/compare/v1.1.0...v2.0.0) (2025-10-13)
 
 
