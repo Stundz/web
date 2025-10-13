@@ -6,8 +6,8 @@
     </p>
   </div>
   <form [formGroup]="form" class="p-6 space-y-6 sm:p-8">
-    <mat-stepper>
-      <mat-step label="Personal">
+    <mat-stepper linear [orientation]="stepperOrientation()">
+      <mat-step label="Personal" [stepControl]="form.controls.personal">
         <div class="spacy-y-3 *:w-full mt-4">
           <div class="grid @2xl/page:grid-cols-2 gap-3">
             <mat-form-field>
@@ -25,7 +25,8 @@
           </mat-form-field>
         </div>
       </mat-step>
-      <mat-step label="Academic">
+
+      <mat-step label="Academic" [stepControl]="form.controls.academic">
         <div class="space-y-3 *:w-full mt-4">
           <mat-form-field>
             <mat-label>Institution</mat-label>
@@ -47,7 +48,8 @@
           </mat-form-field>
         </div>
       </mat-step>
-      <mat-step label="Tutoring">
+
+      <mat-step label="Tutoring" [stepControl]="form.controls.tutoring">
         <div class="space-y-3 *:w-full mt-4">
           <mat-form-field>
             <mat-label>Select Subjects</mat-label>
@@ -55,6 +57,8 @@
           </mat-form-field>
         </div>
       </mat-step>
+
+      <mat-step label="Verification" [stepControl]="form.controls.verification"></mat-step>
     </mat-stepper>
   </form>
 </div>
