@@ -1,1 +1,8 @@
-<p>show works!</p>
+<!-- Component to display the PDF must be a client side component -->
+<button #show matButton>Show document</button>
+
+@defer (on timer(500ms)) {
+  <plug-pdf-viewer [data]="blob.value()!" ngSkipHydration />
+} @placeholder {
+  <div class="w-full bg-gray-200 rounded animate-pulse aspect-[1/1.414]"></div>
+}
