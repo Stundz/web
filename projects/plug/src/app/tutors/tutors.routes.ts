@@ -7,11 +7,12 @@ export const routes: Routes = [
 			{
 				path: "",
 				pathMatch: "full",
+				title: "Find a tutor",
 				loadComponent: () =>
 					import("./index/index.page").then((m) => m.IndexPage),
 			},
 			{
-				path: "application",
+				path: "apply",
 				title: "Become a tutor",
 				loadComponent: () =>
 					import("./create/create.page").then((m) => m.CreatePage),

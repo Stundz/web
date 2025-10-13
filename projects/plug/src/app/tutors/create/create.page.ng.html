@@ -5,94 +5,56 @@
       Become a tutor and help students succeed in their academic journey.
     </p>
   </div>
-  <div
-    class="rounded-xl border shadow-sm bg-background-light border-subtle-light dark:bg-background-dark dark:border-subtle-dark"
-  >
-    <form class="p-6 space-y-6 sm:p-8">
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div>
-          <label class="block mb-1 text-sm font-medium" for="fullName">Full Name</label>
-          <input
-            class="w-full rounded form-input bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-            id="fullName"
-            placeholder="Enter your full name"
-            type="text"
-          />
+  <form [formGroup]="form" class="p-6 space-y-6 sm:p-8">
+    <mat-stepper>
+      <mat-step label="Personal">
+        <div class="spacy-y-3 *:w-full mt-4">
+          <div class="grid @2xl/page:grid-cols-2 gap-3">
+            <mat-form-field>
+              <mat-label>First name</mat-label>
+              <input type="text" matInput />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last name</mat-label>
+              <input type="text" matInput />
+            </mat-form-field>
+          </div>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput />
+          </mat-form-field>
         </div>
-        <div>
-          <label class="block mb-1 text-sm font-medium" for="email">Email Address</label>
-          <input
-            class="w-full rounded form-input bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-            id="email"
-            placeholder="Enter your email address"
-            type="email"
-          />
+      </mat-step>
+      <mat-step label="Academic">
+        <div class="space-y-3 *:w-full mt-4">
+          <mat-form-field>
+            <mat-label>Institution</mat-label>
+            <mat-select></mat-select>
+          </mat-form-field>
+          <div class="grid @2xl/page:grid-cols-2 gap-3">
+            <mat-form-field>
+              <mat-label>Faculty</mat-label>
+              <mat-select type="text"></mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Department</mat-label>
+              <mat-select type="text"></mat-select>
+            </mat-form-field>
+          </div>
+          <mat-form-field>
+            <mat-label>Matricule</mat-label>
+            <input matInput />
+          </mat-form-field>
         </div>
-      </div>
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <div class="sm:col-span-2">
-          <label class="block mb-1 text-sm font-medium" for="university">University</label>
-          <input
-            class="w-full rounded form-input bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-            id="university"
-            placeholder="Enter your university name"
-            type="text"
-          />
+      </mat-step>
+      <mat-step label="Tutoring">
+        <div class="space-y-3 *:w-full mt-4">
+          <mat-form-field>
+            <mat-label>Select Subjects</mat-label>
+            <mat-select multiple></mat-select>
+          </mat-form-field>
         </div>
-        <div>
-          <label class="block mb-1 text-sm font-medium" for="yearOfStudy">Year of Study</label>
-          <input
-            class="w-full rounded form-input bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-            id="yearOfStudy"
-            placeholder="e.g., 3rd Year"
-            type="text"
-          />
-        </div>
-      </div>
-      <div>
-        <label class="block mb-1 text-sm font-medium" for="major">Major</label>
-        <input
-          class="w-full rounded form-input bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-          id="major"
-          placeholder="Enter your major"
-          type="text"
-        />
-      </div>
-      <div>
-        <label class="block mb-1 text-sm font-medium" for="subjects">Subjects to Tutor</label>
-        <textarea
-          class="w-full rounded form-textarea bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-          id="subjects"
-          placeholder="List the subjects you are proficient in and wish to tutor"
-          rows="4"
-        ></textarea>
-      </div>
-      <div>
-        <label class="block mb-1 text-sm font-medium" for="experience">Teaching Experience</label>
-        <textarea
-          class="w-full rounded form-textarea bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-          id="experience"
-          placeholder="Describe any previous teaching or tutoring experience you have"
-          rows="4"
-        ></textarea>
-      </div>
-      <div>
-        <label class="block mb-1 text-sm font-medium" for="availability">Availability</label>
-        <textarea
-          class="w-full rounded form-textarea bg-background-light border-subtle-light placeholder:text-content-light/50 dark:bg-subtle-dark dark:border-subtle-dark dark:placeholder:text-content-dark/50 focus:ring-primary focus:border-primary"
-          id="availability"
-          placeholder="Indicate your availability for tutoring sessions (days and times)"
-          rows="4"
-        ></textarea>
-      </div>
-      <div class="flex justify-end pt-4">
-        <button
-          class="py-2 px-6 font-bold rounded-lg transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none bg-primary text-background-dark dark:focus:ring-offset-background-dark hover:bg-primary/90 focus:ring-primary focus:ring-offset-background-light"
-          type="submit"
-        >
-          Submit Application
-        </button>
-      </div>
-    </form>
-  </div>
+      </mat-step>
+    </mat-stepper>
+  </form>
 </div>
