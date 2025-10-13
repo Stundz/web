@@ -57,6 +57,11 @@ export const routes: Routes = [
 				loadChildren: () =>
 					import("./settings/settings.routes").then((m) => m.routes),
 			},
+			{
+				path: "",
+				loadChildren: () =>
+					import("./tutors/tutors.routes").then((m) => m.routes),
+			},
 		],
 	},
 ];
