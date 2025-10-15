@@ -100,14 +100,6 @@
 						],
 						"styles": ["projects/plug/src/styles.scss"]
 					}
-				},
-				"deploy": {
-					"builder": "@netlify-builder/deploy:deploy",
-					"options": {
-						"outputPath": "dist/plug/browser",
-						"netlifyToken": "nfp_GNDEfYwhntcwcfDcK2pmm3XUKhqzsCu7dc25",
-						"siteId": "17232789-f03e-4391-8739-d5a9dc81a04b"
-					}
 				}
 			}
 		},
@@ -136,6 +128,95 @@
 					}
 				}
 			}
-		}
+    },
+    "oauth": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/oauth",
+      "sourceRoot": "projects/oauth/src",
+      "prefix": "oauth",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/oauth/src/main.ts",
+            "tsConfig": "projects/oauth/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/oauth/public"
+              }
+            ],
+            "styles": [
+              "projects/oauth/src/styles.scss"
+            ],
+            "server": "projects/oauth/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/oauth/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "oauth:build:production"
+            },
+            "development": {
+              "buildTarget": "oauth:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/oauth/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/oauth/public"
+              }
+            ],
+            "styles": [
+              "projects/oauth/src/styles.scss"
+            ]
+          }
+        }
+      }
+    }
 	}
 }
