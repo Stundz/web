@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.0](https://github.com/Stundz/web/compare/v4.0.0...v4.1.0) (2025-10-16)
+
+
+### Features
+
+* Added deployments config for the auth app ([ee854ea](https://github.com/Stundz/web/commit/ee854ea21d08d4b7ed8808b6125422339592e28c))
+* Configured deployments for the plug app via CI/CD ([ad725b9](https://github.com/Stundz/web/commit/ad725b9bc549cec6967d93c2cbe42d88225b37a6))
+
 ## [4.0.0](https://github.com/Stundz/web/compare/v3.0.0...v4.0.0) (2025-10-16)
 
 
