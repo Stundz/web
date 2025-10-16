@@ -169,6 +169,7 @@
             ],
             "server": "projects/auth/src/main.server.ts",
             "outputMode": "server",
+            "outputPath": "dist/auth",
             "ssr": {
               "entry": "projects/auth/src/server.ts"
             }
@@ -226,6 +227,14 @@
             "styles": [
               "projects/auth/src/styles.scss"
             ]
+          }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/auth",
+            "netlifyToken": "nfp_SczJ4zAsVP3eRrutL8xUxSgab7CVJWxj5026",
+            "siteId": "d89485f8-72ad-4995-bf47-a87677477904"
           }
         }
       }
