@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/Stundz/web/compare/v2.1.0...v3.0.0) (2025-10-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **oauth:** Created the oauth application
+
+### Features
+
+* **oauth:** Created the oauth application ([edc33ff](https://github.com/Stundz/web/commit/edc33ff99248de1c2796eca26a49985465ba13d5))
+
 ## [2.1.0](https://github.com/Stundz/web/compare/v2.0.0...v2.1.0) (2025-10-13)
 
 
