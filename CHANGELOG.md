@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.1](https://github.com/Stundz/web/compare/v4.2.0...v4.2.1) (2025-10-16)
+
+
+### Bug Fixes
+
+* Fixed deploy CI/CD to running on release ([5cb8981](https://github.com/Stundz/web/commit/5cb89819e9f645b0f77e9d2415cc6e2540b525e1))
+
 ## [4.2.0](https://github.com/Stundz/web/compare/v4.1.1...v4.2.0) (2025-10-16)
 
 
