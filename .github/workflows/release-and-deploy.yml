@@ -17,12 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: simple
   deploy:
     needs: release
-    if: ${{ needs.release.outputs.release_created == 'true' }}
+    if: ${{ needs.release.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
