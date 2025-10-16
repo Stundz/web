@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.1](https://github.com/Stundz/web/compare/v4.1.0...v4.1.1) (2025-10-16)
+
+
+### Bug Fixes
+
+* Fixed bun command to build shared module ([8e6eade](https://github.com/Stundz/web/commit/8e6eade77d297eb1c0f5c2721c6f2661c98f7dcb))
+
 ## [4.1.0](https://github.com/Stundz/web/compare/v4.0.0...v4.1.0) (2025-10-16)
 
 
