@@ -3,16 +3,14 @@
     <div
       class="flex flex-col items-center p-6 text-center rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest) text-(--mat-sys-on-surface-container-lowest)"
     >
-      <div class="relative">
+      <div class="relative" stundzDropzone>
         <div
           class="w-32 h-32 bg-center bg-cover rounded-full shadow-md"
           style="
             background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBmB0nFcuPNJ5-wRGeDavEYSjHKLk-XELq7YkuNJDxV8BoolpVfE5PXHebl-Ybl5sGwJthC3AZFaQwYJYGMxRUm-r3GFnGHxpMtAI3q45UGK-5WSpSE5We5xxsC5DoJlUpZQy1VkkxYHG1XfmZmGGaa_W1euGxF6DhSMFwt2raKZIhtzV_D33bVoyUg_hZBzDYWN0OaXpk61-u4eunIvBa0i88SRj3V1QFzpA0xRYl5YARtB_p0-3WhIHBRE9-1PzHV2tNGfS6a2YI');
           "
         ></div>
-        <button
-          class="absolute right-1 bottom-1 p-2 text-white rounded-full shadow-md transition-all bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/90"
-        >
+        <button matButton>
           <span class="material-symbols-outlined !text-base">edit</span>
         </button>
       </div>
@@ -25,72 +23,38 @@
   <div class="space-y-8 lg:col-span-2">
     <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
       <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Contact Information</h3>
-      <div class="space-y-4">
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="email"
-            >Email</label
-          >
-          <input
-            class="py-1 px-2 w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-(--mat-sys-surface-container-low) focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
-            id="email"
-            placeholder="your.email@university.edu"
-            type="email"
-            value="sophia.clark@university.edu"
-          />
-        </div>
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="phone"
-            >Phone Number</label
-          >
-          <input
-            class="py-1 px-2 w-full rounded-lg form-input bg-(--mat-sys-surface-container-low) focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
-            id="phone"
-            placeholder="(123) 456-7890"
-            type="tel"
-          />
-        </div>
+      <div class="space-y-4 *:w-full">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="your.email@domain.com" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Phone number</mat-label>
+          <input type="text" matInput placeholder="+1 234 567 890" />
+          <mat-hint></mat-hint>
+        </mat-form-field>
       </div>
     </div>
     <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
       <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Academic Details</h3>
-      <div class="space-y-4">
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="major"
-            >Major</label
-          >
-          <input
-            class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
-            id="major"
-            placeholder="Your Major"
-            type="text"
-            value="Computer Science"
-          />
-        </div>
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="minor"
-            >Minor</label
-          >
-          <input
-            class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-input bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
-            id="minor"
-            placeholder="Your Minor (Optional)"
-            type="text"
-          />
-        </div>
+      <div class="space-y-4 *:w-full">
+        <mat-form-field>
+          <mat-label>Institution</mat-label>
+          <mat-select disabled></mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
       <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Tutoring Specialties</h3>
-      <div>
-        <label class="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-300" for="bio"
-          >Bio / Specialties</label
-        >
-        <textarea
-          class="w-full rounded-lg border-gray-300 dark:border-gray-600 form-textarea bg-background-light dark:bg-background-dark focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
-          id="bio"
-          placeholder="Briefly describe your tutoring skills, subjects you excel in, etc."
-          rows="4"
-        ></textarea>
+      <div class="space-y-4 *:w-full">
+        <mat-form-field>
+          <mat-label>Bio</mat-label>
+          <textarea
+            matInput
+            placeholder="Briefly describe your tutoring skills, subjects you excel in, etc."
+            disabled
+          ></textarea>
+        </mat-form-field>
       </div>
     </div>
     <div class="flex justify-end">
