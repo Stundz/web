@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.0.0](https://github.com/Stundz/web/compare/v2.1.0...v3.0.0) (2025-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* Updated the release workflow to deploy manually using CI/CD
+* **oauth:** Created the oauth application
+
+### Features
+
+* **auth:** Renamed oauth project to auth ([c19a693](https://github.com/Stundz/web/commit/c19a6931364407de2992a7159cf61d93956f905d))
+* **oauth:** Created the oauth application ([edc33ff](https://github.com/Stundz/web/commit/edc33ff99248de1c2796eca26a49985465ba13d5))
+* **plug:** Migrated settings page to use material compoennts ([14e8ec0](https://github.com/Stundz/web/commit/14e8ec0366fbf31996d6795e9f62331bc9711fe5))
+* Updated the release workflow to deploy manually using CI/CD ([4f12b73](https://github.com/Stundz/web/commit/4f12b73a8060148f2ab2befa7647547f8f79b9ea))
+
+
+### Bug Fixes
+
+* Made the sidebar to open and close on pc and mobile ([240480c](https://github.com/Stundz/web/commit/240480c0269f9c0748f73ab3b969b3053e6e7abc))
+* **plug:** Enabled production mode on deployments ([36566cf](https://github.com/Stundz/web/commit/36566cf199415bdc1614f6d08e87a3ba0b1183b1))
+
 ## [2.1.0](https://github.com/Stundz/web/compare/v2.0.0...v2.1.0) (2025-10-13)
 
 
