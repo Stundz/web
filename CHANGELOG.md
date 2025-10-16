@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.2](https://github.com/Stundz/web/compare/v4.2.1...v4.2.2) (2025-10-16)
+
+
+### Bug Fixes
+
+* Added netlify.toml to fix redirects issues ([42a1c27](https://github.com/Stundz/web/commit/42a1c2711e1f87ae56d581acd9bbf1b55a99be27))
+
 ## [4.2.1](https://github.com/Stundz/web/compare/v4.2.0...v4.2.1) (2025-10-16)
 
 
