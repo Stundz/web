@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.2.0](https://github.com/Stundz/web/compare/v4.1.1...v4.2.0) (2025-10-16)
+
+
+### Features
+
+* Configured deployments to occur only on release. ([fa4f79f](https://github.com/Stundz/web/commit/fa4f79f6e98a97e6a7c917ef59d9dd4f8247589d))
+
+
+### Bug Fixes
+
+* **deployment:** Removed unknown --interactive on deployment commands ([7e078b6](https://github.com/Stundz/web/commit/7e078b6001329da516a0667de1f1383b5ce59963))
+* **deployment:** Removed unknown --interactive on deployment commands ([6b16f0d](https://github.com/Stundz/web/commit/6b16f0d74eab0df2f07403f74221ffca8fdb598f))
+
 ## [4.1.1](https://github.com/Stundz/web/compare/v4.1.0...v4.1.1) (2025-10-16)
 
 
