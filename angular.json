@@ -129,36 +129,36 @@
 				}
 			}
     },
-    "oauth": {
+    "auth": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/oauth",
-      "sourceRoot": "projects/oauth/src",
-      "prefix": "oauth",
+      "root": "projects/auth",
+      "sourceRoot": "projects/auth/src",
+      "prefix": "auth",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/oauth/src/main.ts",
-            "tsConfig": "projects/oauth/tsconfig.app.json",
+            "browser": "projects/auth/src/main.ts",
+            "tsConfig": "projects/auth/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/oauth/public"
+                "input": "projects/auth/public"
               }
             ],
             "styles": [
-              "projects/oauth/src/styles.scss"
+              "projects/auth/src/styles.scss"
             ],
-            "server": "projects/oauth/src/main.server.ts",
+            "server": "projects/auth/src/main.server.ts",
             "outputMode": "server",
             "ssr": {
-              "entry": "projects/oauth/src/server.ts"
+              "entry": "projects/auth/src/server.ts"
             }
           },
           "configurations": {
@@ -189,10 +189,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "oauth:build:production"
+              "buildTarget": "auth:build:production"
             },
             "development": {
-              "buildTarget": "oauth:build:development"
+              "buildTarget": "auth:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -203,16 +203,16 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/oauth/tsconfig.spec.json",
+            "tsConfig": "projects/auth/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/oauth/public"
+                "input": "projects/auth/public"
               }
             ],
             "styles": [
-              "projects/oauth/src/styles.scss"
+              "projects/auth/src/styles.scss"
             ]
           }
         }

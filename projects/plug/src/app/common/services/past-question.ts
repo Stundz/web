@@ -1,13 +1,7 @@
-import {
-	HttpClient,
-	HttpContext,
-	HttpParams,
-	httpResource,
-} from "@angular/common/http";
+import { HttpClient, HttpContext, httpResource } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HTTP_SKIP_ON_SERVER, Model, Paginated, toFormData } from "shared";
-import { toSignal } from "@angular/core/rxjs-interop";
 
 @Injectable({ providedIn: null })
 export class PastQuestion {

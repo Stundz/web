@@ -18,6 +18,7 @@ import {
 } from "@angular/common/http";
 import { ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -30,5 +31,9 @@ export const appConfig: ApplicationConfig = {
 			provide: ENVIRONMENT,
 			useValue: environment,
 		},
+		// {
+		// 	provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+		// 	useValue: { appearance: "outline" },
+		// },
 	],
 };

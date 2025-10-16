@@ -42,10 +42,10 @@
       "path": "./projects/shared/tsconfig.spec.json"
     },
     {
-      "path": "./projects/oauth/tsconfig.app.json"
+      "path": "./projects/auth/tsconfig.app.json"
     },
     {
-      "path": "./projects/oauth/tsconfig.spec.json"
+      "path": "./projects/auth/tsconfig.spec.json"
     }
   ]
 }
