@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.4.0](https://github.com/Stundz/web/compare/v4.3.0...v4.4.0) (2025-10-17)
+
+
+### Features
+
+* Removed the deployment job on Github CI/CD ([81f2542](https://github.com/Stundz/web/commit/81f25429ec32d2f162c012e7f9cc5e98008ebbbd))
+
 ## [4.3.0](https://github.com/Stundz/web/compare/v4.2.2...v4.3.0) (2025-10-17)
 
 
