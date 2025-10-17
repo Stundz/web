@@ -30,10 +30,5 @@
 			"source": "/(.*)",
 			"destination": "/api/plug.js"
 		}
-	],
-	"functions": {
-		"api/index.js": {
-			"includeFiles": "dist/plug/browser/**"
-		}
-	}
+	]
 }
