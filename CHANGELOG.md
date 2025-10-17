@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.3.0](https://github.com/Stundz/web/compare/v4.2.2...v4.3.0) (2025-10-17)
+
+
+### Features
+
+* updated vercel configs for good ([5607329](https://github.com/Stundz/web/commit/5607329a0fb0a30972fc2e47b43f0341aa7b7169))
+* updated vercel configs for good ([5172efb](https://github.com/Stundz/web/commit/5172efbabe3f2a49181ec88ddd11ae47b122d166))
+
 ## [4.2.2](https://github.com/Stundz/web/compare/v4.2.1...v4.2.2) (2025-10-16)
 
 
