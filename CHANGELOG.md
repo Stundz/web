@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.4.1](https://github.com/Stundz/web/compare/v4.4.0...v4.4.1) (2025-10-17)
+
+
+### Bug Fixes
+
+* Added vercel function for auth and plug apps ([e22e434](https://github.com/Stundz/web/commit/e22e434878a1c8c04493279c535fed3ea9381c8e))
+
 ## [4.4.0](https://github.com/Stundz/web/compare/v4.3.0...v4.4.0) (2025-10-17)
 
 
