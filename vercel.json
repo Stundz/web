@@ -1,17 +1,34 @@
 {
 	"version": 2,
-	"public": true,
-	"name": "Plug",
-	"devCommand": "node dist/plug/server/server.mjs",
+	"framework": "angular",
+
+	"installCommand": "bun install",
+
+	"buildCommand": "bun run build shared && bun run build plug && bun run build auth",
+
+	"functions": {
+		"api/plug.js": {
+			"includeFiles": "dist/plug/browser/**"
+		},
+		"api/auth.js": {
+			"includeFiles": "dist/auth/browser/**"
+		}
+	},
+
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "/api"
+			"has": [
+				{
+					"type": "host",
+					"value": "auth.stundz.com"
+				}
+			],
+			"destination": "/api/auth.js"
+		},
+		{
+			"source": "/(.*)",
+			"destination": "/api/plug.js"
 		}
-	],
-	"functions": {
-		"api/index.js": {
-			"includeFiles": "dist/plug/browser/**"
-		}
-	}
+	]
 }
