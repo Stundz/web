@@ -4,9 +4,12 @@
 
 	"installCommand": "bun install",
 
-	"buildCommand": "bun run build shared && bun run build plug && bun run build auth",
+	"buildCommand": "bun run build shared && bun run build plug && bun run build auth && bun run build admin",
 
 	"functions": {
+		"api/admin.js": {
+			"includeFiles": "dist/admin/browser/**"
+		},
 		"api/plug.js": {
 			"includeFiles": "dist/plug/browser/**"
 		},
@@ -21,10 +24,30 @@
 			"has": [
 				{
 					"type": "host",
+					"value": "admin.stundz.com"
+				}
+			],
+			"destination": "/api/admin.js"
+		},
+		{
+			"source": "/(.*)",
+			"has": [
+				{
+					"type": "host",
 					"value": "auth.stundz.com"
 				}
 			],
 			"destination": "/api/auth.js"
+		},
+		{
+			"source": "/(.*)",
+			"has": [
+				{
+					"type": "host",
+					"value": "plug.stundz.com"
+				}
+			],
+			"destination": "/api/plug.js"
 		},
 		{
 			"source": "/(.*)",
