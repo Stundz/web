@@ -51,7 +51,7 @@
 		},
 		{
 			"source": "/(.*)",
-			"destination": "/api/plug.js"
+			"destination": "/api/landing.js"
 		}
 	]
 }
