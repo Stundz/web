@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.2](https://github.com/Stundz/web/compare/v5.0.1...v5.0.2) (2025-10-18)
+
+
+### Bug Fixes
+
+* **landing:** Fixed build issue with vercel ([71a1e99](https://github.com/Stundz/web/commit/71a1e99bafdcb658f6ffce9ddaebe451e20b0abe))
+
 ## [5.0.1](https://github.com/Stundz/web/compare/v5.0.0...v5.0.1) (2025-10-18)
 
 
