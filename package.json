@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:plug": "node dist/plug/server/server.mjs",
-    "serve:ssr:auth": "node dist/auth/server/server.mjs"
+    "serve:ssr:auth": "node dist/auth/server/server.mjs",
+    "serve:ssr:admin": "node dist/admin/server/server.mjs",
+    "serve:ssr:landing": "node dist/landing/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,

@@ -28,7 +28,8 @@ export class App {
 			{
 				id: "keywords",
 				name: "keywords",
-				content: "plug, stundz, academic, study, tutorials, past questions,",
+				content:
+					"plug, stundz, academic, study, tutorials, past questions, project, revision, education",
 			},
 			{
 				id: "og:image",

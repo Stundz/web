@@ -1,177 +1,248 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "cli": {
-    "packageManager": "bun",
-    "analytics": "3db88690-846d-430e-9e05-a17846364325"
-  },
-  "newProjectRoot": "projects",
-  "projects": {
-    "plug": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "ngHtml": true
-        }
-      },
-      "root": "projects/plug",
-      "sourceRoot": "projects/plug/src",
-      "prefix": "plug",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "projects/plug/src/main.ts",
-            "tsConfig": "projects/plug/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/plug/public"
-              }
-            ],
-            "styles": [
-              "projects/plug/src/styles.scss"
-            ],
-            "server": "projects/plug/src/main.server.ts",
-            "outputMode": "server",
-            "outputPath": "dist/plug",
-            "ssr": {
-              "entry": "projects/plug/src/server.ts"
-            }
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "fileReplacements": [
-                {
-                  "replace": "projects/plug/src/environments/environment.ts",
-                  "with": "projects/plug/src/environments/environment.development.ts"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "options": {
-            "port": 4675
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "plug:build:production"
-            },
-            "development": {
-              "buildTarget": "plug:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/plug/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/plug/public"
-              }
-            ],
-            "styles": [
-              "projects/plug/src/styles.scss"
-            ]
-          }
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/plug",
-            "netlifyToken": "nfp_SczJ4zAsVP3eRrutL8xUxSgab7CVJWxj5026",
-            "siteId": "17232789-f03e-4391-8739-d5a9dc81a04b"
-          }
-        }
-      }
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"cli": {
+		"packageManager": "bun",
+		"analytics": "3db88690-846d-430e-9e05-a17846364325"
+	},
+	"newProjectRoot": "projects",
+	"projects": {
+		"plug": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss",
+					"ngHtml": true
+				}
+			},
+			"root": "projects/plug",
+			"sourceRoot": "projects/plug/src",
+			"prefix": "plug",
+			"architect": {
+				"build": {
+					"builder": "@angular/build:application",
+					"options": {
+						"browser": "projects/plug/src/main.ts",
+						"tsConfig": "projects/plug/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/plug/public"
+							}
+						],
+						"styles": ["projects/plug/src/styles.scss"],
+						"server": "projects/plug/src/main.server.ts",
+						"outputMode": "server",
+						"ssr": {
+							"entry": "projects/plug/src/server.ts"
+						}
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"fileReplacements": [
+								{
+									"replace": "projects/plug/src/environments/environment.ts",
+									"with": "projects/plug/src/environments/environment.development.ts"
+								}
+							]
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular/build:dev-server",
+					"options": {
+						"port": 7875
+					},
+					"configurations": {
+						"production": {
+							"buildTarget": "plug:build:production"
+						},
+						"development": {
+							"buildTarget": "plug:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular/build:extract-i18n"
+				},
+				"test": {
+					"builder": "@angular/build:karma",
+					"options": {
+						"tsConfig": "projects/plug/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/plug/public"
+							}
+						],
+						"styles": ["projects/plug/src/styles.scss"]
+					}
+				}
+			}
+		},
+		"shared": {
+			"projectType": "library",
+			"root": "projects/shared",
+			"sourceRoot": "projects/shared/src",
+			"prefix": "stundz",
+			"architect": {
+				"build": {
+					"builder": "@angular/build:ng-packagr",
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/shared/tsconfig.lib.prod.json"
+						},
+						"development": {
+							"tsConfig": "projects/shared/tsconfig.lib.json"
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"test": {
+					"builder": "@angular/build:karma",
+					"options": {
+						"tsConfig": "projects/shared/tsconfig.spec.json"
+					}
+				}
+			}
+		},
+		"auth": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/auth",
+			"sourceRoot": "projects/auth/src",
+			"prefix": "auth",
+			"architect": {
+				"build": {
+					"builder": "@angular/build:application",
+					"options": {
+						"browser": "projects/auth/src/main.ts",
+						"tsConfig": "projects/auth/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/auth/public"
+							}
+						],
+						"styles": ["projects/auth/src/styles.scss"],
+						"server": "projects/auth/src/main.server.ts",
+						"outputMode": "server",
+						"ssr": {
+							"entry": "projects/auth/src/server.ts"
+						}
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular/build:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "auth:build:production"
+						},
+						"development": {
+							"buildTarget": "auth:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular/build:extract-i18n"
+				},
+				"test": {
+					"builder": "@angular/build:karma",
+					"options": {
+						"tsConfig": "projects/auth/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/auth/public"
+							}
+						],
+						"styles": ["projects/auth/src/styles.scss"]
+					}
+				}
+			}
     },
-    "shared": {
-      "projectType": "library",
-      "root": "projects/shared",
-      "sourceRoot": "projects/shared/src",
-      "prefix": "stundz",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/shared/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/shared/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/shared/tsconfig.spec.json"
-          }
-        }
-      }
-    },
-    "auth": {
+    "admin": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/auth",
-      "sourceRoot": "projects/auth/src",
-      "prefix": "auth",
+      "root": "projects/admin",
+      "sourceRoot": "projects/admin/src",
+      "prefix": "admin",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/auth/src/main.ts",
-            "tsConfig": "projects/auth/tsconfig.app.json",
+            "browser": "projects/admin/src/main.ts",
+            "tsConfig": "projects/admin/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/auth/public"
+                "input": "projects/admin/public"
               }
             ],
             "styles": [
-              "projects/auth/src/styles.scss"
+              "projects/admin/src/styles.scss"
             ],
-            "server": "projects/auth/src/main.server.ts",
+            "server": "projects/admin/src/main.server.ts",
             "outputMode": "server",
-            "outputPath": "dist/auth",
             "ssr": {
-              "entry": "projects/auth/src/server.ts"
+              "entry": "projects/admin/src/server.ts"
             }
           },
           "configurations": {
@@ -202,10 +273,102 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "auth:build:production"
+              "buildTarget": "admin:build:production"
             },
             "development": {
-              "buildTarget": "auth:build:development"
+              "buildTarget": "admin:build:development"
+            }
+          },
+										"defaultConfiguration": "development",
+										"options": {
+											"port": 7823
+										}
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/admin/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/admin/public"
+              }
+            ],
+            "styles": [
+              "projects/admin/src/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "landing": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/landing",
+      "sourceRoot": "projects/landing/src",
+      "prefix": "landing",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/landing/src/main.ts",
+            "tsConfig": "projects/landing/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/landing/public"
+              }
+            ],
+            "styles": [
+              "projects/landing/src/styles.scss"
+            ],
+            "server": "projects/landing/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/landing/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "landing:build:production"
+            },
+            "development": {
+              "buildTarget": "landing:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -216,28 +379,20 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/auth/tsconfig.spec.json",
+            "tsConfig": "projects/landing/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/auth/public"
+                "input": "projects/landing/public"
               }
             ],
             "styles": [
-              "projects/auth/src/styles.scss"
+              "projects/landing/src/styles.scss"
             ]
-          }
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/auth",
-            "netlifyToken": "nfp_SczJ4zAsVP3eRrutL8xUxSgab7CVJWxj5026",
-            "siteId": "d89485f8-72ad-4995-bf47-a87677477904"
           }
         }
       }
     }
-  }
+	}
 }
