@@ -1,5 +1,24 @@
 # Changelog
 
+## [5.0.0](https://github.com/Stundz/web/compare/v4.4.1...v5.0.0) (2025-10-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Initialised the admin app
+
+### Features
+
+* Added vercel configurations for the admin application ([c4b8487](https://github.com/Stundz/web/commit/c4b8487a81c05a4327d19039656d76c4c3577899))
+* Generated the landing page application ([dfdfa21](https://github.com/Stundz/web/commit/dfdfa210ab5bc790bbed6fb65cf75fde620a53d3))
+* Initialised the admin app ([f8c7e57](https://github.com/Stundz/web/commit/f8c7e577c1f8be7175c508d2d213e500007cbe28))
+* Removed netlify deployment configs ([9d02c4f](https://github.com/Stundz/web/commit/9d02c4f12f29ad3d6804b36379da0ba912ee14dd))
+
+
+### Bug Fixes
+
+* Assigned a port to the admin app ([f13e486](https://github.com/Stundz/web/commit/f13e48618d5906cae7862d77b3b1e2c50b51bee4))
+
 ## [4.4.1](https://github.com/Stundz/web/compare/v4.4.0...v4.4.1) (2025-10-17)
 
 
