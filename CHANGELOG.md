@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.0.1](https://github.com/Stundz/web/compare/v5.0.0...v5.0.1) (2025-10-18)
+
+
+### Bug Fixes
+
+* **landing:** Fixed build issue with vercel ([f56ff67](https://github.com/Stundz/web/commit/f56ff6723c7dd697d0395e40fad748de547ab017))
+* updated port for the landing page app ([46c4849](https://github.com/Stundz/web/commit/46c4849b67cbd215ef74321893d050a4a3beeb5f))
+
 ## [5.0.0](https://github.com/Stundz/web/compare/v4.4.1...v5.0.0) (2025-10-18)
 
 
