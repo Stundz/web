@@ -4,7 +4,7 @@
 
 	"installCommand": "bun install",
 
-	"buildCommand": "bun run build shared && bun run build plug && bun run build auth && bun run build admin",
+	"buildCommand": "bun run build shared && bun run build plug && bun run build auth && bun run build admin && bun run build landing",
 
 	"functions": {
 		"api/admin.js": {
@@ -15,6 +15,9 @@
 		},
 		"api/auth.js": {
 			"includeFiles": "dist/auth/browser/**"
+		},
+		"api/index.js": {
+			"includeFiles": "dist/landing/browser/**"
 		}
 	},
 
@@ -51,7 +54,7 @@
 		},
 		{
 			"source": "/(.*)",
-			"destination": "/api/landing.js"
+			"destination": "/api/index.js"
 		}
 	]
 }
