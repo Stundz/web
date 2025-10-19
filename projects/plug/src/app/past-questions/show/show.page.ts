@@ -22,5 +22,5 @@ export class ShowPage {
 			page: 2,
 		},
 	}));
-	blob = httpResource.blob(() => `${environment.url.api}/pdf`);
+	blob = httpResource.blob(() => `https://api.${environment.domain}/pdf`);
 }

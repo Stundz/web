@@ -12,7 +12,7 @@ export const UserStore = signalStore(
 		(store, _router = inject(Router), _destroyRef = inject(DestroyRef)) => ({
 			login: (params: Record<string, any> | FormData) =>
 				store._http$
-					.post<void>(`${store._environment.url.api}/auth/login`, params)
+					.post<void>(`https://api.${store._environment.domain}/auth/login`, params)
 					.pipe(switchMap(() => store.getUser().pipe(catchError(() => EMPTY)))),
 
 			logout: () =>

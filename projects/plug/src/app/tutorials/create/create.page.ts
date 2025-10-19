@@ -77,7 +77,7 @@ export class CreatePage {
 	});
 
 	intitutions = httpResource<Array<Model.Institution>>(() => ({
-		url: `${environment.url.api}/plug/institutions`,
+		url: `https://api.${environment.domain}/plug/institutions`,
 	}));
 
 	institution = toSignal(this.form.controls.institution_id.valueChanges, {
@@ -104,21 +104,21 @@ export class CreatePage {
 	faculties = httpResource<Array<Model.Faculty>>(() =>
 		!!this.institution()
 			? {
-					url: `${environment.url.api}/plug/institution/${this.institution()}/faculties`,
+					url: `https://api.${environment.domain}/plug/institution/${this.institution()}/faculties`,
 				}
 			: undefined,
 	);
 	departments = httpResource<Array<Model.Faculty>>(() =>
 		!!this.faculty()
 			? {
-					url: `${environment.url.api}/plug/faculty/${this.faculty()}/departments`,
+					url: `https://api.${environment.domain}/plug/faculty/${this.faculty()}/departments`,
 				}
 			: undefined,
 	);
 	courses = httpResource<Array<Model.Course>>(() =>
 		!!this.department()
 			? {
-					url: `${environment.url.api}/plug/department/${this.department()}/courses`,
+					url: `https://api.${environment.domain}/plug/department/${this.department()}/courses`,
 				}
 			: undefined,
 	);

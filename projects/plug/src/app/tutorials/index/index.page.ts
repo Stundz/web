@@ -78,7 +78,7 @@ export class IndexPage {
 	);
 
 	tutorials = httpResource<Paginated<Model.Tutorial>>(
-		() => ({ url: `${environment.url.api}/plug/tutorials` }),
+		() => ({ url: `https://api.${environment.domain}/plug/tutorials` }),
 		{
 			defaultValue: {
 				data: [],
