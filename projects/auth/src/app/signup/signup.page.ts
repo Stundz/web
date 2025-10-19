@@ -1,8 +1,16 @@
 import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+	FormBuilder,
+	FormSubmittedEvent,
+	ReactiveFormsModule,
+	Validators,
+} from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
+import { User } from "shared";
 
 @Component({
 	selector: "app-signup",
@@ -11,6 +19,7 @@ import { MatInputModule } from "@angular/material/input";
 	styleUrl: "./signup.page.scss",
 })
 export class SignupPage {
+	private _userService = inject(User);
 	private _fb = inject(FormBuilder);
 
 	form = this._fb.group({
@@ -29,4 +38,24 @@ export class SignupPage {
 			validators: [Validators.required, Validators.minLength(8)],
 		}),
 	});
+
+	loading = toSignal(
+		this.form.events
+			.pipe(filter((event) => event instanceof FormSubmittedEvent))
+			.pipe(
+				switchMap(() =>
+					this._userService.signup(this.form.getRawValue()).pipe(
+						catchError(() => {
+							// TODO: Handle past questions creation errors
+							return timer(500).pipe(map(() => false));
+						}),
+						switchMap(() => timer(500).pipe(map(() => false))),
+						startWith(true),
+					),
+				),
+			),
+		{
+			initialValue: false,
+		},
+	);
 }

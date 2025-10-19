@@ -36,8 +36,12 @@
         >
       </nav>
       <div class="flex gap-2 items-center">
-        <a routerLink="/login" class="" matButton="filled">Login</a>
-        <a routerLink="/signup" class="" matButton>Get Started</a>
+        <a [href]="[`https:\//auth.${environment.domain}/login`]" class="" matButton="filled"
+          >Login</a
+        >
+        <a [href]="[`https:\//auth.${environment.domain}/signup`]" class="" matButton
+          >Get Started</a
+        >
       </div>
     </div>
   </div>

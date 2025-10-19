@@ -11,18 +11,6 @@ export const routes: Routes = [
 				title: "Plug, Where your academic success resides",
 				loadComponent: () => import("./home/home.page").then((m) => m.HomePage),
 			},
-			{
-				path: "login",
-				title: "Login to your account.",
-				loadComponent: () =>
-					import("./login/login.page").then((m) => m.LoginPage),
-			},
-			{
-				path: "signup",
-				title: "Join our platform today and get access to endless resources",
-				loadComponent: () =>
-					import("./signup/signup.page").then((m) => m.SignupPage),
-			},
 		],
 	},
 	{
