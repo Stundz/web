@@ -1,6 +1,9 @@
-import { Component, signal } from "@angular/core";
+import { Component, DOCUMENT, effect, Inject, inject, Renderer2, signal } from "@angular/core";
 import { Meta } from "@angular/platform-browser";
-import { RouterOutlet } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import { filter, map, switchMap, tap } from "rxjs";
+import { environment } from "../environments/environment";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: "app-root",
@@ -9,9 +12,31 @@ import { RouterOutlet } from "@angular/router";
 	styleUrl: "./app.scss",
 })
 export class App {
+  private _router = inject(Router)
 	protected readonly title = signal("plug");
 
-	constructor(meta: Meta) {
+	readonly cannonical = toSignal(
+    this._router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(() => `https://${environment.domain}${this._router.url}`)
+    )
+  );
+
+	constructor(meta: Meta, renderer: Renderer2, @Inject(DOCUMENT) document: Document) {
+    effect(() => {
+      const element = document.querySelector("link[rel='canonical']");
+
+      if (element) {
+        renderer.removeChild(document.head, element)
+      }
+
+      if (this.cannonical()) {
+        const link: HTMLLinkElement = renderer.createElement('link')
+        renderer.setAttribute(link, 'rel', 'canonical');
+        renderer.setAttribute(link, 'href', this.cannonical()!);
+        renderer.appendChild(document.head, link)
+      }
+    })
 		meta.addTags([
 			{
 				id: "description",
