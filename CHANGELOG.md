@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.1](https://github.com/Stundz/web/compare/v5.1.0...v5.1.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* fixed domain issue with the plugs app ([d9dc298](https://github.com/Stundz/web/commit/d9dc2982b6660c2caae0146697ea91986b69ef9c))
+* package Updates ([ac57bb1](https://github.com/Stundz/web/commit/ac57bb1f8debe9fcbe35bc2672441615d7f479a0))
+
 ## [5.1.0](https://github.com/Stundz/web/compare/v5.0.1...v5.1.0) (2025-10-20)
 
 
