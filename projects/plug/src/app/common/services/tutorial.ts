@@ -8,7 +8,7 @@ export class Tutorial {
 	private readonly _http = inject(HttpClient);
 
 	tutorials = httpResource(() => ({
-		url: `${environment.url.api}/plug/tutorials`,
+		url: `https://api.${environment.domain}/plug/tutorials`,
 	}));
 
 	create(
@@ -27,7 +27,7 @@ export class Tutorial {
 		},
 	) {
 		return this._http.post<void>(
-			`${environment.url.api}/plug/tutorial`,
+			`https://api.${environment.domain}/plug/tutorial`,
 			toFormData(payload),
 		);
 	}

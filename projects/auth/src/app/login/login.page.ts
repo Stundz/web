@@ -10,21 +10,10 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink } from "@angular/router";
-import {
-	catchError,
-	concat,
-	exhaustMap,
-	filter,
-	map,
-	of,
-	switchMap,
-	tap,
-	throwError,
-	timer,
-} from "rxjs";
-import { UserStore } from "../common/stores/user";
+import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { User } from "shared";
 
 @Component({
 	selector: "app-login",
@@ -43,8 +32,9 @@ export class LoginPage {
 	private _router = inject(Router);
 	private _location = inject(Location);
 	private _snackBar = inject(MatSnackBar);
+	private _userService = inject(User);
 
-	protected readonly userStore = inject(UserStore);
+	protected readonly user = this._userService.user.asReadonly().value();
 
 	form = this._fb.group({
 		email: this._fb.control<string>("", {
@@ -57,32 +47,22 @@ export class LoginPage {
 		}),
 		remember: this._fb.control<boolean>(false),
 	});
-	private submit$ = this.form.events.pipe(
-		filter((event) => event instanceof FormSubmittedEvent),
-		tap(() => console.log("Form has been submitted")),
-		catchError((error) => {
-			// TODO: Handle property manager login errors
-			return throwError(() => error);
-		}),
-	);
 
 	loading = toSignal(
-		this.submit$.pipe(
-			exhaustMap(() =>
-				concat(
-					of(true),
-					this.userStore.login(this.form.getRawValue()).pipe(
-						switchMap(() =>
-							timer(400).pipe(
-								map(() => false),
-								tap(() => this._router.navigate(["/"])),
-							),
-						),
-						catchError(() => timer(400).pipe(map(() => false))),
+		this.form.events
+			.pipe(filter((event) => event instanceof FormSubmittedEvent))
+			.pipe(
+				switchMap(() =>
+					this._userService.login(this.form.getRawValue()).pipe(
+						catchError(() => {
+							// TODO: Handle past questions creation errors
+							return timer(500).pipe(map(() => false));
+						}),
+						switchMap(() => timer(500).pipe(map(() => false))),
+						startWith(true),
 					),
 				),
 			),
-		),
 		{
 			initialValue: false,
 		},

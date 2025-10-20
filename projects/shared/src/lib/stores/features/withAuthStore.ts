@@ -27,14 +27,14 @@ export function withAuthStore() {
 		withMethods((store) => ({
 			getUser: () =>
 				store._http$
-					.get<Model.User>(`${store._environment.url.api}/user`, {
+					.get<Model.User>(`https://api.${store._environment.domain}/user`, {
 						context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
 					})
 					.pipe(tap((user) => patchState(store, { user }))),
 
 			_logout: () =>
 				store._http$
-					.get<void>(`${store._environment.url.api}/auth/logout`)
+					.get<void>(`https://api.${store._environment.domain}/auth/logout`)
 					.pipe(tap(() => store._cookies.clear())),
 		})),
 	);

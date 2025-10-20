@@ -17,7 +17,7 @@ export class PastQuestion {
 			);
 
 			return {
-				url: `${environment.url.api}/plug/past-questions`,
+				url: `https://api.${environment.domain}/plug/past-questions`,
 				params,
 				context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
 			};
@@ -39,7 +39,7 @@ export class PastQuestion {
 
 	create(payload: { course_id: string; file: File | null; year: number }) {
 		return this._http.post<void>(
-			`${environment.url.api}/plug/past-question`,
+			`https://api.${environment.domain}/plug/past-question`,
 			toFormData(payload),
 		);
 	}

@@ -67,7 +67,7 @@ export class CreatePage {
 
 	institutions = httpResource<Array<Model.Institution>>(
 		() => ({
-			url: `${environment.url.api}/plug/institutions`,
+			url: `https://api.${environment.domain}/plug/institutions`,
 		}),
 		{ defaultValue: [] },
 	);
@@ -109,7 +109,7 @@ export class CreatePage {
 		() =>
 			this.institution() !== undefined
 				? {
-						url: `${environment.url.api}/plug/institution/${this.institution()!.id}/faculties`,
+						url: `https://api.${environment.domain}/plug/institution/${this.institution()!.id}/faculties`,
 					}
 				: undefined,
 		{
@@ -120,7 +120,7 @@ export class CreatePage {
 		() =>
 			this.faculty() !== undefined
 				? {
-						url: `${environment.url.api}/plug/faculty/${this.faculty()!.id}/departments`,
+						url: `https://api.${environment.domain}/plug/faculty/${this.faculty()!.id}/departments`,
 					}
 				: undefined,
 		{
@@ -131,7 +131,7 @@ export class CreatePage {
 		() =>
 			this.department() !== undefined
 				? {
-						url: `${environment.url.api}/plug/department/${this.department()!.id}/courses`,
+						url: `https://api.${environment.domain}/plug/department/${this.department()!.id}/courses`,
 					}
 				: undefined,
 		{

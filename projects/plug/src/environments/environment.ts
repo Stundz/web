@@ -1,7 +1,6 @@
-export const environment = {
+import { ENVIRONMENT } from "shared";
+
+export const environment: ENVIRONMENT = {
 	production: true,
 	domain: "https://stundz.com",
-	url: {
-		api: "https://api.stundz.com",
-	},
 };

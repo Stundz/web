@@ -16,7 +16,7 @@ import { RouterLink } from "@angular/router";
 export class ShowPage {
 	id = input.required({ alias: "tutorial" });
 	tutorial = httpResource<Model.Tutorial>(() => ({
-		url: `${environment.url.api}/plug/tutorial/${this.id()}`,
+		url: `https://api.${environment.domain}/plug/tutorial/${this.id()}`,
 		context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
 	}));
 }

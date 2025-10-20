@@ -12,11 +12,11 @@ import { environment } from "../../environments/environment";
 })
 export class DashboardPage {
 	sessions = httpResource(
-		() => `${environment.url.api}/plug/tutorials/sessions`,
+		() => `https://api.${environment.domain}/plug/tutorials/sessions`,
 	);
 	pastQuestions = httpResource<{ data: Array<any> }>(
 		() => ({
-			url: `${environment.url.api}/plug/past-questions`,
+			url: `https://api.${environment.domain}/plug/past-questions`,
 			params: {
 				limit: 3,
 			},

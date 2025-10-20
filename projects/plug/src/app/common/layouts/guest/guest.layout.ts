@@ -1,19 +1,20 @@
 import { HttpParams } from "@angular/common/http";
-import { Component, computed } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink, RouterOutlet } from "@angular/router";
-import { hash } from "crypto";
-import { firstValueFrom, from, map } from "rxjs";
+import { RouterLink, RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { from, map } from "rxjs";
 import { environment } from "../../../../environments/environment";
+import { ENVIRONMENT } from "shared";
 
 @Component({
 	selector: "app-guest",
-	imports: [RouterLink, RouterOutlet, MatButtonModule],
+	imports: [RouterLink, RouterOutlet, MatButtonModule, RouterLinkWithHref],
 	templateUrl: "./guest.layout.ng.html",
 	styleUrl: "./guest.layout.scss",
 })
 export class GuestLayout {
+	protected readonly environment = inject(ENVIRONMENT);
 	encoder = new TextEncoder();
 	code = "stundz";
 	sha256 = toSignal(
