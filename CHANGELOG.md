@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.1.0](https://github.com/Stundz/web/compare/v5.0.1...v5.1.0) (2025-10-20)
+
+
+### Features
+
+* **auth:** Added oauth authorization page ([d164d87](https://github.com/Stundz/web/commit/d164d87a5b2e3daea85bfc83347c3650b149fe80))
+* Generated the auth app ([7b018f7](https://github.com/Stundz/web/commit/7b018f7c12a31e3206ba595db8a71e158f474475))
+* Migration from ngrx to services ([5be5699](https://github.com/Stundz/web/commit/5be5699a2734f61244de113786f98fee5cc612a5))
+
+
+### Bug Fixes
+
+* Added canonical URL for all pages ([4b8755f](https://github.com/Stundz/web/commit/4b8755f83061e0676ca6c431006d3778533deccc))
+* **landing:** Fixed build issue with vercel ([71a1e99](https://github.com/Stundz/web/commit/71a1e99bafdcb658f6ffce9ddaebe451e20b0abe))
+
 ## [5.0.1](https://github.com/Stundz/web/compare/v5.0.0...v5.0.1) (2025-10-18)
 
 
