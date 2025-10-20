@@ -14,4 +14,16 @@ export const routes: Routes = [
 		loadComponent: () =>
 			import("./signup/signup.page").then((m) => m.SignupPage),
 	},
+	{
+		path: "oauth",
+		children: [
+			{
+				path: "authorize",
+				loadComponent: () =>
+					import("./oauth/authorize/authorize.page").then(
+						(m) => m.AuthorizePage,
+					),
+			},
+		],
+	},
 ];
