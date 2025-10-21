@@ -6,6 +6,7 @@ import { UserStore } from "../../stores/user";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatBadgeModule } from "@angular/material/badge";
+import { User } from "shared";
 
 @Component({
 	selector: "app-auth",
@@ -22,11 +23,7 @@ import { MatBadgeModule } from "@angular/material/badge";
 	styleUrl: "./auth.layout.scss",
 })
 export class AuthLayout {
-	protected readonly userStore = inject(UserStore);
-
-	constructor() {
-		this.userStore.getUser().subscribe();
-	}
+	protected userService = inject(User);
 
 	ngOnInit() {}
 }
