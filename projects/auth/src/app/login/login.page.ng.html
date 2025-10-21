@@ -4,6 +4,7 @@
   <div>
     <h2 class="text-3xl font-extrabold text-center">Welcome back</h2>
     <p class="mt-2 text-sm text-center">Sign in to continue your academic journey.</p>
+    loading: {{ loading() }}
   </div>
   <form [formGroup]="form" class="mt-8 space-y-6 *:w-full" method="POST">
     <mat-form-field>
