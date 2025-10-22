@@ -43,7 +43,7 @@ export namespace Model {
 		duration: number;
 
 		course?: Course;
-		tutor?: User;
+		tutor?: Tutor;
 		department: Department;
 		price: number;
 		day: string;
@@ -51,6 +51,11 @@ export namespace Model {
 		objectives: Array<string>;
 
 		students_count: number;
+	}
+
+	export interface Tutor extends Model {
+		user_id: string;
+		user?: User;
 	}
 
 	export interface Institution extends Model {
