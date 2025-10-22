@@ -1,1 +1,6 @@
-export const environment = {};
+import { ENVIRONMENT } from "shared";
+
+export const environment: ENVIRONMENT = {
+	production: true,
+	domain: "stundz.com",
+};

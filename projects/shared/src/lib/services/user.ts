@@ -1,10 +1,11 @@
 import { Location } from "@angular/common";
 import { HttpClient, HttpContext, httpResource } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { catchError, EMPTY, switchMap, tap } from "rxjs";
+import { catchError, EMPTY, switchMap, tap, timer } from "rxjs";
 import { HTTP_SKIP_ON_SERVER } from "../contexts";
 import { ENVIRONMENT, Model } from "../types";
 import { Cookie } from "./cookie";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Injectable({
 	providedIn: "root",
@@ -20,23 +21,19 @@ export class User {
 	}));
 
 	getUser() {
-		return this._http
-			.get<Model.User>(`https://api.${this.environment.domain}/user`, {
-				context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
-			})
-			.pipe(tap(this.user.set));
+		this.user.reload();
 	}
 
 	signup(payload: Record<string, any> | FormData) {
 		return this._http
 			.post<void>(`https://api.${this.environment.domain}/auth/signup`, payload)
-			.pipe(switchMap(() => this.getUser().pipe(catchError(() => EMPTY))));
+			.pipe(tap(() => this.user.reload()));
 	}
 
 	login(payload: Record<string, any> | FormData) {
 		return this._http
-			.post<void>(`https://api.${this.environment.domain}/auth/login`, payload)
-			.pipe(switchMap(() => this.getUser().pipe(catchError(() => EMPTY))));
+			.post<void>(`https://api.${this.environment.domain}/login`, payload)
+			.pipe(switchMap(() => timer(5).pipe(tap(() => this.user.reload()))));
 	}
 
 	logout() {

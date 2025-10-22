@@ -35,14 +35,18 @@
           >Contact</a
         >
       </nav>
-      <div class="flex gap-2 items-center">
-        <a [href]="[`https:\//auth.${environment.domain}/login`]" class="" matButton="filled"
-          >Login</a
-        >
-        <a [href]="[`https:\//auth.${environment.domain}/signup`]" class="" matButton
-          >Get Started</a
-        >
-      </div>
+      @if (userService.user.hasValue()) {
+        <a routerLink="/dashboard" class="" matButton="filled">Dashboard</a>
+      } @else {
+        <div class="flex gap-2 items-center">
+          <a [href]="[`https:\//auth.${environment.domain}/login`]" class="" matButton="filled"
+            >Login</a
+          >
+          <a [href]="[`https:\//auth.${environment.domain}/signup`]" class="" matButton
+            >Get Started</a
+          >
+        </div>
+      }
     </div>
   </div>
 </header>
