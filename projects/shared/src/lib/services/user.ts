@@ -20,30 +20,20 @@ export class User {
 		url: `https://api.${this.environment.domain}/user`,
 	}));
 
-	constructor() {
-		this.getUser().pipe(takeUntilDestroyed()).subscribe();
-	}
-
 	getUser() {
-		return this._http
-			.get<Model.User>(`https://api.${this.environment.domain}/user`, {
-				context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
-			})
-			.pipe(tap((user) => this.user.set(user)));
+		this.user.reload();
 	}
 
 	signup(payload: Record<string, any> | FormData) {
 		return this._http
 			.post<void>(`https://api.${this.environment.domain}/auth/signup`, payload)
-			.pipe(switchMap(() => this.getUser().pipe(catchError(() => EMPTY))));
+			.pipe(tap(() => this.user.reload()));
 	}
 
 	login(payload: Record<string, any> | FormData) {
 		return this._http
 			.post<void>(`https://api.${this.environment.domain}/login`, payload)
-			.pipe(
-				switchMap(() => timer(5).pipe(switchMap(() => this.getUser().pipe()))),
-			);
+			.pipe(switchMap(() => timer(5).pipe(tap(() => this.user.reload()))));
 	}
 
 	logout() {
