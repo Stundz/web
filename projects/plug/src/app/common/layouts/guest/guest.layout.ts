@@ -1,6 +1,4 @@
-import { HttpParams } from "@angular/common/http";
-import { Component, computed, inject } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import {
 	Router,
@@ -8,7 +6,7 @@ import {
 	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
-import { ENVIRONMENT } from "shared";
+import { ENVIRONMENT, User } from "shared";
 
 @Component({
 	selector: "app-guest",
@@ -17,6 +15,7 @@ import { ENVIRONMENT } from "shared";
 	styleUrl: "./guest.layout.scss",
 })
 export class GuestLayout {
+	protected userService = inject(User);
 	private _router = inject(Router);
 	protected readonly environment = inject(ENVIRONMENT);
 }
