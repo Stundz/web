@@ -25,6 +25,10 @@ export const stundzInterceptor: HttpInterceptorFn = (req, next) => {
 		return EMPTY;
 	}
 
+	if (!/\/csrf$/.test(req.url) && isServer) {
+		return EMPTY;
+	}
+
 	if (isApiRequest && !/\/csrf$/.test(req.url)) {
 		const token = xsrfTokenExtractor.getToken();
 		console.log("Intercepting API", req.url);
