@@ -1,12 +1,19 @@
 import { ViewportScroller } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component, DestroyRef, inject } from "@angular/core";
+import {
+	Component,
+	DestroyRef,
+	effect,
+	ElementRef,
+	inject,
+	viewChild,
+} from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatTabsModule } from "@angular/material/tabs";
+import { MatTab, MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import {
 	combineLatest,
@@ -17,7 +24,7 @@ import {
 	startWith,
 	tap,
 } from "rxjs";
-import { Model, Paginated } from "shared";
+import { Model, Paginated, User } from "shared";
 import { PastQuestion } from "../../common/services/past-question";
 
 @Component({
@@ -38,8 +45,10 @@ export class IndexPage {
 	private _fb = inject(FormBuilder);
 	private _route = inject(ActivatedRoute);
 	private _pastQuestionService = inject(PastQuestion);
+	private _userService = inject(User);
 	private _destroyRef = inject(DestroyRef);
 	viewPortScroller = inject(ViewportScroller);
+	myContributionTab = viewChild<MatTab>("myContributions");
 
 	form = this._fb.group({
 		q: this._fb.control<string>(this._route.snapshot.params["q"] ?? "", {
@@ -56,6 +65,7 @@ export class IndexPage {
 	});
 
 	pastQuestions = this._pastQuestionService.pastQuestions;
+	myContributedPastQuestions = this._pastQuestionService.myPastQuestions;
 
 	constructor() {
 		this.form.controls.q.valueChanges
@@ -83,5 +93,13 @@ export class IndexPage {
 				),
 			)
 			.subscribe();
+
+		effect(() => {
+			if (this._userService.user.hasValue()) {
+				this._pastQuestionService.publisher.set(
+					this._userService.user.value()?.id,
+				);
+			}
+		});
 	}
 }
