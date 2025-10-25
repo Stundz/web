@@ -4,15 +4,20 @@ import { Model } from "shared";
 import { environment } from "../../../environments/environment";
 import { pendingUntilEvent, toObservable } from "@angular/core/rxjs-interop";
 import { catchError, EMPTY, filter, first, of, skip, tap } from "rxjs";
-import { inject } from "@angular/core";
+import { inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformServer } from "@angular/common";
 
 export const tutorResolver: ResolveFn<Model.Plug.Tutor | undefined> = (
 	route,
 	state,
 ) => {
 	const http = inject(HttpClient);
+	const platformId = inject(PLATFORM_ID);
 
-	console.log(route.params);
+	if (isPlatformServer(platformId)) {
+		return undefined;
+	}
+
 	return route.paramMap.has("tutor")
 		? http
 				.get<Model.Plug.Tutor>(

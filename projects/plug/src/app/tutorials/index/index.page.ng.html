@@ -65,14 +65,14 @@
   <div class="flex gap-2 justify-between items-center mb-6">
     <h2 class="text-2xl font-bold tracking-tight">
       Available Tutorials
-      @if (tutorials.hasValue() && tutorials.value().meta.total) {
-        ({{ tutorials.value().meta.total }})
+      @if (tutorials().data.length && tutorials().meta.total) {
+        ({{ tutorials().meta.total }})
       }
     </h2>
     <a routerLink="/tutors/apply" class="float-right" matButton="filled">Become a tutor</a>
   </div>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-    @for (tutorial of tutorials.value().data; track tutorial.id) {
+    @for (tutorial of tutorials().data; track tutorial.id) {
       <div
         class="flex overflow-hidden flex-col rounded-xl shadow-md transition-transform hover:scale-105 bg-(--mat-sys-surface-container-low)"
       >
@@ -245,9 +245,9 @@
     </div>
   </div>
   <mat-paginator
-    [pageIndex]="tutorials.value().meta.current_page - 1"
-    [pageSize]="tutorials.value().meta.per_page"
-    [length]="tutorials.value().meta.total"
+    [pageIndex]="tutorials().meta.current_page - 1"
+    [pageSize]="tutorials().meta.per_page"
+    [length]="tutorials().meta.total"
     (page)="form.patchValue({ filters: { page: $event.length + 1 } })"
   />
 </div>

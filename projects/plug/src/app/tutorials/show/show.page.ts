@@ -22,8 +22,8 @@ import { TutorialSessions } from "../../common/components/tutorial-sessions/tuto
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {
+	user = input.required<Model.User | undefined>();
 	id = input.required({ alias: "tutorial" });
-	readonly userService = inject(User);
 	tutorial = httpResource<Model.Plug.Tutorial>(() => ({
 		url: `https://api.${environment.domain}/plug/tutorial/${this.id()}`,
 		// context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),

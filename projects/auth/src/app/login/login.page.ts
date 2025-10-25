@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
 	FormBuilder,
@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {
 	catchError,
 	filter,
@@ -21,7 +21,7 @@ import {
 } from "rxjs";
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { User } from "shared";
+import { Model, User } from "shared";
 
 @Component({
 	selector: "app-login",
@@ -36,13 +36,13 @@ import { User } from "shared";
 	styleUrl: "./login.page.scss",
 })
 export class LoginPage {
+	user = input.required<Model.User | undefined>();
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
+	private _route = inject(ActivatedRoute);
 	private _location = inject(Location);
 	private _snackBar = inject(MatSnackBar);
 	private _userService = inject(User);
-
-	protected readonly user = this._userService.user.asReadonly().value();
 
 	form = this._fb.group({
 		email: this._fb.control<string>("", {

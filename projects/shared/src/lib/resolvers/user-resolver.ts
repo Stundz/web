@@ -1,8 +1,8 @@
-import { toObservable } from "@angular/core/rxjs-interop";
+import { isPlatformServer } from "@angular/common";
+import { inject, PLATFORM_ID } from "@angular/core";
 import { ResolveFn } from "@angular/router";
+import { catchError, of } from "rxjs";
 import { User } from "../services";
-import { effect, inject, resource } from "@angular/core";
-import { catchError, EMPTY, filter, first, map, tap } from "rxjs";
 import { Model } from "../types";
 
 export const userResolver: ResolveFn<Model.User | undefined> = (
@@ -10,29 +10,11 @@ export const userResolver: ResolveFn<Model.User | undefined> = (
 	state,
 ) => {
 	const userService = inject(User);
+	const platformId = inject(PLATFORM_ID);
 
-	console.log("resolving");
+	if (isPlatformServer(platformId)) {
+		return undefined;
+	}
 
-	return userService.gUser().pipe(
-		first(), // Complete after first emission
-		tap({
-			next: (user) => console.log(`we got ${user?.first_name} from resolver`),
-			error: () => console.log("failed retrieving userdata"),
-		}),
-		catchError((error) => {
-			console.error("Resolver error:", error);
-			return EMPTY; // Allows navigation to continue even on error
-		}),
-	);
-
-	userService.getUser();
-
-	return toObservable(userService.user.value).pipe(
-		filter((user) => user != undefined),
-		first(),
-		tap({
-			next: (user) => console.log(`we got ${user?.first_name} from resolver`),
-			error: () => console.log("failed retrieving userdata"),
-		}),
-	);
+	return userService.user$.pipe(catchError(() => of(undefined)));
 };

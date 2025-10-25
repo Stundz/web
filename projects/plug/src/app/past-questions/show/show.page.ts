@@ -6,7 +6,7 @@ import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: "app-show",
+	selector: "plug-show-past-question",
 	imports: [PdfViewer, MatButtonModule],
 	templateUrl: "./show.page.ng.html",
 	styleUrl: "./show.page.scss",

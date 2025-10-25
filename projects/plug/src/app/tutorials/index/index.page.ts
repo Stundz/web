@@ -1,16 +1,14 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
-import { httpResource } from "@angular/common/http";
-import { Component, inject } from "@angular/core";
-import { MatTableModule } from "@angular/material/table";
-import { ActivatedRoute, RouterLink } from "@angular/router";
-import { environment } from "../../../environments/environment";
-import type { Model, Paginated } from "shared";
-import { MatButtonModule } from "@angular/material/button";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { debounceTime, distinctUntilChanged, tap, map, mergeWith } from "rxjs";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatExpansionPanel } from "@angular/material/expansion";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatTableModule } from "@angular/material/table";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { debounceTime, distinctUntilChanged, map, mergeWith, tap } from "rxjs";
+import type { Model, Paginated } from "shared";
 
 @Component({
 	selector: "app-index",
@@ -28,6 +26,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 	styleUrl: "./index.page.scss",
 })
 export class IndexPage {
+	tutorials = input.required<Paginated<Model.Plug.Tutorial>>();
 	private _fb = inject(FormBuilder);
 	private _route = inject(ActivatedRoute);
 
@@ -77,22 +76,5 @@ export class IndexPage {
 					);
 				}),
 			),
-	);
-
-	tutorials = httpResource<Paginated<Model.Plug.Tutorial>>(
-		() => ({ url: `https://api.${environment.domain}/plug/tutorials` }),
-		{
-			defaultValue: {
-				data: [],
-				links: {},
-				meta: {
-					current_page: 0,
-					from: 0,
-					per_page: 0,
-					to: 0,
-					total: 0,
-				},
-			},
-		},
 	);
 }

@@ -14,26 +14,40 @@
           <span class="material-symbols-outlined !text-base">edit</span>
         </button>
       </div>
-      <h2 class="mt-4 text-2xl font-bold">Sophia Clark</h2>
+      <h2 class="mt-4 text-2xl font-bold">{{ user()?.first_name }} {{ user()?.last_name }}</h2>
       <p class="text-gray-500 dark:text-gray-400">Computer Science Major</p>
-      <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">Joined in 2022</p>
+      <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">
+        Joined in {{ user()?.created_at | date: 'y' }}
+      </p>
       <button matButton="filled" class="rounded-lg! mt-2">Edit Profile</button>
     </div>
   </div>
   <div class="space-y-8 lg:col-span-2">
     <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
       <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Contact Information</h3>
-      <div class="space-y-4 *:w-full">
+      <form [formGroup]="form.controls.info" class="space-y-4 *:w-full">
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input type="email" matInput placeholder="your.email@domain.com" />
+          <input
+            type="email"
+            matInput
+            formControlName="email"
+            placeholder="your.email@domain.com"
+            [value]="user()?.email"
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Phone number</mat-label>
-          <input type="text" matInput placeholder="+1 234 567 890" />
+          <input
+            type="text"
+            matInput
+            formControlName="phone"
+            placeholder="+1 234 567 890"
+            formControlName="phone"
+          />
           <mat-hint></mat-hint>
         </mat-form-field>
-      </div>
+      </form>
     </div>
     <div class="p-6 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)">
       <h3 class="mb-6 text-xl font-bold text-gray-900 dark:text-white">Academic Details</h3>
