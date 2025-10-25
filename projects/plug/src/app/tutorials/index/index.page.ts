@@ -20,7 +20,6 @@ import type { Model, Paginated } from "shared";
 		MatExpansionPanel,
 		MatPaginatorModule,
 		CurrencyPipe,
-		DatePipe,
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
