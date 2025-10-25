@@ -10,7 +10,15 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink } from "@angular/router";
-import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
+import {
+	catchError,
+	filter,
+	map,
+	startWith,
+	switchMap,
+	tap,
+	timer,
+} from "rxjs";
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { User } from "shared";
@@ -54,7 +62,12 @@ export class LoginPage {
 			.pipe(
 				switchMap(() =>
 					this._userService.login(this.form.getRawValue()).pipe(
-						switchMap(() => timer(500).pipe(map(() => false))),
+						switchMap(() =>
+							timer(500).pipe(
+								map(() => false),
+								tap(() => this._router.navigateByUrl("/")),
+							),
+						),
 						catchError(() => {
 							// TODO: Handle past questions creation errors
 							return timer(500).pipe(map(() => false));
