@@ -16,7 +16,7 @@ export class PastQuestion {
 	readonly filters = signal<Record<string, any>>({});
 	publisher = signal<string | undefined>(undefined);
 
-	readonly pastQuestions = httpResource<Paginated<Model.PastQuestion>>(
+	readonly pastQuestions = httpResource<Paginated<Model.Plug.PastQuestion>>(
 		() => {
 			const params = Object.fromEntries(
 				Object.entries(this.filters()).filter(([key, value]) =>
@@ -45,7 +45,7 @@ export class PastQuestion {
 		},
 	);
 
-	myPastQuestions = httpResource<Paginated<Model.PastQuestion>>(
+	myPastQuestions = httpResource<Paginated<Model.Plug.PastQuestion>>(
 		() =>
 			this.publisher() != undefined
 				? {

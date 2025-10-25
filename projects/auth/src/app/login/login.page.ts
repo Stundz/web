@@ -9,11 +9,19 @@ import {
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, RouterLink } from "@angular/router";
-import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import {
+	catchError,
+	filter,
+	map,
+	startWith,
+	switchMap,
+	tap,
+	timer,
+} from "rxjs";
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { User } from "shared";
+import { Model, User } from "shared";
 
 @Component({
 	selector: "app-login",
@@ -30,11 +38,14 @@ import { User } from "shared";
 export class LoginPage {
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
+	private _route = inject(ActivatedRoute);
 	private _location = inject(Location);
 	private _snackBar = inject(MatSnackBar);
 	private _userService = inject(User);
 
-	protected readonly user = this._userService.user.asReadonly().value();
+	user = toSignal(
+		this._route.data.pipe(map((data) => data["user"] as Model.User)),
+	);
 
 	form = this._fb.group({
 		email: this._fb.control<string>("", {
@@ -54,7 +65,12 @@ export class LoginPage {
 			.pipe(
 				switchMap(() =>
 					this._userService.login(this.form.getRawValue()).pipe(
-						switchMap(() => timer(500).pipe(map(() => false))),
+						switchMap(() =>
+							timer(500).pipe(
+								map(() => false),
+								tap(() => this._router.navigateByUrl("/")),
+							),
+						),
 						catchError(() => {
 							// TODO: Handle past questions creation errors
 							return timer(500).pipe(map(() => false));

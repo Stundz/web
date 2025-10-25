@@ -1,7 +1,7 @@
 import { Component, DOCUMENT, effect, Inject, inject, Renderer2, signal } from "@angular/core";
 import { Meta } from "@angular/platform-browser";
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from "@angular/router";
-import { filter, map, switchMap, tap } from "rxjs";
+import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import { filter, map } from "rxjs";
 import { environment } from "../environments/environment";
 import { toSignal } from "@angular/core/rxjs-interop";
 

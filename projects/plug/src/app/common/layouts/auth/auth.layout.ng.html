@@ -1,4 +1,4 @@
-<mat-sidenav-container class="flex h-screen">
+<mat-sidenav-container>
   <mat-sidenav #sidebar>
     <aside class="flex-col flex-shrink-0 md:flex size-full">
       <div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
@@ -101,7 +101,7 @@
           <button class="mr-4" (click)="[sidebar.toggle()]">
             <span class="icon-[material-symbols--menu]" role="img" aria-hidden="true"></span>
           </button>
-          <h2 class="text-xl font-semibold">Welcome, {{ userService.user.value()?.first_name }}</h2>
+          <h2 class="text-xl font-semibold">Welcome, {{ user().first_name }}</h2>
         </div>
         <div class="flex gap-4 items-center">
           <button class="flex relative items-center">
@@ -160,7 +160,7 @@
           </mat-menu>
         </div>
       </header>
-      <main class="overflow-y-auto flex-1 p-6 @container/page">
+      <main class="flex-1 p-6 @container/page">
         <router-outlet />
       </main>
     </div>

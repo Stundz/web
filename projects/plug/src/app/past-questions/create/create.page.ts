@@ -65,7 +65,7 @@ export class CreatePage {
 		}),
 	});
 
-	institutions = httpResource<Array<Model.Institution>>(
+	institutions = httpResource<Array<Model.Plug.Institution>>(
 		() => ({
 			url: `https://api.${environment.domain}/plug/institutions`,
 		}),
@@ -105,7 +105,7 @@ export class CreatePage {
 		},
 	);
 
-	faculties = httpResource<Array<Model.Faculty>>(
+	faculties = httpResource<Array<Model.Plug.Faculty>>(
 		() =>
 			this.institution() !== undefined
 				? {
@@ -116,7 +116,7 @@ export class CreatePage {
 			defaultValue: [],
 		},
 	);
-	departments = httpResource<Array<Model.Faculty>>(
+	departments = httpResource<Array<Model.Plug.Faculty>>(
 		() =>
 			this.faculty() !== undefined
 				? {
@@ -127,7 +127,7 @@ export class CreatePage {
 			defaultValue: [],
 		},
 	);
-	courses = httpResource<Array<Model.Course>>(
+	courses = httpResource<Array<Model.Plug.Course>>(
 		() =>
 			this.department() !== undefined
 				? {

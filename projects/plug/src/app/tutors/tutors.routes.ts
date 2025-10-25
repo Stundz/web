@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { tutorResolver } from "../common/resolvers/tutor-resolver";
 
 export const routes: Routes = [
 	{
@@ -29,6 +30,7 @@ export const routes: Routes = [
 			},
 			{
 				path: ":tutor",
+				resolve: { tutor: tutorResolver },
 				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
 			},
 		],

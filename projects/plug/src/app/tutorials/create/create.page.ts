@@ -76,7 +76,7 @@ export class CreatePage {
 		course_id: this._fb.control<string>("", { nonNullable: true }),
 	});
 
-	intitutions = httpResource<Array<Model.Institution>>(() => ({
+	intitutions = httpResource<Array<Model.Plug.Institution>>(() => ({
 		url: `https://api.${environment.domain}/plug/institutions`,
 	}));
 
@@ -101,21 +101,21 @@ export class CreatePage {
 		{ initialValue: null },
 	);
 
-	faculties = httpResource<Array<Model.Faculty>>(() =>
+	faculties = httpResource<Array<Model.Plug.Faculty>>(() =>
 		!!this.institution()
 			? {
 					url: `https://api.${environment.domain}/plug/institution/${this.institution()}/faculties`,
 				}
 			: undefined,
 	);
-	departments = httpResource<Array<Model.Faculty>>(() =>
+	departments = httpResource<Array<Model.Plug.Faculty>>(() =>
 		!!this.faculty()
 			? {
 					url: `https://api.${environment.domain}/plug/faculty/${this.faculty()}/departments`,
 				}
 			: undefined,
 	);
-	courses = httpResource<Array<Model.Course>>(() =>
+	courses = httpResource<Array<Model.Plug.Course>>(() =>
 		!!this.department()
 			? {
 					url: `https://api.${environment.domain}/plug/department/${this.department()}/courses`,
@@ -133,8 +133,8 @@ export class CreatePage {
 					return this._tutorialService
 						.create({
 							...form,
-							day: format(new Date(day), "yyyy-MM-dd"),
-							time: format(new Date(time), "HH:mm:ss"),
+							// day: format(new Date(day), "yyyy-MM-dd"),
+							// time: format(new Date(time), "HH:mm:ss"),
 						})
 						.pipe(
 							catchError(() => {
