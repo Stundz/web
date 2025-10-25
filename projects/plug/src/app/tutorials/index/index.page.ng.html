@@ -69,7 +69,7 @@
         ({{ tutorials.value().meta.total }})
       }
     </h2>
-    <a routerLink="/tutor/apply" class="float-right" matButton="filled">Become a tutor</a>
+    <a routerLink="/tutors/apply" class="float-right" matButton="filled">Become a tutor</a>
   </div>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
     @for (tutorial of tutorials.value().data; track tutorial.id) {
@@ -83,14 +83,39 @@
           "
         ></div>
         <div class="flex flex-col flex-1 p-6">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+          <div class="flex gap-3 justify-end items-center text-xs">
+            <span class="shrink-0">{{ tutorial.course?.code }}</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white line-clamp-1">
             {{ tutorial.name }}
           </h3>
-          <p class="flex-1 mt-2 text-sm text-(--mat-sys-secondary) line-clamp-3">
+          <p class="flex-1 mt-2 text-sm text-(--mat-sys-secondary) line-clamp-2">
             {{ tutorial.description }}
           </p>
+          <div class="mt-4 *:flex *:items-center *:*:first:mr-2">
+            <div class="">
+              <span
+                class="icon-[material-symbols--school-outline-rounded] text-(--mat-sys-primary)"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <span
+                >{{ tutorial.tutor?.user?.first_name }} {{ tutorial.tutor?.user?.last_name }}</span
+              >
+            </div>
+            <!-- <div class=""> -->
+            <!--   <span -->
+            <!--     class="text-base icon-[material-symbols--schedule-outline] text-(--mat-sys-primary)" -->
+            <!--     role="img" -->
+            <!--     aria-hidden="true" -->
+            <!--   ></span> -->
+            <!--   <span>{{ '2000-01-01T' + tutorial.?session?.time | date: 'shortTime' }}</span> -->
+            <!-- </div> -->
+          </div>
           <div class="flex justify-between items-center mt-4">
-            <p class="text-lg font-bold text-(--mat-sys-primary)">$45/hr</p>
+            <p class="text-lg font-bold text-(--mat-sys-primary)">
+              {{ tutorial.price | currency: 'XAF ' : 'code' : '0.0' }}
+            </p>
             <a matButton="filled" [routerLink]="['/tutorial', tutorial.id]">View Details</a>
           </div>
         </div>

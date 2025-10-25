@@ -1,0 +1,38 @@
+<div class="p-6 rounded-lg shadow-md lg:col-span-2 bg-card-light dark:bg-card-dark">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-lg font-semibold">
+      <ng-content select="title">Tutorial Sessions</ng-content>
+    </h3>
+    <a class="text-sm font-medium hover:underline text-primary" routerLink="/activities"
+      >View All</a
+    >
+  </div>
+  <mat-accordion class="space-y-4">
+    @for (session of sessions.value().data; track session.id) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span
+              class="icon-[material-symbols--calendar-month-outline-rounded] text-(--mat-sys-primary)"
+              role="img"
+              aria-hidden="true"
+            ></span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <p class="font-medium">{{ session.day | date: 'medium' }}</p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        @for (objective of session.objectives; track $index) {
+          <li class="flex gap-3 items-center">
+            <span
+              class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
+              role="img"
+              aria-hidden="true"
+            ></span>
+            <span class="">{{ objective }}</span>
+          </li>
+        }
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>
