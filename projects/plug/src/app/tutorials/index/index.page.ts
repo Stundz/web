@@ -1,4 +1,4 @@
-import { DatePipe } from "@angular/common";
+import { CurrencyPipe, DatePipe } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import { Component, inject } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
@@ -21,6 +21,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 		ReactiveFormsModule,
 		MatExpansionPanel,
 		MatPaginatorModule,
+		CurrencyPipe,
+		DatePipe,
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
@@ -77,7 +79,7 @@ export class IndexPage {
 			),
 	);
 
-	tutorials = httpResource<Paginated<Model.Tutorial>>(
+	tutorials = httpResource<Paginated<Model.Plug.Tutorial>>(
 		() => ({ url: `https://api.${environment.domain}/plug/tutorials` }),
 		{
 			defaultValue: {
