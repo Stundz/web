@@ -1,6 +1,7 @@
 export interface Paginated<T> {
 	data: Array<T>;
 	meta: {
+		/** The total number of items to be paginated */
 		total: number;
 
 		/**

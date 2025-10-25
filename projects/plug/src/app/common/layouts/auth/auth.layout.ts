@@ -1,15 +1,14 @@
-import { Component, inject } from "@angular/core";
-import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { Component, input } from "@angular/core";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { MatRippleModule } from "@angular/material/core";
 import { MatMenuModule } from "@angular/material/menu";
-import { UserStore } from "../../stores/user";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatBadgeModule } from "@angular/material/badge";
-import { User } from "shared";
+import { Model } from "shared";
 
 @Component({
-	selector: "app-auth",
+	selector: "plug-auth-layout",
 	imports: [
 		RouterLink,
 		RouterOutlet,
@@ -23,7 +22,7 @@ import { User } from "shared";
 	styleUrl: "./auth.layout.scss",
 })
 export class AuthLayout {
-	protected userService = inject(User);
+	user = input.required<Model.User>();
 
 	ngOnInit() {}
 }

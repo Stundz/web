@@ -6,6 +6,7 @@ import {
 	effect,
 	ElementRef,
 	inject,
+	input,
 	viewChild,
 } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
@@ -42,10 +43,10 @@ import { PastQuestion } from "../../common/services/past-question";
 	providers: [PastQuestion],
 })
 export class IndexPage {
+	user = input.required<Model.User>();
 	private _fb = inject(FormBuilder);
 	private _route = inject(ActivatedRoute);
 	private _pastQuestionService = inject(PastQuestion);
-	private _userService = inject(User);
 	private _destroyRef = inject(DestroyRef);
 	viewPortScroller = inject(ViewportScroller);
 	myContributionTab = viewChild<MatTab>("myContributions");
@@ -95,10 +96,8 @@ export class IndexPage {
 			.subscribe();
 
 		effect(() => {
-			if (this._userService.user.hasValue()) {
-				this._pastQuestionService.publisher.set(
-					this._userService.user.value()?.id,
-				);
+			if (this.user()) {
+				this._pastQuestionService.publisher.set(this.user()?.id);
 			}
 		});
 	}

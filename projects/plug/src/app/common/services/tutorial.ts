@@ -1,7 +1,7 @@
 import { HttpClient, httpResource } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { Model, toFormData } from "shared";
+import { Model, Paginated, toFormData } from "shared";
 
 @Injectable()
 export class Tutorial {
@@ -10,6 +10,10 @@ export class Tutorial {
 	tutorials = httpResource(() => ({
 		url: `https://api.${environment.domain}/plug/tutorials`,
 	}));
+
+	tutorials$ = this._http.get<Paginated<Model.Plug.Tutorial>>(
+		`https://api.${environment.domain}/plug/tutorials`,
+	);
 
 	create(
 		payload: Pick<
