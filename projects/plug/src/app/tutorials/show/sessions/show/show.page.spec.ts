@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ShowPage } from './show.page';
+
+describe('ShowPage', () => {
+  let component: ShowPage;
+  let fixture: ComponentFixture<ShowPage>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ShowPage]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ShowPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
