@@ -101,7 +101,7 @@
           <button class="mr-4" (click)="[sidebar.toggle()]">
             <span class="icon-[material-symbols--menu]" role="img" aria-hidden="true"></span>
           </button>
-          <h2 class="text-xl font-semibold">Welcome, {{ user().first_name }}</h2>
+          <h2 class="text-xl font-semibold">Welcome, {{ user()?.first_name }}</h2>
         </div>
         <div class="flex gap-4 items-center">
           <button class="flex relative items-center">

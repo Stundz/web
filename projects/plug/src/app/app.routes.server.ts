@@ -10,7 +10,7 @@ export const serverRoutes: ServerRoute[] = [
 		renderMode: RenderMode.Server,
 	},
 	{
-		path: "tutorial/:tutorial",
+		path: "tutorial/:tutorial/**",
 		renderMode: RenderMode.Server,
 	},
 	{

@@ -11,6 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
 import { User } from "shared";
+import { environment } from "../../environments/environment";
 
 @Component({
 	selector: "app-signup",
@@ -21,6 +22,8 @@ import { User } from "shared";
 export class SignupPage {
 	private _userService = inject(User);
 	private _fb = inject(FormBuilder);
+
+	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect`;
 
 	form = this._fb.group({
 		first_name: this._fb.control("", { nonNullable: true }),

@@ -22,7 +22,7 @@ import { TutorialSessions } from "../../common/components/tutorial-sessions/tuto
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-	user = input.required<Model.User>();
+	user = input.required<Model.User | undefined>();
 	id = input.required({ alias: "tutorial" });
 	tutorial = httpResource<Model.Plug.Tutorial>(() => ({
 		url: `https://api.${environment.domain}/plug/tutorial/${this.id()}`,

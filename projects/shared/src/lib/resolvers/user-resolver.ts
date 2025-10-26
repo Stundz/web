@@ -1,8 +1,8 @@
-import { toObservable } from "@angular/core/rxjs-interop";
+import { isPlatformServer } from "@angular/common";
+import { inject, PLATFORM_ID } from "@angular/core";
 import { ResolveFn } from "@angular/router";
+import { catchError, of } from "rxjs";
 import { User } from "../services";
-import { effect, inject, PLATFORM_ID, resource } from "@angular/core";
-import { catchError, EMPTY, filter, first, map, of, tap } from "rxjs";
 import { Model } from "../types";
 import { isPlatformServer } from "@angular/common";
 

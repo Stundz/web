@@ -7,9 +7,9 @@ import { Model, Paginated, toFormData } from "shared";
 export class Tutorial {
 	private readonly _http = inject(HttpClient);
 
-	tutorials = httpResource(() => ({
-		url: `https://api.${environment.domain}/plug/tutorials`,
-	}));
+	tutorials$ = this._http.get<Paginated<Model.Plug.Tutorial>>(
+		`https://api.${environment.domain}/plug/tutorials`,
+	);
 
 	tutorials$ = this._http.get<Paginated<Model.Plug.Tutorial>>(
 		`https://api.${environment.domain}/plug/tutorials`,

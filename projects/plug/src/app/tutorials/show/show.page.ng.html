@@ -168,7 +168,7 @@
         <div
           class="sticky top-10 p-6 rounded-2xl bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
         >
-          @if (tut.tutor?.user_id === user().id) {
+          @if (tut.tutor?.user_id === user()?.id) {
           } @else {}
           @if (tut?.session) {
             <p class="text-2xl font-bold">
@@ -215,7 +215,7 @@
                 />
               </div>
             </div>
-            @if (tut.tutor?.user_id !== user().id) {
+            @if (tut.tutor?.user_id !== user()?.id) {
               <button
                 matButton="filled"
                 class="w-full"
@@ -226,7 +226,7 @@
             }
           } @else {
             <p class="text-center">No active session</p>
-            @if (tut.tutor?.user_id === user().id) {
+            @if (tut.tutor?.user_id === user()?.id) {
               <div class="flex justify-center mt-4">
                 <a [routerLink]="['sessions', 'create']" matButton="filled">Create session</a>
               </div>

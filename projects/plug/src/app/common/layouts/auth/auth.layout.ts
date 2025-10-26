@@ -22,7 +22,5 @@ import { Model } from "shared";
 	styleUrl: "./auth.layout.scss",
 })
 export class AuthLayout {
-	user = input.required<Model.User>();
-
-	ngOnInit() {}
+	user = input.required<Model.User | undefined>();
 }

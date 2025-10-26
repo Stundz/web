@@ -16,7 +16,7 @@ import { ENVIRONMENT, Model, User } from "shared";
 	styleUrl: "./guest.layout.scss",
 })
 export class GuestLayout {
-	user = input.required<Model.User>();
+	user = input.required<Model.User | undefined>();
 	protected userService = inject(User);
 	private _router = inject(Router);
 	protected _route = inject(ActivatedRoute);

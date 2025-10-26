@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
 	FormBuilder,
@@ -36,16 +36,13 @@ import { Model, User } from "shared";
 	styleUrl: "./login.page.scss",
 })
 export class LoginPage {
+	user = input.required<Model.User | undefined>();
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
 	private _route = inject(ActivatedRoute);
 	private _location = inject(Location);
 	private _snackBar = inject(MatSnackBar);
 	private _userService = inject(User);
-
-	user = toSignal(
-		this._route.data.pipe(map((data) => data["user"] as Model.User)),
-	);
 
 	form = this._fb.group({
 		email: this._fb.control<string>("", {
