@@ -1,5 +1,37 @@
 # Changelog
 
+## [5.2.0](https://github.com/Stundz/web/compare/v5.1.1...v5.2.0) (2025-10-26)
+
+
+### Features
+
+* Added global guards and resolvers for future use ([45214fa](https://github.com/Stundz/web/commit/45214fad1f4cb4501820d55e228cc45ffeada4c7))
+* **auth:** redirect to home page on successful login ([88a9169](https://github.com/Stundz/web/commit/88a9169da75d15b1f15545ba839eb05e413ee683))
+* **auth:** Users can now login ([2845f9b](https://github.com/Stundz/web/commit/2845f9b2b7c8ceef8ef1a73cd07236ea94963c97))
+* Fix deployment issues with prerendered nested routes ([fe044d9](https://github.com/Stundz/web/commit/fe044d9d003dc590c08644d9ec3bba0d4014e087))
+* Migrated from signal based data fetching to resolvers ([2de5aac](https://github.com/Stundz/web/commit/2de5aacdd7530ed6a4f8ec02223b19d5031a5ad1))
+* Migrated from signal based data fetching to resolvers ([d1c9f65](https://github.com/Stundz/web/commit/d1c9f659ed19a4e6a53d39f8e785ab707abaa3fd))
+* **plug:** Added component to display past tutorial session ([4d79192](https://github.com/Stundz/web/commit/4d79192827f8fd24bcf3c4056482722f0b84b4cf))
+* **plug:** Created resolvers for future use ([6b7fe9f](https://github.com/Stundz/web/commit/6b7fe9f650e79348993fd0b93f52646e0843f2ae))
+* **plug:** Created views for tutorial session ([26883fc](https://github.com/Stundz/web/commit/26883fcc5b4a31dff0415ff68a648417b47edbcd))
+* **plug:** Load past questions uploaded by current user ([2626ac5](https://github.com/Stundz/web/commit/2626ac5a06a40974303507624f412e271834dd7a))
+* **plug:** Made the tutorial show page dynamic ([2f7d595](https://github.com/Stundz/web/commit/2f7d5955dff78a20b6b5e2f7a50a29053bd542c2))
+* **plug:** Show past questions fromt he currently authenticated user ([18d1aaf](https://github.com/Stundz/web/commit/18d1aafa72bc0cd982283b948056c4e6c7550651))
+
+
+### Bug Fixes
+
+* Add @parcel/watcher to trusted dependencies ([4b89e3e](https://github.com/Stundz/web/commit/4b89e3e4d52709874496d49e41030d790d7586db))
+* **auth:** Added tailwindcss icon library ([30ebe32](https://github.com/Stundz/web/commit/30ebe325e1fc57fde708c3b13988cc2de8023c70))
+* Fixed login with google button ([98e0e86](https://github.com/Stundz/web/commit/98e0e862846d4c6551865086e46e3ccdbbbda81a))
+* **plug:** hide login/get started buttons when authenticated ([5061146](https://github.com/Stundz/web/commit/50611461fcec1cc068849e88a37b85de1f3063fc))
+* **plug:** Show login/logout buttons conditionally ([9e6bcb9](https://github.com/Stundz/web/commit/9e6bcb92d839cf9829145158e2c8da800edaf343))
+* **plug:** Updated models namespacing ([5509ed3](https://github.com/Stundz/web/commit/5509ed33b45bc9a329bf2163311d2cf1f7fe0e81))
+* **plug:** Uses name from authenticated user ([1398668](https://github.com/Stundz/web/commit/1398668b3bf6516795d8cb0cb09803a2bbc995a1))
+* Prevented infinite request from /csrf endpoint ([17eded8](https://github.com/Stundz/web/commit/17eded8da0db151df8d81f237e9467ed6884c78a))
+* Prevents stundzInterceptor from making unnecessary repeated request ([d447d42](https://github.com/Stundz/web/commit/d447d42b457ddcea64de913ba4e4192f4a8e2b0a))
+* Show database informations on tutorials/show page ([9643504](https://github.com/Stundz/web/commit/96435041dca12c5f429dc529c29a2194516c4a6e))
+
 ## [5.1.1](https://github.com/Stundz/web/compare/v5.1.0...v5.1.1) (2025-10-20)
 
 
