@@ -4,7 +4,6 @@ import { ResolveFn } from "@angular/router";
 import { catchError, of } from "rxjs";
 import { User } from "../services";
 import { Model } from "../types";
-import { isPlatformServer } from "@angular/common";
 
 export const userResolver: ResolveFn<Model.User | undefined> = (
 	route,
