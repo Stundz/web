@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import {
 	FormBuilder,
@@ -29,6 +29,7 @@ import { environment } from "../../environments/environment";
 })
 export class SignupPage {
 	private _router = inject(Router);
+	private _route = inject(ActivatedRoute);
 	private _userService = inject(User);
 	private _fb = inject(FormBuilder);
 
@@ -67,8 +68,13 @@ export class SignupPage {
 							timer(500).pipe(
 								map(() => false),
 								tap(() => {
-									this.form.reset();
-									this._router.navigateByUrl("/");
+									const callback =
+										this._route.snapshot.paramMap.get("callback");
+									if (callback != null) {
+										window.location.replace(callback);
+									} else {
+										this._router.navigateByUrl("/");
+									}
 								}),
 							),
 						),
