@@ -3,7 +3,7 @@
 >
   <div class="mb-8 text-center">
     <h2 class="text-3xl font-bold text-(--mat-sys-on-surface)">Create your account</h2>
-    <p class="mt-2 text-gray-400">Level up your learning journey!</p>
+    <p class="mt-2">Level up your learning journey!</p>
   </div>
 
   <div class="mb-6 w-full">
@@ -35,38 +35,80 @@
     </button>
   </div>
   <div class="flex items-center mb-6">
-    <hr class="flex-grow border-t border-[#29382f]" />
+    <hr class="flex-grow border-t border-(--mat-sys-outline)" />
     <span class="px-3 text-sm text-gray-400">OR</span>
-    <hr class="flex-grow border-t border-[#29382f]" />
+    <hr class="flex-grow border-t border-(--mat-sys-outline)" />
   </div>
-  <form [formGroup]="form" id="signupForm" class="space-y-6 *:w-full">
+  <form [formGroup]="form" class="space-y-6 *:w-full">
     <mat-form-field>
       <mat-label>First name</mat-label>
-      <input matInput formControllName="first_name" />
+      <input matInput formControlName="first_name" />
+      @if (form.controls.first_name.errors) {
+        <mat-error>
+          @if (form.controls.first_name.hasError('response')) {
+            {{ form.controls.first_name.getError('response') }}
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Last name</mat-label>
-      <input matInput formControllName="last_name" />
+      <input matInput formControlName="last_name" />
+      @if (form.controls.last_name.errors) {
+        <mat-error>
+          @if (form.controls.last_name.hasError('response')) {
+            {{ form.controls.last_name.getError('response') }}
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput formControllName="email" />
+      <input matInput formControlName="email" />
+      @if (form.controls.email.errors) {
+        <mat-error>
+          @if (form.controls.email.hasError('response')) {
+            {{ form.controls.email.getError('response') }}
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input matInput formControllName="password" />
+      <input type="password" matInput formControlName="password" />
+      @if (form.controls.password.errors) {
+        <mat-error>
+          @if (form.controls.password.hasError('response')) {
+            {{ form.controls.password.getError('response') }}
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Confirm Password</mat-label>
-      <input matInput formControllName="password_confirmation" />
+      <input type="password" matInput formControlName="password_confirmation" />
+      @if (form.controls.password_confirmation.errors) {
+        <mat-error>
+          @if (form.controls.password_confirmation.hasError('response')) {
+            {{ form.controls.password_confirmation.getError('response') }}
+          }
+        </mat-error>
+      }
     </mat-form-field>
 
     <div class="pt-2">
-      <button class="w-full" type="submit" matButton="filled">Sign Up</button>
+      <button
+        class="w-full"
+        type="submit"
+        matButton="filled"
+        [disabled]="form.invalid || loading()"
+      >
+        Sign Up
+      </button>
     </div>
   </form>
   <p class="mt-6 text-sm text-center text-gray-400">
