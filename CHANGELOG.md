@@ -1,5 +1,19 @@
 # Changelog
 
+## [5.3.0](https://github.com/Stundz/web/compare/v5.2.0...v5.3.0) (2025-10-27)
+
+
+### Features
+
+* **auth:** Implementented authentication ([5b46070](https://github.com/Stundz/web/commit/5b460707d8f5b05c67d097cc8c1c1a62f7d1623c))
+* Revamped the auth application ([67d6c9e](https://github.com/Stundz/web/commit/67d6c9e808a7d05ab64b2bb0ccd542b8d235975a))
+
+
+### Bug Fixes
+
+* Migrated past-questions to resolvers ([2668bb3](https://github.com/Stundz/web/commit/2668bb39f4a1f266ce587a855748843e36275f3e))
+* Tutorial sessions now send the correct date to backend ([d18271e](https://github.com/Stundz/web/commit/d18271e540c98f5967b0d4f9cc61814ff4c5bf9b))
+
 ## [5.2.0](https://github.com/Stundz/web/compare/v5.1.1...v5.2.0) (2025-10-26)
 
 
