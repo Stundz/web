@@ -1,4 +1,6 @@
 import { Routes } from "@angular/router";
+import { pastQuestionResolver } from "../common/resolvers/past-question-resolver";
+import { PastQuestion } from "../common/services/past-question";
 
 export const routes: Routes = [
 	{
@@ -7,6 +9,10 @@ export const routes: Routes = [
 			{
 				path: "",
 				pathMatch: "full",
+				providers: [PastQuestion],
+				resolve: {
+					pastQuestions: pastQuestionResolver,
+				},
 				loadComponent: () =>
 					import("./index/index.page").then((m) => m.IndexPage),
 			},

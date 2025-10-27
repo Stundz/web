@@ -40,10 +40,20 @@
         <a routerLink="/dashboard" class="" matButton="filled">Dashboard</a>
       } @else {
         <div class="flex gap-2 items-center">
-          <a [href]="[`https:\//auth.${environment.domain}/login`]" class="" matButton="filled"
+          <a
+            [href]="
+              `https:\//auth.${environment.domain}/login?callback=https://plug.${environment.domain}/dashboard`
+            "
+            class=""
+            matButton="filled"
             >Login</a
           >
-          <a [href]="[`https:\//auth.${environment.domain}/signup`]" class="" matButton
+          <a
+            [href]="[
+              `https:\//auth.${environment.domain}/signup?callback=https://plug.${environment.domain}`,
+            ]"
+            class=""
+            matButton
             >Get Started</a
           >
         </div>

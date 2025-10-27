@@ -20,7 +20,7 @@ export class User {
 
 	signup(payload: Record<string, any> | FormData) {
 		return this._http
-			.post<void>(`https://api.${this.environment.domain}/auth/signup`, payload)
+			.post<void>(`https://api.${this.environment.domain}/signup`, payload)
 			.pipe(
 				switchMap(() =>
 					this.user$.pipe(

@@ -40,10 +40,11 @@ import { PastQuestion } from "../../common/services/past-question";
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
-	providers: [PastQuestion],
 })
 export class IndexPage {
 	user = input.required<Model.User>();
+	pastQuestions = input.required<Paginated<Model.Plug.PastQuestion>>();
+
 	private _fb = inject(FormBuilder);
 	private _route = inject(ActivatedRoute);
 	private _pastQuestionService = inject(PastQuestion);
@@ -65,8 +66,22 @@ export class IndexPage {
 		}),
 	});
 
-	pastQuestions = this._pastQuestionService.pastQuestions;
-	myContributedPastQuestions = this._pastQuestionService.myPastQuestions;
+	myContributedPastQuestions = toSignal(
+		this._pastQuestionService.myPastQuestions$,
+		{
+			initialValue: {
+				data: [],
+				meta: {
+					total: 0,
+					current_page: 0,
+					per_page: 0,
+					from: 0,
+					to: 0,
+				},
+				links: {},
+			},
+		},
+	);
 
 	constructor() {
 		this.form.controls.q.valueChanges
@@ -94,11 +109,12 @@ export class IndexPage {
 				),
 			)
 			.subscribe();
+	}
 
-		effect(() => {
-			if (this.user()) {
-				this._pastQuestionService.publisher.set(this.user()?.id);
-			}
-		});
+	getMyContributions() {
+		console.log("hello");
+		if (this.user()) {
+			this._pastQuestionService.publisher.set(this.user()?.id);
+		}
 	}
 }

@@ -1,1 +1,118 @@
-<p>home works!</p>
+<div
+  class="absolute inset-0 bg-gradient-to-br from-black/50 via-(--mat-sys-secondary)/60 to-(--mat-sys-primary)/20 fade-overlay"
+></div>
+<div
+  class="flex relative z-10 flex-col gap-8 justify-center items-center w-full max-w-4xl md:flex-row md:gap-12 lg:gap-16"
+>
+  <div class="flex-1 p-6 text-center md:p-0 md:text-left hero-content">
+    <div class="flex gap-3 justify-center items-center mb-4 text-white md:justify-start">
+      <div class="size-8 text-primary">
+        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
+      <h2
+        class="text-3xl font-bold leading-tight text-(--mat-sys-primary-fixed) tracking-[-0.015em]"
+      >
+        Stundz
+      </h2>
+    </div>
+    <h1
+      class="text-4xl font-bold tracking-tight sm:text-5xl drop-shadow-lg text-(--mat-sys-secondary-fixed)"
+    >
+      Unlock Your Potentials
+    </h1>
+    <p class="mx-auto mt-4 max-w-lg text-lg leading-relaxed md:mx-0 text-white/90 drop-shadow-md">
+      Join a thriving community where knowledge connects, ideas flourish, and research finds its
+      secure home.
+    </p>
+    <div
+      class="flex gap-4 items-start p-4 mx-auto mt-6 max-w-md rounded-lg md:mx-0 bg-(--mat-sys-primary)/20"
+    >
+      <span
+        class="mt-1 text-5xl text-(--mat-sys-surface-tint) icon-[material-symbols--security]"
+        role="img"
+        aria-hidden="true"
+      ></span>
+      <div class="flex flex-col">
+        <p class="font-semibold text-white">Built on Trust</p>
+        <p class="text-sm text-white/80">
+          Our platform uses end-to-end encryption to protect your intellectual property.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="p-8 w-full max-w-sm rounded-xl shadow-xl sm:p-10 lg:p-12 bg-(--mat-sys-surface) text-(--mat-sys-on-surface) dark:shadow-black/70"
+  >
+    @if (user() !== undefined) {
+      @let u = user()!;
+
+      <h2 class="pb-2 text-2xl font-bold tracking-tight text-center">
+        Welcome back, {{ u.first_name }}
+      </h2>
+      <h4 class="pb-4 font-semibold text-center text-(--mat-sys-secondary)">
+        Browse our apps below
+      </h4>
+      <div class="grid flex-1 grid-cols-3 gap-4 items-stretch">
+        <a [href]="`https://plug.${environment.domain}`" matButton="filled" class="rounded-lg!">
+          <div class="flex gap-2 justify-center items-center">
+            <span
+              class="text-md icon-[material-symbols--school]"
+              role="img"
+              aria-hidden="true"
+            ></span>
+            <span class="">Plug</span>
+          </div>
+        </a>
+        <a
+          [href]="`https://payit.${environment.domain}`"
+          class="rounded-lg!"
+          matButton="outlined"
+          [disabled]="true"
+        >
+          <span class="truncate">PayIt</span>
+        </a>
+      </div>
+      <div class="pt-6 text-center">
+        <a
+          routerLink="/forgot-password"
+          class="text-sm font-normal leading-normal underline cursor-pointer text-slate-500 dark:text-slate-400 dark:hover:text-green-300 hover:text-primary"
+        >
+          Looking for something else?
+        </a>
+      </div>
+    } @else {
+      <h2 class="pb-6 text-2xl font-bold tracking-tight text-center">Get Started</h2>
+      <div class="flex flex-col flex-1 gap-4 items-stretch">
+        <a
+          routerLink="/signup"
+          queryParamsHandling="preserve"
+          matButton="filled"
+          class="rounded-lg!"
+        >
+          <span class="truncate">Sign Up</span>
+        </a>
+        <a
+          routerLink="/login"
+          queryParamsHandling="preserve"
+          class="rounded-lg!"
+          matButton="outlined"
+        >
+          <span class="truncate">Log In</span>
+        </a>
+      </div>
+      <div class="pt-6 text-center">
+        <a
+          routerLink="/forgot-password"
+          class="text-sm font-normal leading-normal underline cursor-pointer text-slate-500 dark:text-slate-400 dark:hover:text-green-300 hover:text-primary"
+        >
+          Forgot Password?
+        </a>
+      </div>
+    }
+  </div>
+</div>

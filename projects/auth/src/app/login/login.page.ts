@@ -65,7 +65,15 @@ export class LoginPage {
 						switchMap(() =>
 							timer(500).pipe(
 								map(() => false),
-								tap(() => this._router.navigateByUrl("/")),
+								tap(() => {
+									const callback =
+										this._route.snapshot.paramMap.get("callback");
+									if (callback != null) {
+										window.location.replace(callback);
+									} else {
+										this._router.navigateByUrl("/");
+									}
+								}),
 							),
 						),
 						catchError(() => {

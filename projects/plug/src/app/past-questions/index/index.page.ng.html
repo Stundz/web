@@ -127,106 +127,93 @@
     </mat-accordion>
   </form>
   <div class="mb-6" id="past-question">
-    <mat-tab-group class="@container">
+    <mat-tab-group
+      (selectedTabChange)="$event.index == 1 && getMyContributions()"
+      class="@container"
+    >
       <mat-tab label="All Papers">
         <div class="grid gap-4 @4xl:gap-8 p-3 @md:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4">
-          @if (pastQuestions.isLoading()) {
-            @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12]; track $index) {
-              <div
-                class="animate-pulse aspect-square bg-(--mat-sys-surface-container-highest)"
-              ></div>
-            }
-          } @else {
-            @for (pastQuestion of pastQuestions.value().data; track pastQuestion.id) {
-              <div
-                class="flex overflow-hidden flex-col rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-md bg-(--mat-sys-surface-container-low)"
-              >
-                <div class="flex-grow p-5">
-                  <h3 class="text-lg font-semibold text-(--mat-sys-primary) line-clamp-1">
-                    {{ pastQuestion.course.title }}
-                  </h3>
-                  <p class="mt-1 text-sm text-background-dark/70 dark:text-background-light/70">
-                    {{ pastQuestion.course.code }}
-                  </p>
-                  <div
-                    class="mt-4 space-y-2 text-xs text-background-dark/60 dark:text-background-light/60"
-                  >
-                    <div class="flex items-center">
-                      <span class="mr-2 text-base icon-[material-symbols--school-outline]"></span>
-                      <span class="text-primary-80 line-clamp-1">
-                        {{ pastQuestion.course.department.faculty.institution.name }}
-                      </span>
-                    </div>
+          @for (pastQuestion of pastQuestions().data; track pastQuestion.id) {
+            <div
+              class="flex overflow-hidden flex-col rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-md bg-(--mat-sys-surface-container-low)"
+            >
+              <div class="flex-grow p-5">
+                <h3 class="text-lg font-semibold text-(--mat-sys-primary) line-clamp-1">
+                  {{ pastQuestion.course.title }}
+                </h3>
+                <p class="mt-1 text-sm text-background-dark/70 dark:text-background-light/70">
+                  {{ pastQuestion.course.code }}
+                </p>
+                <div
+                  class="mt-4 space-y-2 text-xs text-background-dark/60 dark:text-background-light/60"
+                >
+                  <div class="flex items-center">
+                    <span class="mr-2 text-base icon-[material-symbols--school-outline]"></span>
+                    <span class="text-primary-80 line-clamp-1">
+                      {{ pastQuestion.course.department.faculty.institution.name }}
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <span
+                      class="mr-2 text-base icon-[material-symbols--apartment-rounded]"
+                      role="img"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="line-clamp-1">{{
+                      pastQuestion.course.department.faculty.name
+                    }}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span
+                      class="mr-2 text-base icon-[material-symbols--business-center-outline]"
+                    ></span>
+                    <span class="line-clamp-1">{{ pastQuestion.course.department.name }}</span>
+                  </div>
+                  <div class="flex items-center space-x-4">
                     <div class="flex items-center">
                       <span
-                        class="mr-2 text-base icon-[material-symbols--apartment-rounded]"
-                        role="img"
-                        aria-hidden="true"
+                        class="mr-2 text-base icon-[material-symbols--calendar-today-outline]"
                       ></span>
-                      <span class="line-clamp-1">{{
-                        pastQuestion.course.department.faculty.name
-                      }}</span>
+                      <span>{{ pastQuestion.year }}</span>
+                    </div>
+                    <div class="flex items-center">
+                      <span class="mr-2 text-base icon-[material-symbols--schedule-outline]"></span>
+                      <span>Fall</span>
                     </div>
                     <div class="flex items-center">
                       <span
                         class="mr-2 text-base icon-[material-symbols--business-center-outline]"
                       ></span>
-                      <span class="line-clamp-1">{{ pastQuestion.course.department.name }}</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                      <div class="flex items-center">
-                        <span
-                          class="mr-2 text-base icon-[material-symbols--calendar-today-outline]"
-                        ></span>
-                        <span>{{ pastQuestion.year }}</span>
-                      </div>
-                      <div class="flex items-center">
-                        <span
-                          class="mr-2 text-base icon-[material-symbols--schedule-outline]"
-                        ></span>
-                        <span>Fall</span>
-                      </div>
-                      <div class="flex items-center">
-                        <span
-                          class="mr-2 text-base icon-[material-symbols--business-center-outline]"
-                        ></span>
-                        <span>{{ pastQuestion.solutions_count }}</span>
-                      </div>
+                      <span>{{ pastQuestion.solutions_count }}</span>
                     </div>
                   </div>
                 </div>
-                <a
-                  class="flex gap-1 justify-center items-center p-5 text-sm font-medium transition duration-300 group/link bg-(--mat-sys-primary) text-(--mat-sys-on-primary) hover:bg-(--mat-sys-primary)/95"
-                  [routerLink]="['/past-question', pastQuestion.id]"
-                >
-                  <span class="transition duration-700 group-hover/link:tracking-wider"
-                    >View Paper</span
-                  >
-                  <span
-                    class="text-lg icon-[material-symbols--arrow-forward-rounded]"
-                    role="img"
-                    aria-hidden="true"
-                  ></span>
-                </a>
               </div>
-            }
+              <a
+                class="flex gap-1 justify-center items-center p-5 text-sm font-medium transition duration-300 group/link bg-(--mat-sys-primary) text-(--mat-sys-on-primary) hover:bg-(--mat-sys-primary)/95"
+                [routerLink]="['/past-question', pastQuestion.id]"
+              >
+                <span class="transition duration-700 group-hover/link:tracking-wider"
+                  >View Paper</span
+                >
+                <span
+                  class="text-lg icon-[material-symbols--arrow-forward-rounded]"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </div>
           }
         </div>
       </mat-tab>
       <mat-tab label="My Contributions" #myContributions>
         <div class="grid gap-4 @4xl:gap-8 p-3 @md:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4">
-          @if (myContributedPastQuestions.isLoading()) {
-            @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12]; track $index) {
-              <div
-                class="rounded animate-pulse aspect-square bg-(--mat-sys-surface-container-highest)"
-              ></div>
-            }
-          } @else if (myContributedPastQuestions.value().data.length < 1) {
+          @if (myContributedPastQuestions().data.length < 1) {
             <div class="col-span-full py-2 text-center min-h-100">
               You haven't uploaded pastQuestions yet
             </div>
           } @else {
-            @for (pastQuestion of myContributedPastQuestions.value().data; track pastQuestion.id) {
+            @for (pastQuestion of myContributedPastQuestions().data; track pastQuestion.id) {
               <div
                 class="flex overflow-hidden flex-col rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-md bg-(--mat-sys-surface-container-low)"
               >
@@ -307,9 +294,9 @@
   </div>
   <mat-paginator
     [pageSizeOptions]="[10, 15, 20, 25, 50]"
-    [pageIndex]="pastQuestions.value().meta.current_page - 1"
-    [pageSize]="pastQuestions.value().meta.per_page"
-    [length]="pastQuestions.value().meta.total"
+    [pageIndex]="pastQuestions().meta.current_page - 1"
+    [pageSize]="pastQuestions().meta.per_page"
+    [length]="pastQuestions().meta.total"
     (page)="
       [
         form.patchValue({ filters: { page: $event.pageIndex + 1, limit: $event.pageSize } }),
