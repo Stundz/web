@@ -47,14 +47,14 @@ export class User {
 	}
 
 	logout() {
-		this._http
-			.get<void>(`https://api.${this.environment.domain}/auth/logout`)
+		return this._http
+			.post<void>(`https://api.${this.environment.domain}/logout`, {})
 			.pipe(
 				tap(() => {
 					this._cookies.clear();
-					this._location.replaceState(
-						`https://auth.${this.environment.domain}/login`,
-					);
+					// window.location.replace(
+					// 	`https://auth.${this.environment.domain}/login`,
+					// );
 				}),
 			);
 	}
