@@ -268,6 +268,7 @@ export class CreatePage {
 		}
 
 		this.form.controls.tutoring.controls.courses.push(this._fb.control(course));
+		this.courseSearch.setValue("");
 	}
 
 	courseDisplay = (course: Model.Plug.Course | undefined) => {
