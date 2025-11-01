@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.4.0](https://github.com/Stundz/web/compare/v5.3.0...v5.4.0) (2025-11-01)
+
+
+### Features
+
+* Added postcss plugin for scss ([4ece493](https://github.com/Stundz/web/commit/4ece493115cb9eda73d4b32aedc7a4f671fd63af))
+* **plug:** Tutorial now shows date from database ([5bdff93](https://github.com/Stundz/web/commit/5bdff93b505c8d712f5722a5aa026f3207a652d7))
+
+
+### Bug Fixes
+
+* **plug:** Auth layout now has dropdown below user icon ([ee95886](https://github.com/Stundz/web/commit/ee95886b40de2c1d9b3a48c2aa083f0671a6ef32))
+* **plug:** Revamped the tutorial sessions component ([c02b4a6](https://github.com/Stundz/web/commit/c02b4a678fc7d80cfc218fec29b074293bb3c56a))
+* Tutor application page now accepts courses ([805b898](https://github.com/Stundz/web/commit/805b898cb6c511860a586fbf4d1f0050b5cc3e93))
+
 ## [5.3.0](https://github.com/Stundz/web/compare/v5.2.0...v5.3.0) (2025-10-27)
 
 
