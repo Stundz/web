@@ -6,59 +6,154 @@
     </p>
   </div>
   <form [formGroup]="form" class="p-6 space-y-6 sm:p-8">
-    <mat-stepper linear [orientation]="stepperOrientation()">
+    <mat-stepper linear [orientation]="stepperOrientation()" #stepper>
       <mat-step label="Personal" [stepControl]="form.controls.personal">
         <div class="spacy-y-3 *:w-full mt-4">
           <div class="grid @2xl/page:grid-cols-2 gap-3">
             <mat-form-field>
               <mat-label>First name</mat-label>
-              <input type="text" matInput />
+              <input
+                type="text"
+                [formControl]="form.controls.personal.controls.first_name"
+                matInput
+                [value]="user()?.first_name"
+              />
             </mat-form-field>
             <mat-form-field>
               <mat-label>Last name</mat-label>
-              <input type="text" matInput />
+              <input
+                type="text"
+                [formControl]="form.controls.personal.controls.last_name"
+                [value]="user()?.last_name"
+                matInput
+              />
             </mat-form-field>
           </div>
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input type="email" matInput />
+            <input
+              type="email"
+              [formControl]="form.controls.personal.controls.email"
+              [value]="user()?.email"
+              matInput
+            />
           </mat-form-field>
         </div>
+        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
       <mat-step label="Academic" [stepControl]="form.controls.academic">
         <div class="space-y-3 *:w-full mt-4">
           <mat-form-field>
             <mat-label>Institution</mat-label>
-            <mat-select></mat-select>
+            <mat-select [formControl]="form.controls.academic.controls.institution_id">
+              @for (institution of institutions.value(); track institution.id) {
+                <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
           <div class="grid @2xl/page:grid-cols-2 gap-3">
             <mat-form-field>
               <mat-label>Faculty</mat-label>
-              <mat-select type="text"></mat-select>
+              <mat-select type="text" [formControl]="form.controls.academic.controls.faculty_id">
+                @for (faculty of faculties.value(); track faculty.id) {
+                  <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
+                }
+              </mat-select>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Department</mat-label>
-              <mat-select type="text"></mat-select>
+              <mat-select type="text" [formControl]="form.controls.academic.controls.department_id">
+                @for (department of departments.value(); track department.id) {
+                  <mat-option [value]="department.id">{{ department.name }}</mat-option>
+                }
+              </mat-select>
             </mat-form-field>
           </div>
           <mat-form-field>
             <mat-label>Matricule</mat-label>
-            <input matInput />
+            <input matInput [formControl]="form.controls.academic.controls.matricule" />
           </mat-form-field>
         </div>
+        <button type="button" matStepperPrevious matButton="filled" class="">Previous</button>
+        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
       <mat-step label="Tutoring" [stepControl]="form.controls.tutoring">
         <div class="space-y-3 *:w-full mt-4">
+          <div class="grid @lg/page:grid-cols-2 @3xl/page:grid-cols-3 gap-2 *:line-clamp-1">
+            @for (control of form.controls.tutoring.controls.courses.controls; track $index) {
+              @let course = control.value!;
+              <mat-card>
+                <mat-card-header>
+                  <button matMiniFab class="ms-auto size-7!" (click)="removeCourse($index)">
+                    <span
+                      class="text-sm icon-[material-symbols--close] text-(--mat-sys-error)"
+                      role="img"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </mat-card-header>
+                <mat-card-content>
+                  <div>
+                    {{ course.code }}
+                  </div>
+                  <div class="line-clamp-1">
+                    {{ course.title }}
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <mat-select (valueChange)="tutoringFaculty.set($event)">
+              @for (faculty of faculties.value(); track faculty.id) {
+                <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
           <mat-form-field>
             <mat-label>Select Subjects</mat-label>
-            <mat-select multiple></mat-select>
+            <input matInput [formControl]="courseSearch" [matAutocomplete]="subjectsLists" />
+            <mat-autocomplete
+              #subjectsLists="matAutocomplete"
+              (optionSelected)="addCourse($event)"
+              [displayWith]="courseDisplay"
+            >
+              @for (course of filteredCourses(); track course.id) {
+                <mat-option
+                  [value]="course"
+                  [disabled]="form.controls.tutoring.controls.courses.length >= 3"
+                  >{{ course.code }}: {{ course.title }}</mat-option
+                >
+              }
+            </mat-autocomplete>
           </mat-form-field>
         </div>
+        <button type="button" matStepperPrevious matButton="filled" class="">Previous</button>
+        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
-      <mat-step label="Verification" [stepControl]="form.controls.verification"></mat-step>
+      <mat-step label="Verification" [stepControl]="form.controls.verification">
+        <div class="space-y-3 *:w-full mt-4 mb-2">
+          <mat-card stundzDropzone class="cursor-pointer aspect-video">
+            <mat-card-header> Add a profile picture </mat-card-header>
+            <mat-card-content class="h-full">
+              <div
+                class="flex flex-col gap-2 justify-center items-center rounded border border-dashed size-full border-(--mat-sys-secondary)"
+              >
+                <span class="text-4xl icon-[et--upload]" role="img" aria-hidden="true"></span>
+                <span class="text-xl text-(--mat-sys-secondary)"
+                  >Click or Drop your file here to upload</span
+                >
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <button type="button" matStepperPrevious matButton="filled" class="">Previous</button>
+        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
+      </mat-step>
 
       <mat-step label="Submission"></mat-step>
     </mat-stepper>
