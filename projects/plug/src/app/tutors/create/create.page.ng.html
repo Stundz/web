@@ -137,14 +137,34 @@
 
       <mat-step label="Verification" [stepControl]="form.controls.verification">
         <div class="space-y-3 *:w-full mt-4 mb-2">
+          <div>
+            <mat-card class="w-full h-55">
+              <mat-card-header>Upload a profile picture</mat-card-header>
+              <mat-card-content class="size-full">
+                <div
+                  class="flex flex-col gap-2 justify-center items-center py-2 rounded border border-dashed size-full border-(--mat-sys-secondary)"
+                >
+                  <div
+                    class="relative h-full rounded-full cursor-pointer bg-(--mat-sys-surface-container-high) aspect-square"
+                  >
+                    <span
+                      class="absolute top-1/2 left-1/2 text-3xl -translate-x-1/2 -translate-y-1/2 icon-[et--profile-male]"
+                      role="img"
+                      aria-hidden="true"
+                    ></span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
           <mat-card stundzDropzone class="cursor-pointer aspect-video">
-            <mat-card-header> Add a profile picture </mat-card-header>
+            <mat-card-header>Add you transcript</mat-card-header>
             <mat-card-content class="h-full">
               <div
                 class="flex flex-col gap-2 justify-center items-center rounded border border-dashed size-full border-(--mat-sys-secondary)"
               >
                 <span class="text-4xl icon-[et--upload]" role="img" aria-hidden="true"></span>
-                <span class="text-xl text-(--mat-sys-secondary)"
+                <span class="md:text-xl text-(--mat-sys-secondary)"
                   >Click or Drop your file here to upload</span
                 >
               </div>
