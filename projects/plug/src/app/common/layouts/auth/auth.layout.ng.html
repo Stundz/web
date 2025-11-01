@@ -155,8 +155,12 @@
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhqiQgXNS4ByJhwBvazoAx0T-M5euUEuasyHs8fEa5V-cJ2nSWZpiXX6XSKvMdziRsSCC7PXIFmQaxEBw7jcNG2RJtKmaeFPvhqdkv4Ko3ULeHkTJt_HBjo0HNEwHRGT_f4H-W2Xb8MTfi-KAWpGaO0V4MyZN0r8501rNbOxslV4W3q1J23jO4RcfgzvBgSFL7mUlhvVjwSQu5JvUn5nXTZSTgYQ_kvnogaKJLX7yybouWulwrS8fdtqWPCp9qt06NoDtR9BC_vNI5"
           />
           <mat-menu #userMenu="matMenu">
-            <button type="button" class="flex gap-1 items-center" mat-menu-item>Item 1</button>
-            <button type="button" class="flex gap-1 items-center" mat-menu-item>Item 2</button>
+            <a routerLink="/settings" type="button" class="flex gap-1 items-center" mat-menu-item>
+              Settings
+            </a>
+            <button type="button" class="flex gap-1 items-center" mat-menu-item (click)="logout()">
+              Logout
+            </button>
           </mat-menu>
         </div>
       </header>
