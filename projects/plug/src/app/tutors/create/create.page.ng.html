@@ -38,6 +38,13 @@
               matInput
             />
           </mat-form-field>
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input type="tel" [formControl]="form.controls.personal.controls.phone" matInput />
+            @if (form.controls.personal.controls.phone.hasError('tel')) {
+              <mat-error>Invalid phone number</mat-error>
+            }
+          </mat-form-field>
         </div>
         <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
