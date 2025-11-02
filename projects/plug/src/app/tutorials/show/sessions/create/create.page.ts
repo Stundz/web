@@ -23,7 +23,7 @@ import {
 	tap,
 } from "rxjs";
 import { Tutorial } from "../../../../common/services/tutorial";
-import { format, isAfter, parse, parseISO } from "date-fns";
+import { isAfter } from "date-fns";
 import { MatButtonModule } from "@angular/material/button";
 
 @Component({
@@ -56,6 +56,10 @@ export class CreatePage {
 		duration: this._fb.control<number>(60, {
 			nonNullable: true,
 			validators: [Validators.required],
+		}),
+		venue: this._fb.control("", {
+			nonNullable: true,
+			validators: [],
 		}),
 		time: this._fb.control<Date | undefined>(undefined, {
 			nonNullable: true,
