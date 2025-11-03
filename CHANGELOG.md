@@ -1,5 +1,25 @@
 # Changelog
 
+## [5.5.0](https://github.com/Stundz/web/compare/v5.4.0...v5.5.0) (2025-11-03)
+
+
+### Features
+
+* **plug:** Temporarily changed theme to orange ([4c67941](https://github.com/Stundz/web/commit/4c6794131f24497b6931bed1cb123625855c16b9))
+
+
+### Bug Fixes
+
+* Added a venue field to the tutorials form ([1b00b28](https://github.com/Stundz/web/commit/1b00b2823547746634a210b29de7784c8c193442))
+* **plug:** Added phone number input with validation on tutors form ([58dbf24](https://github.com/Stundz/web/commit/58dbf2413e7c81468aa9808c174515b40fa6eb57))
+* **plug:** Adjusted button UI on the tutors view page ([2cc7ad1](https://github.com/Stundz/web/commit/2cc7ad199b2a2c7a5eed709bd26937d03fc0cc8f))
+* **plug:** Autocomplete on tutors application resets properly ([4d2fb56](https://github.com/Stundz/web/commit/4d2fb56a86942406bc3242805b220694d79f4aec))
+* **plug:** Enabled active URLs in the navbar ([12c6641](https://github.com/Stundz/web/commit/12c6641d63491259e8670d6e1928ae3f9ae116d6))
+* Properly display welcome message with username ([e307de9](https://github.com/Stundz/web/commit/e307de9995c19b520dc88c8ea056cc182f19ac54))
+* Refactores google authentication URL ([e7b5702](https://github.com/Stundz/web/commit/e7b570269dc8a614a3be5e26c5a806ca4234586d))
+* Revamped the UI of the tutors application form ([fecc2e6](https://github.com/Stundz/web/commit/fecc2e61b2d4a5274bc5f7334a9e97b1c86e5944))
+* Updated models to include venue field for tutorial sessions ([a1b7585](https://github.com/Stundz/web/commit/a1b7585e935b7f76449ee335ee2e8bc9d3486106))
+
 ## [5.4.0](https://github.com/Stundz/web/compare/v5.3.0...v5.4.0) (2025-11-01)
 
 
