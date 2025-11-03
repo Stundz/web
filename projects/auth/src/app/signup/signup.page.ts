@@ -33,7 +33,7 @@ export class SignupPage {
 	private _userService = inject(User);
 	private _fb = inject(FormBuilder);
 
-	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${!!this._route.snapshot.queryParams["callback"] ? "?stundz_callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
+	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${!!this._route.snapshot.queryParams["callback"] ? "?callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
 
 	form = this._fb.group({
 		first_name: this._fb.control("", {
