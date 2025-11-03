@@ -28,221 +28,72 @@
       />
     </div>
     <mat-expansion-panel #filters>
-      <div class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-5">
-        <button
-          class="flex gap-x-2 justify-center items-center py-2 px-4 text-sm font-medium rounded-lg bg-(--mat-sys-primary)/10 text-(--mat-sys-primary) dark:bg-(--mat-sys-primary)/20 dark:hover:bg-(--mat-sys-primary)/30 hover:bg-(--mat-sys-primary)/20"
-        >
-          <span>Subject</span>
-          <span class="material-symbols-outlined">expand_more</span>
-        </button>
-        <button
-          class="flex gap-x-2 justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg dark:text-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <span>Tutor</span>
-          <span class="material-symbols-outlined">expand_more</span>
-        </button>
-        <button
-          class="flex gap-x-2 justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg dark:text-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <span>Price</span>
-          <span class="material-symbols-outlined">expand_more</span>
-        </button>
-        <button
-          class="flex gap-x-2 justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg dark:text-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <span>Date</span>
-          <span class="material-symbols-outlined">expand_more</span>
-        </button>
-        <button
-          class="flex gap-x-2 justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg dark:text-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-        >
-          <span>Rating</span>
-          <span class="material-symbols-outlined">expand_more</span>
-        </button>
-      </div>
+      <form class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-5"></form>
     </mat-expansion-panel>
   </form>
   <div class="flex gap-2 justify-between items-center mb-6">
-    <h2 class="text-2xl font-bold tracking-tight">
+    <h2 class="text-lg font-bold tracking-tight sm:text-2xl">
       Available Tutorials
       @if (tutorials().data.length && tutorials().meta.total) {
         ({{ tutorials().meta.total }})
       }
     </h2>
-    <a routerLink="/tutors/apply" class="float-right" matButton="filled">Become a tutor</a>
+    <a routerLink="/tutors/apply" class="sm:float-right max-sm:order-first" matButton="outlined"
+      >Become a tutor</a
+    >
   </div>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
     @for (tutorial of tutorials().data; track tutorial.id) {
-      <div
-        class="flex overflow-hidden flex-col rounded-xl shadow-md transition-transform hover:scale-105 bg-(--mat-sys-surface-container-low)"
-      >
-        <div
-          class="w-full h-48 bg-center bg-cover"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnDzUECV1fq2dMg7zvRcfKA5Os7r-iQhrgYOtUXRg6mtu3h0jaBaUt_xK4304d9opV8iAAw_xASFiustRSRojZ-r4ZfZjxKKBNqz5PyiMw69h0TExnUJOQMwSqFhLUQKhVBvPRwg-zLV5uPQYTMogbzd7Gw7iWUSQeNo_xAbJ_TmoXGd4IZ9lhGsncm9PJlftT50gnYJRFZPtpN-6MaCMBAS4FQYG8wkI_5npXS0l8hDrllLMdQMR8yL01655Puq_dV-jClPWmUnMZ');
-          "
-        ></div>
-        <div class="flex flex-col flex-1 p-6">
-          <div class="flex gap-3 justify-end items-center text-xs">
-            <span class="shrink-0">{{ tutorial.course?.code }}</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white line-clamp-1">
-            {{ tutorial.name }}
-          </h3>
-          <p class="flex-1 mt-2 text-sm text-(--mat-sys-secondary) line-clamp-2">
-            {{ tutorial.description }}
-          </p>
-          <div class="mt-4 *:flex *:items-center *:*:first:mr-2">
-            <div class="">
-              <span
-                class="icon-[material-symbols--school-outline-rounded] text-(--mat-sys-primary)"
-                role="img"
-                aria-hidden="true"
-              ></span>
-              <span
-                >{{ tutorial.tutor?.user?.first_name }} {{ tutorial.tutor?.user?.last_name }}</span
+      <mat-card class="relativ">
+        <mat-card-content>
+          <div class="flex overflow-hidden flex-col transition-transform hover:scale-110">
+            <div class="flex flex-col flex-1 p-6">
+              <div class="flex gap-3 items-center text-sm font-semibold">
+                <span class="shrink-0 line-clamp-1 text-(--mat-sys-primary)"
+                  >{{ tutorial.course?.code }}: {{ tutorial.course?.title }}</span
+                >
+              </div>
+              <a
+                [routerLink]="['/tutorial', tutorial.id]"
+                class="text-2xl font-bold text-gray-900 dark:text-white line-clamp-1"
               >
+                <span class="absolute inset-0"> </span>
+                {{ tutorial.name }}
+              </a>
+              <p class="flex-1 mt-2 text-sm text-(--mat-sys-secondary) line-clamp-2">
+                {{ tutorial.description }}
+              </p>
+              <div class="mt-4 *:flex *:items-center *:*:first:mr-2">
+                <div class="">
+                  <span
+                    class="icon-[material-symbols--school-outline-rounded] text-(--mat-sys-primary)"
+                    role="img"
+                    aria-hidden="true"
+                  ></span>
+                  <span
+                    >{{ tutorial.tutor?.user?.first_name }}
+                    {{ tutorial.tutor?.user?.last_name }}</span
+                  >
+                </div>
+              </div>
             </div>
-            <!-- <div class=""> -->
-            <!--   <span -->
-            <!--     class="text-base icon-[material-symbols--schedule-outline] text-(--mat-sys-primary)" -->
-            <!--     role="img" -->
-            <!--     aria-hidden="true" -->
-            <!--   ></span> -->
-            <!--   <span>{{ '2000-01-01T' + tutorial.?session?.time | date: 'shortTime' }}</span> -->
-            <!-- </div> -->
           </div>
-          <div class="flex justify-between items-center mt-4">
-            <p class="text-lg font-bold text-(--mat-sys-primary)">
-              {{ tutorial.price | currency: 'XAF ' : 'code' : '0.0' }}
-            </p>
-            <a matButton="filled" [routerLink]="['/tutorial', tutorial.id]">View Details</a>
-          </div>
-        </div>
-      </div>
+        </mat-card-content>
+        <!-- <mat-card-footer> </mat-card-footer> -->
+        <!-- <mat-card-actions> -->
+        <!--   <div class="flex justify-between items-center px-2 mt-4 w-full"> -->
+        <!--     <p class="text-lg font-bold text-(--mat-sys-primary)"> -->
+        <!--       {{ tutorial.price | currency: 'XAF ' : 'code' : '0.0' }} -->
+        <!--     </p> -->
+        <!--     <a matButton="filled" [routerLink]="['/tutorial', tutorial.id]" class="ms-auto" -->
+        <!--       >View Details</a -->
+        <!--     > -->
+        <!--   </div> -->
+        <!-- </mat-card-actions> -->
+      </mat-card>
+    } @empty {
+      <div class="col-span-full py-6 px-2 text-center">No tutorials yet. Come back later</div>
     }
-    <div
-      class="flex overflow-hidden flex-col bg-white rounded-xl shadow-md transition-transform hover:scale-105 dark:bg-gray-900/50"
-    >
-      <div
-        class="w-full h-48 bg-center bg-cover"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1P4ejxs4FGfaZeNukhDYsgutpwDa4DspWgaL5pPluYcuJy3aEEasKB5jFJxK9tDL8d5wC2MIyxhx0s0YGhGmJJBy-aByWZRQ8d6NhwvWWafGW6EH7L5v4J70v5ygGCDveHgKdylF7w-n-4CEd4ny_2QoYNrXym2H8iO9UlJJHHD7ylx0MjqDrlr595FgZeBkP5bP_pIOVCZ41jdRNxoH-ZEEdUi4-rOcb0CKN5uj3f7UwflkbfRF1aJb8z6jF2t00Be9VaKo0ghtU');
-        "
-      ></div>
-      <div class="flex flex-col flex-1 p-6">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Organic Chemistry Help</h3>
-        <p class="flex-1 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Nomenclature, reactions, mechanisms, and spectroscopy. Excel in your exams.
-        </p>
-        <div class="flex justify-between items-center mt-4">
-          <p class="text-lg font-bold text-(--mat-sys-primary)">$50/hr</p>
-          <button
-            class="py-2 px-4 text-sm font-semibold text-white rounded-lg bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/80"
-          >
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex overflow-hidden flex-col bg-white rounded-xl shadow-md transition-transform hover:scale-105 dark:bg-gray-900/50"
-    >
-      <div
-        class="w-full h-48 bg-center bg-cover"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBs2crcqz_PjukSEQcF5eyYwRSixwpDwyAk-8jEZcvVrZF61cgSQ4Kv5svh9Ea18_vui1vJe0Y6z6srUEjckG2xCx0vbTr0DpcCWIl_1gGLivv7byrtcFeIb8HTqNkvs0nKNtE82ObKKh8kevEJINptfjR8F7ME6W_1eVpjc71615zCxDCUN9kZRAL9X7Yf-VU6a8MQshoWG97RdJUMynNHZPxjLlpyMAGRdTPQfzeA_f74f_fBvzEkWCYnMolg3whZ8h8ZRXpE77ji');
-        "
-      ></div>
-      <div class="flex flex-col flex-1 p-6">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Linear Algebra Mastery</h3>
-        <p class="flex-1 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Vector spaces, linear transformations, eigenvalues, and applications.
-        </p>
-        <div class="flex justify-between items-center mt-4">
-          <p class="text-lg font-bold text-(--mat-sys-primary)">$40/hr</p>
-          <button
-            class="py-2 px-4 text-sm font-semibold text-white rounded-lg bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/80"
-          >
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex overflow-hidden flex-col bg-white rounded-xl shadow-md transition-transform hover:scale-105 dark:bg-gray-900/50"
-    >
-      <div
-        class="w-full h-48 bg-center bg-cover"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1NPiHUPWwY1IPKuXMgPVLn0zBeDXjmHmnKQm-YGJapa_m-_FebS4DDq9dFDU7B2aKGdnTSOLja4CKEEohQlC2HJOlh19e-7tzYkdKv8Iv6mnjmAtHtpYTVzkD0CXyifpNUeAtr8-I7gwtyNX0vuYickMBFHV1ZCecfYIPo3VNLDBvYykbLFITbQH6keNk47iOVpx4_8EIpTpddtwd_1PgZF3af_nSgJC9zbt4W2zynXOUuRhx9XFP6yg7J96OKpxHMamqE4OmRTqh');
-        "
-      ></div>
-      <div class="flex flex-col flex-1 p-6">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-          Probability &amp; Statistics
-        </h3>
-        <p class="flex-1 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Probability distributions, hypothesis testing, regression analysis, and more.
-        </p>
-        <div class="flex justify-between items-center mt-4">
-          <p class="text-lg font-bold text-(--mat-sys-primary)">$55/hr</p>
-          <button
-            class="py-2 px-4 text-sm font-semibold text-white rounded-lg bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/80"
-          >
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex overflow-hidden flex-col bg-white rounded-xl shadow-md transition-transform hover:scale-105 dark:bg-gray-900/50"
-    >
-      <div
-        class="w-full h-48 bg-center bg-cover"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDprZFrxhawL21Fo_pJ2RcE5XWM-DEzm2Pbas-YfplWepr0M4OSCIyd1Fiv13RTgVVnONAsanUNOHOVXx1wa4wt03p7gHYoVZOPxOPI489CbtQ71FcvZ8aDOpD48U-LjGJQ_Rw-bxeAIZ9e3Tbxxth_nVOM6Ld3zNv79mGXzQO9fEkcLfsAU7srNpmHzKzXkRCT-PAMCplqgFT_k3glPPtrxucJBQ1ojr512Li6x7UJMVvXtaF_LKho3MVGtQLUUFUE5iNvWZWDmE7c');
-        "
-      ></div>
-      <div class="flex flex-col flex-1 p-6">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Web Development Basics</h3>
-        <p class="flex-1 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Learn HTML, CSS, and JavaScript from scratch. Build your first website.
-        </p>
-        <div class="flex justify-between items-center mt-4">
-          <p class="text-lg font-bold text-(--mat-sys-primary)">$60/hr</p>
-          <button
-            class="py-2 px-4 text-sm font-semibold text-white rounded-lg bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/80"
-          >
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex overflow-hidden flex-col bg-white rounded-xl shadow-md transition-transform hover:scale-105 dark:bg-gray-900/50"
-    >
-      <div
-        class="w-full h-48 bg-center bg-cover"
-        style="
-          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDprZFrxhawL21Fo_pJ2RcE5XWM-DEzm2Pbas-YfplWepr0M4OSCIyd1Fiv13RTgVVnONAsanUNOHOVXx1wa4wt03p7gHYoVZOPxOPI489CbtQ71FcvZ8aDOpD48U-LjGJQ_Rw-bxeAIZ9e3Tbxxth_nVOM6Ld3zNv79mGXzQO9fEkcLfsAU7srNpmHzKzXkRCT-PAMCplqgFT_k3glPPtrxucJBQ1ojr512Li6x7UJMVvXtaF_LKho3MVGtQLUUFUE5iNvWZWDmE7c');
-        "
-      ></div>
-      <div class="flex flex-col flex-1 p-6">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Cybersecurity Fundamentals</h3>
-        <p class="flex-1 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Understand the basics of cybersecurity, including threats, vulnerabilities, and defense.
-        </p>
-        <div class="flex justify-between items-center mt-4">
-          <p class="text-lg font-bold text-(--mat-sys-primary)">$65/hr</p>
-          <button
-            class="py-2 px-4 text-sm font-semibold text-white rounded-lg bg-(--mat-sys-primary) hover:bg-(--mat-sys-primary)/80"
-          >
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
   <mat-paginator
     [pageIndex]="tutorials().meta.current_page - 1"
