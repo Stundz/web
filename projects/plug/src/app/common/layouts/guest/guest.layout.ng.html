@@ -1,5 +1,5 @@
 <header
-  class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-background-light/80 backdrop-blur-sm dark:bg-background-dark/80"
+  class="sticky top-0 z-50 border-b dark:border-gray-800 border-(--mat-sys-outline) bg-(--mat-sys-surface-container-highest)/80 text-(--mat-sys-on-surface) backdrop-blur-sm"
 >
   <div class="container px-4 mx-auto sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
@@ -15,22 +15,26 @@
       </a>
       <nav class="hidden gap-8 items-center md:flex">
         <a
-          class="text-sm font-medium text-gray-600 transition-colors dark:text-gray-300 dark:hover:text-primary hover:text-primary"
+          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+          routerLinkActive="text-(--mat-sys-primary)"
           routerLink="/"
           >Home</a
         >
         <a
-          class="text-sm font-medium text-gray-600 transition-colors dark:text-gray-300 dark:hover:text-primary hover:text-primary"
+          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+          routerLinkActive="text-(--mat-sys-primary)"
           routerLink="/features"
           >Features</a
         >
         <a
-          class="text-sm font-medium text-gray-600 transition-colors dark:text-gray-300 dark:hover:text-primary hover:text-primary"
+          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+          routerLinkActive="text-(--mat-sys-primary)"
           routerLink="/pricing"
           >Pricing</a
         >
         <a
-          class="text-sm font-medium text-gray-600 transition-colors dark:text-gray-300 dark:hover:text-primary hover:text-primary"
+          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+          routerLinkActive="text-(--mat-sys-primary)"
           routerLink="/contact"
           >Contact</a
         >
