@@ -4,6 +4,7 @@ import {
 	ActivatedRoute,
 	Router,
 	RouterLink,
+	RouterLinkActive,
 	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
@@ -11,7 +12,13 @@ import { ENVIRONMENT, Model, User } from "shared";
 
 @Component({
 	selector: "app-guest",
-	imports: [RouterLink, RouterOutlet, MatButtonModule, RouterLinkWithHref],
+	imports: [
+		RouterLink,
+		RouterLinkActive,
+		RouterOutlet,
+		MatButtonModule,
+		RouterLinkWithHref,
+	],
 	templateUrl: "./guest.layout.ng.html",
 	styleUrl: "./guest.layout.scss",
 })

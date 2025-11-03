@@ -71,6 +71,21 @@ export class CreatePage {
 				nonNullable: true,
 				validators: [Validators.required, Validators.email],
 			}),
+			phone: this._fb.control("", {
+				nonNullable: true,
+				validators: [
+					Validators.required,
+					(control) => {
+						if (!/^\+?(237)?6[87259][0-9]{7}$/.test(control.value)) {
+							return {
+								tel: false,
+							};
+						}
+
+						return null;
+					},
+				],
+			}),
 		}),
 		academic: this._fb.group({
 			institution_id: this._fb.control<string>("", {
@@ -268,6 +283,7 @@ export class CreatePage {
 		}
 
 		this.form.controls.tutoring.controls.courses.push(this._fb.control(course));
+		this.courseSearch.setValue("");
 	}
 
 	courseDisplay = (course: Model.Plug.Course | undefined) => {

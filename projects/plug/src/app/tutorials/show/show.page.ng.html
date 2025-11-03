@@ -22,7 +22,11 @@
             <p class="mt-1 text-lg">
               with
               <a [routerLink]="['/tutor', (tut?.tutor)!.id]" class="text-(--mat-sys-tertiary)">
-                {{ tut?.tutor?.user?.first_name }}
+                @if (tut?.tutor?.user_id === user()?.id) {
+                  You
+                } @else {
+                  {{ tut?.tutor?.user?.first_name }}
+                }
               </a>
             </p>
             <div class="flex gap-2 items-center mt-2">
@@ -203,20 +207,22 @@
                   </p>
                 </div>
               </div>
-              <div class="flex flex-col gap-2">
-                <span class="self-end text-xs"
-                  >{{
-                    (tut.session?.students_count || 0) >= 100
-                      ? 'full'
-                      : `${tut.session?.students_count || 0}/100`
-                  }}
-                </span>
-                <mat-progress-bar
-                  [value]="tut.session?.students_count"
-                  class="rounded-full"
-                  color="warn"
-                />
-              </div>
+              @if (tut.tutor?.user_id === user()?.id) {
+                <div class="flex flex-col gap-2">
+                  <span class="self-end text-xs"
+                    >{{
+                      (tut.session?.students_count || 0) >= 100
+                        ? 'full'
+                        : `${tut.session?.students_count || 0}/100`
+                    }}
+                  </span>
+                  <mat-progress-bar
+                    [value]="tut.session?.students_count"
+                    class="rounded-full"
+                    color="warn"
+                  />
+                </div>
+              }
             </div>
             @if (tut.tutor?.user_id !== user()?.id) {
               <button

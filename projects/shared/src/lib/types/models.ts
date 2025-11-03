@@ -21,6 +21,9 @@ export namespace Model {
 			/** Time in minutes which how long a session will last */
 			duration: number;
 
+			/** The venue in which the tutorial session will take place or took place in */
+			venue: string | undefined;
+
 			/** The number of students in a given session */
 			students_count: number;
 
