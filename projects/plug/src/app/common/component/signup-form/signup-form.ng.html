@@ -1,0 +1,56 @@
+<h2 class="mb-2 text-2xl">Let's do a quick round up</h2>
+<span class="text-sm text-(--mat-sys-secondary)/80"
+  >In order to improve the user experience and display appropriate content, please fill out this
+  form below...</span
+>
+
+<form [formGroup]="form" class="mt-8">
+  <div class="flex flex-col">
+    <mat-form-field>
+      <mat-label>Institution</mat-label>
+      <mat-select formControlName="institution_id">
+        @for (institution of institutions.value(); track institution.id) {
+          <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Faculty</mat-label>
+      <mat-select formControlName="faculty_id">
+        @for (faculty of faculties.value(); track faculty.id) {
+          <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Department</mat-label>
+      <mat-select formControlName="department_id">
+        @for (department of departments.value(); track department.id) {
+          <mat-option [value]="department.id">{{ department.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Degree Program</mat-label>
+      <mat-select formControlName="program">
+        <mat-option>Bachelor</mat-option>
+        <mat-option>Masters</mat-option>
+        <mat-option>PHd</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Level</mat-label>
+      <mat-select formControlName="level">
+        <mat-option>I</mat-option>
+        <mat-option>II</mat-option>
+        <mat-option>III</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button matButton="filled">Submit</button>
+</form>
