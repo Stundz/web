@@ -95,7 +95,7 @@
   <mat-sidenav-content>
     <div class="flex overflow-hidden flex-col flex-1">
       <header
-        class="flex flex-shrink-0 justify-between items-center px-6 h-16 border-b bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low)"
+        class="flex relative flex-shrink-0 justify-between items-center px-6 h-16 border-b bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low)"
       >
         <div class="flex items-center">
           <button class="mr-4" (click)="[sidebar.toggle()]">
@@ -169,6 +169,11 @@
             </button>
           </mat-menu>
         </div>
+        @if (loading()) {
+          <div class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar mode="indeterminate" />
+          </div>
+        }
       </header>
       <main class="flex-1 p-6 @container/page">
         <router-outlet />
