@@ -6,6 +6,21 @@ export interface Model {
 
 export namespace Model {
 	export namespace Plug {
+		export interface User extends Model.User {
+			/**
+			 * The tutorial classes owned by the current user
+			 */
+			sessions: Array<Plug.Tutorial>;
+
+			tutor?: Plug.Tutor;
+
+			plug: {
+				department_id: string;
+				level_id: string;
+				program_id: string;
+			} & Model;
+		}
+
 		export interface Session extends Model {
 			tutorial_id: Tutorial["id"];
 
@@ -90,12 +105,5 @@ export namespace Model {
 		last_name: string;
 
 		email: string;
-
-		/**
-		 * The tutorial classes owned by the current user
-		 */
-		sessions: Array<Plug.Tutorial>;
-
-		tutor?: Plug.Tutor;
 	}
 }
