@@ -62,23 +62,19 @@ export class LoginPage {
 			.pipe(
 				switchMap(() =>
 					this._userService.login(this.form.getRawValue()).pipe(
-						switchMap(() =>
-							timer(500).pipe(
-								map(() => false),
-								tap(() => {
-									const callback =
-										this._route.snapshot.paramMap.get("callback");
-									if (callback != null) {
-										window.location.replace(callback);
-									} else {
-										this._router.navigateByUrl("/");
-									}
-								}),
-							),
-						),
+						switchMap(() => timer(500).pipe(map(() => false))),
 						catchError(() => {
 							// TODO: Handle past questions creation errors
 							return timer(500).pipe(map(() => false));
+						}),
+						tap(() => {
+							const callback =
+								this._route.snapshot.queryParamMap.get("callback");
+							if (callback != null) {
+								window.location.replace(callback);
+							} else {
+								this._router.navigateByUrl("/");
+							}
 						}),
 						startWith(true),
 					),
