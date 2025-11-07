@@ -221,9 +221,11 @@
           </div>
           @if (tutorial().tutor?.user_id !== user()?.id) {
             <button
+              type="button"
               matButton="filled"
               class="w-full"
               [disabled]="tutorial().session?.students_count || 0 >= 100"
+              (click)="book()"
             >
               Book Session
             </button>
