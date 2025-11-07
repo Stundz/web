@@ -35,22 +35,22 @@
 
     <mat-form-field>
       <mat-label>Degree Program</mat-label>
-      <mat-select formControlName="program">
-        <mat-option>Bachelor</mat-option>
-        <mat-option>Masters</mat-option>
-        <mat-option>PHd</mat-option>
+      <mat-select formControlName="program_id">
+        @for (program of programs.value(); track program.id) {
+          <mat-option [value]="program.id">{{ program.name }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Level</mat-label>
-      <mat-select formControlName="level">
-        <mat-option>I</mat-option>
-        <mat-option>II</mat-option>
-        <mat-option>III</mat-option>
+      <mat-select formControlName="level_id">
+        @for (level of levels.value(); track level.id) {
+          <mat-option [value]="level.id">{{ level.name }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>
 
-  <button matButton="filled">Submit</button>
+  <button matButton="filled" [disabled]="loading() || form.invalid">Submit</button>
 </form>

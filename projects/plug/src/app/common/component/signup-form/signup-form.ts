@@ -1,4 +1,4 @@
-import { httpResource } from "@angular/common/http";
+import { HttpClient, httpResource } from "@angular/common/http";
 import { Component, effect, inject } from "@angular/core";
 import {
 	FormBuilder,
@@ -10,20 +10,36 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { environment } from "../../../../environments/environment";
-import { Model } from "shared";
+import { Model, User } from "shared";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { filter, tap } from "rxjs";
+import {
+	catchError,
+	filter,
+	map,
+	startWith,
+	switchMap,
+	tap,
+	timer,
+} from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
 	selector: "plug-signup-form",
-	imports: [ReactiveFormsModule, MatInputModule, MatSelectModule],
+	imports: [
+		ReactiveFormsModule,
+		MatInputModule,
+		MatSelectModule,
+		MatButtonModule,
+	],
 	templateUrl: "./signup-form.ng.html",
 	styleUrl: "./signup-form.scss",
 })
 export class SignupForm {
 	private _fb = inject(FormBuilder);
 	private _snackBar = inject(MatSnackBar);
+	private _http = inject(HttpClient);
+	#userService = inject(User);
 	dialogRef = inject(MatDialogRef<SignupForm>);
 
 	form = this._fb.group({
@@ -39,11 +55,11 @@ export class SignupForm {
 			nonNullable: true,
 			validators: [Validators.required],
 		}),
-		program: this._fb.control("", {
+		program_id: this._fb.control("", {
 			nonNullable: true,
 			validators: [Validators.required],
 		}),
-		level: this._fb.control("", {
+		level_id: this._fb.control("", {
 			nonNullable: true,
 			validators: [Validators.required],
 		}),
@@ -71,6 +87,68 @@ export class SignupForm {
 			: undefined,
 	);
 
+	programs = httpResource<Array<Model.Plug.Institution>>(() => ({
+		url: `https://api.${environment.domain}/plug/programs`,
+	}));
+	program = toSignal(this.form.controls.program_id.valueChanges);
+
+	levels = httpResource<Array<Model.Plug.Institution>>(() =>
+		this.program()
+			? {
+					url: `https://api.${environment.domain}/plug/program/${this.program()}/levels`,
+				}
+			: undefined,
+	);
+
+	loading = toSignal(
+		this.form.events.pipe(
+			takeUntilDestroyed(),
+			filter((event) => event instanceof FormSubmittedEvent),
+			switchMap(() =>
+				this._http
+					.post(
+						`https://api.${environment.domain}/plug/user`,
+						this.form.getRawValue(),
+					)
+					.pipe(
+						switchMap(() =>
+							timer(500).pipe(
+								map(() => false),
+
+								tap(() => {
+									this.dialogRef.close();
+
+									this.#userService.fetchUser();
+
+									this._snackBar.open(
+										"Thanks for filling out the form. enjoy your stay here",
+										"",
+										{
+											duration: 4000,
+										},
+									);
+								}),
+							),
+						),
+						catchError((response) => {
+							const { errors } = response.error;
+
+							Object.keys(errors).forEach((key) => {
+								this.form.get(key)?.setErrors({ response: errors[key][0] });
+							});
+
+							// TODO: Handle past questions creation errors
+							console.log(errors);
+
+							return timer(500).pipe(map(() => false));
+						}),
+						startWith(true),
+					),
+			),
+		),
+		{ initialValue: false },
+	);
+
 	constructor() {
 		effect(() => {
 			this.faculties.hasValue()
@@ -80,23 +158,10 @@ export class SignupForm {
 			this.departments.hasValue()
 				? this.form.controls.department_id.enable()
 				: this.form.controls.department_id.disable();
-		});
 
-		this.form.events
-			.pipe(
-				takeUntilDestroyed(),
-				filter((event) => event instanceof FormSubmittedEvent),
-				tap(() => {
-					this.dialogRef.close();
-					this._snackBar.open(
-						"Thanks for filling out the form. enjoy your stay here",
-						"",
-						{
-							duration: 4000,
-						},
-					);
-				}),
-			)
-			.subscribe();
+			this.levels.hasValue()
+				? this.form.controls.level_id.enable()
+				: this.form.controls.level_id.disable();
+		});
 	}
 }
