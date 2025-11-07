@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.7.0](https://github.com/Stundz/web/compare/v5.6.0...v5.7.0) (2025-11-07)
+
+
+### Features
+
+* **plug:** Enabled production mode in production environment ([acfd6ec](https://github.com/Stundz/web/commit/acfd6ecd1e2b11d9d68600fc3e151280dd8ee2bc))
+
+
+### Bug Fixes
+
+* **plug:** Fixed route prerendering issues ([40d93be](https://github.com/Stundz/web/commit/40d93beee3f4a4e46a363c728210929bb66f7110))
+
 ## [5.6.0](https://github.com/Stundz/web/compare/v5.5.0...v5.6.0) (2025-11-07)
 
 
