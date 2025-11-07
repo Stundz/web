@@ -33,7 +33,7 @@ export class SignupPage {
 	private _userService = inject(User);
 	private _fb = inject(FormBuilder);
 
-	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${!!this._route.snapshot.queryParams["callback"] ? "?stundz_callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
+	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${!!this._route.snapshot.queryParams["callback"] ? "?callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
 
 	form = this._fb.group({
 		first_name: this._fb.control("", {
@@ -89,6 +89,15 @@ export class SignupPage {
 							console.log(errors);
 
 							return timer(500).pipe(map(() => false));
+						}),
+						tap(() => {
+							const callback =
+								this._route.snapshot.queryParamMap.get("callback");
+							if (callback != null) {
+								window.location.replace(callback);
+							} else {
+								this._router.navigateByUrl("/");
+							}
 						}),
 						startWith(true),
 					),

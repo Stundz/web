@@ -1,7 +1,15 @@
 import { Location } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { map, shareReplay, switchMap, tap } from "rxjs";
+import {
+	BehaviorSubject,
+	map,
+	shareReplay,
+	startWith,
+	Subject,
+	switchMap,
+	tap,
+} from "rxjs";
 import { ENVIRONMENT, Model } from "../types";
 import { Cookie } from "./cookie";
 
@@ -12,11 +20,22 @@ export class User {
 	protected readonly environment = inject(ENVIRONMENT);
 	private _cookies = inject(Cookie);
 	private _http = inject(HttpClient);
-	private _location = inject(Location);
 
-	user$ = this._http
-		.get<Model.User>(`https://api.${this.environment.domain}/user`)
-		.pipe(shareReplay());
+	private _user = new BehaviorSubject<void>(undefined);
+	// private _user$ = this._user.asObservable();
+
+	user$ = this._user.asObservable().pipe(
+		switchMap(() =>
+			this._http
+				.get<Model.User>(`https://api.${this.environment.domain}/user`)
+				.pipe(),
+		),
+		shareReplay(),
+	);
+
+	fetchUser() {
+		this._user.next();
+	}
 
 	signup(payload: Record<string, any> | FormData) {
 		return this._http

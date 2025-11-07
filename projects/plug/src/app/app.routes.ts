@@ -5,6 +5,8 @@ export const routes: Routes = [
 	{
 		path: "",
 		resolve: { user: userResolver },
+		loadComponent: () =>
+			import("./common/layouts/app.layout").then((m) => m.AppLayout),
 		children: [
 			{
 				path: "",

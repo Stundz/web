@@ -25,7 +25,11 @@
 
     <div class="flex justify-end items-center">
       <div class="text-sm">
-        <a class="font-medium text-(--mat-sys-primary)" routerLink="/forgot-password">
+        <a
+          class="font-medium text-(--mat-sys-primary)"
+          routerLink="/forgot-password"
+          queryParamsHandling="preserve"
+        >
           Forgot your password?
         </a>
       </div>
@@ -50,6 +54,12 @@
   </form>
   <p class="mt-6 text-sm text-center text-text-secondary">
     Don't have an account?
-    <a class="font-medium text-(--mat-sys-tertiary)" routerLink="/signup"> Sign up </a>
+    <a
+      class="font-medium text-(--mat-sys-tertiary)"
+      routerLink="/signup"
+      queryParamsHandling="preserve"
+    >
+      Sign up
+    </a>
   </p>
 </div>

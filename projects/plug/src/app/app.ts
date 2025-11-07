@@ -1,9 +1,9 @@
 import { Component, DOCUMENT, effect, Inject, inject, Renderer2, signal } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 import { Meta } from "@angular/platform-browser";
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { filter, map } from "rxjs";
 import { environment } from "../environments/environment";
-import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: "app-root",
@@ -14,6 +14,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 export class App {
   private _router = inject(Router)
 	protected readonly title = signal("plug");
+
 
 	readonly cannonical = toSignal(
     this._router.events.pipe(
@@ -86,4 +87,5 @@ export class App {
 			},
 		]);
 	}
+
 }
