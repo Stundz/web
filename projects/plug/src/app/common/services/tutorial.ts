@@ -8,7 +8,7 @@ export class Tutorial {
 	private readonly _http = inject(HttpClient);
 
 	tutorials$ = this._http.get<Paginated<Model.Plug.Tutorial>>(
-		`https://api.${environment.domain}/plug/tutorials`,
+		`${environment.production ? "https" : "http"}://api.${environment.domain}/plug/tutorials`,
 	);
 
 	create(
