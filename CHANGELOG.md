@@ -1,5 +1,21 @@
 # Changelog
 
+## [5.6.0](https://github.com/Stundz/web/compare/v5.5.0...v5.6.0) (2025-11-07)
+
+
+### Features
+
+* Added local .env file to address issues ([c5b29ca](https://github.com/Stundz/web/commit/c5b29ca98530cca42b116a4d3a832d8968edce4a))
+* **plug:** Added resolver for a single tutorial ([a2a925c](https://github.com/Stundz/web/commit/a2a925c04246e8b1a01325e4dbb0b4670d484a9f))
+* **plug:** Implemented a booking form for tutorials ([576641e](https://github.com/Stundz/web/commit/576641effbcd2879ef9958603e91924247de338b))
+* **plug:** Inidividual past-questiosn now fetches on SSR ([287e556](https://github.com/Stundz/web/commit/287e556d31af8d5bf0c3182514951ef57759ed18))
+
+
+### Bug Fixes
+
+* **plug:** Added updated types for tutor's model ([f3f504f](https://github.com/Stundz/web/commit/f3f504f53ed744085fcf2758bd62cd8db252ec40))
+* **plug:** Past question resolver now works with SSR ([3679b05](https://github.com/Stundz/web/commit/3679b050977fd5b5808169885df19bbaafb73a5f))
+
 ## [5.5.0](https://github.com/Stundz/web/compare/v5.4.0...v5.5.0) (2025-11-03)
 
 
