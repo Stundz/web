@@ -90,6 +90,15 @@ export class SignupPage {
 
 							return timer(500).pipe(map(() => false));
 						}),
+						tap(() => {
+							const callback =
+								this._route.snapshot.queryParamMap.get("callback");
+							if (callback != null) {
+								window.location.replace(callback);
+							} else {
+								this._router.navigateByUrl("/");
+							}
+						}),
 						startWith(true),
 					),
 				),
