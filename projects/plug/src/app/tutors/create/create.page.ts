@@ -1,5 +1,4 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { NgTemplateOutlet } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
 	ChangeDetectorRef,
@@ -19,11 +18,11 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatStepperModule } from "@angular/material/stepper";
-import { debounceTime, distinctUntilChanged, filter, map } from "rxjs";
+import { debounceTime, filter, map } from "rxjs";
 import { Dropzone, Model } from "shared";
 import { environment } from "../../../environments/environment";
-import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
 	selector: "plug-create",
@@ -35,7 +34,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 		MatCardModule,
 		MatStepperModule,
 		ReactiveFormsModule,
-		NgTemplateOutlet,
 		Dropzone,
 	],
 	templateUrl: "./create.page.ng.html",
