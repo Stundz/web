@@ -1,5 +1,6 @@
 import {
 	ApplicationConfig,
+	enableProdMode,
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
 } from "@angular/core";
@@ -19,6 +20,10 @@ import {
 import { ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
+
+if (environment.production) {
+	enableProdMode();
+}
 
 export const appConfig: ApplicationConfig = {
 	providers: [
