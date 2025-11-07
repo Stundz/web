@@ -67,6 +67,8 @@ export namespace Model {
 		export interface Tutor extends Model {
 			user_id: User["id"];
 			user?: User;
+			name: string;
+			endorsement: Record<"email" | "name", string | null>;
 		}
 
 		export interface PastQuestion extends Model {
