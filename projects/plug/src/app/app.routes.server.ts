@@ -6,7 +6,19 @@ export const serverRoutes: ServerRoute[] = [
 		renderMode: RenderMode.Prerender,
 	},
 	{
-		path: "past-question/:past-question",
+		path: "dashboard",
+		renderMode: RenderMode.Server,
+	},
+	{
+		path: "past-questions",
+		renderMode: RenderMode.Server,
+	},
+	{
+		path: "past-question/:past-question/**",
+		renderMode: RenderMode.Server,
+	},
+	{
+		path: "tutorials",
 		renderMode: RenderMode.Server,
 	},
 	{
@@ -14,7 +26,11 @@ export const serverRoutes: ServerRoute[] = [
 		renderMode: RenderMode.Server,
 	},
 	{
-		path: "tutor/:tutor",
+		path: "tutors",
+		renderMode: RenderMode.Server,
+	},
+	{
+		path: "tutor/:tutor/**",
 		renderMode: RenderMode.Server,
 	},
 ];
