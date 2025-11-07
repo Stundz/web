@@ -1,0 +1,20 @@
+<form [formGroup]="form" class="p-5">
+  <h2 class="text-2xl">Booking payment</h2>
+  <span class="text-sm text-(--mat-sys-secondary)/80"
+    >You have to pay your tutorial fee for this session in order to take part in this session. You
+    are required to pay a fee of
+    <strong>{{ 300 | currency: 'XAF ' : 'code' : '1.0' }} </strong></span
+  >
+  <div class="flex flex-col *:w-full mt-8">
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input type="text" matInput formControlName="phone" />
+      <mat-hint class="text-xs">
+        Enter a MoMo/OM number to initiate the transaction. Fees may be applied based on the payment
+        provider
+      </mat-hint>
+    </mat-form-field>
+
+    <button matButton="filled" class="mt-12 ms-auto">Book</button>
+  </div>
+</form>

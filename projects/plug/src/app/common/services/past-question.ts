@@ -1,9 +1,15 @@
 import { HttpClient, HttpContext } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { effect, inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HTTP_SKIP_ON_SERVER, Model, Paginated, toFormData } from "shared";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { distinctUntilChanged, filter, switchMap } from "rxjs";
+import {
+	BehaviorSubject,
+	distinctUntilChanged,
+	filter,
+	startWith,
+	switchMap,
+} from "rxjs";
 
 @Injectable({ providedIn: null })
 export class PastQuestion {
@@ -11,8 +17,9 @@ export class PastQuestion {
 	readonly filters = signal<Record<string, any>>({});
 	publisher = signal<string | undefined>(undefined);
 
-	pastQuestions$ = toObservable(this.filters).pipe(
-		// startWith({}),
+	private _filters = new BehaviorSubject<Record<string, any>>({});
+
+	pastQuestions$ = this._filters.asObservable().pipe(
 		switchMap((filters) => {
 			const params = Object.fromEntries(
 				Object.entries(filters).filter(([key, value]) =>
@@ -24,7 +31,7 @@ export class PastQuestion {
 				`https://api.${environment.domain}/plug/past-questions`,
 				{
 					params,
-					context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
+					// context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
 				},
 			);
 		}),
@@ -44,6 +51,12 @@ export class PastQuestion {
 			),
 		),
 	);
+
+	constructor() {
+		effect(() => {
+			this._filters.next(this.filters());
+		});
+	}
 
 	create(payload: { course_id: string; file: File | null; year: number }) {
 		return this._http.post<void>(

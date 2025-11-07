@@ -13,22 +13,49 @@
     [formGroup]="form"
     class="p-4 mb-8 space-y-2 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)"
   >
-    <div class="relative" (click)="filters.open()">
-      <span
-        class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[material-symbols--search]"
-        role="img"
-        aria-hidden="true"
-      >
-      </span>
+    <mat-form-field class="w-full">
+      <mat-icon matPrefix>
+        <span
+          class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[material-symbols--search]"
+          role="img"
+          aria-hidden="true"
+        >
+        </span>
+      </mat-icon>
+
       <input
-        class="pr-4 pl-14 w-full h-14 text-base rounded-lg border-gray-300 dark:border-gray-700 form-input bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-container-low) focus:ring-(--mat-sys-primary) focus:border-(--mat-sys-primary)"
+        type="text"
         placeholder="Search for subjects, tutors, or keywords..."
-        type="search"
+        matInput
         formControlName="q"
       />
-    </div>
+      <mat-icon matSuffix (click)="filters.toggle()" role="button" class="cursor-pointer">
+        <span
+          class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[octicon--settings]"
+          role="img"
+          aria-hidden="true"
+        >
+        </span>
+      </mat-icon>
+    </mat-form-field>
     <mat-expansion-panel #filters>
-      <form class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-5"></form>
+      <form
+        class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-5"
+        [formGroup]="form.controls.filters"
+      >
+        <mat-form-field>
+          <mat-label>Institution</mat-label>
+          <mat-select formControlName="institution"> </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Faculty</mat-label>
+          <mat-select></mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Department</mat-label>
+          <mat-select></mat-select>
+        </mat-form-field>
+      </form>
     </mat-expansion-panel>
   </form>
   <div class="flex gap-2 justify-between items-center mb-6">
@@ -70,10 +97,7 @@
                     role="img"
                     aria-hidden="true"
                   ></span>
-                  <span
-                    >{{ tutorial.tutor?.user?.first_name }}
-                    {{ tutorial.tutor?.user?.last_name }}</span
-                  >
+                  <span>{{ tutorial.tutor?.name }} </span>
                 </div>
               </div>
             </div>

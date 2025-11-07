@@ -1,7 +1,10 @@
 import { Routes } from "@angular/router";
 import { Tutorial } from "../common/services/tutorial";
 import { provideNativeDateAdapter } from "@angular/material/core";
-import { tutorialsResolver } from "../common/resolvers/tutorial-resolver";
+import {
+	tutorialResolver,
+	tutorialsResolver,
+} from "../common/resolvers/tutorial-resolver";
 
 export const routes: Routes = [
 	{
@@ -37,6 +40,9 @@ export const routes: Routes = [
 					},
 					{
 						path: ":tutorial",
+						resolve: {
+							tutorial: tutorialResolver,
+						},
 						children: [
 							{
 								path: "",

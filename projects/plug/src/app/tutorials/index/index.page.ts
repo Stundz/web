@@ -1,11 +1,14 @@
-import { CurrencyPipe, DatePipe } from "@angular/common";
+import { JsonPipe } from "@angular/common";
 import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatExpansionPanel } from "@angular/material/expansion";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { Meta } from "@angular/platform-browser";
 import { ActivatedRoute, RouterLink } from "@angular/router";
@@ -15,6 +18,8 @@ import type { Model, Paginated } from "shared";
 @Component({
 	selector: "app-index",
 	imports: [
+		MatIconModule,
+		MatInputModule,
 		MatTableModule,
 		RouterLink,
 		MatButtonModule,
@@ -22,10 +27,13 @@ import type { Model, Paginated } from "shared";
 		MatExpansionPanel,
 		MatPaginatorModule,
 		MatCardModule,
-		CurrencyPipe,
+		MatSelectModule,
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
+	host: {
+		ngSkipHydration: "true",
+	},
 })
 export class IndexPage {
 	tutorials = input.required<Paginated<Model.Plug.Tutorial>>();

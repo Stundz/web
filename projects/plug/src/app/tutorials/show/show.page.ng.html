@@ -1,248 +1,244 @@
-@if (tutorial.hasValue()) {
-  @let tut = tutorial.value()!;
-  <div class="mx-auto max-w-5xl">
-    <div class="mb-8">
-      <nav class="flex items-center text-sm">
-        <a class="hover:underline text-[#9eb7a8]" routerLink="/tutorials">Tutoring</a>
-        <span class="mx-2 text-[#9eb7a8]">/</span>
-        <span class="text-[--mat-sys-on-surface]">{{ tut?.course?.code }}</span>
-      </nav>
-    </div>
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
-      <div class="lg:col-span-2">
-        <div class="flex gap-6 items-center mb-8">
-          <div
-            class="flex-shrink-0 bg-center bg-no-repeat bg-cover rounded-full size-32"
-            style="
-              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_w71fZnKiPMTRD0xb2GXA6Tk0HiP9WIDn5hdo9SILm0WoWhEi-gZ6nTNQKzkU9GL2guqGH6m2P351UuMteTdSIXJfBrCn4tFX1RZA3iKSljw9yvpHlaHc7P9JlV1tzc0DrCNznzHF1bF0cIE6CxNV0FxRWiDmoiQU2Sd3KogKHhp544dmJ_nCHVTl1MUGAHk5uAWLPMLNyJzkMff-f0BSs7CgG-0ku3FzIyDrWvCjTRPzD0h1eUdEvzItBQRZvj-7d9FILxIKlUY');
-            "
-          ></div>
-          <div>
-            <h1 class="text-3xl font-bold">{{ tut?.name }}</h1>
-            <p class="mt-1 text-lg">
-              with
-              <a [routerLink]="['/tutor', (tut?.tutor)!.id]" class="text-(--mat-sys-tertiary)">
-                @if (tut?.tutor?.user_id === user()?.id) {
-                  You
-                } @else {
-                  {{ tut?.tutor?.user?.first_name }}
-                }
-              </a>
-            </p>
-            <div class="flex gap-2 items-center mt-2">
-              <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-                <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-              </div>
-              <p class="text-sm">4.8 (120 reviews)</p>
-            </div>
-          </div>
-        </div>
-        <div class="space-y-8">
-          <div>
-            <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">About the session</h2>
-            <p
-              class="mt-4 transition"
-              [class]="
-                tutorial.hasValue()
-                  ? 'duration-800'
-                  : 'animate-pulse h-25 rounded skeleton duration-500'
-              "
-            >
-              {{ tut?.description }}
-            </p>
-          </div>
-          @if (tut.session) {
-            @let session = tut.session;
-
-            <div>
-              <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Learning Objectives</h2>
-              <ul class="mt-4 space-y-3">
-                @for (objective of session.objectives; track $index) {
-                  <li class="flex gap-3 items-center">
-                    <span
-                      class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
-                      role="img"
-                      aria-hidden="true"
-                    ></span>
-                    <span class="">{{ objective }}</span>
-                  </li>
-                }
-              </ul>
-            </div>
-          }
-
-          <div>
-            <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Reviews</h2>
-            <div class="mt-6 space-y-8">
-              <div class="flex gap-4">
-                <img
-                  alt="Emily Carter"
-                  class="rounded-full size-10"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs3SGqTl37rMScau94EnvpRFjVlwh1OCMFoyQITSaeTIpustwyfPm0Utqx21beQU8MmtFJSxWnMeOXyD8M-ThAN6PAMdekCJZbLA9N84-rlwAO73efiLIMJvNR9RGBhcjj_95nyczTeBVPuHelqUJ6rXYf8UNMc1v68jxrXjh0kADgEK3J4GwJ6yTBZx9-dgNqUSHPHM7PVsyB75VXy5CWXSbukYiTJlR87AL5bs5ntw3qrjfprEjJK_duxDaUch4jWQBHNRytPJg"
-                />
-                <div class="flex-1">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <p class="font-medium text-white">Emily Carter</p>
-                      <p class="text-sm text-[#9eb7a8]">2 weeks ago</p>
-                    </div>
-                    <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    </div>
-                  </div>
-                  <p class="mt-2">
-                    Sarah is an excellent tutor! She explained complex concepts clearly and helped
-                    me improve my understanding of Math 101 significantly.
-                  </p>
-                  <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
-                    <button
-                      class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                    >
-                      <span class="material-symbols-outlined !text-xl">thumb_up</span><span>5</span>
-                    </button>
-                    <button
-                      class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                    >
-                      <span class="material-symbols-outlined !text-xl">thumb_down</span
-                      ><span>1</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <img
-                  alt="David Lee"
-                  class="rounded-full size-10"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFxjIGnCbl5t9XXpdqxuakBDpivqPtME9Qd3lT3cF-Z-DMqLH9xLX7bw0yrMeNNxVMBj-GAVLheT9Bo0HC1hS5Sd2dz9w5Yp4Y-XI4C7uOWKjr1OAkhSCyu2UthliDQPgtFZnrFm8HHck2arGS8hXbFkqmE443Vw7c0nxbHSI7ytwrd4n0S5aN6PLkz4buBbezhGWp8TvCXi9m0887ud7QdIPOTj3ZI0EcAX9vce3aAA1KfrsZLT7vb5il55OKk_0vQ2YRI76Hqfk"
-                />
-                <div class="flex-1">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <p class="font-medium text-white">David Lee</p>
-                      <p class="text-sm text-[#9eb7a8]">1 month ago</p>
-                    </div>
-                    <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                      <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    </div>
-                  </div>
-                  <p class="mt-2">
-                    Sarah's tutoring was helpful, especially in calculus. I would recommend her for
-                    anyone struggling with the course.
-                  </p>
-                  <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
-                    <button
-                      class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                    >
-                      <span class="material-symbols-outlined !text-xl">thumb_up</span><span>3</span>
-                    </button>
-                    <button
-                      class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                    >
-                      <span class="material-symbols-outlined !text-xl">thumb_down</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        @defer (on viewport) {
-          <plug-tutorial-sessions
-            [tutorial]="tut"
-            class="mt-3 max-lg:overflow-y-scroll max-lg:max-h-100"
-          />
-        } @placeholder {
-          <div
-            class="mt-3 rounded animate-pulse bg-(--mat-sys-surface-container-low)/30 min-h-100"
-          ></div>
-        }
-      </div>
-      <div class="lg:col-span-1">
+<div class="mx-auto max-w-5xl">
+  <div class="mb-8">
+    <nav class="flex items-center text-sm">
+      <a class="hover:underline text-[#9eb7a8]" routerLink="/tutorials">Tutoring</a>
+      <span class="mx-2 text-[#9eb7a8]">/</span>
+      <span class="text-[--mat-sys-on-surface]">{{ tutorial().course?.code }}</span>
+    </nav>
+  </div>
+  <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
+    <div class="lg:col-span-2">
+      <div class="flex gap-6 items-center mb-8">
         <div
-          class="sticky top-10 p-6 rounded-2xl bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
-        >
-          @if (tut.tutor?.user_id === user()?.id) {
-          } @else {}
-          @if (tut?.session) {
-            <p class="text-2xl font-bold">
-              {{ tut.price | currency: 'XAF ' : 'code' : '1.0' }}
-              <span class="text-base font-normal text-(--mat-sys-neutral10)">/ hour</span>
-            </p>
-            <div class="my-6 space-y-4">
-              <div class="flex gap-3 items-start">
-                <span
-                  class="mt-1 icon-[ic--baseline-calendar-today] text-(--mat-sys-secondary)"
-                  role="img"
-                  aria-hidden="true"
-                ></span>
-                <div>
-                  <p class="font-medium text-white">Schedule</p>
-                  <p class="">{{ tut?.session?.day | date: 'EEEE, MMMM d' }}</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span
-                  class="mt-1 text-(--mat-sys-secondary) icon-[ic--round-schedule]"
-                  role="img"
-                  aria-hidden="true"
-                ></span>
-                <div>
-                  <p class="font-medium">Time</p>
-                  <p class="">
-                    {{ tut?.session?.day | date: 'shortTime' }} -
-                    {{ endTime() | date: 'shortTime' }}
-                  </p>
-                </div>
-              </div>
-              @if (tut.tutor?.user_id === user()?.id) {
-                <div class="flex flex-col gap-2">
-                  <span class="self-end text-xs"
-                    >{{
-                      (tut.session?.students_count || 0) >= 100
-                        ? 'full'
-                        : `${tut.session?.students_count || 0}/100`
-                    }}
-                  </span>
-                  <mat-progress-bar
-                    [value]="tut.session?.students_count"
-                    class="rounded-full"
-                    color="warn"
-                  />
-                </div>
+          class="flex-shrink-0 bg-center bg-no-repeat bg-cover rounded-full size-32"
+          style="
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_w71fZnKiPMTRD0xb2GXA6Tk0HiP9WIDn5hdo9SILm0WoWhEi-gZ6nTNQKzkU9GL2guqGH6m2P351UuMteTdSIXJfBrCn4tFX1RZA3iKSljw9yvpHlaHc7P9JlV1tzc0DrCNznzHF1bF0cIE6CxNV0FxRWiDmoiQU2Sd3KogKHhp544dmJ_nCHVTl1MUGAHk5uAWLPMLNyJzkMff-f0BSs7CgG-0ku3FzIyDrWvCjTRPzD0h1eUdEvzItBQRZvj-7d9FILxIKlUY');
+          "
+        ></div>
+        <div>
+          <h1 class="text-3xl font-bold">{{ tutorial().name }}</h1>
+          <p class="mt-1 text-lg">
+            with
+            <a [routerLink]="['/tutor', tutorial().tutor?.id]" class="text-(--mat-sys-tertiary)">
+              @if (tutorial().tutor?.user_id === user()?.id) {
+                You
+              } @else {
+                {{ tutorial().tutor?.name }}
               }
+            </a>
+          </p>
+          <div class="flex gap-2 items-center mt-2">
+            <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
+              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
             </div>
-            @if (tut.tutor?.user_id !== user()?.id) {
-              <button
-                matButton="filled"
-                class="w-full"
-                [disabled]="!tutorial.hasValue() || tut.session?.students_count || 0 >= 100"
-              >
-                Book Session
-              </button>
-            }
-          } @else {
-            <p class="text-center">No active session</p>
-            @if (tut.tutor?.user_id === user()?.id) {
-              <div class="flex justify-center mt-4">
-                <a [routerLink]="['sessions', 'create']" matButton="filled">Create session</a>
+            <p class="text-sm">4.8 (120 reviews)</p>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">About the session</h2>
+          <p
+            class="mt-4 transition"
+            [class]="
+              !!tutorial() ? 'duration-800' : 'animate-pulse h-25 rounded skeleton duration-500'
+            "
+          >
+            {{ tutorial().description }}
+          </p>
+        </div>
+        @if (tutorial().session) {
+          @let session = tutorial().session;
+
+          <div>
+            <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Learning Objectives</h2>
+            <ul class="mt-4 space-y-3">
+              @for (objective of session?.objectives; track $index) {
+                <li class="flex gap-3 items-center">
+                  <span
+                    class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
+                    role="img"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="">{{ objective }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        <div>
+          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Reviews</h2>
+          <div class="mt-6 space-y-8">
+            <div class="flex gap-4">
+              <img
+                alt="Emily Carter"
+                class="rounded-full size-10"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs3SGqTl37rMScau94EnvpRFjVlwh1OCMFoyQITSaeTIpustwyfPm0Utqx21beQU8MmtFJSxWnMeOXyD8M-ThAN6PAMdekCJZbLA9N84-rlwAO73efiLIMJvNR9RGBhcjj_95nyczTeBVPuHelqUJ6rXYf8UNMc1v68jxrXjh0kADgEK3J4GwJ6yTBZx9-dgNqUSHPHM7PVsyB75VXy5CWXSbukYiTJlR87AL5bs5ntw3qrjfprEjJK_duxDaUch4jWQBHNRytPJg"
+              />
+              <div class="flex-1">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="font-medium text-white">Emily Carter</p>
+                    <p class="text-sm text-[#9eb7a8]">2 weeks ago</p>
+                  </div>
+                  <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <p class="mt-2">
+                  Sarah is an excellent tutor! She explained complex concepts clearly and helped me
+                  improve my understanding of Math 101 significantly.
+                </p>
+                <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
+                  <button
+                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
+                  >
+                    <span class="material-symbols-outlined !text-xl">thumb_up</span><span>5</span>
+                  </button>
+                  <button
+                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
+                  >
+                    <span class="material-symbols-outlined !text-xl">thumb_down</span><span>1</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <img
+                alt="David Lee"
+                class="rounded-full size-10"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFxjIGnCbl5t9XXpdqxuakBDpivqPtME9Qd3lT3cF-Z-DMqLH9xLX7bw0yrMeNNxVMBj-GAVLheT9Bo0HC1hS5Sd2dz9w5Yp4Y-XI4C7uOWKjr1OAkhSCyu2UthliDQPgtFZnrFm8HHck2arGS8hXbFkqmE443Vw7c0nxbHSI7ytwrd4n0S5aN6PLkz4buBbezhGWp8TvCXi9m0887ud7QdIPOTj3ZI0EcAX9vce3aAA1KfrsZLT7vb5il55OKk_0vQ2YRI76Hqfk"
+              />
+              <div class="flex-1">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <p class="font-medium text-white">David Lee</p>
+                    <p class="text-sm text-[#9eb7a8]">1 month ago</p>
+                  </div>
+                  <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <p class="mt-2">
+                  Sarah's tutoring was helpful, especially in calculus. I would recommend her for
+                  anyone struggling with the course.
+                </p>
+                <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
+                  <button
+                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
+                  >
+                    <span class="material-symbols-outlined !text-xl">thumb_up</span><span>3</span>
+                  </button>
+                  <button
+                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
+                  >
+                    <span class="material-symbols-outlined !text-xl">thumb_down</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @defer (on viewport) {
+        <plug-tutorial-sessions
+          [tutorial]="tutorial()"
+          class="mt-3 max-lg:overflow-y-scroll max-lg:max-h-100"
+        />
+      } @placeholder {
+        <div
+          class="mt-3 rounded animate-pulse bg-(--mat-sys-surface-container-low)/30 min-h-100"
+        ></div>
+      }
+    </div>
+    <div class="lg:col-span-1">
+      <div
+        class="sticky top-10 p-6 rounded-2xl bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
+      >
+        @if (tutorial().tutor?.user_id === user()?.id) {
+        } @else {}
+        @if (tutorial().session) {
+          <p class="text-2xl font-bold">
+            {{ tutorial().price | currency: 'XAF ' : 'code' : '1.0' }}
+            <span class="text-base font-normal text-(--mat-sys-neutral10)">/ hour</span>
+          </p>
+          <div class="my-6 space-y-4">
+            <div class="flex gap-3 items-start">
+              <span
+                class="mt-1 icon-[ic--baseline-calendar-today] text-(--mat-sys-secondary)"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <div>
+                <p class="font-medium text-white">Schedule</p>
+                <p class="">{{ tutorial().session?.day | date: 'EEEE, MMMM d' }}</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span
+                class="mt-1 text-(--mat-sys-secondary) icon-[ic--round-schedule]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <div>
+                <p class="font-medium">Time</p>
+                <p class="">
+                  {{ tutorial().session?.day | date: 'shortTime' }} -
+                  {{ endTime() | date: 'shortTime' }}
+                </p>
+              </div>
+            </div>
+            @if (tutorial().tutor?.user_id === user()?.id) {
+              <div class="flex flex-col gap-2">
+                <span class="self-end text-xs"
+                  >{{
+                    (tutorial().session?.students_count || 0) >= 100
+                      ? 'full'
+                      : `${tutorial().session?.students_count || 0}/100`
+                  }}
+                </span>
+                <mat-progress-bar
+                  [value]="tutorial().session?.students_count"
+                  class="rounded-full"
+                  color="warn"
+                />
               </div>
             }
+          </div>
+          @if (tutorial().tutor?.user_id !== user()?.id) {
+            <button
+              type="button"
+              matButton="filled"
+              class="w-full"
+              [disabled]="tutorial().session?.students_count || 0 >= 100"
+              (click)="book()"
+            >
+              Book Session
+            </button>
           }
-        </div>
+        } @else {
+          <p class="text-center">No active session</p>
+          @if (tutorial().tutor?.user_id === user()?.id) {
+            <div class="flex justify-center mt-4">
+              <a [routerLink]="['sessions', 'create']" matButton="filled">Create session</a>
+            </div>
+          }
+        }
       </div>
     </div>
   </div>
-}
+</div>
