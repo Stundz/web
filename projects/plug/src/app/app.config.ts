@@ -4,7 +4,11 @@ import {
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
 } from "@angular/core";
-import { provideRouter, withComponentInputBinding } from "@angular/router";
+import {
+	provideRouter,
+	withComponentInputBinding,
+	withRouterConfig,
+} from "@angular/router";
 
 import { routes } from "./app.routes";
 import {
@@ -29,7 +33,13 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideBrowserGlobalErrorListeners(),
 		provideZonelessChangeDetection(),
-		provideRouter(routes, withComponentInputBinding()),
+		provideRouter(
+			routes,
+			withComponentInputBinding(),
+			withRouterConfig({
+				paramsInheritanceStrategy: "always",
+			}),
+		),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
 		provideHttpClient(withFetch(), withInterceptors([stundzInterceptor])),
 		{
