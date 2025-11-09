@@ -1,9 +1,17 @@
 import { Routes } from "@angular/router";
-import { Tutorial } from "../../../common/services/tutorial";
+import {
+	sessionResolver,
+	sessionsResolver,
+} from "../../../common/resolvers/session-resolver";
+import { Session } from "../../../common/services/session";
 
 export const routes: Routes = [
 	{
 		path: "sessions",
+		providers: [Session],
+		resolve: {
+			sessions: sessionsResolver,
+		},
 		children: [
 			{
 				path: "",
@@ -16,6 +24,25 @@ export const routes: Routes = [
 				path: "create",
 				loadComponent: () =>
 					import("./create/create.page").then((m) => m.CreatePage),
+			},
+		],
+	},
+	{
+		path: "session/:session",
+		resolve: {
+			session: sessionResolver,
+		},
+		children: [
+			{
+				path: "",
+				pathMatch: "full",
+				loadComponent: () =>
+					import("./show/show.page").then((m) => m.ShowPage),
+			},
+			{
+				path: "edit",
+				loadComponent: () =>
+					import("./edit/edit.page").then((m) => m.EditPage),
 			},
 		],
 	},
