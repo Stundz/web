@@ -1,5 +1,68 @@
 # Changelog
 
+## [5.7.0](https://github.com/Stundz/web/compare/v5.6.0...v5.7.0) (2025-11-07)
+
+
+### Features
+
+* **plug:** Enabled production mode in production environment ([acfd6ec](https://github.com/Stundz/web/commit/acfd6ecd1e2b11d9d68600fc3e151280dd8ee2bc))
+
+
+### Bug Fixes
+
+* **plug:** Fixed route prerendering issues ([40d93be](https://github.com/Stundz/web/commit/40d93beee3f4a4e46a363c728210929bb66f7110))
+
+## [5.6.0](https://github.com/Stundz/web/compare/v5.5.0...v5.6.0) (2025-11-07)
+
+
+### Features
+
+* Added local .env file to address issues ([c5b29ca](https://github.com/Stundz/web/commit/c5b29ca98530cca42b116a4d3a832d8968edce4a))
+* **plug:** Added resolver for a single tutorial ([a2a925c](https://github.com/Stundz/web/commit/a2a925c04246e8b1a01325e4dbb0b4670d484a9f))
+* **plug:** Implemented a booking form for tutorials ([576641e](https://github.com/Stundz/web/commit/576641effbcd2879ef9958603e91924247de338b))
+* **plug:** Inidividual past-questiosn now fetches on SSR ([287e556](https://github.com/Stundz/web/commit/287e556d31af8d5bf0c3182514951ef57759ed18))
+
+
+### Bug Fixes
+
+* **plug:** Added updated types for tutor's model ([f3f504f](https://github.com/Stundz/web/commit/f3f504f53ed744085fcf2758bd62cd8db252ec40))
+* **plug:** Past question resolver now works with SSR ([3679b05](https://github.com/Stundz/web/commit/3679b050977fd5b5808169885df19bbaafb73a5f))
+
+## [5.5.0](https://github.com/Stundz/web/compare/v5.4.0...v5.5.0) (2025-11-03)
+
+
+### Features
+
+* **plug:** Temporarily changed theme to orange ([4c67941](https://github.com/Stundz/web/commit/4c6794131f24497b6931bed1cb123625855c16b9))
+
+
+### Bug Fixes
+
+* Added a venue field to the tutorials form ([1b00b28](https://github.com/Stundz/web/commit/1b00b2823547746634a210b29de7784c8c193442))
+* **plug:** Added phone number input with validation on tutors form ([58dbf24](https://github.com/Stundz/web/commit/58dbf2413e7c81468aa9808c174515b40fa6eb57))
+* **plug:** Adjusted button UI on the tutors view page ([2cc7ad1](https://github.com/Stundz/web/commit/2cc7ad199b2a2c7a5eed709bd26937d03fc0cc8f))
+* **plug:** Autocomplete on tutors application resets properly ([4d2fb56](https://github.com/Stundz/web/commit/4d2fb56a86942406bc3242805b220694d79f4aec))
+* **plug:** Enabled active URLs in the navbar ([12c6641](https://github.com/Stundz/web/commit/12c6641d63491259e8670d6e1928ae3f9ae116d6))
+* Properly display welcome message with username ([e307de9](https://github.com/Stundz/web/commit/e307de9995c19b520dc88c8ea056cc182f19ac54))
+* Refactores google authentication URL ([e7b5702](https://github.com/Stundz/web/commit/e7b570269dc8a614a3be5e26c5a806ca4234586d))
+* Revamped the UI of the tutors application form ([fecc2e6](https://github.com/Stundz/web/commit/fecc2e61b2d4a5274bc5f7334a9e97b1c86e5944))
+* Updated models to include venue field for tutorial sessions ([a1b7585](https://github.com/Stundz/web/commit/a1b7585e935b7f76449ee335ee2e8bc9d3486106))
+
+## [5.4.0](https://github.com/Stundz/web/compare/v5.3.0...v5.4.0) (2025-11-01)
+
+
+### Features
+
+* Added postcss plugin for scss ([4ece493](https://github.com/Stundz/web/commit/4ece493115cb9eda73d4b32aedc7a4f671fd63af))
+* **plug:** Tutorial now shows date from database ([5bdff93](https://github.com/Stundz/web/commit/5bdff93b505c8d712f5722a5aa026f3207a652d7))
+
+
+### Bug Fixes
+
+* **plug:** Auth layout now has dropdown below user icon ([ee95886](https://github.com/Stundz/web/commit/ee95886b40de2c1d9b3a48c2aa083f0671a6ef32))
+* **plug:** Revamped the tutorial sessions component ([c02b4a6](https://github.com/Stundz/web/commit/c02b4a678fc7d80cfc218fec29b074293bb3c56a))
+* Tutor application page now accepts courses ([805b898](https://github.com/Stundz/web/commit/805b898cb6c511860a586fbf4d1f0050b5cc3e93))
+
 ## [5.3.0](https://github.com/Stundz/web/compare/v5.2.0...v5.3.0) (2025-10-27)
 
 

@@ -34,29 +34,41 @@ export const routes: Routes = [
 							import("./dashboard/dashboard.page").then((m) => m.DashboardPage),
 					},
 					{
-						path: "",
+						path: "projects",
+						loadComponent: () =>
+							import("./projects/projects.page").then((m) => m.ProjectsPage),
+					},
+					{
+						path: "past-questions",
 						loadChildren: () =>
 							import("./past-questions/past-questions.routes").then(
 								(m) => m.routes,
 							),
 					},
 					{
-						path: "projects",
-						loadComponent: () =>
-							import("./projects/projects.page").then((m) => m.ProjectsPage),
+						path: "past-question",
+						loadChildren: () =>
+							import("./past-questions/past-questions.routes").then(
+								(m) => m.routes,
+							),
 					},
 					{
-						path: "",
+						path: "tutorials",
 						loadChildren: () =>
 							import("./tutorials/tutorials.routes").then((m) => m.routes),
 					},
 					{
-						path: "",
+						path: "tutorial",
+						loadChildren: () =>
+							import("./tutorials/tutorials.routes").then((m) => m.routes),
+					},
+					{
+						path: "settings",
 						loadChildren: () =>
 							import("./settings/settings.routes").then((m) => m.routes),
 					},
 					{
-						path: "",
+						path: "tutors",
 						loadChildren: () =>
 							import("./tutors/tutors.routes").then((m) => m.routes),
 					},
