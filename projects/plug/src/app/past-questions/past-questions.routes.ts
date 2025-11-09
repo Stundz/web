@@ -22,7 +22,7 @@ export const routes: Routes = [
 			import("./create/create.page").then((m) => m.CreatePage),
 	},
 	{
-		path: ":past-question",
+		path: "",
 		resolve: {
 			pastQuestion: pastQuestionResolver,
 		},

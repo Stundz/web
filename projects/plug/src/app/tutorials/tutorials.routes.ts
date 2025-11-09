@@ -22,7 +22,7 @@ export const routes: Routes = [
 			import("./create/create.page").then((m) => m.CreatePage),
 	},
 	{
-		path: ":tutorial",
+		path: "",
 		providers: [provideNativeDateAdapter()],
 		resolve: {
 			tutorial: tutorialResolver,
@@ -30,11 +30,12 @@ export const routes: Routes = [
 		children: [
 			{
 				path: "",
+				pathMatch: "full",
 				loadComponent: () =>
 					import("./show/show.page").then((m) => m.ShowPage),
 			},
 			{
-				path: "",
+				path: "sessions",
 				loadChildren: () =>
 					import("./show/sessions/sessions.routes").then(
 						(m) => m.routes,
