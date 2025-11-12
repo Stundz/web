@@ -108,6 +108,7 @@
             placeholder="e.g., 2023"
             formControlName="year"
             type="number"
+            min="2000"
             (change)="form.controls.year.valid && stepper.next()"
           />
         </div>
