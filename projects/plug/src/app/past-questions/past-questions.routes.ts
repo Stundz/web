@@ -8,11 +8,11 @@ import { PastQuestion } from "../common/services/past-question";
 export const routes: Routes = [
 	{
 		path: "past-questions",
+		providers: [PastQuestion],
 		children: [
 			{
 				path: "",
 				pathMatch: "full",
-				providers: [PastQuestion],
 				resolve: {
 					pastQuestions: pastQuestionsResolver,
 				},
