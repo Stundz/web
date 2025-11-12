@@ -1,9 +1,4 @@
 import { Routes } from "@angular/router";
-import {
-	sessionResolver,
-	sessionsResolver,
-} from "../../../common/resolvers/session-resolver";
-import { Session } from "../../../common/services/session";
 
 export const routes: Routes = [
 	{
