@@ -4,7 +4,7 @@
 
 	"installCommand": "bun install",
 
-	"buildCommand": "bun run build shared && bun run build plug && bun run build auth && bun run build admin && bun run build landing",
+	"buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bunx ng build admin && bunx ng build landing",
 
 	"functions": {
 		"api/admin.js": {
