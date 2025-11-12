@@ -22,6 +22,19 @@ export namespace Model {
 			sessions: Array<Plug.Tutorial>;
 
 			tutor?: Plug.Tutor;
+
+			department?: Plug.Department;
+
+			level?: Plug.Level;
+		}
+
+		export interface Level extends Model {
+			name: string;
+			program?: Plug.Program;
+		}
+
+		export interface Program extends Model {
+			name: string;
 		}
 
 		export interface Session extends Model {
@@ -66,9 +79,27 @@ export namespace Model {
 
 		export interface Tutor extends Model {
 			user_id: User["id"];
-			user?: User;
-			name: string;
+
+			/** The tutor's first name */
+			first_name: string;
+
+			/** The tutor's lastname */
+			last_name: string;
+
+			/** The tutor's phone number */
+			phone: string;
+
+			/** Endorsement contains data showing approval from a lecturer */
 			endorsement: Record<"email" | "name", string | null>;
+
+			/** Indicates whether the tutor's application is under review or not. */
+			valid_until: string | null;
+
+			/** The list of courses lectured by the tutor */
+			courses?: Array<Course>;
+
+			/** The plug User owning this tutor model */
+			user?: User;
 		}
 
 		export interface PastQuestion extends Model {
