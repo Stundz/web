@@ -14,7 +14,7 @@
         <h1
           class="text-3xl font-bold leading-tight text-gray-900 dark:text-white tracking-[-0.015em]"
         >
-          {{ tutor().user?.first_name }} {{ tutor().user?.last_name }}
+          {{ tutor().first_name }} {{ tutor().last_name }}
         </h1>
         <p class="mt-1 text-lg font-medium text-primary">
           Expert in Quantum Physics and Advanced Calculus
@@ -30,32 +30,19 @@
           >
         </div>
         <div class="flex flex-wrap gap-3 justify-center mt-4 md:justify-start">
-          <div
-            class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
-          >
-            <p class="text-sm font-medium">Calculus I</p>
-          </div>
-          <div
-            class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
-          >
-            <p class="text-sm font-medium">Physics II</p>
-          </div>
-          <div
-            class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
-          >
-            <p class="text-sm font-medium">Python</p>
-          </div>
-          <div
-            class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
-          >
-            <p class="text-sm font-medium">Linear Algebra</p>
-          </div>
+          @for (course of tutor()?.courses; track course.id) {
+            <div
+              class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
+            >
+              <p class="text-sm font-medium" [title]="course.title">{{ course.code }}</p>
+            </div>
+          }
         </div>
       </div>
       <div class="flex flex-col gap-3 w-full md:w-auto">
         <button matButton="outlined" class="">
           <div class="flex gap-2 justify-center items-center" role="img" aria-hidden="true">
-            <span class="icon-[material-symbols--event]"></span>
+            <span class="icon-[material-symbols--event]" role="img" aria-hidden="true"></span>
             <span class="truncate">Book a Session</span>
           </div>
         </button>
@@ -67,56 +54,28 @@
         </button>
       </div>
     </div>
-    <div class="pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
-      <p class="text-base font-normal leading-relaxed text-gray-700 dark:text-gray-300">
-        With over 10 years of experience in academia, I specialize in helping students navigate the
-        complexities of advanced mathematics and physics. My goal is to make these subjects
-        accessible and understandable, providing you with the tools and confidence to excel in your
-        studies.
-      </p>
-    </div>
   </div>
   <mat-tab-group>
-    <mat-tab label="Qualifications">
+    <mat-tab label="Info">
       <div class="p-6 md:p-8">
-        <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Qualifications</h3>
+        <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Academic</h3>
         <ul class="space-y-4">
-          <li class="flex items-start">
-            <span class="mt-1 mr-3 material-symbols-outlined text-primary">school</span>
-            <div>
-              <p class="font-semibold text-gray-800 dark:text-gray-200">Ph.D. in Quantum Physics</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">University of Cambridge, 2018</p>
-            </div>
-          </li>
-          <li class="flex items-start">
-            <span class="mt-1 mr-3 material-symbols-outlined text-primary">school</span>
+          <li class="flex gap-2 items-start">
+            <span
+              class="mt-1 icon-[material-symbols--school]"
+              aria-hidden="true"
+              role="image"
+            ></span>
             <div>
               <p class="font-semibold text-gray-800 dark:text-gray-200">
-                M.Sc. in Applied Mathematics
-              </p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">ETH Zurich, 2014</p>
-            </div>
-          </li>
-          <li class="flex items-start">
-            <span class="mt-1 mr-3 material-symbols-outlined text-primary">workspace_premium</span>
-            <div>
-              <p class="font-semibold text-gray-800 dark:text-gray-200">
-                Certified University Tutor
+                {{ tutor()?.user?.level?.program?.name }} (Year {{ tutor()?.user?.level?.name }})
               </p>
               <p class="text-sm text-gray-500 dark:text-gray-400">
-                National Tutoring Association, 2019
+                {{ tutor()?.user?.department?.faculty?.name }}
               </p>
             </div>
           </li>
         </ul>
-        <h3 class="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-white">
-          Project Assistance
-        </h3>
-        <p class="text-gray-700 dark:text-gray-300">
-          I provide guidance and support for undergraduate and postgraduate defense projects in the
-          fields of physics and computational science. This includes conceptualization, methodology,
-          data analysis, and final presentation preparation.
-        </p>
       </div>
     </mat-tab>
     <mat-tab label="Reviews"></mat-tab>

@@ -9,7 +9,12 @@ import {
 	signal,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+	FormSubmittedEvent,
+	NonNullableFormBuilder,
+	ReactiveFormsModule,
+	Validators,
+} from "@angular/forms";
 import {
 	MatAutocompleteModule,
 	MatAutocompleteSelectedEvent,
@@ -20,9 +25,20 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatStepperModule } from "@angular/material/stepper";
-import { debounceTime, filter, map } from "rxjs";
-import { Dropzone, Model } from "shared";
+import { MatTableModule } from "@angular/material/table";
+import {
+	catchError,
+	debounceTime,
+	filter,
+	map,
+	startWith,
+	switchMap,
+	tap,
+	timer,
+} from "rxjs";
+import { Dropzone, Model, StunzValidator } from "shared";
 import { environment } from "../../../environments/environment";
+import { Tutor } from "../../common/services/tutor";
 
 @Component({
 	selector: "plug-create",
@@ -33,6 +49,7 @@ import { environment } from "../../../environments/environment";
 		MatSelectModule,
 		MatCardModule,
 		MatStepperModule,
+		MatTableModule,
 		ReactiveFormsModule,
 		Dropzone,
 	],
@@ -42,7 +59,8 @@ import { environment } from "../../../environments/environment";
 export class CreatePage {
 	user = input.required<Model.User | undefined>();
 	private _breakpointObserver = inject(BreakpointObserver);
-	private _fb = inject(FormBuilder);
+	private _tutorService = inject(Tutor);
+	#fb = inject(NonNullableFormBuilder);
 	private _cdr = inject(ChangeDetectorRef);
 	private _snackBar = inject(MatSnackBar);
 
@@ -55,22 +73,18 @@ export class CreatePage {
 		},
 	);
 
-	form = this._fb.group({
-		personal: this._fb.group({
-			first_name: this._fb.control("", {
-				nonNullable: true,
+	form = this.#fb.group({
+		personal: this.#fb.group({
+			first_name: this.#fb.control("", {
 				validators: [Validators.required, Validators.minLength(3)],
 			}),
-			last_name: this._fb.control("", {
-				nonNullable: true,
+			last_name: this.#fb.control("", {
 				validators: [Validators.required, Validators.minLength(3)],
 			}),
-			email: this._fb.control("", {
-				nonNullable: true,
+			email: this.#fb.control("", {
 				validators: [Validators.required, Validators.email],
 			}),
-			phone: this._fb.control("", {
-				nonNullable: true,
+			phone: this.#fb.control("", {
 				validators: [
 					Validators.required,
 					(control) => {
@@ -85,98 +99,57 @@ export class CreatePage {
 				],
 			}),
 		}),
-		academic: this._fb.group({
-			institution_id: this._fb.control<string>("", {
-				nonNullable: true,
-				validators: [Validators.required],
-			}),
-			faculty_id: this._fb.control<string>("", {
-				nonNullable: true,
-				validators: [Validators.required],
-			}),
-			department_id: this._fb.control<string>("", {
-				nonNullable: true,
-				validators: [Validators.required],
-			}),
-			matricule: this._fb.control("", {
-				nonNullable: true,
-				validators: [Validators.required, Validators.minLength(3)],
-			}),
-		}),
-		tutoring: this._fb.group({
-			courses: this._fb.array<Array<Model.Plug.Course>>([], {
+		tutoring: this.#fb.group({
+			courses: this.#fb.array<Array<Model.Plug.Course>>([], {
 				validators: [Validators.required, Validators.min(1)],
 			}),
 		}),
-		verification: this._fb.group({
-			profile: this._fb.control<File | undefined>(undefined, {
-				nonNullable: true,
-				validators: [
-					(control) => {
-						if (control.value! instanceof File) {
-							return { file: false };
-						}
-						return null;
-					},
-				],
+		endorsement: this.#fb.group({
+			endorsement: this.#fb.group({
+				name: this.#fb.control<string | null>(null, {
+					validators: [
+						(control) => {
+							if (control.parent?.get("email")?.value?.length) {
+								return Validators.required(control);
+							}
+							return null;
+						},
+					],
+				}),
+				email: this.#fb.control<string | null>(null, {
+					validators: [
+						(control) => {
+							if (control.parent?.get("name")?.value?.length) {
+								return Validators.required(control);
+							}
+							return null;
+						},
+					],
+				}),
 			}),
-			transcript: this._fb.control<File | undefined>(undefined, {
-				nonNullable: true,
+		}),
+		verification: this.#fb.group({
+			profile: this.#fb.control<File | undefined>(undefined, {
+				validators: [Validators.required, StunzValidator.file],
+			}),
+			transcript: this.#fb.control<File | undefined>(undefined, {
 				validators: [
-					(control) => {
-						if (control.value! instanceof File) {
-							return { file: false };
-						}
-						return null;
-					},
+					Validators.required,
+					StunzValidator.file,
+					StunzValidator.size(500 * 1024),
 				],
 			}),
 		}),
 	});
-
-	institutions = httpResource<Array<Model.Plug.Institution>>(
-		() => `https://api.${environment.domain}/plug/institutions`,
-	);
-	institution = toSignal(
-		this.form.controls.academic.controls.institution_id.valueChanges.pipe(
-			filter((id) => !!id),
-			map((id) => this.institutions.value()?.find((i) => i.id === id)),
-		),
-	);
-
-	faculty = toSignal(
-		this.form.controls.academic.controls.faculty_id.valueChanges.pipe(
-			map((id) => this.faculties.value().find((f) => f.id === id)),
-		),
-		{
-			initialValue: undefined,
-		},
-	);
-	department = toSignal(
-		this.form.controls.academic.controls.department_id.valueChanges.pipe(
-			map((id) => this.departments.value().find((d) => d.id === id))!,
-		),
-		{
-			initialValue: undefined,
-		},
-	);
+	formData = toSignal(this.form.valueChanges.pipe(map((form) => [form])), {
+		initialValue: [this.form.getRawValue()],
+	});
 
 	faculties = httpResource<Array<Model.Plug.Faculty>>(
 		() =>
-			this.institution() !== undefined
+			this.user()?.plug?.department?.faculty?.institution_id
 				? {
-						url: `https://api.${environment.domain}/plug/institution/${this.institution()!.id}/faculties`,
-					}
-				: undefined,
-		{
-			defaultValue: [],
-		},
-	);
-	departments = httpResource<Array<Model.Plug.Faculty>>(
-		() =>
-			this.faculty() !== undefined
-				? {
-						url: `https://api.${environment.domain}/plug/faculty/${this.faculty()!.id}/departments`,
+						url: `https://api.${environment.domain}/plug/institution/${this.user()?.plug?.department?.faculty?.institution_id}/faculties`,
 					}
 				: undefined,
 		{
@@ -184,7 +157,14 @@ export class CreatePage {
 		},
 	);
 
-	courseSearch = this._fb.control<Model.Plug.Course | string>("");
+	profilePreview = toSignal(
+		this.form.controls.verification.controls.profile.valueChanges.pipe(
+			filter((data) => data instanceof File),
+			map((file) => URL.createObjectURL(file)),
+		),
+	);
+
+	courseSearch = this.#fb.control<Model.Plug.Course | string>("");
 	tutoringFaculty = signal<string | undefined>(undefined);
 	courses = httpResource<Array<Model.Plug.Course>>(
 		() =>
@@ -215,48 +195,74 @@ export class CreatePage {
 		{ initialValue: [] },
 	);
 
-	// loading = toSignal(
-	// 	this.form.events
-	// 		.pipe(filter((event) => event instanceof FormSubmittedEvent))
-	// 		.pipe(
-	// 			switchMap(() =>
-	// 				this._pastQuestionService.create(this.form.getRawValue()).pipe(
-	// 					catchError(() => {
-	// 						// TODO: Handle past questions creation errors
-	// 						return timer(500).pipe(map(() => false));
-	// 					}),
-	// 					switchMap(() => timer(500).pipe(map(() => false))),
-	// 					startWith(true),
-	// 				),
-	// 			),
-	// 		),
-	// 	{
-	// 		initialValue: false,
-	// 	},
-	// );
+	loading = toSignal(
+		this.form.events
+			.pipe(filter((event) => event instanceof FormSubmittedEvent))
+			.pipe(
+				switchMap(() =>
+					this._tutorService
+						.create(
+							Object.assign({}, ...Object.values(this.form.getRawValue())),
+						)
+						.pipe(
+							catchError(() => {
+								// TODO: Handle past questions creation errors
+								return timer(500).pipe(map(() => false));
+							}),
+							switchMap(() =>
+								timer(500).pipe(
+									map(() => false),
+									tap(() => {
+										this._snackBar.open(
+											"Your application was saved successfully and awaiting a review.",
+										);
+										this.form
+											?.get("tutoring")
+											?.get("courses")
+											?.setValue([], { emitEvent: false });
+										this.form.reset();
+									}),
+								),
+							),
+							startWith(true),
+						),
+				),
+			),
+		{
+			initialValue: false,
+		},
+	);
 
 	constructor() {
 		effect(() => {
-			this.faculties.hasValue()
-				? this.form.controls.academic.controls.faculty_id.enable()
-				: this.form.controls.academic.controls.faculty_id.disable();
-
-			this.departments.hasValue()
-				? this.form.controls.academic.controls.department_id.enable()
-				: this.form.controls.academic.controls.department_id.disable();
-
 			this.courses.hasValue()
 				? this.form.controls.tutoring.controls.courses.enable()
 				: this.form.controls.tutoring.controls.courses.disable();
 		});
 
 		effect(() => {
-			if (this.user() !== undefined) {
-				this.form.controls.personal.patchValue({
-					first_name: this.user()?.first_name,
-					last_name: this.user()?.last_name,
-					email: this.user()?.email,
-				});
+			if (this.user() === undefined) {
+				this.form.disable();
+			} else {
+				if (this.user()?.plug?.tutor) {
+					this.form.disable();
+					this._snackBar.open(
+						"You have already applied to become a tutor",
+						"",
+						{
+							duration: 5000,
+							horizontalPosition: "center",
+							verticalPosition: "top",
+						},
+					);
+				} else {
+					this.form.enable();
+					this.form.controls.personal.patchValue({
+						first_name: this.user()?.first_name,
+						last_name: this.user()?.last_name,
+						email: this.user()?.email,
+					});
+				}
 			}
 		});
 	}
@@ -280,11 +286,15 @@ export class CreatePage {
 			return;
 		}
 
-		this.form.controls.tutoring.controls.courses.push(this._fb.control(course));
+		this.form.controls.tutoring.controls.courses.push(this.#fb.control(course));
 		this.courseSearch.setValue("");
 	}
 
 	courseDisplay = (course: Model.Plug.Course | undefined) => {
 		return "";
 	};
+
+	handleUpload(file: File) {
+		console.log(file);
+	}
 }

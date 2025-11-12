@@ -23,7 +23,7 @@
               @if (tutorial().tutor?.user_id === user()?.id) {
                 You
               } @else {
-                {{ tutorial().tutor?.name }}
+                {{ tutorial().tutor?.first_name }} {{ tutorial().tutor?.last_name }}
               }
             </a>
           </p>
@@ -41,7 +41,7 @@
       </div>
       <div class="space-y-8">
         <div>
-          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">About the session</h2>
+          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">About this tutorial</h2>
           <p
             class="mt-4 transition"
             [class]="

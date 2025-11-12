@@ -71,9 +71,7 @@ export class User {
 			.pipe(
 				tap(() => {
 					this._cookies.clear();
-					// window.location.replace(
-					// 	`https://auth.${this.environment.domain}/login`,
-					// );
+					window.location.replace("/");
 				}),
 			);
 	}

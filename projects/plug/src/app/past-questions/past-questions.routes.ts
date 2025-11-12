@@ -7,14 +7,24 @@ import { PastQuestion } from "../common/services/past-question";
 
 export const routes: Routes = [
 	{
-		path: "",
-		pathMatch: "full",
+		path: "past-questions",
 		providers: [PastQuestion],
-		resolve: {
-			pastQuestions: pastQuestionsResolver,
-		},
-		loadComponent: () =>
-			import("./index/index.page").then((m) => m.IndexPage),
+		children: [
+			{
+				path: "",
+				pathMatch: "full",
+				resolve: {
+					pastQuestions: pastQuestionsResolver,
+				},
+				loadComponent: () =>
+					import("./index/index.page").then((m) => m.IndexPage),
+			},
+			{
+				path: "new",
+				loadComponent: () =>
+					import("./create/create.page").then((m) => m.CreatePage),
+			},
+		],
 	},
 	{
 		path: "new",

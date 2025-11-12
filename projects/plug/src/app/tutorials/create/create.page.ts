@@ -52,24 +52,11 @@ export class CreatePage {
 			nonNullable: true,
 			validators: [Validators.required, Validators.minLength(5)],
 		}),
-		duration: this._fb.control<number>(60, {
-			nonNullable: true,
-			validators: [Validators.required, Validators.min(60)],
-		}),
-		day: this._fb.control<string>("", { nonNullable: true }),
-		time: this._fb.control<string>("", { nonNullable: true }),
 		description: this._fb.control<string>("", {
 			nonNullable: true,
 			validators: [Validators.required, Validators.minLength(20)],
 		}),
-		objectives: this._fb.array<string>([], {
-			validators: [Validators.required, Validators.minLength(1)],
-		}) as FormArray<FormControl<string>>,
 		price: this._fb.control<number>(300, { nonNullable: true }),
-		cover: this._fb.control<File | undefined>(undefined, {
-			nonNullable: true,
-			validators: [Validators.required],
-		}),
 		institution_id: this._fb.control<string>("", { nonNullable: true }),
 		faculty_id: this._fb.control<string>("", { nonNullable: true }),
 		department_id: this._fb.control<string>("", { nonNullable: true }),
@@ -89,17 +76,6 @@ export class CreatePage {
 	department = toSignal(this.form.controls.department_id.valueChanges, {
 		initialValue: "",
 	});
-	coverPreview = toSignal(
-		this.form.controls.cover.valueChanges.pipe(
-			filter((cover) => cover instanceof File),
-			map((file) =>
-				this._sanitizer.bypassSecurityTrustResourceUrl(
-					URL.createObjectURL(file),
-				),
-			),
-		),
-		{ initialValue: null },
-	);
 
 	faculties = httpResource<Array<Model.Plug.Faculty>>(() =>
 		!!this.institution()
@@ -128,13 +104,11 @@ export class CreatePage {
 			.pipe(filter((event) => event instanceof FormSubmittedEvent))
 			.pipe(
 				switchMap(() => {
-					const { day, time, ...form } = this.form.getRawValue();
+					const { ...form } = this.form.getRawValue();
 
 					return this._tutorialService
 						.create({
 							...form,
-							// day: format(new Date(day), "yyyy-MM-dd"),
-							// time: format(new Date(time), "HH:mm:ss"),
 						})
 						.pipe(
 							catchError(() => {
@@ -165,11 +139,5 @@ export class CreatePage {
 				? this.form.controls.course_id.enable()
 				: this.form.controls.course_id.disable();
 		});
-	}
-
-	addObjective(objective: string) {
-		this.form.controls.objectives.push(
-			this._fb.control(objective, { nonNullable: true }),
-		);
 	}
 }

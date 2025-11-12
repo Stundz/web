@@ -29,10 +29,23 @@ export const routes: Routes = [
 		},
 		children: [
 			{
-				path: "",
-				pathMatch: "full",
-				loadComponent: () =>
-					import("./show/show.page").then((m) => m.ShowPage),
+				path: "tutorials",
+				children: [
+					{
+						path: "",
+						pathMatch: "full",
+						resolve: { tutorials: tutorialsResolver },
+						title: "Search tutorials",
+						loadComponent: () =>
+							import("./index/index.page").then((m) => m.IndexPage),
+					},
+					{
+						path: "new",
+						title: "Create a tutorial today and start making money",
+						loadComponent: () =>
+							import("./create/create.page").then((m) => m.CreatePage),
+					},
+				],
 			},
 			{
 				path: "sessions",

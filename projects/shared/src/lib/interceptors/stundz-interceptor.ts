@@ -6,7 +6,7 @@ import {
 } from "@angular/common/http";
 import { inject, PLATFORM_ID } from "@angular/core";
 import { HTTP_SKIP_ON_SERVER } from "../contexts";
-import { EMPTY, switchMap, tap, timer } from "rxjs";
+import { catchError, EMPTY, switchMap, tap, timer } from "rxjs";
 import { ENVIRONMENT } from "../types";
 import { Cookie } from "../services";
 
@@ -23,10 +23,11 @@ export const stundzInterceptor: HttpInterceptorFn = (req, next) => {
 
 	if (req.context.get(HTTP_SKIP_ON_SERVER) === true && isServer) {
 		return EMPTY;
+		// return next(req).pipe(catchError(() => EMPTY));
 	}
 
 	if (!/\/csrf$/.test(req.url) && isServer) {
-		return EMPTY;
+		return next(req).pipe(catchError(() => EMPTY));
 	}
 
 	if (isApiRequest && !/\/csrf$/.test(req.url)) {
