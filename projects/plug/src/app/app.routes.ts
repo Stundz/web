@@ -39,26 +39,14 @@ export const routes: Routes = [
 							import("./projects/projects.page").then((m) => m.ProjectsPage),
 					},
 					{
-						path: "past-questions",
+						path: "",
 						loadChildren: () =>
 							import("./past-questions/past-questions.routes").then(
 								(m) => m.routes,
 							),
 					},
 					{
-						path: "past-question/:past-question",
-						loadChildren: () =>
-							import("./past-questions/past-questions.routes").then(
-								(m) => m.routes,
-							),
-					},
-					{
-						path: "tutorials",
-						loadChildren: () =>
-							import("./tutorials/tutorials.routes").then((m) => m.routes),
-					},
-					{
-						path: "tutorial/:tutorial",
+						path: "",
 						loadChildren: () =>
 							import("./tutorials/tutorials.routes").then((m) => m.routes),
 					},
@@ -68,7 +56,7 @@ export const routes: Routes = [
 							import("./settings/settings.routes").then((m) => m.routes),
 					},
 					{
-						path: "tutors",
+						path: "",
 						loadChildren: () =>
 							import("./tutors/tutors.routes").then((m) => m.routes),
 					},
