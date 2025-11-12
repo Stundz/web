@@ -19,12 +19,14 @@ import { Model, User } from "shared";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { filter, map, of, switchMap, timer } from "rxjs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
 	selector: "plug-auth-layout",
 	imports: [
 		RouterLink,
 		RouterOutlet,
+		MatButtonModule,
 		MatRippleModule,
 		MatMenuModule,
 		MatToolbarModule,

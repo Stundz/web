@@ -1,9 +1,18 @@
 <mat-sidenav-container>
   <mat-sidenav #sidebar>
     <aside class="flex-col flex-shrink-0 md:flex size-full">
-      <div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
-        <span class="text-2xl icon-[material-symbols--school]" role="img" aria-hidden="true"></span>
-        <span class="ml-3 text-lg font-bold">Plug</span>
+      <div class="flex justify-between items-center pe-4">
+        <div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
+          <span
+            class="text-2xl icon-[material-symbols--school]"
+            role="img"
+            aria-hidden="true"
+          ></span>
+          <span class="ml-3 text-lg font-bold">Plug</span>
+        </div>
+        <button matMiniFab class="ms-auto size-7!" (click)="sidebar.close()">
+          <span class="text-sm icon-[material-symbols--close]" role="img" aria-hidden="true"></span>
+        </button>
       </div>
       <nav class="flex-1 py-4 px-4 space-y-2">
         <a
