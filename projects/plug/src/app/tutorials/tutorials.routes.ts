@@ -18,12 +18,13 @@ export const routes: Routes = [
 						path: "",
 						pathMatch: "full",
 						resolve: { tutorials: tutorialsResolver },
-						title: "Your tutorials sessions",
+						title: "Search tutorials",
 						loadComponent: () =>
 							import("./index/index.page").then((m) => m.IndexPage),
 					},
 					{
 						path: "new",
+						title: "Create a tutorial today and start making money",
 						loadComponent: () =>
 							import("./create/create.page").then((m) => m.CreatePage),
 					},
