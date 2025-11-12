@@ -9,55 +9,60 @@
     </p>
     <div></div>
   </div>
-  <form
-    [formGroup]="form"
-    class="p-4 mb-8 space-y-2 rounded-xl shadow-sm bg-(--mat-sys-surface-container-lowest)"
-  >
-    <mat-form-field class="w-full">
-      <mat-icon matPrefix>
-        <span
-          class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[material-symbols--search]"
-          role="img"
-          aria-hidden="true"
-        >
-        </span>
-      </mat-icon>
+  <mat-card class="mb-8">
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field class="w-full">
+          <mat-icon matPrefix>
+            <span
+              class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[material-symbols--search]"
+              role="img"
+              aria-hidden="true"
+            >
+            </span>
+          </mat-icon>
 
-      <input
-        type="text"
-        placeholder="Search for subjects, tutors, or keywords..."
-        matInput
-        formControlName="q"
-      />
-      <mat-icon matSuffix (click)="filters.toggle()" role="button" class="cursor-pointer">
-        <span
-          class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[octicon--settings]"
-          role="img"
-          aria-hidden="true"
-        >
-        </span>
-      </mat-icon>
-    </mat-form-field>
-    <mat-expansion-panel #filters>
-      <form
-        class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-3 lg:grid-cols-5"
-        [formGroup]="form.controls.filters"
-      >
-        <mat-form-field>
-          <mat-label>Institution</mat-label>
-          <mat-select formControlName="institution"> </mat-select>
+          <input
+            type="text"
+            placeholder="Search for subjects, tutors, or keywords..."
+            matInput
+            formControlName="q"
+          />
+          <mat-icon matSuffix (click)="filters.toggle()" role="button" class="cursor-pointer">
+            <span
+              class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[octicon--settings]"
+              role="img"
+              aria-hidden="true"
+            >
+            </span>
+          </mat-icon>
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>Faculty</mat-label>
-          <mat-select></mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Department</mat-label>
-          <mat-select></mat-select>
-        </mat-form-field>
+        <mat-expansion-panel #filters>
+          <form
+            class="grid gap-4 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+            [formGroup]="form.controls.filters"
+          >
+            <!-- <mat-form-field> -->
+            <!--   <mat-label>Institution</mat-label> -->
+            <!--   <mat-select formControlName="institution"> </mat-select> -->
+            <!-- </mat-form-field> -->
+            <mat-form-field>
+              <mat-label>Faculty</mat-label>
+              <mat-select formControlName="faculty"></mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Faculty</mat-label>
+              <mat-select formControlName="department"></mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Course</mat-label>
+              <mat-select formControlName="course"></mat-select>
+            </mat-form-field>
+          </form>
+        </mat-expansion-panel>
       </form>
-    </mat-expansion-panel>
-  </form>
+    </mat-card-content>
+  </mat-card>
   <div class="flex gap-2 justify-between items-center mb-6">
     <h2 class="text-lg font-bold tracking-tight sm:text-2xl">
       Available Tutorials
@@ -65,9 +70,11 @@
         ({{ tutorials().meta.total }})
       }
     </h2>
-    <a routerLink="/tutors/apply" class="sm:float-right max-sm:order-first" matButton="outlined"
-      >Become a tutor</a
-    >
+    @if ((user() && !user()?.plug?.tutor) || !user()) {
+      <a routerLink="/tutors/apply" class="sm:float-right max-sm:order-first" matButton="outlined">
+        Become a tutor
+      </a>
+    }
   </div>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
     @for (tutorial of tutorials().data; track tutorial.id) {
@@ -97,23 +104,12 @@
                     role="img"
                     aria-hidden="true"
                   ></span>
-                  <span>{{ tutorial.tutor?.name }} </span>
+                  <span>{{ tutorial.tutor?.first_name }} {{ tutorial.tutor?.last_name }} </span>
                 </div>
               </div>
             </div>
           </div>
         </mat-card-content>
-        <!-- <mat-card-footer> </mat-card-footer> -->
-        <!-- <mat-card-actions> -->
-        <!--   <div class="flex justify-between items-center px-2 mt-4 w-full"> -->
-        <!--     <p class="text-lg font-bold text-(--mat-sys-primary)"> -->
-        <!--       {{ tutorial.price | currency: 'XAF ' : 'code' : '0.0' }} -->
-        <!--     </p> -->
-        <!--     <a matButton="filled" [routerLink]="['/tutorial', tutorial.id]" class="ms-auto" -->
-        <!--       >View Details</a -->
-        <!--     > -->
-        <!--   </div> -->
-        <!-- </mat-card-actions> -->
       </mat-card>
     } @empty {
       <div class="col-span-full py-6 px-2 text-center">No tutorials yet. Come back later</div>
@@ -123,6 +119,6 @@
     [pageIndex]="tutorials().meta.current_page - 1"
     [pageSize]="tutorials().meta.per_page"
     [length]="tutorials().meta.total"
-    (page)="form.patchValue({ filters: { page: $event.length + 1 } })"
+    (page)="form.patchValue({ filters: { page: $event.pageIndex + 1, limit: $event.pageSize } })"
   />
 </div>

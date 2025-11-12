@@ -1,7 +1,6 @@
-import { JsonPipe } from "@angular/common";
 import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { NonNullableFormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatExpansionPanel } from "@angular/material/expansion";
@@ -10,10 +9,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
-import { Meta } from "@angular/platform-browser";
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { Meta, Title } from "@angular/platform-browser";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { debounceTime, distinctUntilChanged, map, mergeWith, tap } from "rxjs";
-import type { Model, Paginated } from "shared";
+import { Tutorial } from "../../common/services/tutorial";
+import { Model } from "shared";
 
 @Component({
 	selector: "app-index",
@@ -36,21 +36,29 @@ import type { Model, Paginated } from "shared";
 	},
 })
 export class IndexPage {
-	tutorials = input.required<Paginated<Model.Plug.Tutorial>>();
-	private _fb = inject(FormBuilder);
+	user = input.required<Model.User>();
+	private _tutorialService = inject(Tutorial);
+	#fb = inject(NonNullableFormBuilder);
 	private _route = inject(ActivatedRoute);
+	private _router = inject(Router);
+	tutorials = toSignal(this._tutorialService.tutorials$.pipe(), {
+		requireSync: true,
+	});
 
-	form = this._fb.group({
-		q: this._fb.control<string>(this._route.snapshot.params["q"] ?? "", {
-			nonNullable: true,
-		}),
-		filters: this._fb.group({
-			page: this._fb.control<number>(0, { nonNullable: true }),
-			limit: this._fb.control<number>(0, { nonNullable: true }),
-			institution: this._fb.control<string>("", {
-				nonNullable: true,
-			}),
-			semester: this._fb.control<string>("", { nonNullable: true }),
+	form = this.#fb.group({
+		q: this.#fb.control<string>(this._route.snapshot.queryParams["q"] ?? ""),
+		filters: this.#fb.group({
+			page: this.#fb.control<number>(0),
+			limit: this.#fb.control<number>(0),
+			institution: this.#fb.control<string>(
+				this._route.snapshot.queryParams["institution"],
+			),
+			faculty: this.#fb.control(""),
+			department: this.#fb.control(""),
+			semester: this.#fb.control<string>(
+				this._route.snapshot.queryParams["semester"],
+			),
+			course: this.#fb.control(this._route.snapshot.queryParams["course"]),
 		}),
 	});
 
@@ -85,16 +93,24 @@ export class IndexPage {
 						),
 					);
 				}),
+				tap((queryParams) => {
+					this._tutorialService.filters.next(queryParams);
+				}),
 			),
 	);
 
-	constructor(meta: Meta) {
+	constructor(meta: Meta, title: Title) {
 		meta.addTags([
 			{
 				id: "description",
 				name: "description",
 				content:
 					"Search and filter through a wide range of tutorials to find the perfect tutor for you.",
+			},
+			{
+				id: "og:title",
+				property: "og:title",
+				content: title.getTitle(),
 			},
 			{
 				id: "og:description",
