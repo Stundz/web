@@ -5,15 +5,15 @@
       Fill out the details below to offer a new paid tutorial session to other students.
     </p>
     <form [formGroup]="form" class="space-y-6 *:w-full">
-      <mat-card
-        stundzDropzone
-        (change)="form.controls.cover.setValue($event[0])"
-        class="overflow-hidden relative aspect-video"
-      >
-        @if (coverPreview() !== null) {
-          <img [src]="coverPreview()!" class="object-cover object-center size-full" />
-        }
-      </mat-card>
+      <!-- <mat-card -->
+      <!--   stundzDropzone -->
+      <!--   (change)="form.controls.cover.setValue($event[0])" -->
+      <!--   class="overflow-hidden relative aspect-video" -->
+      <!-- > -->
+      <!--   @if (coverPreview() !== null) { -->
+      <!--     <img [src]="coverPreview()!" class="object-cover object-center size-full" /> -->
+      <!--   } -->
+      <!-- </mat-card> -->
 
       <mat-form-field>
         <mat-label>Tutorial Name</mat-label>
@@ -34,34 +34,10 @@
         ></textarea>
       </mat-form-field>
 
-      <mat-form-field class="w-full">
-        <mat-label>Objectives</mat-label>
-        <mat-chip-grid #objectives>
-          @for (i of form.controls.objectives.controls; track $index) {
-            <mat-chip-row (removed)="form.controls.objectives.removeAt($index)">
-              {{ i.value }}
-              <button matChipRemove class="flex items-center text-xs">x</button>
-            </mat-chip-row>
-          }
-        </mat-chip-grid>
-        <input
-          placeholder="New Objective"
-          [matChipInputFor]="objectives"
-          (matChipInputTokenEnd)="[addObjective($event.value), $event.chipInput.clear()]"
-          [disabled]="form.controls.objectives.value.length >= 5"
-        />
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input type="number" matInput formControlName="price" readonly />
       </mat-form-field>
-
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <mat-form-field>
-          <mat-label>Price</mat-label>
-          <input type="number" matInput formControlName="price" />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Duration</mat-label>
-          <input type="number" step="30" min="60" matInput formControlName="duration" />
-        </mat-form-field>
-      </div>
 
       <mat-form-field class="w-full">
         <mat-label> Intitution </mat-label>
@@ -117,29 +93,10 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <mat-form-field>
-          <mat-label>Choose a date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="day" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Choose a time</mat-label>
-          <input matInput [matTimepicker]="timePicker" formControlName="time" />
-          <mat-hint>HH:MM</mat-hint>
-          <mat-timepicker-toggle matIconSuffix [for]="timePicker"></mat-timepicker-toggle>
-          <mat-timepicker #timePicker></mat-timepicker>
-        </mat-form-field>
-      </div>
-
       <div class="flex justify-end pt-4">
         <button
           class="py-2 px-4 text-sm font-medium rounded-md border shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none bg-card-light border-divider-light text-text-light dark:bg-card-dark dark:border-divider-dark dark:text-text-dark dark:hover:bg-white/10 focus:ring-(--mat-sys-primary)-light"
-          type="button"
-          (click)="[form.controls.objectives.clear(), form.reset()]"
+          type="reset"
           matButton
         >
           Clear
