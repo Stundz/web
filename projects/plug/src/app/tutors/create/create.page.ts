@@ -293,8 +293,4 @@ export class CreatePage {
 	courseDisplay = (course: Model.Plug.Course | undefined) => {
 		return "";
 	};
-
-	handleUpload(file: File) {
-		console.log(file);
-	}
 }
