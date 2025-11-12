@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.9.1](https://github.com/Stundz/web/compare/v5.9.0...v5.9.1) (2025-11-12)
+
+
+### Bug Fixes
+
+* Adjusted the size validator that prevented tutors application from opening ([55c3b32](https://github.com/Stundz/web/commit/55c3b32642f832124d98ff4ecd69fbc412f54eb9))
+* Migrated deployment build commands from bun to ng ([c446440](https://github.com/Stundz/web/commit/c44644001dd0b725f81cdea49b7d3dab5f0dad80))
+* **plug:** Added button to close sidebar from auth-layout ([587e1bf](https://github.com/Stundz/web/commit/587e1bf79d799172bc4f01984b8c393175109030))
+* **plug:** Fetch tutorial data via https ([a912b6e](https://github.com/Stundz/web/commit/a912b6e5e14d975192f17b562ffb4846827d81f2))
+* **plug:** Fixed tutorials routes ([793ad3d](https://github.com/Stundz/web/commit/793ad3da4f803193ef4708b5980466daa988cd8d))
+
 ## [5.9.0](https://github.com/Stundz/web/compare/v5.8.0...v5.9.0) (2025-11-12)
 
 
