@@ -14,7 +14,7 @@ export class StunzValidator {
 				return { size: control.value.size };
 			}
 
-			if (control.value.length && control.value.length > size) {
+			if (control.value?.length && control.value.length > size) {
 				return { size: control.value.length };
 			}
 
