@@ -48,7 +48,7 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 
 	return http
 		.get<Model.Plug.Tutorial>(
-			`http://api.${environment.domain}/plug/tutorial/${route.params["tutorial"]}`,
+			`https://api.${environment.domain}/plug/tutorial/${route.params["tutorial"]}`,
 		)
 		.pipe(
 			catchError((response: HttpErrorResponse) => {
