@@ -30,15 +30,6 @@
             </mat-form-field>
           </div>
           <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input
-              type="email"
-              [formControl]="form.controls.personal.controls.email"
-              [value]="user()?.email"
-              matInput
-            />
-          </mat-form-field>
-          <mat-form-field>
             <mat-label>Phone</mat-label>
             <input type="tel" [formControl]="form.controls.personal.controls.phone" matInput />
             @if (form.controls.personal.controls.phone.hasError('tel')) {
@@ -46,43 +37,6 @@
             }
           </mat-form-field>
         </div>
-        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
-      </mat-step>
-
-      <mat-step label="Academic" [stepControl]="form.controls.academic">
-        <div class="space-y-3 *:w-full mt-4">
-          <mat-form-field>
-            <mat-label>Institution</mat-label>
-            <mat-select [formControl]="form.controls.academic.controls.institution_id">
-              @for (institution of institutions.value(); track institution.id) {
-                <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-          <div class="grid @2xl/page:grid-cols-2 gap-3">
-            <mat-form-field>
-              <mat-label>Faculty</mat-label>
-              <mat-select type="text" [formControl]="form.controls.academic.controls.faculty_id">
-                @for (faculty of faculties.value(); track faculty.id) {
-                  <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Department</mat-label>
-              <mat-select type="text" [formControl]="form.controls.academic.controls.department_id">
-                @for (department of departments.value(); track department.id) {
-                  <mat-option [value]="department.id">{{ department.name }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <mat-form-field>
-            <mat-label>Matricule</mat-label>
-            <input matInput [formControl]="form.controls.academic.controls.matricule" />
-          </mat-form-field>
-        </div>
-        <button type="button" matStepperPrevious matButton="filled" class="">Previous</button>
         <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
@@ -113,7 +67,7 @@
             }
           </div>
           <mat-form-field>
-            <mat-label></mat-label>
+            <mat-label>Faculty</mat-label>
             <mat-select (valueChange)="tutoringFaculty.set($event)">
               @for (faculty of faculties.value(); track faculty.id) {
                 <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
@@ -142,18 +96,47 @@
         <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
-      <mat-step label="Verification" [stepControl]="form.controls.verification">
+      <mat-step
+        label="Endorsement"
+        [stepControl]="form.controls.endorsement"
+        formGroupName="endorsement"
+      >
+        <div class="spacy-y-3 *:w-full mt-4" formGroupName="endorsement">
+          <mat-form-field>
+            <mat-label>Lecturer's name</mat-label>
+            <input type="text" formControlName="name" matInput [value]="user()?.first_name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="text" formControlName="email" [value]="user()?.last_name" matInput />
+          </mat-form-field>
+        </div>
+        <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
+      </mat-step>
+
+      <mat-step label="Verification">
         <div class="space-y-3 *:w-full mt-4 mb-2">
           <div>
-            <mat-card class="w-full h-55">
+            <mat-card
+              stundzDropzone
+              (change)="form.controls.verification.controls.profile.setValue($event[0])"
+              class="w-full"
+            >
               <mat-card-header>Upload a profile picture</mat-card-header>
               <mat-card-content class="size-full">
                 <div
                   class="flex flex-col gap-2 justify-center items-center py-2 rounded border border-dashed size-full border-(--mat-sys-secondary)"
                 >
                   <div
-                    class="relative h-full rounded-full cursor-pointer bg-(--mat-sys-surface-container-high) aspect-square"
+                    class="overflow-hidden relative h-40 rounded-full cursor-pointer bg-(--mat-sys-surface-container-high) aspect-square"
                   >
+                    @if (profilePreview()) {
+                      <img
+                        [src]="profilePreview()"
+                        alt=""
+                        class="object-cover object-center size-full"
+                      />
+                    }
                     <span
                       class="absolute top-1/2 left-1/2 text-3xl -translate-x-1/2 -translate-y-1/2 icon-[et--profile-male]"
                       role="img"
@@ -164,16 +147,28 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <mat-card stundzDropzone class="cursor-pointer aspect-video">
+          <mat-card
+            stundzDropzone
+            (change)="form.controls.verification.controls.transcript.setValue($event[0])"
+            acceptedFiles="application/pdf"
+            class="cursor-pointer aspect-video"
+          >
             <mat-card-header>Add you transcript</mat-card-header>
             <mat-card-content class="h-full">
               <div
                 class="flex flex-col gap-2 justify-center items-center rounded border border-dashed size-full border-(--mat-sys-secondary)"
               >
-                <span class="text-4xl icon-[et--upload]" role="img" aria-hidden="true"></span>
-                <span class="md:text-xl text-(--mat-sys-secondary)"
-                  >Click or Drop your file here to upload</span
-                >
+                @if (form.controls.verification.controls.transcript.value) {
+                  {{ form.controls.verification.get('transcript')?.value?.name }}
+                  <span class="md:text-xl text-(--mat-sys-secondary)"
+                    >Document uploaded. Click <span matButton>here</span> to update</span
+                  >
+                } @else {
+                  <span class="text-5xl icon-[et--upload]" role="img" aria-hidden="true"></span>
+                  <span class="md:text-xl text-(--mat-sys-secondary)"
+                    >Click or Drop your file here to upload</span
+                  >
+                }
               </div>
             </mat-card-content>
           </mat-card>
@@ -182,7 +177,56 @@
         <button type="button" matStepperNext matButton="filled" class="float-right">Next</button>
       </mat-step>
 
-      <mat-step label="Submission"></mat-step>
+      <mat-step label="Submission">
+        @let data = form.getRawValue();
+        <table mat-table [dataSource]="formData()">
+          <tr mat-header-row *matHeaderRowDef="['profile', 'personal', 'endorsement']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['profile', 'personal', 'endorsement']"></tr>
+
+          <ng-container matColumnDef="profile">
+            <th mat-header-cell *matHeaderCellDef>Profile</th>
+            <td mat-cell *matCellDef="let element">
+              <img
+                [src]="profilePreview()"
+                class="object-cover object-center rounded-full size-10"
+              />
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="personal">
+            <th mat-header-cell *matHeaderCellDef>Info</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="flex flex-col">
+                <span class="text-lg font-bold">
+                  {{ element.personal.first_name }} {{ element.personal.last_name }}
+                </span>
+                <span>
+                  {{ element.personal.email }}
+                </span>
+                <span>
+                  {{ element.personal.phone }}
+                </span>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="endorsement">
+            <th mat-header-cell *matHeaderCellDef>Endorsement</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="flex flex-col">
+                <span>
+                  {{ element.endorsement.endorsement.name }}
+                </span>
+                <span>
+                  {{ element.endorsement.endorsement.email }}
+                </span>
+              </div>
+            </td>
+          </ng-container>
+        </table>
+        <div class="mt-4">
+          <button matButton="filled" class="float-right">Submit</button>
+        </div>
+      </mat-step>
     </mat-stepper>
   </form>
 </div>
