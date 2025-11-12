@@ -1,31 +1,26 @@
-import { inject, PLATFORM_ID } from "@angular/core";
-import { RedirectCommand, ResolveFn, Router } from "@angular/router";
-import { catchError, EMPTY, of, tap, throwError } from "rxjs";
-import { Model, Paginated } from "shared";
-import { Tutorial } from "../services/tutorial";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { ResolveFn, Router } from "@angular/router";
+import { catchError, EMPTY, of, throwError } from "rxjs";
+import { Model, Paginated } from "shared";
 import { environment } from "../../../environments/environment";
+import { Tutorial } from "../services/tutorial";
 
 export const tutorialsResolver: ResolveFn<Paginated<Model.Plug.Tutorial>> = (
 	route,
 	state,
 ) => {
 	const tutorialService = inject(Tutorial);
-	const platformId = inject(PLATFORM_ID);
 
-	// if (isPlatformServer(platformId)) {
-	// 	return {
-	// 		data: [],
-	// 		meta: {
-	// 			per_page: 0,
-	// 			total: 0,
-	// 			current_page: 0,
-	// 			from: 0,
-	// 			to: 0,
-	// 		},
-	// 		links: {},
-	// 	};
-	// }
+	const params = { ...route.queryParams };
+
+	if (route.data["user"]) {
+		params["institution"] = (
+			route.data["user"] as Model.User
+		)?.plug?.department?.faculty.institution_id;
+	}
+
+	tutorialService.filters.next(params);
 
 	return tutorialService.tutorials$.pipe(
 		catchError(() =>
