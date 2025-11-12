@@ -3,9 +3,9 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
 	{
 		path: "sessions",
-		providers: [Session],
+		// providers: [Session],
 		resolve: {
-			sessions: sessionsResolver,
+			// sessions: sessionsResolver,
 		},
 		children: [
 			{
@@ -26,19 +26,17 @@ export const routes: Routes = [
 	{
 		path: "session/:session",
 		resolve: {
-			session: sessionResolver,
+			// session: sessionResolver,
 		},
 		children: [
 			{
 				path: "",
 				pathMatch: "full",
-				loadComponent: () =>
-					import("./show/show.page").then((m) => m.ShowPage),
+				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
 			},
 			{
 				path: "edit",
-				loadComponent: () =>
-					import("./edit/edit.page").then((m) => m.EditPage),
+				loadComponent: () => import("./edit/edit.page").then((m) => m.EditPage),
 			},
 		],
 	},
