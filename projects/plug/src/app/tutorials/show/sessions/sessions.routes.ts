@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { Tutorial } from "../../../common/services/tutorial";
 
 export const routes: Routes = [
 	{
@@ -9,6 +8,7 @@ export const routes: Routes = [
 				path: "",
 				pathMatch: "full",
 				title: "Your tutorials sessions",
+				resolve: {},
 				loadComponent: () =>
 					import("./index/index.page").then((m) => m.IndexPage),
 			},
