@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { Tutorial } from "../../../common/services/tutorial";
 
 export const routes: Routes = [
 	{
