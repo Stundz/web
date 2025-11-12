@@ -1,5 +1,29 @@
 # Changelog
 
+## [5.9.0](https://github.com/Stundz/web/compare/v5.8.0...v5.9.0) (2025-11-12)
+
+
+### Features
+
+* Added stundz validator to hold our custom validations ([dcb4fda](https://github.com/Stundz/web/commit/dcb4fda2ee8de6d166ab6b00994537681078bbd7))
+* **plug:** Created the tutor service ([1300795](https://github.com/Stundz/web/commit/1300795cb227becd3d91a242ff2a377aabb9d3e3))
+
+
+### Bug Fixes
+
+* **plug:** Added a min value to year when creating past questions ([8a8f01c](https://github.com/Stundz/web/commit/8a8f01c8e3517fc8b56d2d5fa37816d7575b4e66))
+* **plug:** Added titles to tutorials routes ([8b9cb4e](https://github.com/Stundz/web/commit/8b9cb4e547fdadaa053b12bf0dd5daebb9d4bcd8))
+* **plug:** altered the routes in which past-question service is provided ([c6bf630](https://github.com/Stundz/web/commit/c6bf63014602c309639b229a10c032c9a48549a1))
+* **plug:** Dashboard now has link to add tutorials ([2664490](https://github.com/Stundz/web/commit/26644900fd266fc42a567cfc8dd821a02679bfdb))
+* **plug:** Finished the tutor's application form ([b296091](https://github.com/Stundz/web/commit/b2960916c0a7aef86a8fa7cab00eb7bfdc1e1290))
+* **plug:** Fixed the UI of tutorials index ([10a58d5](https://github.com/Stundz/web/commit/10a58d5503dbcb970814784c8fb0626df4e7335e))
+* **plug:** Revamped the tutorials creation page ([4905278](https://github.com/Stundz/web/commit/49052781d475da06039ca95f28c5e68fc61d0441))
+* **plug:** Revamped the tutorials resolver ([794b565](https://github.com/Stundz/web/commit/794b565227b07aba54fbd5d155a5ed69d5104c94))
+* **plug:** Revamped the tutorials service ([b0b1452](https://github.com/Stundz/web/commit/b0b1452ba839bf181ce1708f3bad7279a397cc0c))
+* **plug:** Tutorial's page now shows currect tutor's name ([8118eeb](https://github.com/Stundz/web/commit/8118eebde9d32f8fa432fc5130a8d7066ba58d4e))
+* Properly redirect when user logs out ([d5f610f](https://github.com/Stundz/web/commit/d5f610ffceab946019ffc4aaaf8e3d7dd34711de))
+* Updated model interfaces ([0828a65](https://github.com/Stundz/web/commit/0828a6560e1def7d01e1423aa2815bc5b39a95b8))
+
 ## [5.8.0](https://github.com/Stundz/web/compare/v5.7.0...v5.8.0) (2025-11-09)
 
 
