@@ -27,15 +27,16 @@ export const routes: Routes = [
 		],
 	},
 	{
-		path: "new",
-		loadComponent: () =>
-			import("./create/create.page").then((m) => m.CreatePage),
-	},
-	{
-		path: "",
+		path: "past-question/:past-question",
 		resolve: {
 			pastQuestion: pastQuestionResolver,
 		},
-		loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
+		children: [
+			{
+				path: "",
+				pathMatch: "full",
+				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
+			},
+		],
 	},
 ];
