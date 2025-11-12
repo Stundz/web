@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.0](https://github.com/Stundz/web/compare/v5.7.0...v5.8.0) (2025-11-09)
+
+
+### Features
+
+* refactor routing and add session service ([0f34159](https://github.com/Stundz/web/commit/0f34159e19154aea33a8a23a05eb078202a6f000))
+
 ## [5.7.0](https://github.com/Stundz/web/compare/v5.6.0...v5.7.0) (2025-11-07)
 
 
