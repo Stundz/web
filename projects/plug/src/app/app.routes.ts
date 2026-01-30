@@ -21,6 +21,12 @@ export const routes: Routes = [
 						loadComponent: () =>
 							import("./home/home.page").then((m) => m.HomePage),
 					},
+					{
+						path: "about",
+						title: "Plug, Where your academic success resides",
+						loadComponent: () =>
+							import("./about/about.page").then((m) => m.AboutPage),
+					},
 				],
 			},
 			{
