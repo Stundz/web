@@ -1,70 +1,94 @@
 <header
-  class="sticky top-0 z-50 border-b dark:border-gray-800 border-(--mat-sys-outline) bg-(--mat-sys-surface-container-highest)/80 text-(--mat-sys-on-surface) backdrop-blur-sm"
+	class="sticky top-0 z-50 border-b dark:border-gray-800 border-(--mat-sys-outline) bg-(--mat-sys-surface-container-highest)/80 text-(--mat-sys-on-surface) backdrop-blur-sm"
 >
-  <div class="container px-4 mx-auto sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <a routerLink="/" class="flex gap-3 items-center">
-        <div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
-          <span
-            class="text-2xl icon-[material-symbols--school]"
-            role="img"
-            aria-hidden="true"
-          ></span>
-          <span class="ml-3 text-lg font-bold">Plug</span>
-        </div>
-      </a>
-      <nav class="hidden gap-8 items-center md:flex">
-        <a
-          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
-          routerLinkActive="text-(--mat-sys-primary)"
-          routerLink="/"
-          >Home</a
-        >
-        <a
-          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
-          routerLinkActive="text-(--mat-sys-primary)"
-          routerLink="/features"
-          >Features</a
-        >
-        <a
-          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
-          routerLinkActive="text-(--mat-sys-primary)"
-          routerLink="/pricing"
-          >Pricing</a
-        >
-        <a
-          class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
-          routerLinkActive="text-(--mat-sys-primary)"
-          routerLink="/contact"
-          >Contact</a
-        >
-      </nav>
-
-      @if (user()) {
-        <a routerLink="/dashboard" class="" matButton="filled">Dashboard</a>
-      } @else {
-        <div class="flex gap-2 items-center">
-          <a
-            [href]="
+	<div class="container px-4 mx-auto sm:px-6 lg:px-8">
+		<div class="flex justify-between items-center h-16">
+			<a routerLink="/" class="flex gap-3 items-center">
+				<div class="flex items-center px-6 h-16 text-(--mat-sys-primary)">
+					<span
+						class="text-2xl icon-[material-symbols--school]"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<span class="ml-3 text-lg font-bold">Plug</span>
+				</div>
+			</a>
+			<nav class="hidden gap-8 items-center md:flex">
+				<a
+					class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+					routerLinkActive="text-(--mat-sys-primary)"
+					routerLink="/"
+					>Home</a
+				>
+				<a
+					class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+					routerLinkActive="text-(--mat-sys-primary)"
+					routerLink="/about"
+					>About Us</a
+				>
+				<a
+					class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+					routerLinkActive="text-(--mat-sys-primary)"
+					routerLink="/pricing"
+					>Pricing</a
+				>
+				<a
+					class="text-sm font-medium transition-colors hover:text-(--mat-sys-primary)/70"
+					routerLinkActive="text-(--mat-sys-primary)"
+					routerLink="/contact"
+					>Contact</a
+				>
+			</nav>
+			@if (user()) {
+			<a routerLink="/dashboard" class="" matButton="filled">Dashboard</a>}
+			@else {<div class="flex gap-2 items-center">
+				<a
+					[href]="
               `https:\//auth.${environment.domain}/login?callback=https://plug.${environment.domain}/dashboard`
             "
-            class=""
-            matButton="filled"
-            >Login</a
-          >
-          <a
-            [href]="[
+					class=""
+					matButton="filled"
+					>Login</a
+				>
+				<a
+					[href]="[
               `https:\//auth.${environment.domain}/signup?callback=https://plug.${environment.domain}`,
             ]"
-            class=""
-            matButton
-            >Get Started</a
-          >
-        </div>
-      }
-    </div>
-  </div>
+					class=""
+					matButton
+					>Get Started</a
+				>
+			</div>}
+		</div>
+	</div>
 </header>
 <main class="">
-  <router-outlet />
+	<router-outlet />
 </main>
+
+<footer
+	class="border-t dark:border-gray-800 bg-(--mat-sys-surface-container-highest)"
+>
+	<div class="container py-8 px-4 mx-auto sm:px-6 lg:px-8">
+		<div class="flex justify-center space-x-6">
+			<a
+				class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+				href="#"
+				>Terms of Service</a
+			>
+			<a
+				class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+				href="#"
+				>Privacy Policy</a
+			>
+			<a
+				class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+				href="#"
+				>Contact Us</a
+			>
+		</div>
+		<p class="mt-6 text-sm text-center text-gray-400 dark:text-gray-500">
+			© 2024 Plug. All rights reserved.
+		</p>
+	</div>
+</footer>
