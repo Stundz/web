@@ -23,9 +23,15 @@ export const routes: Routes = [
 					},
 					{
 						path: "about",
-						title: "Plug, Where your academic success resides",
+						title: "The story behind plug. Who are we ?",
 						loadComponent: () =>
 							import("./about/about.page").then((m) => m.AboutPage),
+					},
+					{
+						path: "contact",
+						title: "Get in touch with plug for more assistance",
+						loadComponent: () =>
+							import("./contact/contact.page").then((m) => m.ContactPage),
 					},
 				],
 			},
