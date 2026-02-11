@@ -8,13 +8,14 @@ export const routes: Routes = [
 			{
 				path: "",
 				pathMatch: "full",
-				title: "Find a tutor",
+				title:
+					"Find Your Perfect Tutor Today and Get Mentored througout your studies",
 				loadComponent: () =>
 					import("./index/index.page").then((m) => m.IndexPage),
 			},
 			{
 				path: "apply",
-				title: "Become a tutor",
+				title: "Apply to be a Tutor and Start Teaching Today",
 				loadComponent: () =>
 					import("./create/create.page").then((m) => m.CreatePage),
 			},
