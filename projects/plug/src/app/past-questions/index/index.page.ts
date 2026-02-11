@@ -1,14 +1,5 @@
 import { ViewportScroller } from "@angular/common";
-import { httpResource } from "@angular/common/http";
-import {
-	Component,
-	DestroyRef,
-	effect,
-	ElementRef,
-	inject,
-	input,
-	viewChild,
-} from "@angular/core";
+import { Component, DestroyRef, inject, input, viewChild } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -16,15 +7,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTab, MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import {
-	combineLatest,
-	debounceTime,
-	distinctUntilChanged,
-	map,
-	mergeWith,
-	startWith,
-	tap,
-} from "rxjs";
+import { debounceTime, distinctUntilChanged, map, mergeWith, tap } from "rxjs";
 import { Model, Paginated, User } from "shared";
 import { PastQuestion } from "../../common/services/past-question";
 
