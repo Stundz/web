@@ -17,6 +17,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: "",
+						pathMatch: "full",
 						title: "Plug, Where your academic success resides",
 						loadComponent: () =>
 							import("./home/home.page").then((m) => m.HomePage),
