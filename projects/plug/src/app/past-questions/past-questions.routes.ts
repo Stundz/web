@@ -12,6 +12,8 @@ export const routes: Routes = [
 		children: [
 			{
 				path: "",
+				title:
+					"Search and Find past questions and solutions for all departments in your institution",
 				pathMatch: "full",
 				resolve: {
 					pastQuestions: pastQuestionsResolver,
@@ -21,6 +23,7 @@ export const routes: Routes = [
 			},
 			{
 				path: "new",
+				title: "Upload past questions and get rewarded",
 				loadComponent: () =>
 					import("./create/create.page").then((m) => m.CreatePage),
 			},
