@@ -33,6 +33,12 @@ export const routes: Routes = [
 						loadComponent: () =>
 							import("./contact/contact.page").then((m) => m.ContactPage),
 					},
+					{
+						path: "pricing",
+						title: "Explorer our plans and find what suits you",
+						loadComponent: () =>
+							import("./pricing/pricing.page").then((m) => m.PricingPage),
+					},
 				],
 			},
 			{
