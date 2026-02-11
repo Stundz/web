@@ -27,6 +27,18 @@ export const routes: Routes = [
 						loadComponent: () =>
 							import("./about/about.page").then((m) => m.AboutPage),
 					},
+					{
+						path: "contact",
+						title: "Get in touch with plug for more assistance",
+						loadComponent: () =>
+							import("./contact/contact.page").then((m) => m.ContactPage),
+					},
+					{
+						path: "pricing",
+						title: "Explorer our plans and find what suits you",
+						loadComponent: () =>
+							import("./pricing/pricing.page").then((m) => m.PricingPage),
+					},
 				],
 			},
 			{
