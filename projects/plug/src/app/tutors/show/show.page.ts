@@ -1,7 +1,7 @@
 import { Component, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
-import { Meta } from "@angular/platform-browser";
+import { Meta, Title } from "@angular/platform-browser";
 import { Model } from "shared";
 
 @Component({
@@ -11,6 +11,7 @@ import { Model } from "shared";
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {
+	#title = inject(Title);
 	#meta = inject(Meta);
 	tutor = input.required<Model.Plug.Tutor>();
 
@@ -18,6 +19,10 @@ export class ShowPage {
 		const description = `${this.tutor().first_name} ${this.tutor().last_name} is a tutor following the ${this.tutor()?.user?.level?.program?.name} Program in the ${this.tutor()?.user?.department?.faculty?.institution.name} and lecturing ${this.tutor()
 			.courses?.map((c) => c.code)
 			.join(", ")}`;
+
+		this.#title.setTitle(
+			`${this.tutor().first_name} ${this.tutor().last_name}, Plug tutor and mentor`,
+		);
 
 		this.#meta.addTags([
 			{

@@ -1,5 +1,11 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
-import { Component, computed, inject, input } from "@angular/core";
+import {
+	Component,
+	computed,
+	inject,
+	input,
+	linkedSignal,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { RouterLink } from "@angular/router";
@@ -8,6 +14,7 @@ import { Model } from "shared";
 import { TutorialSessions } from "../../common/components/tutorial-sessions/tutorial-sessions";
 import { MatDialog } from "@angular/material/dialog";
 import { BookingForm } from "../../common/components/booking-form/booking-form";
+import { Meta, Title } from "@angular/platform-browser";
 
 @Component({
 	selector: "plug-show-tutorial",
@@ -27,6 +34,8 @@ export class ShowPage {
 	user = input.required<Model.User | undefined>();
 
 	#dialog = inject(MatDialog);
+	#meta = inject(Meta);
+	#title = inject(Title);
 
 	endTime = computed(() => {
 		return addMinutes(
@@ -34,6 +43,22 @@ export class ShowPage {
 			this.tutorial()?.session?.duration || 0,
 		);
 	});
+
+	ngOnInit() {
+		this.#title.setTitle(this.tutorial().name);
+		this.#meta.addTags([
+			{
+				id: "description",
+				name: "description",
+				content: this.tutorial().description,
+			},
+			{
+				id: "og:description",
+				property: "og:description",
+				content: this.tutorial().description,
+			},
+		]);
+	}
 
 	book() {
 		this.#dialog.open(BookingForm);
