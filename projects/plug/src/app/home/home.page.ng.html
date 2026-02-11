@@ -122,7 +122,10 @@
 			Join Plug today and start connecting with tutors and resources.
 		</p>
 		<div class="mt-8">
-			<a routerLink="/signup" class="" matButton="filled"
+			<a
+				[href]="`https:\/\/auth.${environment.domain}\/signup?callback=https:\/\/plug.${environment.domain}`"
+				class=""
+				matButton="filled"
 				>Get Started for Free</a
 			>
 		</div>

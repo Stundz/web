@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
+import { environment } from "../../environments/environment";
 
 @Component({
 	selector: "app-home",
@@ -8,4 +9,6 @@ import { RouterLink } from "@angular/router";
 	templateUrl: "./home.page.ng.html",
 	styleUrl: "./home.page.scss",
 })
-export class HomePage {}
+export class HomePage {
+	environment = environment;
+}
