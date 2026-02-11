@@ -26,6 +26,13 @@ export class ShowPage {
 
 		this.#meta.addTags([
 			{
+				id: "keywords",
+				name: "keywords",
+				content: `plug, tutor, mentor, ${this.tutor().first_name.trim().replace(/ /g, ", ")}, ${this.tutor().last_name.trim().replace(/ /g, ", ")}, ${this.tutor()
+					?.courses?.map((c) => c.title)
+					.join(", ")}`,
+			},
+			{
 				id: "description",
 				name: "description",
 				content: description,

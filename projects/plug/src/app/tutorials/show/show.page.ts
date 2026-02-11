@@ -45,19 +45,23 @@ export class ShowPage {
 	});
 
 	ngOnInit() {
+		console.log(this.tutorial());
 		this.#title.setTitle(this.tutorial().name);
-		this.#meta.addTags([
-			{
-				id: "description",
-				name: "description",
-				content: this.tutorial().description,
-			},
-			{
-				id: "og:description",
-				property: "og:description",
-				content: this.tutorial().description,
-			},
-		]);
+		this.#meta.updateTag({
+			id: "keywords",
+			name: "keywords",
+			content: `plug, tutorials, tutorial, ${this.tutorial().name.replace(/ /g, ", ")}, ${this.tutorial().course?.title.replace(/ /g, ", ")}`,
+		});
+		this.#meta.updateTag({
+			id: "description",
+			name: "description",
+			content: this.tutorial().description,
+		});
+		this.#meta.updateTag({
+			id: "og:description",
+			property: "og:description",
+			content: this.tutorial().description,
+		});
 	}
 
 	book() {
