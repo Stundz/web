@@ -1,5 +1,30 @@
 # Changelog
 
+## [5.10.0](https://github.com/Stundz/web/compare/v5.9.1...v5.10.0) (2026-02-11)
+
+
+### Features
+
+* Added biome formatter ([13661c7](https://github.com/Stundz/web/commit/13661c7e8c2ce0ee6b5f6ab7ee3cd41472eeea6e))
+
+
+### Bug Fixes
+
+* ... ([eb69565](https://github.com/Stundz/web/commit/eb69565a1057876d21226229a8578f7fb07c9ede))
+* Active route issue on navbar ([6ce1b74](https://github.com/Stundz/web/commit/6ce1b74d92a4b82f9e84cd45cbcc7375cd4ac339))
+* Added contact page ([60292ae](https://github.com/Stundz/web/commit/60292ae1897b0883a87227b6a2696e0efd119a5a))
+* added contact page link to footer ([9d37de9](https://github.com/Stundz/web/commit/9d37de975226b710649b0daf1d89f9176b41a7dd))
+* Added mcp config for angular ([c40f658](https://github.com/Stundz/web/commit/c40f658191a8bfcadee34f4b06a48f34c0984826))
+* Added more SEO patches ([2a2ecdc](https://github.com/Stundz/web/commit/2a2ecdc3b6dd38a4dcb45413c80ddbc5914ec644))
+* Added SEO titles and descriptions for tutors and tutorials show pages ([a3de697](https://github.com/Stundz/web/commit/a3de6979e6edefd4262ccfbbef1346a1b9892315))
+* Adjusted homepage ([bd45e7e](https://github.com/Stundz/web/commit/bd45e7ecc0e2f722058e2a3b3d1cd13187716139))
+* Little SEO related adjustments ([840bbbf](https://github.com/Stundz/web/commit/840bbbf458089ec4127fe003da2be7597538612d))
+* **plug:** Updated the guest layout ([f8acdae](https://github.com/Stundz/web/commit/f8acdaee38f6b53f94fbba80fbee092a03f1a2ee))
+* Removed broken link to signup page ([6e9aed4](https://github.com/Stundz/web/commit/6e9aed4b62dc7d2a0f9d3db4b3c373e74156e90b))
+* Updated page title for about page ([49568e5](https://github.com/Stundz/web/commit/49568e58caa2d6c0c6e43283537db1276a2adf24))
+* Updated title for some tutors routes ([8677dba](https://github.com/Stundz/web/commit/8677dba3c547c3177f9fb8f77ea500811f9d47d1))
+* Updated titles for some route to improve SEO ([c9daf50](https://github.com/Stundz/web/commit/c9daf501e0cac2d038c3b54c661480ae0b7f21fd))
+
 ## [5.9.1](https://github.com/Stundz/web/compare/v5.9.0...v5.9.1) (2025-11-12)
 
 
