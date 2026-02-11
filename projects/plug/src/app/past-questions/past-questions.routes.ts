@@ -12,8 +12,7 @@ export const routes: Routes = [
 		children: [
 			{
 				path: "",
-				title:
-					"Search and Find past questions and solutions for all departments in your institution",
+				title: "Search and Find past questions and solutions",
 				pathMatch: "full",
 				resolve: {
 					pastQuestions: pastQuestionsResolver,

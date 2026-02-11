@@ -31,6 +31,7 @@ export const routes: Routes = [
 			},
 			{
 				path: ":tutor",
+				title: "Certified plug tutor",
 				resolve: { tutor: tutorResolver },
 				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
 			},
