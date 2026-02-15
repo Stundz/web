@@ -1,5 +1,4 @@
 {
-	"syntax": "postcss-scss",
 	"plugins": {
 		"@tailwindcss/postcss": {}
 	}
