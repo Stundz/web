@@ -45,7 +45,6 @@ export class ShowPage {
 	});
 
 	ngOnInit() {
-		console.log(this.tutorial());
 		this.#title.setTitle(this.tutorial().name);
 		this.#meta.updateTag({
 			id: "keywords",
