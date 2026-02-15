@@ -61,7 +61,6 @@ export class CreatePage {
 	private _breakpointObserver = inject(BreakpointObserver);
 	private _tutorService = inject(Tutor);
 	#fb = inject(NonNullableFormBuilder);
-	private _cdr = inject(ChangeDetectorRef);
 	private _snackBar = inject(MatSnackBar);
 
 	stepperOrientation = toSignal(
