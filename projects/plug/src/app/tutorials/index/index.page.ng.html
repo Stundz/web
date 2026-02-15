@@ -70,7 +70,7 @@
         ({{ tutorials().meta.total }})
       }
     </h2>
-    @if ((user() && !user()?.plug?.tutor) || !user()) {
+    @if ((user() && !user().plug?.tutor) || !user()) {
       <a routerLink="/tutors/apply" class="sm:float-right max-sm:order-first" matButton="outlined">
         Become a tutor
       </a>
