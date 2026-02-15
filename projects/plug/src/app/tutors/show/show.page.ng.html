@@ -30,7 +30,7 @@
           >
         </div>
         <div class="flex flex-wrap gap-3 justify-center mt-4 md:justify-start">
-          @for (course of tutor()?.courses; track course.id) {
+          @for (course of tutor().courses; track course.id) {
             <div
               class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
             >
@@ -68,10 +68,10 @@
             ></span>
             <div>
               <p class="font-semibold text-gray-800 dark:text-gray-200">
-                {{ tutor()?.user?.level?.program?.name }} (Year {{ tutor()?.user?.level?.name }})
+                {{ tutor().user?.level?.program?.name }} (Year {{ tutor().user?.level?.name }})
               </p>
               <p class="text-sm text-gray-500 dark:text-gray-400">
-                {{ tutor()?.user?.department?.faculty?.name }}
+                {{ tutor().user?.department?.faculty?.name }}
               </p>
             </div>
           </li>
