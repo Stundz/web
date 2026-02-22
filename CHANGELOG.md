@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.0.1](https://github.com/Stundz/web/compare/v6.0.0...v6.0.1) (2026-02-22)
+
+
+### Bug Fixes
+
+* **plug:** Title and meta tags settings moved to resolvers ([5f17869](https://github.com/Stundz/web/commit/5f17869285a8e527fc513b754648a748e591d99f))
+* **plug:** Title and meta tags settings moved to resolvers ([92fb7fd](https://github.com/Stundz/web/commit/92fb7fd02a8d7a5879664a616a6bc86885c82041))
+
 ## [6.0.0](https://github.com/Stundz/web/compare/v5.9.1...v6.0.0) (2026-02-22)
 
 
