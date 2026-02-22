@@ -100,48 +100,46 @@ export class IndexPage {
 	);
 
 	constructor(meta: Meta, title: Title) {
-		meta.addTags([
-			{
-				id: "description",
-				name: "description",
-				content:
-					"Search and filter through a wide range of tutorials to find the perfect tutor for you.",
-			},
-			{
-				id: "og:title",
-				property: "og:title",
-				content: title.getTitle(),
-			},
-			{
-				id: "og:description",
-				property: "og:description",
-				content:
-					"Search and filter through a wide range of tutorials to find the perfect tutor for you",
-			},
-			{
-				id: "keywords",
-				name: "keywords",
-				content:
-					"plug, stundz, study, tutorials, tutor, past questions, revision, education",
-			},
-			{
-				id: "og:image",
-				property: "og:image",
-				content:
-					"https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
-			},
-			{
-				id: "og:image.url",
-				property: "og:image",
-				content:
-					"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
-			},
-			{
-				id: "og:image.secure_url",
-				property: "og:image",
-				content:
-					"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
-			},
-		]);
+		meta.updateTag({
+			id: "description",
+			name: "description",
+			content:
+				"Search and filter through a wide range of tutorials to find the perfect tutor for you.",
+		});
+		meta.updateTag({
+			id: "og:title",
+			property: "og:title",
+			content: title.getTitle(),
+		});
+		meta.updateTag({
+			id: "og:description",
+			property: "og:description",
+			content:
+				"Search and filter through a wide range of tutorials to find the perfect tutor for you",
+		});
+		meta.updateTag({
+			id: "keywords",
+			name: "keywords",
+			content:
+				"plug, stundz, study, tutorials, tutor, past questions, revision, education",
+		});
+		meta.updateTag({
+			id: "og:image",
+			property: "og:image",
+			content:
+				"https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
+		});
+		meta.updateTag({
+			id: "og:image.url",
+			property: "og:image",
+			content:
+				"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
+		});
+		meta.updateTag({
+			id: "og:image.secure_url",
+			property: "og:image",
+			content:
+				"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
+		});
 	}
 }
