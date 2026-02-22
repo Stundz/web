@@ -30,7 +30,10 @@
 								"input": "projects/plug/public"
 							}
 						],
-						"styles": ["projects/plug/src/styles.scss"],
+						"styles": [
+              "projects/plug/src/material-theme.scss",
+              "projects/plug/src/styles.css"
+            ],
 						"server": "projects/plug/src/main.server.ts",
 						"outputMode": "server",
 						"ssr": {
