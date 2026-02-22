@@ -103,8 +103,6 @@ export namespace Model {
 		}
 
 		export interface PastQuestion extends Model {
-			course_title: string;
-			course_code: string;
 			institution: Institution;
 			solutions_count: number;
 			year: number;
