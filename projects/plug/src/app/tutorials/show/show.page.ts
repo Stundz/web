@@ -34,8 +34,6 @@ export class ShowPage {
 	user = input.required<Model.User | undefined>();
 
 	#dialog = inject(MatDialog);
-	#meta = inject(Meta);
-	#title = inject(Title);
 
 	endTime = computed(() => {
 		return addMinutes(
@@ -43,25 +41,6 @@ export class ShowPage {
 			this.tutorial()?.session?.duration || 0,
 		);
 	});
-
-	ngOnInit() {
-		this.#title.setTitle(this.tutorial().name);
-		this.#meta.updateTag({
-			id: "keywords",
-			name: "keywords",
-			content: `plug, tutorials, tutorial, ${this.tutorial().name.replace(/ /g, ", ")}, ${this.tutorial().course?.title.replace(/ /g, ", ")}`,
-		});
-		this.#meta.updateTag({
-			id: "description",
-			name: "description",
-			content: this.tutorial().description,
-		});
-		this.#meta.updateTag({
-			id: "og:description",
-			property: "og:description",
-			content: this.tutorial().description,
-		});
-	}
 
 	book() {
 		this.#dialog.open(BookingForm);
