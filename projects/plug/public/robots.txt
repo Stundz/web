@@ -1,3 +1,4 @@
 Sitemap: https://stundz.com/sitemap.xml
 User-agent: *
 Disallow: /dashboard
+Disallow: /settings
