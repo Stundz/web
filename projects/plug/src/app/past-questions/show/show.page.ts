@@ -1,9 +1,10 @@
 import { httpResource } from "@angular/common/http";
-import { Component, input } from "@angular/core";
+import { Component, effect, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Model } from "shared";
 import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
+import { Meta, Title } from "@angular/platform-browser";
 
 @Component({
 	selector: "plug-show-past-question",
@@ -17,4 +18,6 @@ export class ShowPage {
 	});
 
 	blob = httpResource.blob(() => `https://api.${environment.domain}/pdf`);
+
+	ngOnInit() {}
 }

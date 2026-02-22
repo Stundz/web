@@ -48,12 +48,12 @@ export const routes: Routes = [
 						children: [
 							{
 								path: "",
-								title: "Tutorial Session for you",
 								loadComponent: () =>
 									import("./show/show.page").then((m) => m.ShowPage),
 							},
 							{
 								path: "",
+								title: "Tutorial Session for you",
 								loadChildren: () =>
 									import("./show/sessions/sessions.routes").then(
 										(m) => m.routes,
