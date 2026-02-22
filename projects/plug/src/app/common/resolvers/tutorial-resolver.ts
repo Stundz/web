@@ -57,6 +57,11 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 			tap((tutorial) => {
 				title.setTitle(tutorial.name);
 				meta.updateTag({
+					id: "og:title",
+					property: "og:title",
+					content: tutorial.name,
+				});
+				meta.updateTag({
 					id: "keywords",
 					name: "keywords",
 					content: `plug, tutorials, tutorial, ${tutorial.name.replace(/ /g, ", ")}, ${tutorial.course?.title.replace(/ /g, ", ")}`,
@@ -70,6 +75,11 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 					id: "og:description",
 					property: "og:description",
 					content: tutorial.description,
+				});
+				meta.updateTag({
+					id: "og:url",
+					property: "og:url",
+					content: `https://plug.${environment.domain}${state.url}`,
 				});
 			}),
 			catchError((response: HttpErrorResponse) => {

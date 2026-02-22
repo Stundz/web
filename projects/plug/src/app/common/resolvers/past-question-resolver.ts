@@ -1,6 +1,6 @@
 import { inject, PLATFORM_ID } from "@angular/core";
 import { ResolveFn, Router } from "@angular/router";
-import { Model, Paginated } from "shared";
+import { ENVIRONMENT, Model, Paginated } from "shared";
 import { PastQuestion } from "../services/past-question";
 import { catchError, EMPTY, of, tap, throwError } from "rxjs";
 import { isPlatformServer } from "@angular/common";
@@ -59,6 +59,12 @@ export const pastQuestionResolver: ResolveFn<Model.Plug.PastQuestion> = (
 					id: "og:description",
 					property: "og:description",
 					content: description,
+				});
+
+				meta.updateTag({
+					id: "og:url",
+					property: "og:url",
+					content: `https://plug.${environment.domain}${state.url}`,
 				});
 			}),
 			catchError((response: HttpErrorResponse) => {
