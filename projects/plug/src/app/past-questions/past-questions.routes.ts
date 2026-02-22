@@ -31,7 +31,7 @@ export const routes: Routes = [
 	{
 		path: "past-question/:past-question",
 		resolve: {
-			pastQuestion: pastQuestionResolver,
+			"past-question": pastQuestionResolver,
 		},
 		children: [
 			{
