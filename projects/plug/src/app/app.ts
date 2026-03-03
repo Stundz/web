@@ -19,7 +19,7 @@ export class App {
 	readonly cannonical = toSignal(
     this._router.events.pipe(
       filter(e => e instanceof NavigationEnd),
-      map(() => `https://${environment.domain}${this._router.url}`)
+      map(() => `https://plug.${environment.domain}${this._router.url}`)
     )
   );
 
