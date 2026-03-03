@@ -1,12 +1,12 @@
-import { inject, PLATFORM_ID } from "@angular/core";
-import { ResolveFn, Router } from "@angular/router";
-import { ENVIRONMENT, Model, Paginated } from "shared";
-import { PastQuestion } from "../services/past-question";
-import { catchError, EMPTY, of, tap, throwError } from "rxjs";
 import { isPlatformServer } from "@angular/common";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
+import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
+import { inject, PLATFORM_ID } from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
+import { type ResolveFn, Router } from "@angular/router";
+import { catchError, EMPTY, of, tap, throwError } from "rxjs";
+import { ENVIRONMENT, type Model, type Paginated } from "shared";
+import { environment } from "../../../environments/environment";
+import { PastQuestion } from "../services/past-question";
 
 export const pastQuestionsResolver: ResolveFn<
 	Paginated<Model.Plug.PastQuestion>
@@ -45,8 +45,8 @@ export const pastQuestionResolver: ResolveFn<Model.Plug.PastQuestion> = (
 		)
 		.pipe(
 			tap((question) => {
-				const pageTitle = `${question.course.code} ${question.course.title}, ${question.year}`;
-				const description = `${question.course.code} ${question.course?.title}. Past question and solutions.`;
+				const pageTitle = `${question.course.code} - ${question.course.title}, ${question.year}`;
+				const description = `${question.course.code} - ${question.course?.title}. Past question and solutions.`;
 				title.setTitle(pageTitle);
 
 				meta.updateTag({
@@ -55,6 +55,11 @@ export const pastQuestionResolver: ResolveFn<Model.Plug.PastQuestion> = (
 					content: pageTitle,
 				});
 
+				meta.updateTag({
+					id: "description",
+					property: "description",
+					content: description,
+				});
 				meta.updateTag({
 					id: "og:description",
 					property: "og:description",
