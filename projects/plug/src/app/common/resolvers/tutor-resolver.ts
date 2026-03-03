@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
-import { ResolveFn } from "@angular/router";
-import { Model } from "shared";
-import { environment } from "../../../environments/environment";
-import { pendingUntilEvent } from "@angular/core/rxjs-interop";
-import { catchError, of, tap } from "rxjs";
 import { inject } from "@angular/core";
+import { pendingUntilEvent } from "@angular/core/rxjs-interop";
 import { Meta, Title } from "@angular/platform-browser";
+import type { ResolveFn } from "@angular/router";
+import { catchError, of, tap } from "rxjs";
+import type { Model } from "shared";
+import { environment } from "../../../environments/environment";
 
 export const tutorResolver: ResolveFn<Model.Plug.Tutor | undefined> = (
 	route,
@@ -23,7 +23,7 @@ export const tutorResolver: ResolveFn<Model.Plug.Tutor | undefined> = (
 				.pipe(
 					pendingUntilEvent(),
 					tap((tutor) => {
-						const description = `${tutor.first_name} ${tutor.last_name} is a tutor following the ${tutor?.user?.level?.program?.name} Program in the ${tutor?.user?.department?.faculty?.institution.name} and lecturing ${tutor.courses
+						const description = `Learn with ${tutor.first_name} ${tutor.last_name}, a certified plug following the ${tutor?.user?.level?.program?.name} Program in the ${tutor?.user?.department?.faculty?.institution.name} and lecturing ${tutor.courses
 							?.map((c) => c.code)
 							.join(", ")}`;
 						const t = `${tutor.first_name} ${tutor.last_name}, Plug tutor and mentor`;

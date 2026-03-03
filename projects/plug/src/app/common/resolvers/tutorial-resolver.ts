@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { ResolveFn, Router } from "@angular/router";
+import { Meta, Title } from "@angular/platform-browser";
+import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, tap, throwError } from "rxjs";
-import { Model, Paginated } from "shared";
+import type { Model, Paginated } from "shared";
 import { environment } from "../../../environments/environment";
 import { Tutorial } from "../services/tutorial";
-import { Meta, Title } from "@angular/platform-browser";
 
 export const tutorialsResolver: ResolveFn<Paginated<Model.Plug.Tutorial>> = (
 	route,
@@ -55,6 +55,7 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 		)
 		.pipe(
 			tap((tutorial) => {
+				const description = tutorial.description.slice(0, 157);
 				title.setTitle(tutorial.name);
 				meta.updateTag({
 					id: "og:title",
@@ -69,12 +70,12 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 				meta.updateTag({
 					id: "description",
 					name: "description",
-					content: tutorial.description,
+					content: description,
 				});
 				meta.updateTag({
 					id: "og:description",
 					property: "og:description",
-					content: tutorial.description,
+					content: description,
 				});
 				meta.updateTag({
 					id: "og:url",
