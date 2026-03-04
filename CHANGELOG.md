@@ -1,5 +1,20 @@
 # Changelog
 
+## [6.0.2](https://github.com/Stundz/web/compare/v6.0.1...v6.0.2) (2026-03-04)
+
+
+### Bug Fixes
+
+* Added blank project sitemap. ([1a2b8cb](https://github.com/Stundz/web/commit/1a2b8cbcfb75e80993d66baa5a5d0395051ecfe0))
+* Addressed issue with canonical URLs in plug's app ([46b4e74](https://github.com/Stundz/web/commit/46b4e74f1cbaa96b2193474d491f5037fcbe48ed))
+* Adjusted canonical links for plug app. ([afba32e](https://github.com/Stundz/web/commit/afba32e7270ebabbc888fd833caa72285d435425))
+* past-question updates ([9241d46](https://github.com/Stundz/web/commit/9241d4633a397ac895da73f0353fbf10e3934d14))
+* removed unnecessary iports ([33ae2ff](https://github.com/Stundz/web/commit/33ae2ff677f878f5c7b311ff2549403b453de335))
+* Slightly increase length of tutor-resolver description. ([1fbb5a2](https://github.com/Stundz/web/commit/1fbb5a220f6b4160cf17543de0e0bd494819d138))
+* Trimmed the length of tutorial description for SEO. ([842c7d2](https://github.com/Stundz/web/commit/842c7d2ffc2d2b72b3c2d38686d2d0e064659733))
+* updated keyworkds ([ea69f76](https://github.com/Stundz/web/commit/ea69f76c69a4aa1ce5b9ccee4cd82a207e61237d))
+* Updated robots.txt file ([166c1cc](https://github.com/Stundz/web/commit/166c1cca3bfcd6b182d47a5244514e4e3f78b4d4))
+
 ## [6.0.1](https://github.com/Stundz/web/compare/v6.0.0...v6.0.1) (2026-02-22)
 
 
