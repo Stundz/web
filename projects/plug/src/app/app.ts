@@ -12,14 +12,21 @@ import { environment } from "../environments/environment";
 	styleUrl: "./app.scss",
 })
 export class App {
-  private _router = inject(Router)
+  #router = inject(Router)
 	protected readonly title = signal("plug");
 
 
 	readonly cannonical = toSignal(
-    this._router.events.pipe(
+    this.#router.events.pipe(
       filter(e => e instanceof NavigationEnd),
-      map(() => `https://plug.${environment.domain}${this._router.url}`)
+      map(() => {
+        const urlTree = this.#router.parseUrl(this.#router.url);
+
+        urlTree.fragment = null
+        urlTree.queryParams = {}
+
+        return `https://plug.${environment.domain}${urlTree.toString().replace(/\/$/, '')}`
+      })
     )
   );
 
