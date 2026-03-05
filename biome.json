@@ -1,6 +1,12 @@
 {
 	"formatter": {
+		"formatWithErrors": true,
 		"enabled": true
+	},
+	"javascript": {
+		"formatter": {
+			"enabled": true
+		}
 	},
 	"html": {
 		"formatter": {
