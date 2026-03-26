@@ -45,7 +45,7 @@
 
 @theme {
   --color-error-container: var(--mat-sys-error-container);
-  --color-inverse-surface: var(--mat-sys-surface-inverse);
+  --color-inverse-surface: var(--mat-sys-inverse-surface);
   --color-surface-container-low: var(--mat-sys-surface-container-low);
   --color-primary-fixed: var(--mat-sys-primary-fixed);
   --color-outline: var(--mat-sys-outline);
@@ -83,7 +83,7 @@
   --color-surface-dim: var(--mat-sys-surface-dim);
   --color-surface-container-high: var(--mat-sys-surface-container-high);
   --color-primary-fixed-dim: var(--mat-sys-primary-fixed-dim);
-  --color-surface-container-lowest: var(--mat-sys-container-lowest);
+  --color-surface-container-lowest: var(--mat-sys-surface-container-lowest);
   --color-on-surface-variant: var(--mat-sys-on-surface-variant);
   --color-primary: var(--mat-sys-primary);
   --color-surface-container-highest: var(--mat-sys-surface-container-highest);
