@@ -44,53 +44,53 @@
 }
 
 @theme {
-  --color-error-container: #ffdad6;
-  --color-inverse-surface: #2f3131;
-  --color-surface-container-low: #f3f3f3;
-  --color-primary-fixed: #ffdbcf;
-  --color-outline: #8c7168;
-  --color-inverse-on-surface: #f1f1f1;
-  --color-surface-variant: #e2e2e2;
-  --color-on-tertiary-fixed: #271812;
-  --color-on-secondary-fixed: #2c160f;
-  --color-outline-variant: #e0c0b5;
-  --color-on-primary-fixed-variant: #812900;
-  --color-on-primary-fixed: #380d00;
-  --color-on-secondary-container: #795a50;
-  --color-secondary-fixed: #ffdbd0;
-  --color-on-error-container: #93000a;
-  --color-surface-bright: #f9f9f9;
-  --color-on-surface: #1a1c1c;
-  --color-tertiary-fixed-dim: #dcc1b7;
-  --color-primary-container: #a93800;
-  --color-on-tertiary-container: #efd3c9;
-  --color-on-secondary: #ffffff;
-  --color-error: #ba1a1a;
-  --color-on-tertiary-fixed-variant: #56423b;
-  --color-on-error: #ffffff;
-  --color-surface: #f9f9f9;
-  --color-on-background: #1a1c1c;
-  --color-on-tertiary: #ffffff;
-  --color-tertiary: #56433b;
-  --color-secondary-container: #fed4c7;
-  --color-secondary: #76574d;
-  --color-surface-container: #eeeeee;
-  --color-tertiary-container: #6f5a52;
-  --color-on-secondary-fixed-variant: #5c4037;
-  --color-on-primary: #ffffff;
-  --color-inverse-primary: #ffb59b;
-  --color-tertiary-fixed: #f9dcd2;
-  --color-surface-dim: #dadada;
-  --color-surface-container-high: #e8e8e8;
-  --color-primary-fixed-dim: #ffb59b;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-surface-variant: #58423a;
-  --color-primary: #812900;
-  --color-surface-container-highest: #e2e2e2;
-  --color-secondary-fixed-dim: #e6beb1;
-  --color-background: #f9f9f9;
-  --color-on-primary-container: #ffcebd;
-  --color-surface-tint: #a93800;
+  --color-error-container: var(--mat-sys-error-container);
+  --color-inverse-surface: var(--mat-sys-surface-inverse);
+  --color-surface-container-low: var(--mat-sys-surface-container-low);
+  --color-primary-fixed: var(--mat-sys-primary-fixed);
+  --color-outline: var(--mat-sys-outline);
+  --color-inverse-on-surface: var(--mat-sys-inverse-on-surface);
+  --color-surface-variant: var(--mat-sys-surface-variant);
+  --color-on-tertiary-fixed: var(--mat-sys-on-tertiary);
+  --color-on-secondary-fixed: var(--mat-sys-on-secondary-fixed);
+  --color-outline-variant: var(--mat-sys-outline-variant);
+  --color-on-primary-fixed-variant: var(--mat-sys-primary-fixed-variant);
+  --color-on-primary-fixed: var(--mat-sys-on-primary-fixed);
+  --color-on-secondary-container: var(--mat-sys-on-secondary-container);
+  --color-secondary-fixed: var(--mat-sys-secondary-fixed);
+  --color-on-error-container: var(--mat-sys-on-error-container);
+  --color-surface-bright: var(--mat-sys-surface-bright);
+  --color-on-surface: var(--mat-sys-on-surface-bright);
+  --color-tertiary-fixed-dim: var(--mat-sys-tertiary-fixed-dim);
+  --color-primary-container: var(--mat-sys-primary-container);
+  --color-on-tertiary-container: var(--may-sys-on-tertiary-container);
+  --color-on-secondary: var(--mat-sys-on-secondary);
+  --color-error: var(--mat-sys-error);
+  --color-on-tertiary-fixed-variant: var(--mat-sys-on-tertiary-fixed-variant);
+  --color-on-error: var(--mat-sys-on-error);
+  --color-surface: var(--mat-sys-surface);
+  --color-on-background: var(--mat-sys-on-background);
+  --color-on-tertiary: var(--mat-sys-on-tertiary);
+  --color-tertiary: var(--mat-sys-tertiary);
+  --color-secondary-container: var(--mat-sys-secondary-container);
+  --color-secondary: var(--mat-sys-secondary);
+  --color-surface-container: var(--mat-sys-surface-container);
+  --color-tertiary-container: var(--mat-sys-tertiary-container);
+  --color-on-secondary-fixed-variant: var(--mat-sys-on-secondary-fixed-variant);
+  --color-on-primary: var(--mat-sys-on-primary);
+  --color-inverse-primary: var(--mat-sys-inverse-primary);
+  --color-tertiary-fixed: var(--mat-sys-tertiary-fixed);
+  --color-surface-dim: var(--mat-sys-surface-dim);
+  --color-surface-container-high: var(--mat-sys-surface-container-high);
+  --color-primary-fixed-dim: var(--mat-sys-primary-fixed-dim);
+  --color-surface-container-lowest: var(--mat-sys-container-lowest);
+  --color-on-surface-variant: var(--mat-sys-on-surface-variant);
+  --color-primary: var(--mat-sys-primary);
+  --color-surface-container-highest: var(--mat-sys-surface-container-highest);
+  --color-secondary-fixed-dim: var(--mat-sys-secondary-fixed-dim);
+  --color-background: var(--mat-sys-background);
+  --color-on-primary-container: var(--mat-sys-on-primary-container);
+  --color-surface-tint: var(--mat-sys-surface-tint);
 
   --font-headline: "Noto Serif";
   --font-body: "Inter";
@@ -98,7 +98,7 @@
 }
 
 @utility hero-gradient {
-	background: linear-gradient(135deg, var(--mat-sys-primary) 0%, var(--mat-sys-surface-tint) 100%);
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-surface-tint) 100%);
 }
 
 @utility glass-panel {

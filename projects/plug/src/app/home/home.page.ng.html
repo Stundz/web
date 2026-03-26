@@ -13,7 +13,7 @@
 				>Elevate Your Journey</span
 			>
 			<h1
-				class="mb-8 text-6xl font-extrabold tracking-tight md:text-7xl lg:text-8xl font-headline text-on-surface leading-[1.05]"
+				class="mb-8 text-6xl font-extrabold tracking-tight md:text-7xl lg:text-8xl font-headline leading-[1.05]"
 			>
 				Your All-in-One <br>Academic
 				<span class="italic text-primary">Success Hub</span>
@@ -47,7 +47,7 @@
 			>
 				<div class="flex gap-3 items-center mb-2">
 					<span
-						class="icon-[material-symbols--verfied-outline] text-primary"
+						class="icon-[material-symbols--verified-outline] text-primary"
 						data-icon="verified"
 						role="img"
 						aria-hidden="true"
@@ -70,7 +70,7 @@
 <section class="py-24 px-8 bg-surface-bright">
 	<div class="mx-auto max-w-7xl">
 		<div class="mb-16">
-			<h2 class="mb-4 text-4xl font-bold font-headline text-on-surface">
+			<h2 class="mb-4 text-4xl font-bold font-headline text-on-surface-bright)">
 				The Scholar's Toolkit
 			</h2>
 			<p class="text-on-surface-variant">
@@ -78,84 +78,100 @@
 			</p>
 		</div>
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-			<div
-				class="relative p-10 rounded-lg border transition-all md:col-span-2 hover:shadow-xl group bg-surface-container-lowest border-outline-variant/5"
-			>
-				<div class="flex justify-between items-start mb-12">
-					<div
-						class="flex justify-center items-center w-16 h-16 rounded-2xl bg-primary-fixed text-primary"
+			<mat-card class="relative md:col-span-2 group">
+				<mat-card-content>
+					<div class="flex justify-between items-start mb-12">
+						<div
+							class="flex justify-center items-center w-16 h-16 rounded-2xl bg-primary-fixed text-primary"
+						>
+							<span
+								class="text-3xl icon-[material-symbols--history-edu-outline]"
+								data-icon="history_edu"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<span class="font-serif text-4xl text-outline-variant/40">01</span>
+					</div>
+					<h3 class="mb-4 text-3xl font-bold font-headline">Past Exams</h3>
+					<p class="mb-8 max-w-md text-on-surface-variant">
+						Access a comprehensive archive of previous papers with verified
+						solutions and instructor insights.
+					</p>
+					<a
+						class="inline-flex gap-2 items-center font-bold transition-all group-hover:gap-4 text-primary"
+						routerLink="/past-questions"
 					>
+						Browse the Archive
 						<span
-							class="text-3xl icon-[material-symbols--history-edu-outline]"
-							data-icon="history_edu"
-							role="img"
+							class="icon-[material-symbols--arrow-forward]"
 							aria-hidden="true"
+							role="img"
 						></span>
-					</div>
-					<span class="font-serif text-4xl text-outline-variant/40">01</span>
-				</div>
-				<h3 class="mb-4 text-3xl font-bold font-headline">Past Exams</h3>
-				<p class="mb-8 max-w-md text-on-surface-variant">
-					Access a comprehensive archive of previous papers with verified
-					solutions and instructor insights.
-				</p>
-				<a
-					class="inline-flex gap-2 items-center font-bold transition-all group-hover:gap-4 text-primary"
-					href="#"
-				>
-					Browse the Archive
-					<span
-						class="icon-[material-symbols--arrow-forward]"
-						aria-hidden="true"
-						role="img"
-					></span>
-				</a>
-			</div>
+						<span class="absolute inset-0"></span>
+					</a>
+				</mat-card-content>
+			</mat-card>
 			<div class="flex flex-col gap-8">
-				<div
-					class="flex-1 p-8 rounded-lg border transition-all hover:shadow-xl bg-surface-container-lowest border-outline-variant/5"
-				>
-					<div
-						class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-secondary-container text-secondary"
-					>
-						<span
-							class="icon-[material-symbols--smart-display-outline]"
-							data-icon="smart_display"
-							>smart_display</span
+				<mat-card class="relative">
+					<mat-card-content>
+						<div class="flex justify-between items-start mb-6">
+							<div
+								class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-secondary-container text-secondary"
+							>
+								<span
+									class="icon-[material-symbols--smart-display-outline]"
+									data-icon="smart_display"
+									>smart_display</span
+								>
+							</div>
+							<span class="font-serif text-4xl text-outline-variant/40"
+								>02</span
+							>
+						</div>
+						<h3 class="mb-2 text-xl font-bold font-headline">Tutorials</h3>
+						<p class="mb-6 text-sm text-on-surface-variant">
+							Bite-sized visual guides for complex concepts.
+						</p>
+						<a
+							class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
+							routerLink="/tutorials"
+							>View tutorials
+							<span class="absolute inset-0"></span>
+						</a>
+					</mat-card-content>
+				</mat-card>
+				<mat-card appearance="raised" class="relative">
+					<mat-card-content>
+						<div class="flex justify-between items-start mb-6">
+							<div
+								class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-tertiary-fixed text-tertiary"
+							>
+								<span
+									class="icon-[material-symbols--account-tree-outline]"
+									data-icon="account_tree"
+									>account_tree</span
+								>
+							</div>
+							<span class="font-serif text-4xl text-outline-variant/40"
+								>03</span
+							>
+						</div>
+						<h3 class="mb-2 text-xl font-bold font-headline">
+							Project Support
+						</h3>
+						<p class="mb-6 text-sm text-on-surface-variant">
+							Technical guidance for your final year projects.
+						</p>
+						<a
+							class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
+							routerLink="/projects"
 						>
-					</div>
-					<h3 class="mb-2 text-xl font-bold font-headline">Tutorials</h3>
-					<p class="mb-6 text-sm text-on-surface-variant">
-						Bite-sized visual guides for complex concepts.
-					</p>
-					<a
-						class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
-						href="#"
-						>Watch Now</a
-					>
-				</div>
-				<div
-					class="flex-1 p-8 rounded-lg border transition-all hover:shadow-xl bg-surface-container-lowest border-outline-variant/5"
-				>
-					<div
-						class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-tertiary-fixed text-tertiary"
-					>
-						<span
-							class="icon-[material-symbols--account-tree-outline]"
-							data-icon="account_tree"
-							>account_tree</span
-						>
-					</div>
-					<h3 class="mb-2 text-xl font-bold font-headline">Project Support</h3>
-					<p class="mb-6 text-sm text-on-surface-variant">
-						Technical guidance for your final year projects.
-					</p>
-					<a
-						class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
-						href="#"
-						>Get Support</a
-					>
-				</div>
+							Get Assistance
+							<span class="absolute inset-0"></span>
+						</a>
+					</mat-card-content>
+				</mat-card>
 			</div>
 		</div>
 	</div>
@@ -362,16 +378,8 @@
 				strategy.
 			</p>
 			<div class="flex flex-wrap gap-6 justify-center">
-				<button
-					class="py-5 px-10 text-lg font-bold bg-white rounded-full shadow-xl transition-all hover:scale-105 text-primary"
-				>
-					Get Started for Free
-				</button>
-				<button
-					class="py-5 px-10 text-lg font-bold text-white rounded-full border-2 transition-all border-white/30 hover:bg-white/10"
-				>
-					Talk to a Mentor
-				</button>
+				<button matButton="elevated">Get Started for Free</button>
+				<button matButton="tonal">Talk to a Mentor</button>
 			</div>
 		</div>
 		<!-- Abstract UI shapes -->
