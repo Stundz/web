@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
- /* Include theming for Angular Material with `mat.theme()`. */
- /* This Sass mixin will define CSS variables that are used for styling Angular Material */
- /* components according to the Material 3 design spec. */
- /* Learn more about theming and how to use it for your application's */
- /* custom components at https://material.angular.dev/guide/theming */
+/* Include theming for Angular Material with `mat.theme()`. */
+/* This Sass mixin will define CSS variables that are used for styling Angular Material */
+/* components according to the Material 3 design spec. */
+/* Learn more about theming and how to use it for your application's */
+/* custom components at https://material.angular.dev/guide/theming */
 @use '@angular/material' as mat;
 @import "tailwindcss";
 @source "../../shared";
@@ -12,33 +12,96 @@
 @plugin "@iconify/tailwind4";
 
 @layer base {
+	html,
+	body {
+		height: 100%;
 
-  html,
-  body {
-    height: 100%;
+		@apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary) scroll-smooth;
+	}
 
-    @apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary) scroll-smooth;
-  }
+	body {
+		margin: 0;
+		font-family: Roboto, "Helvetica Neue", sans-serif;
+		@apply bg-background text-on-surface font-body selection:bg-secondary-container;
+	}
 
-  body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-  }
+	button,
+	[role="button"] {
+		@apply cursor-pointer;
+	}
 
-  button,
-  [role=button] {
-    @apply cursor-pointer;
-  }
-
-  input,
-  textarea,
-  select {
-    @apply bg-(--mat-sys-surface-container-low)/80 hover:bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low) px-2 py-1;
-  }
+	input,
+	textarea,
+	select {
+		@apply bg-(--mat-sys-surface-container-low)/80 hover:bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low) px-2 py-1;
+	}
 }
 
 @layer components {
-  .skeleton {
-    @apply animate-pulse bg-gradient-to-tr from-gray-600 to-gray-400 dark:from-gray-700 to-gray-600;
-  }
+	.skeleton {
+		@apply animate-pulse bg-linear-to-tr from-gray-600 to-gray-400 dark:from-gray-700;
+	}
+}
+
+@theme {
+  --color-error-container: #ffdad6;
+  --color-inverse-surface: #2f3131;
+  --color-surface-container-low: #f3f3f3;
+  --color-primary-fixed: #ffdbcf;
+  --color-outline: #8c7168;
+  --color-inverse-on-surface: #f1f1f1;
+  --color-surface-variant: #e2e2e2;
+  --color-on-tertiary-fixed: #271812;
+  --color-on-secondary-fixed: #2c160f;
+  --color-outline-variant: #e0c0b5;
+  --color-on-primary-fixed-variant: #812900;
+  --color-on-primary-fixed: #380d00;
+  --color-on-secondary-container: #795a50;
+  --color-secondary-fixed: #ffdbd0;
+  --color-on-error-container: #93000a;
+  --color-surface-bright: #f9f9f9;
+  --color-on-surface: #1a1c1c;
+  --color-tertiary-fixed-dim: #dcc1b7;
+  --color-primary-container: #a93800;
+  --color-on-tertiary-container: #efd3c9;
+  --color-on-secondary: #ffffff;
+  --color-error: #ba1a1a;
+  --color-on-tertiary-fixed-variant: #56423b;
+  --color-on-error: #ffffff;
+  --color-surface: #f9f9f9;
+  --color-on-background: #1a1c1c;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary: #56433b;
+  --color-secondary-container: #fed4c7;
+  --color-secondary: #76574d;
+  --color-surface-container: #eeeeee;
+  --color-tertiary-container: #6f5a52;
+  --color-on-secondary-fixed-variant: #5c4037;
+  --color-on-primary: #ffffff;
+  --color-inverse-primary: #ffb59b;
+  --color-tertiary-fixed: #f9dcd2;
+  --color-surface-dim: #dadada;
+  --color-surface-container-high: #e8e8e8;
+  --color-primary-fixed-dim: #ffb59b;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface-variant: #58423a;
+  --color-primary: #812900;
+  --color-surface-container-highest: #e2e2e2;
+  --color-secondary-fixed-dim: #e6beb1;
+  --color-background: #f9f9f9;
+  --color-on-primary-container: #ffcebd;
+  --color-surface-tint: #a93800;
+
+  --font-headline: "Noto Serif";
+  --font-body: "Inter";
+  --font-label: "Inter";
+}
+
+@utility hero-gradient {
+	background: linear-gradient(135deg, var(--mat-sys-primary) 0%, var(--mat-sys-surface-tint) 100%);
+}
+
+@utility glass-panel {
+	background: rgba(249, 249, 249, 0.8);
+	backdrop-filter: blur(20px);
 }
