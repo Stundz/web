@@ -1,140 +1,381 @@
-<section class="relative">
-	<div
-		class="absolute inset-0 bg-center bg-cover"
-		style="
-      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL');
-    "
-	></div>
-	<div class="absolute inset-0 bg-black/50 dark:bg-black/70"></div>
-	<div
-		class="container relative py-24 px-4 mx-auto text-center text-white sm:py-32 sm:px-6 lg:py-40 lg:px-8"
-	>
-		<h1 class="text-4xl font-black tracking-tighter sm:text-5xl lg:text-6xl">
-			Connect, Learn, and Succeed with Plug
-		</h1>
-		<p
-			class="mx-auto mt-4 max-w-2xl text-lg text-gray-200 sm:text-xl dark:text-gray-300"
-		>
-			Your all-in-one platform for academic support. Find tutors, share
-			resources, and ace your studies.
-		</p>
-		<div class="flex flex-wrap gap-4 justify-center mt-8">
-			<a routerLink="/tutorials" class="" matButton="tonal">View tutorials</a>
-			<a routerLink="/tutors/apply" class="" matButton="filled"
-				>Become a Tutor</a
-			>
-		</div>
-	</div>
-</section>
+<!-- Hero Section: The Academic Atelier Hero -->
+<style>
+</style>
 <section
-	class="py-16 sm:py-24 bg-background-light dark:bg-background-dark"
-	id="features"
+	class="flex overflow-hidden relative items-center py-20 px-8 min-h-[870px]"
 >
-	<div class="container px-4 mx-auto sm:px-6 lg:px-8">
-		<div class="lg:text-center">
-			<h2 class="text-base font-semibold tracking-wider uppercase text-primary">
-				Features
-			</h2>
-			<p
-				class="mt-2 text-3xl font-extrabold tracking-tight leading-8 text-gray-900 sm:text-4xl dark:text-white"
+	<div
+		class="grid grid-cols-1 gap-12 items-center mx-auto max-w-7xl lg:grid-cols-12"
+	>
+		<div class="z-10 lg:col-span-7">
+			<span
+				class="inline-block py-1.5 px-4 mb-6 text-xs font-bold tracking-widest uppercase rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label"
+				>Elevate Your Journey</span
 			>
-				Unlock Your Academic Potential
+			<h1
+				class="mb-8 text-6xl font-extrabold tracking-tight md:text-7xl lg:text-8xl font-headline text-on-surface leading-[1.05]"
+			>
+				Your All-in-One <br>Academic
+				<span class="italic text-primary">Success Hub</span>
+			</h1>
+			<p class="mb-10 max-w-xl text-xl leading-relaxed text-on-surface-variant">
+				Navigate the complexities of modern scholarship with curated resources,
+				expert tutorials, and a supportive network of peers.
 			</p>
-			<p
-				class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto dark:text-gray-400"
+			<div class="flex flex-wrap gap-4">
+				<button matButton="filled" class="py-4! px-8!">Join the Atelier</button>
+				<button matButton="outlined">Explore Curriculum</button>
+			</div>
+		</div>
+		<div class="relative lg:col-span-5">
+			<div class="overflow-hidden relative rounded-lg shadow-2xl rotate-2">
+				<img
+					alt="Diverse students collaborating"
+					class="object-cover w-full h-[600px]"
+					data-alt="diverse group of focused university students studying together in a sunlit modern library with wooden tables and large windows"
+					src="https://lh3.googleusercontent.com/aida-public/AB6AXuDivhrvfufzQycGf-PGGc_q65bVSXEvsCWvV12KWTofXw-4rYKEDnhOz112X-iFOBd-pSulECe_xNwd5vHrS5FCopg17QcyirDRBXOSXZEVCHWhb6bNBjJpUuSIRDmnKwxkDkCwP05kYPWDN7pPGgVYZ0TFRvp9MgSbPZZS_-rihnQPwJWUkPeNS-IuF4WKzse_iLHVbHhJ7ZIWF-ccfVou0wqpEHwHzw0nSnLO2mRyM1aQUc57CUFZN9Xy83zZ1CzlpeFbEMGN7Oc"
+				>
+				<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+			</div>
+			<!-- Asymmetrical Floating Element -->
+			<div
+				class="absolute -bottom-6 -left-12 p-6 rounded-xl border shadow-xl glass-panel max-w-60 border-white/20"
 			>
-				Plug offers a comprehensive suite of tools to help you excel in your
-				studies.
+				<div class="flex gap-3 items-center mb-2">
+					<span
+						class="icon-[material-symbols--verfied-outline] text-primary"
+						data-icon="verified"
+						role="img"
+						aria-hidden="true"
+						>verified</span
+					>
+					<span class="text-sm font-bold">Quality Guaranteed</span>
+				</div>
+				<p class="text-xs font-medium text-on-surface-variant">
+					98% of members report significant GPA improvement within one semester.
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- Background Decorative Texture -->
+	<div
+		class="absolute top-0 right-0 w-1/2 h-full translate-x-20 -skew-x-12 bg-surface-container-low -z-10"
+	></div>
+</section>
+<!-- Quick Links: Bento Grid Layout -->
+<section class="py-24 px-8 bg-surface-bright">
+	<div class="mx-auto max-w-7xl">
+		<div class="mb-16">
+			<h2 class="mb-4 text-4xl font-bold font-headline text-on-surface">
+				The Scholar's Toolkit
+			</h2>
+			<p class="text-on-surface-variant">
+				Strategic resources tailored for rigorous academic demands.
 			</p>
 		</div>
-		<div class="mt-12">
-			<div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-				<div
-					class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
-				>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+			<div
+				class="relative p-10 rounded-lg border transition-all md:col-span-2 hover:shadow-xl group bg-surface-container-lowest border-outline-variant/5"
+			>
+				<div class="flex justify-between items-start mb-12">
 					<div
-						class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
+						class="flex justify-center items-center w-16 h-16 rounded-2xl bg-primary-fixed text-primary"
 					>
 						<span
-							class="text-2xl icon-[material-symbols--school]"
+							class="text-3xl icon-[material-symbols--history-edu-outline]"
+							data-icon="history_edu"
 							role="img"
 							aria-hidden="true"
 						></span>
 					</div>
-					<h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">
-						Find Expert Tutors
-					</h3>
-					<p class="mt-2 text-base text-gray-500 dark:text-gray-400">
-						Connect with experienced tutors for personalized help in any
-						subject.
-					</p>
+					<span class="font-serif text-4xl text-outline-variant/40">01</span>
 				</div>
-				<div
-					class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
+				<h3 class="mb-4 text-3xl font-bold font-headline">Past Exams</h3>
+				<p class="mb-8 max-w-md text-on-surface-variant">
+					Access a comprehensive archive of previous papers with verified
+					solutions and instructor insights.
+				</p>
+				<a
+					class="inline-flex gap-2 items-center font-bold transition-all group-hover:gap-4 text-primary"
+					href="#"
 				>
-					<div
-						class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
-					>
-						<span
-							class="text-2xl icon-[material-symbols--description]"
-							role="img"
-							aria-hidden="true"
-						></span>
-					</div>
-					<h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">
-						Access Study Resources
-					</h3>
-					<p class="mt-2 text-base text-gray-500 dark:text-gray-400">
-						Share and access past exam papers, solutions, and study guides.
-					</p>
-				</div>
-				<div
-					class="flex flex-col items-center p-6 text-center rounded-xl shadow-lg transition-transform hover:scale-105 bg-(--mat-sys-surface-container)"
-				>
-					<div
-						class="flex justify-center items-center w-12 h-12 text-white rounded-full bg-(--mat-sys-primary) text-(--mat-sys-on-primary)"
-					>
-						<span
-							class="text-2xl icon-[material-symbols--groups]"
-							role="img"
-							aria-hidden="true"
-						></span>
-					</div>
-					<h3 class="mt-5 text-lg font-medium text-gray-900 dark:text-white">
-						Collaborate on Projects
-					</h3>
-					<p class="mt-2 text-base text-gray-500 dark:text-gray-400">
-						Work together on defense projects and assignments with your peers.
-					</p>
-				</div>
+					Browse the Archive
+					<span
+						class="icon-[material-symbols--arrow-forward]"
+						aria-hidden="true"
+						role="img"
+					></span>
+				</a>
 			</div>
-			<div class="mt-12 text-center">
-				<a routerLink="/" fragment="features" matButton="tonal"
-					>Explore All Features</a
+			<div class="flex flex-col gap-8">
+				<div
+					class="flex-1 p-8 rounded-lg border transition-all hover:shadow-xl bg-surface-container-lowest border-outline-variant/5"
 				>
+					<div
+						class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-secondary-container text-secondary"
+					>
+						<span
+							class="icon-[material-symbols--smart-display-outline]"
+							data-icon="smart_display"
+							>smart_display</span
+						>
+					</div>
+					<h3 class="mb-2 text-xl font-bold font-headline">Tutorials</h3>
+					<p class="mb-6 text-sm text-on-surface-variant">
+						Bite-sized visual guides for complex concepts.
+					</p>
+					<a
+						class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
+						href="#"
+						>Watch Now</a
+					>
+				</div>
+				<div
+					class="flex-1 p-8 rounded-lg border transition-all hover:shadow-xl bg-surface-container-lowest border-outline-variant/5"
+				>
+					<div
+						class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl bg-tertiary-fixed text-tertiary"
+					>
+						<span
+							class="icon-[material-symbols--account-tree-outline]"
+							data-icon="account_tree"
+							>account_tree</span
+						>
+					</div>
+					<h3 class="mb-2 text-xl font-bold font-headline">Project Support</h3>
+					<p class="mb-6 text-sm text-on-surface-variant">
+						Technical guidance for your final year projects.
+					</p>
+					<a
+						class="text-sm font-semibold underline text-primary decoration-2 underline-offset-4"
+						href="#"
+						>Get Support</a
+					>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<section class="bg-white dark:bg-(--mat-sys-surface-container)/50">
-	<div
-		class="container py-16 px-4 mx-auto text-center sm:py-24 sm:px-6 lg:px-8"
-	>
-		<h2
-			class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white"
-		>
-			Ready to Take Your Studies to the Next Level?
-		</h2>
-		<p class="mx-auto mt-4 max-w-2xl text-lg text-gray-500 dark:text-gray-400">
-			Join Plug today and start connecting with tutors and resources.
-		</p>
-		<div class="mt-8">
-			<a
-				[href]="`https:\/\/auth.${environment.domain}\/signup?callback=https:\/\/plug.${environment.domain}`"
-				class=""
-				matButton="filled"
-				>Get Started for Free</a
+<!-- Key Benefits: Tonal Shifts -->
+<section class="py-24 px-8 bg-surface-container">
+	<div class="flex flex-col gap-20 items-center mx-auto max-w-7xl lg:flex-row">
+		<div class="w-full lg:w-1/2">
+			<div
+				class="overflow-hidden relative p-4 rounded-full aspect-square bg-surface-container-lowest"
 			>
+				<img
+					alt="Student working on tablet"
+					class="object-cover w-full h-full rounded-full"
+					data-alt="top-down view of a student's hands working on a modern tablet and notebook on a clean minimalist desk with warm coffee"
+					src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrnaOATbGPCEb45jTgIMpLTzlgksOoInjsFObch9MHQhwx37DCkZl0PcPb9hl_AOg-BpbxDQd5H_taOXWwX-CZq7gUIgMsYNAGZ5Fl31UwSTORvsXjAz_wdE1YU-UhWNwSFFfRvktF9KLTIDl_YSsp--kqzpvrPeciovP50Tma-fvIfVM4-O0xbzzjbmjDC9tUipNas6JFCIAUH9a2l0MusLCL6mfzPxAbI04vCHVlD7tbioeg5w_tFZwna4lAa73swDdySDHS1Qs"
+				>
+				<div
+					class="absolute inset-0 rounded-full border-24 border-surface-container"
+				></div>
+			</div>
 		</div>
+		<div class="w-full lg:w-1/2">
+			<h2 class="mb-12 text-5xl font-bold font-headline">
+				Designed for the <span class="text-primary">Rigors</span> of Higher
+				Education
+			</h2>
+			<ul class="space-y-10">
+				<li class="flex gap-6">
+					<div
+						class="flex justify-center items-center w-10 h-10 text-white rounded-full shrink-0 bg-primary"
+					>
+						<span
+							class="text-sm icon-[material-symbols--done-all]"
+							data-icon="done_all"
+							role="img"
+							aria-hidden="true"
+							>done_all</span
+						>
+					</div>
+					<div>
+						<h4 class="mb-2 text-lg font-bold">Verified Academic Accuracy</h4>
+						<p class="text-on-surface-variant">
+							Every resource is vetted by PhD holders and top-performing alumni
+							to ensure you study the right content.
+						</p>
+					</div>
+				</li>
+				<li class="flex gap-6">
+					<div
+						class="flex justify-center items-center w-10 h-10 text-white rounded-full shrink-0 bg-primary"
+					>
+						<span
+							class="text-sm icon-[material-symbols--update-outline]"
+							data-icon="update"
+							>update</span
+						>
+					</div>
+					<div>
+						<h4 class="mb-2 text-lg font-bold">Real-time Curriculum Sync</h4>
+						<p class="text-on-surface-variant">
+							We update our repositories weekly to match current course syllabi
+							and exam patterns.
+						</p>
+					</div>
+				</li>
+				<li class="flex gap-6">
+					<div
+						class="flex justify-center items-center w-10 h-10 text-white rounded-full shrink-0 bg-primary"
+					>
+						<span
+							class="text-sm icon-[material-symbols--forum-outline]"
+							data-icon="forum"
+							aria-hidden="true"
+							role="img"
+							>forum</span
+						>
+					</div>
+					<div>
+						<h4 class="mb-2 text-lg font-bold">24/7 Peer Mentorship</h4>
+						<p class="text-on-surface-variant">
+							Connect with senior scholars whenever you hit a roadblock in your
+							assignments.
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 px-8">
+	<div class="mx-auto max-w-7xl">
+		<div class="mb-16 text-center">
+			<h2 class="mb-4 text-4xl font-bold font-headline">
+				Voices of Excellence
+			</h2>
+			<div class="mx-auto w-20 h-1 bg-primary"></div>
+		</div>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+			<!-- Testimonial 1 -->
+			<div
+				class="flex flex-col justify-between p-8 rounded-lg bg-surface-container-low"
+			>
+				<div>
+					<span
+						class="mb-6 text-4xl opacity-30 icon-[material-symbols--format-quote-outline] text-primary"
+						data-icon="format_quote"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<p class="mb-8 italic font-medium leading-relaxed text-on-surface">
+						"Plug completely changed how I approach my final projects. The
+						technical support is unrivaled."
+					</p>
+				</div>
+				<div class="flex gap-4 items-center">
+					<div class="overflow-hidden w-12 h-12 rounded-full bg-slate-300">
+						<img
+							alt="Student Profile"
+							data-alt="portrait of a young man with a warm smile and modern eyewear in an urban setting"
+							src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zUFa8By1aEW8PJWdEUTqlzxS3eqo4p81qOcEm-5Q8kY0YEO8nKhumkm4w_mOSmiv3eaJghvPNUK26NN9WRaOAPfU5mC4Q_GRx4nQrZadIyrFGt_eX0vHtb_NlFa37bPT_MMblTivG2Voo2Inyn6013h6Yfl4BYXg94t4blRmND6Eu1fI0BDfzG3Jlv6Ibyj-kLYpTNnkFMwkyCGTCzjginunVjVnYIujOaMAGe_3p3vSZoQd_OnhDlfTC1CBCWpUL9SN7iKkEBE"
+						>
+					</div>
+					<div>
+						<p class="text-sm font-bold">Marcus Chen</p>
+						<p class="text-xs text-on-surface-variant">Engineering, Year 4</p>
+					</div>
+				</div>
+			</div>
+			<!-- Testimonial 2 -->
+			<div
+				class="flex flex-col justify-between p-8 rounded-lg bg-surface-container-low"
+			>
+				<div>
+					<span
+						class="mb-6 text-4xl opacity-30 icon-[material-symbols--format-quote-outline] text-primary"
+						data-icon="format_quote"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<p class="mb-8 italic font-medium leading-relaxed text-on-surface">
+						"The past exams repository is a goldmine. I felt incredibly prepared
+						for my finals last semester."
+					</p>
+				</div>
+				<div class="flex gap-4 items-center">
+					<div class="overflow-hidden w-12 h-12 rounded-full bg-slate-300">
+						<img
+							alt="Student Profile"
+							data-alt="smiling young woman with braided hair wearing a stylish casual outfit against a neutral background"
+							src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGS1EWUceeIkNLDlJbSypFXeHdggK3krSbsHdoMuaLG56w5udiikm-Rp-S6RTla6L6Oj8wWC87HtgiCFNXiXwUqKFY5pTYzzUeSBD7sOt1tQl0_jWZMOWqvRnEX3EGXmlgJDn99CWcnfxajp2pS_WaFywSix9b8wbELJLEe6qefEnlwDrnW6Z5MBckEIACzwq_4LpD1ORxwWwGw0Uamdv6NateoIaXoyq-anAMsTDsdm5k74nXHUVQEIfX_7O9fROPE7vU-oVENnI"
+						>
+					</div>
+					<div>
+						<p class="text-sm font-bold">Amina Okafor</p>
+						<p class="text-xs text-on-surface-variant">Biochemistry, Year 2</p>
+					</div>
+				</div>
+			</div>
+			<!-- Testimonial 3 -->
+			<div
+				class="flex flex-col justify-between p-8 rounded-lg bg-surface-container-low"
+			>
+				<div>
+					<span
+						class="mb-6 text-4xl opacity-30 icon-[material-symbols--format-quote-outline] text-primary"
+						data-icon="format_quote"
+						>format_quote</span
+					>
+					<p class="mb-8 italic font-medium leading-relaxed text-on-surface">
+						"Professional, reliable, and essential. Plug is the companion every
+						serious student needs."
+					</p>
+				</div>
+				<div class="flex gap-4 items-center">
+					<div class="overflow-hidden w-12 h-12 rounded-full bg-slate-300">
+						<img
+							alt="Student Profile"
+							data-alt="close up headshot of a young professional man with a confident expression in soft natural lighting"
+							src="https://lh3.googleusercontent.com/aida-public/AB6AXuCadnFxqUkMV1_MjdnUt5IhCn0GLurIyAt0RTB22FyhmU4JcPyQbDWqMU4tDQ-wnjw1uI_rEYjiYkHGv5gNfixO_7bCHe_9XPjKa-9ZbY3ZPNAaExyDt6aiRnTkk_Ln1csC4GSsCEJ4goueHcbgjn5co9qCOgEXw5HEjEi6YwDflOoj17yeQ7QhR620S4soPv3CQwh80aM-SW-QYPRR4chhteApkLJ7Ksv-gj9X5-c_WWRcgM0dKkU9e1a6Jx1FnuuZAcoVvCISZPI"
+						>
+					</div>
+					<div>
+						<p class="text-sm font-bold">Jameson Reed</p>
+						<p class="text-xs text-on-surface-variant">Economics, Year 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-8">
+	<div
+		class="overflow-hidden relative p-12 mx-auto max-w-7xl text-center rounded-xl shadow-2xl md:p-20 hero-gradient shadow-primary/30"
+	>
+		<div class="relative z-10">
+			<h2 class="mb-8 text-5xl font-bold text-white md:text-6xl font-headline">
+				Ready to master your curriculum?
+			</h2>
+			<p class="mx-auto mb-12 max-w-2xl text-xl text-on-primary-container">
+				Join thousands of students who have turned academic stress into academic
+				strategy.
+			</p>
+			<div class="flex flex-wrap gap-6 justify-center">
+				<button
+					class="py-5 px-10 text-lg font-bold bg-white rounded-full shadow-xl transition-all hover:scale-105 text-primary"
+				>
+					Get Started for Free
+				</button>
+				<button
+					class="py-5 px-10 text-lg font-bold text-white rounded-full border-2 transition-all border-white/30 hover:bg-white/10"
+				>
+					Talk to a Mentor
+				</button>
+			</div>
+		</div>
+		<!-- Abstract UI shapes -->
+		<div
+			class="absolute top-0 left-0 w-64 h-64 rounded-full -translate-x-1/2 -translate-y-1/2 bg-white/5"
+		></div>
+		<div
+			class="absolute right-0 bottom-0 w-96 h-96 rounded-full translate-x-1/3 translate-y-1/3 bg-white/5"
+		></div>
 	</div>
 </section>

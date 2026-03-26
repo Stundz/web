@@ -7,7 +7,7 @@ import { environment } from "../../environments/environment";
 	selector: "app-home",
 	imports: [MatButtonModule, RouterLink],
 	templateUrl: "./home.page.ng.html",
-	styleUrl: "./home.page.scss",
+	styleUrl: "./home.page.css",
 })
 export class HomePage {
 	environment = environment;
