@@ -22,6 +22,7 @@
 	body {
 		margin: 0;
 		font-family: Roboto, "Helvetica Neue", sans-serif;
+		@apply bg-background text-on-surface font-body selection:bg-secondary-container;
 	}
 
 	button,
@@ -90,6 +91,10 @@
   --color-background: #f9f9f9;
   --color-on-primary-container: #ffcebd;
   --color-surface-tint: #a93800;
+
+  --font-headline: "Noto Serif";
+  --font-body: "Inter";
+  --font-label: "Inter";
 }
 
 @utility hero-gradient {

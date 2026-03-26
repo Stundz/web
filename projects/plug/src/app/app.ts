@@ -8,20 +8,53 @@ import {
 	signal,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { Meta } from "@angular/platform-browser";
-import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
-import { filter, map } from "rxjs";
+import {
+	NavigationCancel,
+	NavigationEnd,
+	NavigationError,
+	NavigationStart,
+	ResolveEnd,
+	ResolveStart,
+	Router,
+	RouterLink,
+	RouterLinkActive,
+	RouterOutlet,
+} from "@angular/router";
+import { filter, map, of, switchMap, timer } from "rxjs";
 import { environment } from "../environments/environment";
 
 @Component({
 	selector: "app-root",
-	imports: [RouterOutlet],
+	imports: [RouterOutlet, RouterLink, RouterLinkActive, MatProgressBarModule],
 	templateUrl: "./app.ng.html",
-	styleUrl: "./app.scss",
+	styleUrl: "./app.css",
 })
 export class App {
 	#router = inject(Router);
 	protected readonly title = signal("plug");
+
+	loading = toSignal(
+		this.#router.events.pipe(
+			filter(
+				(event) =>
+					event instanceof NavigationStart ||
+					event instanceof NavigationEnd ||
+					event instanceof NavigationError ||
+					event instanceof NavigationCancel ||
+					event instanceof ResolveStart ||
+					event instanceof ResolveEnd,
+			),
+			switchMap((event) => {
+				if (event instanceof NavigationStart || event instanceof ResolveStart) {
+					return of(true);
+				}
+
+				return timer(300).pipe(map(() => false));
+			}),
+		),
+	);
 
 	readonly cannonical = toSignal(
 		this.#router.events.pipe(

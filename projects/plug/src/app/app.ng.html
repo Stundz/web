@@ -1,1 +1,124 @@
-<router-outlet />
+<!-- TopNavBar -->
+<header
+	class="fixed top-0 z-50 w-full transition-colors duration-200 bg-[#f9f9f9] dark:bg-slate-950"
+>
+	<div class="relative w-full">
+		<div
+			class="flex justify-between items-center px-8 mx-auto max-w-screen-2xl h-20"
+		>
+			<div class="flex gap-12 items-center">
+				<span
+					class="font-serif text-2xl font-bold tracking-tighter text-[#812900] dark:text-[#a93800]"
+					>Plug</span
+				>
+				<nav class="hidden gap-8 md:flex">
+					<a
+						class="font-semibold transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
+						routerLink="/"
+						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						[routerLinkActiveOptions]="{ exact: true }"
+						>Home</a
+					>
+					<a
+						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
+						routerLink="/past-questions"
+						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						>Past Exams</a
+					>
+					<a
+						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
+						routerLink="/tutorials"
+						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						>Tutorials</a
+					>
+					<a
+						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
+						routerLink="/projects"
+						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						>Project Support</a
+					>
+				</nav>
+			</div>
+			<div class="flex gap-4 items-center">
+				<button
+					class="flex items-center p-2 rounded-full transition-all active:scale-95 text-on-surface-variant hover:bg-surface-container"
+				>
+					<span
+						class="icon-[material-symbols--notifications-outline]"
+						data-icon="notifications"
+						aria-hidden="true"
+						role="img"
+						>notifications</span
+					>
+				</button>
+				<button
+					class="flex gap-2 items-center p-1 pr-4 rounded-full transition-all bg-surface-container hover:bg-surface-container-high"
+				>
+					<span
+						class="icon-[material-symbols--account-circle-outline] text-primary"
+						data-icon="account_circle"
+						style="font-variation-settings: 'FILL' 1;"
+						>account_circle</span
+					>
+					<span class="text-sm font-medium">Scholar Portal</span>
+				</button>
+			</div>
+		</div>
+		@if (loading()) {
+		<div class="absolute inset-x-0 bottom-0">
+			<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+		</div>
+		}
+	</div>
+</header>
+<main class="pt-20"><router-outlet /></main>
+<!-- Footer -->
+<footer
+	class="flex flex-col gap-6 items-center py-12 px-8 w-full bg-[#eeeeee] dark:bg-slate-900"
+>
+	<div
+		class="flex flex-col gap-12 justify-between items-start pb-12 w-full max-w-7xl border-b md:flex-row md:items-center border-outline-variant/20"
+	>
+		<div class="flex flex-col gap-4">
+			<span class="font-serif text-lg text-[#812900] dark:text-[#a93800]"
+				>Plug Academic.</span
+			>
+			<p class="max-w-xs text-sm text-on-surface-variant">
+				Forging the next generation of industry leaders through superior
+				academic support.
+			</p>
+		</div>
+		<div class="flex flex-wrap gap-8">
+			<a
+				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
+				href="#"
+				>Honor Code</a
+			>
+			<a
+				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
+				href="#"
+				>Terms of Service</a
+			>
+			<a
+				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
+				href="#"
+				>Privacy Policy</a
+			>
+			<a
+				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
+				routerLink="/contact"
+				>Contact Support</a
+			>
+			<a
+				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
+				href="#"
+				>Academic Integrity</a
+			>
+		</div>
+	</div>
+	<div class="text-center">
+		<p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
+			© 2024 Plug Academic. All rights reserved. Built for The Modern Scholar.
+		</p>
+	</div>
+</footer>
