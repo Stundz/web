@@ -1,3 +1,4 @@
+import { join } from "node:path";
 import {
 	AngularNodeAppEngine,
 	CommonEngine,
@@ -5,15 +6,17 @@ import {
 	isMainModule,
 	writeResponseToNodeResponse,
 } from "@angular/ssr/node";
-import express from "express";
-import { join } from "node:path";
 import { render } from "@netlify/angular-runtime/common-engine.mjs";
+import express from "express";
+import { environment } from "./environments/environment";
 
 const browserDistFolder = join(import.meta.dirname, "../browser");
 
 const commonEngine = new CommonEngine();
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+const angularApp = new AngularNodeAppEngine({
+	allowedHosts: ["*." + environment.domain],
+});
 
 export async function netlifyCommonEngineHandler(
 	request: Request,
