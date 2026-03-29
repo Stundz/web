@@ -1,244 +1,464 @@
-<div class="mx-auto max-w-5xl">
-  <div class="mb-8">
-    <nav class="flex items-center text-sm">
-      <a class="hover:underline text-[#9eb7a8]" routerLink="/tutorials">Tutoring</a>
-      <span class="mx-2 text-[#9eb7a8]">/</span>
-      <span class="text-[--mat-sys-on-surface]">{{ tutorial().course?.code }}</span>
-    </nav>
-  </div>
-  <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
-    <div class="lg:col-span-2">
-      <div class="flex gap-6 items-center mb-8">
-        <div
-          class="flex-shrink-0 bg-center bg-no-repeat bg-cover rounded-full size-32"
-          style="
-            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_w71fZnKiPMTRD0xb2GXA6Tk0HiP9WIDn5hdo9SILm0WoWhEi-gZ6nTNQKzkU9GL2guqGH6m2P351UuMteTdSIXJfBrCn4tFX1RZA3iKSljw9yvpHlaHc7P9JlV1tzc0DrCNznzHF1bF0cIE6CxNV0FxRWiDmoiQU2Sd3KogKHhp544dmJ_nCHVTl1MUGAHk5uAWLPMLNyJzkMff-f0BSs7CgG-0ku3FzIyDrWvCjTRPzD0h1eUdEvzItBQRZvj-7d9FILxIKlUY');
-          "
-        ></div>
-        <div>
-          <h1 class="text-3xl font-bold">{{ tutorial().name }}</h1>
-          <p class="mt-1 text-lg">
-            with
-            <a [routerLink]="['/tutor', tutorial().tutor?.id]" class="text-(--mat-sys-tertiary)">
-              @if (tutorial().tutor?.user_id === user()?.id) {
-                You
-              } @else {
-                {{ tutorial().tutor?.first_name }} {{ tutorial().tutor?.last_name }}
-              }
-            </a>
-          </p>
-          <div class="flex gap-2 items-center mt-2">
-            <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-              <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-            </div>
-            <p class="text-sm">4.8 (120 reviews)</p>
-          </div>
-        </div>
-      </div>
-      <div class="space-y-8">
-        <div>
-          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">About this tutorial</h2>
-          <p
-            class="mt-4 transition"
-            [class]="
-              !!tutorial() ? 'duration-800' : 'animate-pulse h-25 rounded skeleton duration-500'
-            "
-          >
-            {{ tutorial().description }}
-          </p>
-        </div>
-        @if (tutorial().session) {
-          @let session = tutorial().session;
-
-          <div>
-            <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Learning Objectives</h2>
-            <ul class="mt-4 space-y-3">
-              @for (objective of session?.objectives; track $index) {
-                <li class="flex gap-3 items-center">
-                  <span
-                    class="icon-[ic--sharp-check-circle-outline] text-(--mat-sys-primary)"
-                    role="img"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="">{{ objective }}</span>
-                </li>
-              }
-            </ul>
-          </div>
-        }
-
-        <div>
-          <h2 class="text-xl font-bold text-(--mat-sys-tertiary)">Reviews</h2>
-          <div class="mt-6 space-y-8">
-            <div class="flex gap-4">
-              <img
-                alt="Emily Carter"
-                class="rounded-full size-10"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs3SGqTl37rMScau94EnvpRFjVlwh1OCMFoyQITSaeTIpustwyfPm0Utqx21beQU8MmtFJSxWnMeOXyD8M-ThAN6PAMdekCJZbLA9N84-rlwAO73efiLIMJvNR9RGBhcjj_95nyczTeBVPuHelqUJ6rXYf8UNMc1v68jxrXjh0kADgEK3J4GwJ6yTBZx9-dgNqUSHPHM7PVsyB75VXy5CWXSbukYiTJlR87AL5bs5ntw3qrjfprEjJK_duxDaUch4jWQBHNRytPJg"
-              />
-              <div class="flex-1">
-                <div class="flex justify-between items-center">
-                  <div>
-                    <p class="font-medium text-white">Emily Carter</p>
-                    <p class="text-sm text-[#9eb7a8]">2 weeks ago</p>
-                  </div>
-                  <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                  </div>
-                </div>
-                <p class="mt-2">
-                  Sarah is an excellent tutor! She explained complex concepts clearly and helped me
-                  improve my understanding of Math 101 significantly.
-                </p>
-                <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
-                  <button
-                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                  >
-                    <span class="material-symbols-outlined !text-xl">thumb_up</span><span>5</span>
-                  </button>
-                  <button
-                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                  >
-                    <span class="material-symbols-outlined !text-xl">thumb_down</span><span>1</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="flex gap-4">
-              <img
-                alt="David Lee"
-                class="rounded-full size-10"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFxjIGnCbl5t9XXpdqxuakBDpivqPtME9Qd3lT3cF-Z-DMqLH9xLX7bw0yrMeNNxVMBj-GAVLheT9Bo0HC1hS5Sd2dz9w5Yp4Y-XI4C7uOWKjr1OAkhSCyu2UthliDQPgtFZnrFm8HHck2arGS8hXbFkqmE443Vw7c0nxbHSI7ytwrd4n0S5aN6PLkz4buBbezhGWp8TvCXi9m0887ud7QdIPOTj3ZI0EcAX9vce3aAA1KfrsZLT7vb5il55OKk_0vQ2YRI76Hqfk"
-              />
-              <div class="flex-1">
-                <div class="flex justify-between items-center">
-                  <div>
-                    <p class="font-medium text-white">David Lee</p>
-                    <p class="text-sm text-[#9eb7a8]">1 month ago</p>
-                  </div>
-                  <div class="flex gap-0.5 items-center text-(--mat-sys-primary)">
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                    <span class="icon-[bxs--star]" role="img" aria-hidden="true"></span>
-                  </div>
-                </div>
-                <p class="mt-2">
-                  Sarah's tutoring was helpful, especially in calculus. I would recommend her for
-                  anyone struggling with the course.
-                </p>
-                <div class="flex gap-4 items-center mt-3 text-[#9eb7a8]">
-                  <button
-                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                  >
-                    <span class="material-symbols-outlined !text-xl">thumb_up</span><span>3</span>
-                  </button>
-                  <button
-                    class="flex gap-1.5 items-center text-sm transition-colors hover:text-white"
-                  >
-                    <span class="material-symbols-outlined !text-xl">thumb_down</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      @defer (on viewport) {
-        <plug-tutorial-sessions
-          [tutorial]="tutorial()"
-          class="mt-3 max-lg:overflow-y-scroll max-lg:max-h-100"
-        />
-      } @placeholder {
-        <div
-          class="mt-3 rounded animate-pulse bg-(--mat-sys-surface-container-low)/30 min-h-100"
-        ></div>
-      }
-    </div>
-    <div class="lg:col-span-1">
-      <div
-        class="sticky top-10 p-6 rounded-2xl bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container)"
-      >
-        @if (tutorial().tutor?.user_id === user()?.id) {
-        } @else {}
-        @if (tutorial().session) {
-          <p class="text-2xl font-bold">
-            {{ tutorial().price | currency: 'XAF ' : 'code' : '1.0' }}
-            <span class="text-base font-normal text-(--mat-sys-neutral10)">/ hour</span>
-          </p>
-          <div class="my-6 space-y-4">
-            <div class="flex gap-3 items-start">
-              <span
-                class="mt-1 icon-[ic--baseline-calendar-today] text-(--mat-sys-secondary)"
-                role="img"
-                aria-hidden="true"
-              ></span>
-              <div>
-                <p class="font-medium text-white">Schedule</p>
-                <p class="">{{ tutorial().session?.day | date: 'EEEE, MMMM d' }}</p>
-              </div>
-            </div>
-            <div class="flex gap-3 items-start">
-              <span
-                class="mt-1 text-(--mat-sys-secondary) icon-[ic--round-schedule]"
-                role="img"
-                aria-hidden="true"
-              ></span>
-              <div>
-                <p class="font-medium">Time</p>
-                <p class="">
-                  {{ tutorial().session?.day | date: 'shortTime' }} -
-                  {{ endTime() | date: 'shortTime' }}
-                </p>
-              </div>
-            </div>
-            @if (tutorial().tutor?.user_id === user()?.id) {
-              <div class="flex flex-col gap-2">
-                <span class="self-end text-xs"
-                  >{{
-                    (tutorial().session?.students_count || 0) >= 100
-                      ? 'full'
-                      : `${tutorial().session?.students_count || 0}/100`
-                  }}
-                </span>
-                <mat-progress-bar
-                  [value]="tutorial().session?.students_count"
-                  class="rounded-full"
-                  color="warn"
-                />
-              </div>
-            }
-          </div>
-          @if (tutorial().tutor?.user_id !== user()?.id) {
-            <button
-              type="button"
-              matButton="filled"
-              class="w-full"
-              [disabled]="tutorial().session?.students_count || 0 >= 100"
-              (click)="book()"
-            >
-              Book Session
-            </button>
-          }
-        } @else {
-          <p class="text-center">No active session</p>
-          @if (tutorial().tutor?.user_id === user()?.id) {
-            <div class="flex justify-center mt-4">
-              <a [routerLink]="['sessions', 'create']" matButton="filled">Create session</a>
-            </div>
-          }
-        }
-      </div>
-    </div>
-  </div>
-</div>
+<!-- TopNavBar - Rendered from JSON Shell -->
+<nav class="fixed top-0 z-50 w-full shadow-sm bg-white/80 backdrop-blur-xl">
+	<div
+		class="flex justify-between items-center py-4 px-8 mx-auto w-full max-w-screen-2xl"
+	>
+		<div class="flex gap-12 items-center">
+			<span class="font-serif text-2xl font-bold tracking-tight text-blue-800"
+				>Plug</span
+			>
+			<div class="hidden gap-8 md:flex">
+				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
+					>Discover</a
+				>
+				<a
+					class="pb-1 font-semibold text-blue-700 border-b-2 border-blue-700"
+					href="#"
+					>My Tutorials</a
+				>
+				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
+					>Tutors</a
+				>
+				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
+					>Resources</a
+				>
+			</div>
+		</div>
+		<div class="flex gap-6 items-center">
+			<div
+				class="hidden items-center py-2 px-4 rounded-full lg:flex bg-surface-container"
+			>
+				<span class="mr-2 material-symbols-outlined text-on-surface-variant"
+					>search</span
+				>
+				<input
+					class="w-48 text-sm bg-transparent border-none focus:ring-0"
+					placeholder="Search tutorials..."
+					type="text"
+				>
+			</div>
+			<div class="flex gap-4">
+				<span
+					class="cursor-pointer material-symbols-outlined text-on-surface-variant"
+					>notifications</span
+				>
+				<span
+					class="cursor-pointer material-symbols-outlined text-on-surface-variant"
+					>shopping_cart</span
+				>
+			</div>
+			<button
+				class="py-2 px-6 font-medium rounded-full transition-all hover:opacity-90 bg-primary text-on-primary"
+			>
+				Become a Tutor
+			</button>
+		</div>
+	</div>
+</nav>
+<main class="pt-24 pb-20">
+	<!-- Hero Section: Editorial Header -->
+	<header class="px-8 mx-auto mb-16 max-w-screen-2xl">
+		<div class="grid grid-cols-1 gap-12 items-end lg:grid-cols-12">
+			<div class="lg:col-span-8">
+				<nav
+					class="flex gap-2 items-center mb-6 text-sm text-on-surface-variant font-label"
+				>
+					<span>Academic</span>
+					<span class="text-xs material-symbols-outlined">chevron_right</span>
+					<span>Sint porro esse aspernatur fugiat expedita. (FGG344)</span>
+				</nav>
+				<h1
+					class="mb-8 text-6xl font-bold tracking-tight lg:text-7xl text-on-surface leading-[1.1]"
+				>
+					at modi enim est
+				</h1>
+				<div class="flex flex-wrap gap-6 items-center">
+					<div
+						class="flex gap-3 items-center p-2 pr-6 rounded-full bg-surface-container-low"
+					>
+						<img
+							alt="Adriana Bergstrom"
+							class="object-cover w-12 h-12 rounded-full"
+							data-alt="Professional studio portrait of a woman in business attire, warm lighting, neutral academic office background"
+							src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPqrDoCZms5xjG4UUMlvfxGUoPBzYMSkgsAZnyo2L1SAjH9oWDuJwjaFiXmWOf0ZC4vdu03VgisXzN5_xjL_oZotCDGwWx55Cg9jeQj4y_wCoQWOqrbCpNFZjx6GpnUMjnKGCpO59ThhgvX01DULMiWjR1UOMi5sxHl1s6Yt1p35iUj57YYN_fb1vnAEBBKgiMb63DUduPPyiYkdP-2GdydY8STGOovS83yC3H2ZfKcs2f6N8O0HMFz9g0ztXrKX1jzTy_hwl-Hvo"
+						>
+						<div>
+							<p class="text-sm font-bold leading-none">Adriana Bergstrom</p>
+							<p class="mt-1 text-xs text-on-surface-variant">
+								Senior Academic Tutor
+							</p>
+						</div>
+					</div>
+					<div class="hidden h-8 md:block w-[1px] bg-outline-variant/30"></div>
+					<div class="flex gap-2 items-center">
+						<span
+							class="material-symbols-outlined text-primary"
+							style="font-variation-settings: 'FILL' 1;"
+							>star</span
+						>
+						<span class="font-bold">4.9</span>
+						<span class="text-sm text-on-surface-variant">(124 Reviews)</span>
+					</div>
+					<div class="hidden h-8 md:block w-[1px] bg-outline-variant/30"></div>
+					<span
+						class="py-1.5 px-4 text-xs font-bold tracking-wider uppercase rounded-full bg-tertiary-fixed text-on-tertiary-fixed"
+						>High Demand</span
+					>
+				</div>
+			</div>
+			<div class="flex justify-end lg:col-span-4">
+				<div
+					class="overflow-hidden relative p-8 w-full max-w-sm bg-white rounded-lg border shadow-xl shadow-primary/5 border-outline-variant/10"
+				>
+					<div class="absolute top-0 right-0 p-4">
+						<span
+							class="text-8xl rotate-12 material-symbols-outlined text-primary/10"
+							>school</span
+						>
+					</div>
+					<p
+						class="mb-1 text-sm tracking-widest uppercase text-on-surface-variant font-label"
+					>
+						Full Access Pass
+					</p>
+					<h2 class="mb-6 text-4xl font-bold text-primary">
+						300.00
+						<span class="text-lg font-normal text-on-surface-variant">USD</span>
+					</h2>
+					<ul class="mb-8 space-y-4 text-sm">
+						<li class="flex gap-3 items-center">
+							<span class="text-lg material-symbols-outlined text-primary"
+								>check_circle</span
+							>
+							5 Intensive Workshops
+						</li>
+						<li class="flex gap-3 items-center">
+							<span class="text-lg material-symbols-outlined text-primary"
+								>check_circle</span
+							>
+							Private Reading Materials
+						</li>
+						<li class="flex gap-3 items-center">
+							<span class="text-lg material-symbols-outlined text-primary"
+								>check_circle</span
+							>
+							One-on-one Q&amp;A Access
+						</li>
+					</ul>
+					<button
+						class="py-4 w-full text-lg font-bold text-white bg-gradient-to-br rounded-full shadow-lg transition-transform from-primary to-primary-container shadow-primary/20 hover:scale-[1.02]"
+					>
+						Book This Tutorial
+					</button>
+					<p class="mt-4 text-xs text-center text-on-surface-variant">
+						Secure Checkout via Global Payments
+					</p>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Content Section -->
+	<section
+		class="grid grid-cols-1 gap-16 px-8 mx-auto max-w-screen-2xl lg:grid-cols-12"
+	>
+		<!-- Main Column -->
+		<div class="space-y-16 lg:col-span-7">
+			<!-- Description -->
+			<div>
+				<h3 class="flex gap-3 items-center mb-6 text-3xl font-bold">
+					About this Tutorial
+				</h3>
+				<p class="text-lg leading-relaxed text-on-surface-variant font-body">
+					Quis enim commodi asperiores quidem optio. Facilis cumque autem ea
+					tempora... This curriculum is meticulously designed for advanced
+					students seeking to master the complexities of academic inquiry.
+					Through a series of structured modules, we explore the fundamental
+					frameworks that govern modern scholarly pursuits.
+				</p>
+				<div
+					class="grid grid-cols-2 gap-6 p-8 mt-8 rounded-lg bg-surface-container-low"
+				>
+					<div>
+						<p
+							class="mb-2 text-xs font-bold tracking-tighter uppercase text-on-surface-variant"
+						>
+							Primary Course
+						</p>
+						<p class="font-medium text-on-surface">
+							Sint porro esse aspernatur fugiat expedita. (FGG344)
+						</p>
+					</div>
+					<div>
+						<p
+							class="mb-2 text-xs font-bold tracking-tighter uppercase text-on-surface-variant"
+						>
+							Academic Level
+						</p>
+						<p class="font-medium text-on-surface">Post-Graduate / Advanced</p>
+					</div>
+				</div>
+			</div>
+			<!-- Session Schedule: Asymmetric Timeline -->
+			<div>
+				<h3 class="mb-10 text-3xl font-bold">Academic Schedule</h3>
+				<div class="relative space-y-12">
+					<!-- Vertical line for timeline -->
+					<div
+						class="hidden absolute top-4 bottom-4 md:block left-[23px] w-[2px] bg-surface-container-high"
+					></div>
+					<!-- Session 1 -->
+					<div class="flex relative flex-col gap-8 md:flex-row">
+						<div
+							class="flex z-10 flex-shrink-0 justify-center items-center w-12 h-12 font-bold text-white rounded-full bg-primary"
+						>
+							1
+						</div>
+						<div
+							class="flex-grow p-8 bg-white rounded-lg border shadow-sm border-outline-variant/10"
+						>
+							<div
+								class="flex flex-wrap gap-4 justify-between items-start mb-4"
+							>
+								<div>
+									<p
+										class="mb-1 text-xs font-bold tracking-widest uppercase text-primary"
+									>
+										Foundational Overview
+									</p>
+									<h4 class="text-xl font-bold">2025-08-20</h4>
+								</div>
+								<div class="flex gap-4 text-sm text-on-surface-variant">
+									<span class="flex gap-1 items-center"
+										><span class="text-lg material-symbols-outlined"
+											>schedule</span
+										>
+										90 mins</span
+									>
+									<span class="flex gap-1 items-center"
+										><span class="text-lg material-symbols-outlined"
+											>location_on</span
+										>
+										G block 119</span
+									>
+								</div>
+							</div>
+							<div class="space-y-2">
+								<p class="text-sm font-semibold text-on-surface-variant">
+									Key Objectives:
+								</p>
+								<ul
+									class="grid grid-cols-1 gap-3 text-sm italic md:grid-cols-2 text-on-surface"
+								>
+									<li class="flex gap-2 items-start">• Sed a voluptas...</li>
+									<li class="flex gap-2 items-start">• Vel nisi eos...</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Session 2 -->
+					<div class="flex relative flex-col gap-8 md:flex-row">
+						<div
+							class="flex z-10 flex-shrink-0 justify-center items-center w-12 h-12 font-bold text-white rounded-full bg-primary"
+						>
+							2
+						</div>
+						<div
+							class="flex-grow p-8 bg-white rounded-lg border shadow-sm border-outline-variant/10"
+						>
+							<div
+								class="flex flex-wrap gap-4 justify-between items-start mb-4"
+							>
+								<div>
+									<p
+										class="mb-1 text-xs font-bold tracking-widest uppercase text-primary"
+									>
+										Methodological Deep-Dive
+									</p>
+									<h4 class="text-xl font-bold">2025-09-24</h4>
+								</div>
+								<div class="flex gap-4 text-sm text-on-surface-variant">
+									<span class="flex gap-1 items-center"
+										><span class="text-lg material-symbols-outlined"
+											>schedule</span
+										>
+										150 mins</span
+									>
+									<span class="flex gap-1 items-center"
+										><span class="text-lg material-symbols-outlined"
+											>location_on</span
+										>
+										U block F</span
+									>
+								</div>
+							</div>
+							<div class="space-y-2">
+								<p class="text-sm font-semibold text-on-surface-variant">
+									Key Objectives:
+								</p>
+								<ul
+									class="grid grid-cols-1 gap-3 text-sm italic md:grid-cols-2 text-on-surface"
+								>
+									<li class="flex gap-2 items-start">• Odit enim vel...</li>
+									<li class="flex gap-2 items-start">• Voluptas fugit...</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Session 3, 4, 5 (Simplified) -->
+					<div class="grid grid-cols-1 gap-6 ml-0 md:ml-20">
+						<!-- S3 -->
+						<div
+							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
+						>
+							<div class="flex gap-6 items-center">
+								<span class="text-2xl font-bold text-on-surface/30">03</span>
+								<div>
+									<p class="text-sm font-bold">2025-10-02</p>
+									<p class="text-xs text-on-surface-variant">
+										U Block E • 210 mins session
+									</p>
+								</div>
+							</div>
+							<span
+								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
+								>chevron_right</span
+							>
+						</div>
+						<!-- S4 -->
+						<div
+							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
+						>
+							<div class="flex gap-6 items-center">
+								<span class="text-2xl font-bold text-on-surface/30">04</span>
+								<div>
+									<p class="text-sm font-bold">2025-10-29</p>
+									<p class="text-xs text-on-surface-variant">
+										U Block E • 90 mins session
+									</p>
+								</div>
+							</div>
+							<span
+								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
+								>chevron_right</span
+							>
+						</div>
+						<!-- S5 -->
+						<div
+							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
+						>
+							<div class="flex gap-6 items-center">
+								<span class="text-2xl font-bold text-on-surface/30">05</span>
+								<div>
+									<p class="text-sm font-bold">2025-11-11</p>
+									<p class="text-xs text-on-surface-variant">
+										U block G • 180 mins session
+									</p>
+								</div>
+							</div>
+							<span
+								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
+								>chevron_right</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Sidebar / Details Column -->
+		<aside class="space-y-12 lg:col-span-5">
+			<!-- Tutor Card (Side View) -->
+			<div class="p-10 rounded-lg bg-surface-container-low">
+				<h4 class="mb-8 text-2xl font-bold">Meet the Instructor</h4>
+				<div class="space-y-6">
+					<img
+						alt="Adriana Bergstrom Large"
+						class="object-cover w-full h-80 rounded-lg"
+						data-alt="Close up portrait of a smiling female professor in a library setting, soft natural lighting, books in background blurred"
+						src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ7R1o2mRDwSdXn_sN_em_Y410W0NqABkwTHFP5SKAqsV3dSZH610lKvFCuP-U3JrOkOoZQ2jfj9ZRdjb8f7tesUr4KqfI3ZsCBttTjxEWuZIJbUSzon9zZCCvgAHe6Cc-J_2FqoU3vxUbUL22mZBxbSxsPxu3X7pz8VXMd9nU9iuWLoTdAXXprEZo32R6Gbc10uG3zMtnX5BbeHwPdZMCLDZOEDuzl4u2i0VUqIBVGJ2aQcQPNkIlkVj6Au62M_9Yjcpii9UroL0"
+					>
+					<div>
+						<h5 class="text-xl font-bold">Adriana Bergstrom</h5>
+						<p class="mb-4 font-medium text-primary">Senior Academic Tutor</p>
+						<p class="text-sm leading-relaxed text-on-surface-variant">
+							Adriana has over 12 years of experience in higher education,
+							specializing in the Sint porro frameworks. Her approach combines
+							rigorous academic theory with practical application.
+						</p>
+					</div>
+					<div class="flex gap-4 pt-6 border-t border-outline-variant/20">
+						<button
+							class="flex-1 py-3 text-sm font-bold bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
+						>
+							View Profile
+						</button>
+						<button
+							class="p-3 bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
+						>
+							<span class="material-symbols-outlined">mail</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- Bento Grid: Fast Facts -->
+			<div class="grid grid-cols-2 gap-4">
+				<div class="col-span-2 p-6 rounded-lg bg-secondary/5">
+					<span class="mb-4 text-3xl material-symbols-outlined text-secondary"
+						>workspace_premium</span
+					>
+					<p
+						class="mb-1 text-xs font-bold tracking-widest uppercase text-secondary"
+					>
+						Certification
+					</p>
+					<p class="text-sm font-medium">
+						Earn an Institutional Certificate upon completion
+					</p>
+				</div>
+				<div class="p-6 rounded-lg bg-surface-container">
+					<span class="mb-4 material-symbols-outlined text-on-surface-variant"
+						>group</span
+					>
+					<p
+						class="mb-1 text-xs font-bold tracking-widest uppercase text-on-surface-variant"
+					>
+						Capacity
+					</p>
+					<p class="text-sm font-medium">12 Seats Left</p>
+				</div>
+				<div class="p-6 rounded-lg bg-surface-container">
+					<span class="mb-4 material-symbols-outlined text-on-surface-variant"
+						>language</span
+					>
+					<p
+						class="mb-1 text-xs font-bold tracking-widest uppercase text-on-surface-variant"
+					>
+						Medium
+					</p>
+					<p class="text-sm font-medium">English</p>
+				</div>
+			</div>
+			<!-- Map Integration (Conceptual) -->
+			<div class="overflow-hidden relative h-64 rounded-lg">
+				<img
+					alt="Campus Map"
+					class="object-cover w-full h-full"
+					data-alt="Aerial architectural map of a modern university campus with highlighted academic blocks and green walkways"
+					data-location="University Campus"
+					src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBcd33oYXkwVn1TXy9xajESro8ykx4Nl6o-mftaWpnHFLgiWeEzOS1ukizdSNT7zExrSPheHqH947-mnZ_DioCpRleF1V4FkqJH0naZxm8SfQtRTELCrLOUzNCeXDXTshLieQB2OQKU4PeiLIHRu2F_ZM2Cz7O7XSDN7doSiAbVoaMw1Eztwb7sIio7RZLMe0-Da2b5-P69YvEuigb0om6VJQsNGzidnzmJ0tuAErzLlOesKlzLfM65V7IlygbkQJ1NUisqnA4t5U"
+				>
+				<div
+					class="flex absolute inset-0 justify-center items-center bg-primary/20"
+				>
+					<div
+						class="flex gap-2 items-center py-2 px-4 bg-white rounded-full shadow-lg"
+					>
+						<span class="material-symbols-outlined text-primary"
+							>location_on</span
+						>
+						<span class="text-sm font-bold">U Block Precinct</span>
+					</div>
+				</div>
+			</div>
+		</aside>
+	</section>
+</main>
