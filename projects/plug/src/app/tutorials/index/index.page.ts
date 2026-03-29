@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from "@angular/common";
 import { Component, inject, input } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { NonNullableFormBuilder, ReactiveFormsModule } from "@angular/forms";
@@ -12,8 +13,9 @@ import { MatTableModule } from "@angular/material/table";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { debounceTime, distinctUntilChanged, map, mergeWith, tap } from "rxjs";
+import type { Model } from "shared";
+import { TutorialCard } from "../../common/components/tutorial-card/tutorial-card";
 import { Tutorial } from "../../common/services/tutorial";
-import { Model } from "shared";
 
 @Component({
 	selector: "app-index",
@@ -28,6 +30,8 @@ import { Model } from "shared";
 		MatPaginatorModule,
 		MatCardModule,
 		MatSelectModule,
+		NgOptimizedImage,
+		TutorialCard,
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
@@ -44,6 +48,8 @@ export class IndexPage {
 	tutorials = toSignal(this._tutorialService.tutorials$.pipe(), {
 		requireSync: true,
 	});
+	#meta = inject(Meta);
+	#title = inject(Title);
 
 	form = this.#fb.group({
 		q: this.#fb.control<string>(this._route.snapshot.queryParams["q"] ?? ""),
@@ -99,43 +105,43 @@ export class IndexPage {
 			),
 	);
 
-	constructor(meta: Meta, title: Title) {
-		meta.updateTag({
+	constructor() {
+		this.#meta.updateTag({
 			id: "description",
 			name: "description",
 			content:
 				"Search and filter through a wide range of tutorials to find the perfect tutor for you.",
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "og:title",
 			property: "og:title",
-			content: title.getTitle(),
+			content: this.#title.getTitle(),
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "og:description",
 			property: "og:description",
 			content:
 				"Search and filter through a wide range of tutorials to find the perfect tutor for you",
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "keywords",
 			name: "keywords",
 			content:
 				"plug, stundz, study, tutorials, tutor, past questions, revision, education",
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "og:image",
 			property: "og:image",
 			content:
 				"https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "og:image.url",
 			property: "og:image",
 			content:
 				"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
 		});
-		meta.updateTag({
+		this.#meta.updateTag({
 			id: "og:image.secure_url",
 			property: "og:image",
 			content:

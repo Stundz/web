@@ -1,124 +1,241 @@
-<div class="mx-auto max-w-7xl">
-  <div class="mb-8 text-center">
-    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
-      Find Your Perfect Tutorial
-    </h1>
-    <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
-      Explore a wide range of tutorial sessions tailored to your academic needs. Use the search and
-      filter options below to find the perfect tutor for you.
-    </p>
-    <div></div>
-  </div>
-  <mat-card class="mb-8">
-    <mat-card-content>
-      <form [formGroup]="form">
-        <mat-form-field class="w-full">
-          <mat-icon matPrefix>
-            <span
-              class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[material-symbols--search]"
-              role="img"
-              aria-hidden="true"
-            >
-            </span>
-          </mat-icon>
-
-          <input
-            type="text"
-            placeholder="Search for subjects, tutors, or keywords..."
-            matInput
-            formControlName="q"
-          />
-          <mat-icon matSuffix (click)="filters.toggle()" role="button" class="cursor-pointer">
-            <span
-              class="absolute left-4 top-1/2 text-2xl text-gray-400 -translate-y-1/2 icon-[octicon--settings]"
-              role="img"
-              aria-hidden="true"
-            >
-            </span>
-          </mat-icon>
-        </mat-form-field>
-        <mat-expansion-panel #filters>
-          <form
-            class="grid gap-4 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
-            [formGroup]="form.controls.filters"
-          >
-            <!-- <mat-form-field> -->
-            <!--   <mat-label>Institution</mat-label> -->
-            <!--   <mat-select formControlName="institution"> </mat-select> -->
-            <!-- </mat-form-field> -->
-            <mat-form-field>
-              <mat-label>Faculty</mat-label>
-              <mat-select formControlName="faculty"></mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Faculty</mat-label>
-              <mat-select formControlName="department"></mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Course</mat-label>
-              <mat-select formControlName="course"></mat-select>
-            </mat-form-field>
-          </form>
-        </mat-expansion-panel>
-      </form>
-    </mat-card-content>
-  </mat-card>
-  <div class="flex gap-2 justify-between items-center mb-6">
-    <h2 class="text-lg font-bold tracking-tight sm:text-2xl">
-      Available Tutorials
-      @if (tutorials().data.length && tutorials().meta.total) {
-        ({{ tutorials().meta.total }})
-      }
-    </h2>
-    @if ((user() && !user().plug?.tutor) || !user()) {
-      <a routerLink="/tutors/apply" class="sm:float-right max-sm:order-first" matButton="outlined">
-        Become a tutor
-      </a>
-    }
-  </div>
-  <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-    @for (tutorial of tutorials().data; track tutorial.id) {
-      <mat-card class="relativ">
-        <mat-card-content>
-          <div class="flex overflow-hidden flex-col transition-transform hover:scale-110">
-            <div class="flex flex-col flex-1 p-6">
-              <div class="flex gap-3 items-center text-sm font-semibold">
-                <span class="shrink-0 line-clamp-1 text-(--mat-sys-primary)"
-                  >{{ tutorial.course?.code }}: {{ tutorial.course?.title }}</span
-                >
-              </div>
-              <a
-                [routerLink]="['/tutorial', tutorial.id]"
-                class="text-2xl font-bold text-gray-900 dark:text-white line-clamp-1"
-              >
-                <span class="absolute inset-0"> </span>
-                {{ tutorial.name }}
-              </a>
-              <p class="flex-1 mt-2 text-sm text-(--mat-sys-secondary) line-clamp-2">
-                {{ tutorial.description }}
-              </p>
-              <div class="mt-4 *:flex *:items-center *:*:first:mr-2">
-                <div class="">
-                  <span
-                    class="icon-[material-symbols--school-outline-rounded] text-(--mat-sys-primary)"
-                    role="img"
-                    aria-hidden="true"
-                  ></span>
-                  <span>{{ tutorial.tutor?.first_name }} {{ tutorial.tutor?.last_name }} </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    } @empty {
-      <div class="col-span-full py-6 px-2 text-center">No tutorials yet. Come back later</div>
-    }
-  </div>
-  <mat-paginator
-    [pageIndex]="tutorials().meta.current_page - 1"
-    [pageSize]="tutorials().meta.per_page"
-    [length]="tutorials().meta.total"
-    (page)="form.patchValue({ filters: { page: $event.pageIndex + 1, limit: $event.pageSize } })"
-  />
+<style>
+.material-symbols-outlined {
+	font-variation-settings:
+		"FILL" 0,
+		"wght" 400,
+		"GRAD" 0,
+		"opsz" 24;
+	vertical-align: middle;
+}
+.glass-effect {
+	background: rgba(249, 249, 249, 0.8);
+	backdrop-filter: blur(20px);
+}
+</style>
+<main class="px-8 pt-32 pb-24 mx-auto max-w-screen-2xl">
+	<!-- Hero Section -->
+	<section class="mb-20">
+		<div class="flex flex-col gap-8 justify-between items-end md:flex-row">
+			<div class="max-w-2xl">
+				<span
+					class="block mb-4 font-bold tracking-widest uppercase label-md text-primary"
+					>The Academic Atelier</span
+				>
+				<h1
+					class="mb-6 text-6xl font-bold tracking-tighter leading-none md:text-7xl font-headline text-on-surface"
+				>
+					Master your craft with
+					<span class="italic text-primary">Senior Guidance.</span>
+				</h1>
+			</div>
+			<div class="max-w-xs text-right">
+				<p class="mb-6 leading-relaxed text-body-lg text-on-surface-variant">
+					Direct access to elite senior tutors specializing in advanced
+					academics and professional project delivery.
+				</p>
+				<a matButton="filled" routerLink="/tutors/apply"> Become a Tutor </a>
+			</div>
+		</div>
+	</section>
+	<!-- Bento Grid: Featured Content -->
+	<section class="grid grid-cols-1 gap-6 mb-24 md:grid-cols-12">
+		<!-- Featured Live Session -->
+		<div
+			class="overflow-hidden relative rounded-xl cursor-pointer md:col-span-8 bg-surface-container-lowest group h-[400px]"
+		>
+			<img
+				class="object-cover absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105"
+				data-alt="close-up of architectural blueprints and a digital tablet on a clean wooden desk with warm cinematic lighting"
+				src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv5HEtpjy66wvySdooSKGHQ1TdVWGAS1znqcLXWDblSuxTmR4jgkYRfSOpIHLkvDS9GKHBWz_VV1tbJFbQOFujq3_7r94fBvHYOJ8M4elq4pEhlNaXkjBcVXcefqEOuWA3HhJfNXxb5YtDHDNtcx6STBRa6ILkWK_Rd2sx-273or0ccmuEii7tND220MwLq0cg0_awMtim13gkix_LnFuwbMdrwRnGjokBuUjbPWHdR4tAOciTun0aVNZeJvv0agtB9L7zNt_V9Ow"
+			>
+			<div
+				class="absolute inset-0 to-transparent bg-linear-to-t from-black/80 via-black/20"
+			></div>
+			<div class="absolute bottom-0 left-0 p-10 text-white">
+				<span
+					class="inline-block py-1 px-3 mb-4 text-xs font-bold tracking-wider uppercase rounded-full bg-primary"
+					>Live Session • Starting in 2h</span
+				>
+				<h2 class="mb-2 text-4xl font-bold font-headline">
+					Advanced Structural Calculus
+				</h2>
+				<p class="max-w-md text-white/80">
+					Join Dr. Elena Vance for a deep dive into non-linear analysis and
+					complex load distribution.
+				</p>
+			</div>
+			<div class="absolute top-6 right-6 p-4 rounded-xl glass-effect">
+				<p class="text-xl font-bold text-on-surface">$45.00</p>
+				<p class="text-xs text-on-surface-variant">Per Seat</p>
+			</div>
+		</div>
+		<!-- Quick Stats/Filter -->
+		<div class="flex flex-col gap-6 md:col-span-4">
+			<div
+				class="flex flex-col justify-between p-8 h-full rounded-xl bg-tertiary-fixed"
+			>
+				<h3 class="text-2xl font-bold font-headline text-on-tertiary-fixed">
+					Curated for Excellence
+				</h3>
+				<div class="flex flex-wrap gap-2">
+					<span class="py-2 px-4 text-sm font-medium rounded-full bg-white/40"
+						>Architecture</span
+					>
+					<span class="py-2 px-4 text-sm font-medium rounded-full bg-white/40"
+						>Data Science</span
+					>
+					<span class="py-2 px-4 text-sm font-medium rounded-full bg-white/40"
+						>Law</span
+					>
+					<span class="py-2 px-4 text-sm font-medium rounded-full bg-white/40"
+						>Medical</span
+					>
+				</div>
+			</div>
+			<div
+				class="flex justify-between items-center p-8 h-full rounded-xl cursor-pointer bg-surface-container group"
+			>
+				<div>
+					<p
+						class="mb-1 text-sm font-bold tracking-widest uppercase text-on-surface-variant"
+					>
+						Archive
+					</p>
+					<h4 class="text-xl font-bold font-headline text-on-surface">
+						Recorded Webinars
+					</h4>
+				</div>
+				<span
+					class="text-3xl transition-transform group-hover:translate-x-2 icon-[material-symbols--arrow-forward] text-primary"
+				></span>
+			</div>
+		</div>
+	</section>
+	<!-- Tutor Directory -->
+	<section class="mb-24">
+		<div class="flex justify-between items-baseline mb-12">
+			<h2 class="text-4xl font-bold font-headline text-on-surface">
+				Senior Tutor Directory
+			</h2>
+			<a
+				class="font-semibold underline transition-colors text-primary hover:text-primary-container"
+				href="#"
+				>View All Directory</a
+			>
+		</div>
+		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+			@for (tutorial of tutorials().data || []; track tutorial.id) { <!-- Tutor Card 1 -->
+			<plug-tutorial-card [tutorial]="tutorial" />
+			}
+		</div>
+	</section>
+	<!-- Recordings Section -->
+	<section
+		class="overflow-hidden relative p-12 rounded-3xl bg-surface-container"
+	>
+		<div
+			class="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none"
+		>
+			<svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M44.7,-76.4C58.1,-69.2,69.5,-57.4,77.3,-43.8C85.1,-30.2,89.2,-15.1,88.4,-0.4C87.6,14.3,81.9,28.6,73.3,41C64.8,53.4,53.3,63.9,40.1,71.3C26.9,78.7,11.9,83.1,-2.9,88.1C-17.7,93.1,-32.3,98.7,-45.1,94.2C-57.9,89.7,-68.8,75,-76.1,60.5C-83.3,46,-86.8,31.7,-88.7,16.8C-90.6,1.9,-90.9,-13.7,-85.7,-27.6C-80.5,-41.5,-69.7,-53.7,-57.1,-61.6C-44.4,-69.5,-30,-73,-15.3,-75.7C-0.6,-78.4,14.2,-80.3,31.3,-83.5C31.3,-83.5,44.7,-76.4,44.7,-76.4Z"
+					fill="#812900"
+					transform="translate(100 100)"
+				></path>
+			</svg>
+		</div>
+		<div
+			class="grid relative z-10 grid-cols-1 gap-12 items-center md:grid-cols-2"
+		>
+			<div>
+				<h2 class="mb-6 text-4xl font-bold font-headline">
+					Missed a session? <br>Explore the Library.
+				</h2>
+				<p class="mb-8 text-lg leading-relaxed text-on-surface-variant">
+					Our full archive of recorded webinars and workshops is available
+					on-demand. High-fidelity audio and video, with accompanying resources
+					and transcriptions.
+				</p>
+				<div class="flex gap-4">
+					<button
+						class="py-3 px-8 font-bold rounded-full bg-primary text-on-primary"
+					>
+						Access Library
+					</button>
+					<button
+						class="py-3 px-8 font-bold rounded-full border bg-surface-container-lowest text-primary border-outline-variant/20"
+					>
+						Monthly Pass
+					</button>
+				</div>
+			</div>
+			<div class="space-y-4">
+				<div
+					class="flex gap-4 items-center p-4 rounded-xl cursor-pointer bg-surface-container-lowest group"
+				>
+					<div
+						class="flex justify-center items-center w-16 h-16 rounded bg-tertiary-fixed"
+					>
+						<span
+							class="icon-[material-symbols--play-circle-outline] text-primary"
+						></span>
+					</div>
+					<div>
+						<p class="text-xs font-bold uppercase text-primary">
+							Recorded Oct 12
+						</p>
+						<h4 class="font-bold font-headline">
+							Neural Networks from Scratch
+						</h4>
+					</div>
+				</div>
+				<div
+					class="flex gap-4 items-center p-4 rounded-xl cursor-pointer bg-surface-container-lowest group"
+				>
+					<div
+						class="flex justify-center items-center w-16 h-16 rounded bg-tertiary-fixed"
+					>
+						<span
+							class="icon-[material-symbols--play-circle-outline] text-primary"
+						></span>
+					</div>
+					<div>
+						<p class="text-xs font-bold uppercase text-primary">
+							Recorded Oct 08
+						</p>
+						<h4 class="font-bold font-headline">The Jurisprudence of Torts</h4>
+					</div>
+				</div>
+				<div
+					class="flex gap-4 items-center p-4 rounded-xl opacity-70 cursor-pointer bg-surface-container-lowest group"
+				>
+					<div
+						class="flex justify-center items-center w-16 h-16 rounded bg-tertiary-fixed"
+					>
+						<span
+							class="icon-[material-symbols--play-circle-outline] text-primary"
+						></span>
+					</div>
+					<div>
+						<p class="text-xs font-bold uppercase text-primary">
+							Recorded Oct 02
+						</p>
+						<h4 class="font-bold font-headline">
+							Bio-Chemical Synthesis Basics
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+<!-- FAB (Suppressed based on context: Secondary screen, but contextually relevant for immediate booking on marketplace) -->
+<div class="fixed right-8 bottom-8 z-50">
+	<button
+		class="flex justify-center items-center w-14 h-14 rounded-full shadow-2xl transition-transform hover:scale-110 bg-primary text-on-primary"
+	>
+		<span class="text-xl icon-[material-symbols--help-center-outline]"
+			>help_center</span
+		>
+	</button>
 </div>
