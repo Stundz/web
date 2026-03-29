@@ -1,0 +1,55 @@
+<div
+	class="p-6 rounded-xl transition-all hover:shadow-2xl bg-surface-container-lowest hover:shadow-tertiary-fixed-dim/20"
+>
+	<div class="flex gap-4 items-start mb-6">
+		<img
+			class="object-cover w-20 h-20 rounded-full"
+			data-alt="professional portrait of a middle-aged woman with glasses smiling warmly in a bright academic office"
+			src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKcdNuZBtBvoO4IORp1lpr5xYbIPddDUB_qD1DFiEMLXalv7pLeSdZNRK2o5-UrGkoYBfRVCzmihX6nO2EHmflmkLdc3SNjSqt5fmpNxAzOMYlhNSiB7dK_WjiKIRsUQViXd0Jx02Mg7hI56mOKp6RAs6mKloqn09-hJNN7BYd-mW1wuoGvHby1XQ8cfd8FP8HJk_h0D14kS3mnEZIrS_hZx_o9t5YwFR37sT_w-s6mibVCCwiT5GuVDQXPqhk3lM0ocvK1gRhOCw"
+		>
+		<div class="flex-1">
+			<h3 class="text-xl font-bold font-headline text-on-surface">
+				{{ tutorial().tutor?.first_name }} {{tutorial().tutor?.last_name}}
+			</h3>
+			<p class="text-sm text-on-surface-variant">Post-Doc, Quantum Computing</p>
+			<div class="flex gap-1 items-center mt-1">
+				<span
+					class="text-sm icon-[material-symbols--star-outline] text-primary"
+					style="font-variation-settings: 'FILL' 1;"
+					>star</span
+				>
+				<span class="text-sm font-bold">4.9</span>
+				<span class="text-xs text-on-surface-variant">(128 reviews)</span>
+			</div>
+		</div>
+	</div>
+	<div class="mb-8 space-y-4">
+		<div class="flex flex-wrap gap-2">
+			<span
+				class="py-1 px-3 text-xs font-semibold rounded-full bg-surface-container"
+				>Linear Algebra</span
+			>
+			<span
+				class="py-1 px-3 text-xs font-semibold rounded-full bg-surface-container"
+				>Python</span
+			>
+			<span
+				class="py-1 px-3 text-xs font-semibold rounded-full bg-surface-container"
+				>Algorithms</span
+			>
+		</div>
+		<p class="text-sm text-on-surface-variant line-clamp-2">
+			{{ tutorial().description }}
+		</p>
+	</div>
+	<div
+		class="flex justify-between items-center pt-6 border-t border-outline-variant/15"
+	>
+		<div class="text-sm font-bold text-on-surface">
+			Available: <span class="text-primary">Tomorrow, 10:00 AM</span>
+		</div>
+		<a matButton="filled" [routerLink]="['/tutorial', tutorial().id]">
+			Book Now
+		</a>
+	</div>
+</div>
