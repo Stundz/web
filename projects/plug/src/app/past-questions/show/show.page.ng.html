@@ -1,9 +1,323 @@
-<h1>{{ question().course.code }} - {{question().course.title}}, {{question().year}}</h1>
-<!-- Component to display the PDF must be a client side component -->
-<button #show matButton>Show document</button>
+<!-- <h1> -->
+<!-- 	{{ question().course.code }} -->
+<!-- 	- {{question().course.title}}, {{question().year}} -->
+<!-- </h1> -->
+<!-- <!-- Component to display the PDF must be a client side component --> -->
+<!-- <button #show matButton>Show document</button> -->
+<!-- @defer (on timer(500ms)) { -->
+<!-- <plug-pdf-viewer [data]="blob.value()!" ngSkipHydration /> -->
+<!-- } @placeholder { -->
+<!-- <div class="w-full bg-gray-200 rounded animate-pulse aspect-[1/1.414]"></div> -->
+<!-- } -->
 
-@defer (on timer(500ms)) {
-  <plug-pdf-viewer [data]="blob.value()!" ngSkipHydration />
-} @placeholder {
-  <div class="w-full bg-gray-200 rounded animate-pulse aspect-[1/1.414]"></div>
-}
+<main class="py-12 px-8 mx-auto max-w-screen-2xl">
+	<!-- Breadcrumbs -->
+	<nav
+		class="flex gap-2 items-center mb-10 font-medium text-label-md text-on-surface-variant"
+	>
+		<a class="transition-colors hover:text-primary" href="#">Resource Hub</a>
+		<span class="text-sm icon-[material-symbols--chevron-right]"></span>
+		<a class="transition-colors hover:text-primary" href="#">Past Exams</a>
+		<span
+			class="text-sm icon-[material-symbols--chevron-right] material-symbols-outlined"
+		></span>
+		<span class="font-semibold text-primary"
+			>{{ question().course.code }}
+			- {{ question().year }}</span
+		>
+	</nav>
+	<div class="grid grid-cols-1 gap-12 items-start lg:grid-cols-12">
+		<!-- Main Content Area: PDF Viewer -->
+		<div class="space-y-8 lg:col-span-8">
+			<div
+				class="flex overflow-hidden relative flex-col rounded-lg bg-surface-container-low min-h-[850px]"
+			>
+				<!-- PDF Controls Toolbar -->
+				<div
+					class="flex z-10 justify-between items-center py-3 px-6 bg-surface-container-high"
+				>
+					<div class="flex gap-4 items-center">
+						<button
+							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+						>
+							<span
+								class="icon-[material-symbols--zoom-out]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</button>
+						<span class="text-sm font-medium">100%</span>
+						<button
+							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+						>
+							<span
+								class="icon-[material-symbols--zoom-in]"
+								role="img"
+								aria-hidden="true"
+								>zoom_in</span
+							>
+						</button>
+					</div>
+					<div class="flex gap-3 items-center">
+						<span class="text-sm text-on-surface-variant">Page 1 of 12</span>
+					</div>
+					<div class="flex gap-2 items-center">
+						<button
+							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+						>
+							<span
+								class="icon-[material-symbols--fullscreen]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</button>
+						<button
+							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+						>
+							<span class="icon-[material-symbols--print-outline]">print</span>
+						</button>
+					</div>
+				</div>
+				<!-- Paper Canvas -->
+				<div
+					class="flex overflow-y-auto flex-grow justify-center p-12 bg-surface-dim/20"
+				>
+					<div
+						class="relative p-16 w-full bg-white rounded-sm shadow-2xl max-w-[800px] aspect-[1/1.414]"
+					>
+						<!-- Content Placeholder for PDF -->
+						<div
+							class="flex justify-between items-start pb-8 mb-8 border-b border-surface-container"
+						>
+							<div>
+								<h4 class="text-2xl font-bold font-headline text-on-surface">
+									FACULTY OF MODERN STUDIES
+								</h4>
+								<p
+									class="mt-1 text-sm tracking-widest font-body text-on-surface-variant"
+								>
+									DEPARTMENT OF ACADEMIC EXCELLENCE
+								</p>
+							</div>
+							<div class="text-right">
+								<span class="text-xl font-bold font-noto-serif">YTC115</span>
+							</div>
+						</div>
+						<div class="space-y-6">
+							<div class="w-3/4 h-4 rounded bg-surface-container-low"></div>
+							<div class="w-full h-4 rounded bg-surface-container-low"></div>
+							<div class="w-5/6 h-4 rounded bg-surface-container-low"></div>
+							<div class="pt-8">
+								<h5 class="mb-4 font-bold">Question 1 (20 Marks)</h5>
+								<div
+									class="mb-2 w-full h-4 rounded bg-surface-container-low"
+								></div>
+								<div
+									class="mb-2 w-full h-4 rounded bg-surface-container-low"
+								></div>
+								<div class="w-2/3 h-4 rounded bg-surface-container-low"></div>
+							</div>
+							<div class="pt-8">
+								<h5 class="mb-4 font-bold">Question 2 (15 Marks)</h5>
+								<div
+									class="mb-2 w-full h-4 rounded bg-surface-container-low"
+								></div>
+								<div class="w-3/4 h-4 rounded bg-surface-container-low"></div>
+							</div>
+						</div>
+						<!-- Subtle Watermark -->
+						<div
+							class="flex absolute inset-0 justify-center items-center pointer-events-none select-none opacity-[0.03] rotate-[-45deg]"
+						>
+							<span class="text-8xl font-black font-noto-serif"
+								>PLUG RESOURCE</span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Sidebar: Details & Actions -->
+		<aside class="space-y-8 lg:col-span-4">
+			<!-- Header Card -->
+			<div class="p-8 rounded-lg shadow-sm bg-surface-container-lowest">
+				<div class="mb-6">
+					<span
+						class="inline-block py-1 px-3 mb-4 text-xs font-bold rounded-full bg-tertiary-fixed text-on-tertiary-fixed"
+						>EXAM PAPER</span
+					>
+					<h1
+						class="mb-2 text-4xl font-extrabold leading-tight font-headline text-on-surface"
+					>
+						Cumque magni.
+					</h1>
+					<div class="flex gap-3 items-center text-on-surface-variant">
+						<span class="font-bold text-primary">YTC115</span>
+						<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+						<span class="font-medium">Class of 2025</span>
+					</div>
+				</div>
+				<div
+					class="grid grid-cols-3 gap-4 py-6 my-6 border-y border-surface-container"
+				>
+					<div class="text-center">
+						<p
+							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
+						>
+							Year
+						</p>
+						<p class="font-bold">{{ question().year }}</p>
+					</div>
+					<div class="text-center border-x border-surface-container">
+						<p
+							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
+						>
+							Solutions
+						</p>
+						<p class="font-bold">{{ question().solutions_count }} Available</p>
+					</div>
+					<div class="text-center">
+						<p
+							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
+						>
+							Pages
+						</p>
+						<p class="font-bold">12</p>
+					</div>
+				</div>
+				<div class="space-y-4">
+					<button
+						class="flex gap-2 justify-center items-center py-4 w-full font-bold text-white rounded-full transition-all bg-primary-container hover:scale-[0.98]"
+					>
+						<span
+							class="icon-[material-symbols--download]"
+							role="img"
+							aria-hidden="true"
+						></span>
+						Download PDF
+					</button>
+					<div class="grid grid-cols-2 gap-4">
+						<button
+							class="flex gap-2 justify-center items-center py-3 font-semibold rounded-full border transition-colors border-outline-variant/30 hover:bg-surface-container-low"
+						>
+							<span
+								class="icon-[material-symbols--bookmark-outline]"
+								role="img"
+								aria-hidden="true"
+							></span>
+							Save
+						</button>
+						<button
+							class="flex gap-2 justify-center items-center py-3 font-semibold rounded-full border transition-colors border-outline-variant/30 hover:bg-surface-container-low"
+						>
+							<span
+								class="icon-[material-symbols--share-outline]"
+								role="img"
+								aria-hidden="true"
+							></span>
+							Share
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- Available Solutions Section -->
+			<div class="space-y-6">
+				<div class="flex justify-between items-center">
+					<h2 class="text-xl font-bold font-headline">Available Solutions</h2>
+					<span class="text-xs font-bold underline cursor-pointer text-primary"
+						>View All</span
+					>
+				</div>
+				<div class="space-y-4">
+					<!-- Solution Card 1 -->
+					<div
+						class="overflow-hidden relative p-5 rounded-lg transition-shadow cursor-pointer hover:shadow-md group bg-surface-container-lowest"
+					>
+						<div class="absolute top-0 right-0 p-3">
+							<span
+								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined text-primary-container"
+								>arrow_forward</span
+							>
+						</div>
+						<div class="flex gap-4 items-start">
+							<div class="p-2 rounded-lg bg-secondary-container text-primary">
+								<span class="material-symbols-outlined">verified</span>
+							</div>
+							<div>
+								<h4 class="mb-1 text-sm font-bold">
+									Comprehensive Annotated Key
+								</h4>
+								<p class="mb-3 text-xs text-on-surface-variant">
+									By Prof. Aristhostes • Updated 2 days ago
+								</p>
+								<div class="flex gap-3 items-center">
+									<span class="text-sm font-bold text-primary">$4.99</span>
+									<span
+										class="py-0.5 px-2 tracking-tighter uppercase rounded-full text-[10px] bg-surface-container text-on-surface-variant"
+										>Verified</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Solution Card 2 -->
+					<div
+						class="overflow-hidden relative p-5 rounded-lg transition-shadow cursor-pointer hover:shadow-md group bg-surface-container-lowest"
+					>
+						<div class="absolute top-0 right-0 p-3">
+							<span
+								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined text-primary-container"
+								>arrow_forward</span
+							>
+						</div>
+						<div class="flex gap-4 items-start">
+							<div class="p-2 rounded-lg bg-tertiary-fixed text-tertiary">
+								<span class="material-symbols-outlined">psychology</span>
+							</div>
+							<div>
+								<h4 class="mb-1 text-sm font-bold">
+									Step-by-Step Logic Breakdown
+								</h4>
+								<p class="mb-3 text-xs text-on-surface-variant">
+									By Atelier Tutors • Student Favorite
+								</p>
+								<div class="flex gap-3 items-center">
+									<span class="text-sm font-bold text-primary"
+										>Free for Premium</span
+									>
+									<span
+										class="py-0.5 px-2 tracking-tighter uppercase rounded-full text-[10px] bg-surface-container text-on-surface-variant"
+										>Guide</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div
+					class="p-6 text-white bg-gradient-to-br rounded-lg from-primary to-primary-container"
+				>
+					<h3 class="mb-2 text-lg font-bold font-headline">
+						Need help with YTC115?
+					</h3>
+					<p class="mb-6 text-sm opacity-90">
+						Our top-rated tutors are ready to help you master these concepts
+						before your exam.
+					</p>
+					<a
+						href=" "
+						matButton="filled"
+						[style.--mat-sys-primary]="'light-dark(#fff, #000)'"
+						[style.--mat-sys-primary]="'var(--mat-sys-on-primary-inverse)'"
+						>Find a tutor</a
+					>
+					<button
+						class="py-3 px-6 w-full text-sm font-bold bg-white rounded-full transition-all hover:bg-opacity-90 text-primary"
+					>
+						Find a Tutor
+					</button>
+				</div>
+			</div>
+		</aside>
+	</div>
+</main>
