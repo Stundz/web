@@ -64,8 +64,10 @@
 					class="flex gap-2 items-center mb-6 text-sm text-on-surface-variant font-label"
 				>
 					<span>Academic</span>
-					<span class="text-xs material-symbols-outlined">chevron_right</span>
-					<span>Sint porro esse aspernatur fugiat expedita. (FGG344)</span>
+					<span class="text-xs icon-[material-symbols--chevron-right]"
+						>chevron_right</span
+					>
+					<span>{{ tutorial().name }}. ({{tutorial()?.course?.code}})</span>
 				</nav>
 				<h1
 					class="mb-8 text-6xl font-bold tracking-tight lg:text-7xl text-on-surface leading-[1.1]"
@@ -127,21 +129,21 @@
 					</h2>
 					<ul class="mb-8 space-y-4 text-sm">
 						<li class="flex gap-3 items-center">
-							<span class="text-lg material-symbols-outlined text-primary"
-								>check_circle</span
-							>
+							<span
+								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
+							></span>
 							5 Intensive Workshops
 						</li>
 						<li class="flex gap-3 items-center">
-							<span class="text-lg material-symbols-outlined text-primary"
-								>check_circle</span
-							>
+							<span
+								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
+							></span>
 							Private Reading Materials
 						</li>
 						<li class="flex gap-3 items-center">
-							<span class="text-lg material-symbols-outlined text-primary"
-								>check_circle</span
-							>
+							<span
+								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
+							></span>
 							One-on-one Q&amp;A Access
 						</li>
 					</ul>
@@ -402,7 +404,8 @@
 			<!-- Bento Grid: Fast Facts -->
 			<div class="grid grid-cols-2 gap-4">
 				<div class="col-span-2 p-6 rounded-lg bg-secondary/5">
-					<span class="mb-4 text-3xl material-symbols-outlined text-secondary"
+					<span
+						class="mb-4 text-3xl icon-[material-symbols--workspace-premiom-outline] text-secondary"
 						>workspace_premium</span
 					>
 					<p
