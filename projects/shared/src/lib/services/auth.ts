@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { BehaviorSubject, tap } from "rxjs";
+import { BehaviorSubject, catchError, of, shareReplay, tap } from "rxjs";
 import { ENVIRONMENT, type Model } from "../types";
 
 @Injectable({
@@ -13,8 +13,10 @@ export class Auth {
 	user$ = this.#user.asObservable();
 
 	getUser() {
-		return this.#http
-			.get<Model.User>(`api.${this.#environment.domain}/user`)
-			.pipe(tap(this.#user.next));
+		return this.#http.get<Model.User>("https://api.stundz.localhost/user").pipe(
+			catchError(() => of(null)),
+			tap((user) => this.#user.next(user)),
+			shareReplay(),
+		);
 	}
 }
