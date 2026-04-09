@@ -43,13 +43,25 @@
 		</p>
 	</div>
 	<div
-		class="flex justify-between items-center pt-6 border-t border-outline-variant/15"
+		class="flex gap-3 justify-between items-center pt-6 border-t border-outline-variant/15"
 	>
 		<div class="text-sm font-bold text-on-surface">
-			Available: <span class="text-primary">Tomorrow, 10:00 AM</span>
+			@if (tutorial().session) { <!-- minor comment to prevent to adjust proper from formatter to prevent unncecessary line breaks  --> Available:
+			<span class="text-primary">
+				@switch (sessionDateDifference()) { @case (0) { Today } @case (-1) {
+				Tomorrow} @case (1) { Yesterday } @default {
+				{{ tutorial().session!.day | date : 'EE MMM d, y' }}
+				} }
+				{{ tutorial().session!.day | date : 'shortTime' }}
+			</span>
+			}
 		</div>
-		<a matButton="filled" [routerLink]="['/tutorial', tutorial().id]">
-			Book Now
+		<a
+			[matButton]="tutorial().session ? 'filled' : 'tonal'"
+			[routerLink]="['/tutorial', tutorial().id]"
+			class="whitespace-nowrap!"
+		>
+			{{tutorial().session ? 'Book Now' : 'View Tutorial'}}
 		</a>
 	</div>
 </div>

@@ -1,14 +1,16 @@
 import { httpResource } from "@angular/common/http";
 import { Component, effect, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { Model } from "shared";
+import { MatCardModule } from "@angular/material/card";
+import { Meta, Title } from "@angular/platform-browser";
+import { RouterLink } from "@angular/router";
+import type { Model } from "shared";
 import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
-import { Meta, Title } from "@angular/platform-browser";
 
 @Component({
 	selector: "plug-show-past-question",
-	imports: [PdfViewer, MatButtonModule],
+	imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
 	templateUrl: "./show.page.ng.html",
 	styleUrl: "./show.page.scss",
 })

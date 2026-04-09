@@ -5,6 +5,9 @@ const domain = "stundz.com";
 export interface ENVIRONMENT extends Record<string, any> {
 	domain: string;
 	production: boolean;
+	url: {
+		api: string;
+	};
 }
 
 export const ENVIRONMENT = new InjectionToken<ENVIRONMENT>("ENVIRONMENT");

@@ -1,29 +1,31 @@
 import {
-	ApplicationConfig,
+	provideHttpClient,
+	withFetch,
+	withInterceptors,
+} from "@angular/common/http";
+import {
+	type ApplicationConfig,
 	enableProdMode,
+	inject,
+	provideAppInitializer,
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
 } from "@angular/core";
-import {
-	provideRouter,
-	withComponentInputBinding,
-	withRouterConfig,
-} from "@angular/router";
-
-import { routes } from "./app.routes";
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import {
 	provideClientHydration,
 	withEventReplay,
 	withIncrementalHydration,
 } from "@angular/platform-browser";
 import {
-	provideHttpClient,
-	withFetch,
-	withInterceptors,
-} from "@angular/common/http";
-import { ENVIRONMENT, stundzInterceptor } from "shared";
+	provideRouter,
+	withComponentInputBinding,
+	withRouterConfig,
+} from "@angular/router";
+import { catchError, firstValueFrom, of } from "rxjs";
+import { Auth, csrfInterceptor, ENVIRONMENT } from "shared";
 import { environment } from "../environments/environment";
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
+import { routes } from "./app.routes";
 
 if (environment.production) {
 	enableProdMode();
@@ -41,7 +43,14 @@ export const appConfig: ApplicationConfig = {
 			}),
 		),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(withFetch(), withInterceptors([stundzInterceptor])),
+		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
+		provideAppInitializer(async () => {
+			const authService = inject(Auth);
+
+			return await firstValueFrom(
+				authService.getUser().pipe(catchError(() => of(null))),
+			);
+		}),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,
