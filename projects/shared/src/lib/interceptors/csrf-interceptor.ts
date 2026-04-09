@@ -18,9 +18,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 	const serverReq = inject(REQUEST, { optional: true });
 	const http = new HttpClient(handler);
 
-	const isApiRequest =
-		req.url.startsWith(`https://api.${environment.domain}`) ||
-		req.url.startsWith(`http://api.${environment.domain}`);
+	const isApiRequest = req.url.startsWith(`${environment.url.api}`);
 	const isServerSideRequest = isPlatformServer(platformId);
 
 	if (!isApiRequest) {
@@ -28,7 +26,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 	}
 
 	if (serverReq) {
-		console.log("Request available");
+		console.log("REQUEST available");
 	} else {
 		console.log("REQUST is missing");
 	}
@@ -53,7 +51,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 		}
 
 		return http
-			.get(`api.${environment.domain}/csrf`, {
+			.get(`${environment.url.api}/csrf`, {
 				headers: csrfHeaders,
 				withCredentials: true,
 				observe: "response",
