@@ -1,110 +1,115 @@
 import { Component, inject, signal } from "@angular/core";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import {
+	email,
+	FormField,
+	FormRoot,
+	form,
+	minLength,
+	required,
+	validate,
+} from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
-import {
-	FormBuilder,
-	FormSubmittedEvent,
-	ReactiveFormsModule,
-	Validators,
-} from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
-import { toSignal } from "@angular/core/rxjs-interop";
-import {
-	catchError,
-	filter,
-	map,
-	startWith,
-	switchMap,
-	tap,
-	timer,
-} from "rxjs";
-import { User } from "shared";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { firstValueFrom, map } from "rxjs";
+import { Auth, User } from "shared";
 import { environment } from "../../environments/environment";
 
 @Component({
 	selector: "app-signup",
-	imports: [RouterLink, MatButtonModule, MatInputModule, ReactiveFormsModule],
+	imports: [
+		RouterLink,
+		MatButtonModule,
+		MatInputModule,
+		ReactiveFormsModule,
+		FormField,
+		FormRoot,
+	],
 	templateUrl: "./signup.page.ng.html",
 	styleUrl: "./signup.page.scss",
 })
 export class SignupPage {
-	private _router = inject(Router);
 	private _route = inject(ActivatedRoute);
-	private _userService = inject(User);
-	private _fb = inject(FormBuilder);
+	#authService = inject(Auth);
 
-	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${!!this._route.snapshot.queryParams["callback"] ? "?callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
+	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${this._route.snapshot.queryParams["callback"] ? "?callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
 
-	form = this._fb.group({
-		first_name: this._fb.control("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.minLength(3)],
+	form = form(
+		signal({
+			first_name: "",
+			last_name: "",
+			email: "",
+			password: "",
+			password_confirmation: "",
+			terms: false,
 		}),
-		last_name: this._fb.control("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.minLength(3)],
-		}),
-		email: this._fb.control("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.email],
-		}),
-		password: this._fb.control("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.minLength(8)],
-		}),
-		password_confirmation: this._fb.control("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.minLength(8)],
-		}),
-	});
+		(schema) => {
+			required(schema.first_name, {
+				message: "This field is required",
+				when: ({ stateOf }) => stateOf(schema).touched(),
+			});
+			minLength(schema.first_name, 3, {
+				message: "The first name should contain atleast 3 characters",
+			});
 
-	loading = toSignal(
-		this.form.events
-			.pipe(filter((event) => event instanceof FormSubmittedEvent))
-			.pipe(
-				switchMap(() =>
-					this._userService.signup(this.form.getRawValue()).pipe(
-						switchMap(() =>
-							timer(500).pipe(
-								map(() => false),
-								tap(() => {
-									const callback =
-										this._route.snapshot.paramMap.get("callback");
-									if (callback != null) {
-										window.location.replace(callback);
-									} else {
-										this._router.navigateByUrl("/");
-									}
-								}),
-							),
-						),
-						catchError((response) => {
-							const { errors } = response.error;
+			required(schema.last_name, {
+				message: "This field is required",
+				when: ({ stateOf }) => stateOf(schema).touched(),
+			});
+			minLength(schema.last_name, 3, {
+				message: "The last name should contain atleast 3 characters",
+			});
 
-							Object.keys(errors).forEach((key) => {
-								this.form.get(key)?.setErrors({ response: errors[key][0] });
-							});
+			required(schema.email, {
+				message: "This field is required",
+				when: ({ stateOf }) => stateOf(schema).touched(),
+			});
+			email(schema.email, { message: "This email is invalid" });
 
-							// TODO: Handle past questions creation errors
-							console.log(errors);
+			required(schema.password, {
+				message: "This field is required",
+				when: ({ stateOf }) => stateOf(schema).touched(),
+			});
 
-							return timer(500).pipe(map(() => false));
-						}),
-						tap(() => {
-							const callback =
-								this._route.snapshot.queryParamMap.get("callback");
-							if (callback != null) {
-								window.location.replace(callback);
-							} else {
-								this._router.navigateByUrl("/");
-							}
-						}),
-						startWith(true),
-					),
-				),
-			),
+			required(schema.password_confirmation, {
+				message: "This field is required",
+				when: ({ stateOf }) => stateOf(schema).touched(),
+			});
+			validate(schema.password_confirmation, ({ valueOf, value }) => {
+				if (value() === valueOf(schema.password)) return undefined;
+
+				return {
+					kind: "same",
+					message: "Passord confirmation do not match password",
+				};
+			});
+
+			// Terms and conditions
+			validate(schema.terms, ({ value }) => {
+				if (value() === true) {
+					return undefined;
+				}
+
+				return {
+					kind: "boolean",
+					message: "You must agree to the terms and conditions",
+				};
+			});
+		},
 		{
-			initialValue: false,
+			name: "signup",
+			submission: {
+				action: async (schema) =>
+					firstValueFrom(
+						this.#authService
+							.signup(schema().value())
+							.pipe(map(() => undefined)),
+					),
+				onInvalid: async (field) => {
+					console.log("Form is invalid", field().value());
+				},
+			},
 		},
 	);
 }
