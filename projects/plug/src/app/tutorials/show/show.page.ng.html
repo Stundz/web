@@ -1,60 +1,3 @@
-<!-- TopNavBar - Rendered from JSON Shell -->
-<nav class="fixed top-0 z-50 w-full shadow-sm bg-white/80 backdrop-blur-xl">
-	<div
-		class="flex justify-between items-center py-4 px-8 mx-auto w-full max-w-screen-2xl"
-	>
-		<div class="flex gap-12 items-center">
-			<span class="font-serif text-2xl font-bold tracking-tight text-blue-800"
-				>Plug</span
-			>
-			<div class="hidden gap-8 md:flex">
-				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
-					>Discover</a
-				>
-				<a
-					class="pb-1 font-semibold text-blue-700 border-b-2 border-blue-700"
-					href="#"
-					>My Tutorials</a
-				>
-				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
-					>Tutors</a
-				>
-				<a class="transition-colors hover:text-blue-600 text-slate-600" href="#"
-					>Resources</a
-				>
-			</div>
-		</div>
-		<div class="flex gap-6 items-center">
-			<div
-				class="hidden items-center py-2 px-4 rounded-full lg:flex bg-surface-container"
-			>
-				<span class="mr-2 material-symbols-outlined text-on-surface-variant"
-					>search</span
-				>
-				<input
-					class="w-48 text-sm bg-transparent border-none focus:ring-0"
-					placeholder="Search tutorials..."
-					type="text"
-				>
-			</div>
-			<div class="flex gap-4">
-				<span
-					class="cursor-pointer material-symbols-outlined text-on-surface-variant"
-					>notifications</span
-				>
-				<span
-					class="cursor-pointer material-symbols-outlined text-on-surface-variant"
-					>shopping_cart</span
-				>
-			</div>
-			<button
-				class="py-2 px-6 font-medium rounded-full transition-all hover:opacity-90 bg-primary text-on-primary"
-			>
-				Become a Tutor
-			</button>
-		</div>
-	</div>
-</nav>
 <main class="pt-24 pb-20">
 	<!-- Hero Section: Editorial Header -->
 	<header class="px-8 mx-auto mb-16 max-w-screen-2xl">
@@ -63,16 +6,18 @@
 				<nav
 					class="flex gap-2 items-center mb-6 text-sm text-on-surface-variant font-label"
 				>
-					<span>Academic</span>
-					<span class="text-xs icon-[material-symbols--chevron-right]"
-						>chevron_right</span
-					>
-					<span>{{ tutorial().name }}. ({{tutorial()?.course?.code}})</span>
+					<span>Plug</span>
+					<span
+						class="text-xs icon-[material-symbols--chevron-right]"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<span>{{ tutorial().name }}. ({{tutorial().course?.code}})</span>
 				</nav>
 				<h1
 					class="mb-8 text-6xl font-bold tracking-tight lg:text-7xl text-on-surface leading-[1.1]"
 				>
-					at modi enim est
+					{{ tutorial().name }}
 				</h1>
 				<div class="flex flex-wrap gap-6 items-center">
 					<div
@@ -85,36 +30,39 @@
 							src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPqrDoCZms5xjG4UUMlvfxGUoPBzYMSkgsAZnyo2L1SAjH9oWDuJwjaFiXmWOf0ZC4vdu03VgisXzN5_xjL_oZotCDGwWx55Cg9jeQj4y_wCoQWOqrbCpNFZjx6GpnUMjnKGCpO59ThhgvX01DULMiWjR1UOMi5sxHl1s6Yt1p35iUj57YYN_fb1vnAEBBKgiMb63DUduPPyiYkdP-2GdydY8STGOovS83yC3H2ZfKcs2f6N8O0HMFz9g0ztXrKX1jzTy_hwl-Hvo"
 						>
 						<div>
-							<p class="text-sm font-bold leading-none">Adriana Bergstrom</p>
+							<p class="text-sm font-bold leading-none">
+								{{ tutorial().tutor?.first_name }}
+								{{ tutorial().tutor?.last_name }}
+							</p>
 							<p class="mt-1 text-xs text-on-surface-variant">
 								Senior Academic Tutor
 							</p>
 						</div>
 					</div>
-					<div class="hidden h-8 md:block w-[1px] bg-outline-variant/30"></div>
+					<div class="hidden w-px h-8 md:block bg-outline-variant/30"></div>
 					<div class="flex gap-2 items-center">
 						<span
-							class="material-symbols-outlined text-primary"
+							class="icon-[material-symbols--star-outline] text-primary"
 							style="font-variation-settings: 'FILL' 1;"
-							>star</span
-						>
+						></span>
 						<span class="font-bold">4.9</span>
 						<span class="text-sm text-on-surface-variant">(124 Reviews)</span>
 					</div>
-					<div class="hidden h-8 md:block w-[1px] bg-outline-variant/30"></div>
+					<div class="hidden w-px h-8 md:block bg-outline-variant/30"></div>
 					<span
 						class="py-1.5 px-4 text-xs font-bold tracking-wider uppercase rounded-full bg-tertiary-fixed text-on-tertiary-fixed"
 						>High Demand</span
 					>
 				</div>
 			</div>
+			@if (tutorial().session) {
 			<div class="flex justify-end lg:col-span-4">
 				<div
 					class="overflow-hidden relative p-8 w-full max-w-sm bg-white rounded-lg border shadow-xl shadow-primary/5 border-outline-variant/10"
 				>
 					<div class="absolute top-0 right-0 p-4">
 						<span
-							class="text-8xl rotate-12 material-symbols-outlined text-primary/10"
+							class="text-8xl rotate-12 icon-[material-symbols--school-outline] text-primary/10"
 							>school</span
 						>
 					</div>
@@ -128,27 +76,19 @@
 						<span class="text-lg font-normal text-on-surface-variant">USD</span>
 					</h2>
 					<ul class="mb-8 space-y-4 text-sm">
+						@for (objective of tutorial().session?.objectives || []; track
+						objective) {
 						<li class="flex gap-3 items-center">
 							<span
 								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
 							></span>
-							5 Intensive Workshops
+							{{objective}}
 						</li>
-						<li class="flex gap-3 items-center">
-							<span
-								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
-							></span>
-							Private Reading Materials
-						</li>
-						<li class="flex gap-3 items-center">
-							<span
-								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
-							></span>
-							One-on-one Q&amp;A Access
-						</li>
+						} @empty { @if (tutorial().session) { This session has no specified
+						objectives } }
 					</ul>
 					<button
-						class="py-4 w-full text-lg font-bold text-white bg-gradient-to-br rounded-full shadow-lg transition-transform from-primary to-primary-container shadow-primary/20 hover:scale-[1.02]"
+						class="py-4 w-full text-lg font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-br from-primary to-primary-container shadow-primary/20 hover:scale-[1.02]"
 					>
 						Book This Tutorial
 					</button>
@@ -157,6 +97,7 @@
 					</p>
 				</div>
 			</div>
+			}
 		</div>
 	</header>
 	<!-- Content Section -->
@@ -187,7 +128,7 @@
 							Primary Course
 						</p>
 						<p class="font-medium text-on-surface">
-							Sint porro esse aspernatur fugiat expedita. (FGG344)
+							{{tutorial().course?.title }}. ({{tutorial().course?.code}})
 						</p>
 					</div>
 					<div>
@@ -202,21 +143,23 @@
 			</div>
 			<!-- Session Schedule: Asymmetric Timeline -->
 			<div>
-				<h3 class="mb-10 text-3xl font-bold">Academic Schedule</h3>
+				<h3 class="mb-10 text-3xl font-bold">Recent Academic Schedule</h3>
 				<div class="relative space-y-12">
 					<!-- Vertical line for timeline -->
 					<div
-						class="hidden absolute top-4 bottom-4 md:block left-[23px] w-[2px] bg-surface-container-high"
+						class="hidden absolute top-4 bottom-4 w-0.5 md:block left-[23px] bg-surface-container-high"
 					></div>
+					@for (session of (tutorial().sessions || []).slice(0,2); track
+					session.id) {
 					<!-- Session 1 -->
 					<div class="flex relative flex-col gap-8 md:flex-row">
 						<div
-							class="flex z-10 flex-shrink-0 justify-center items-center w-12 h-12 font-bold text-white rounded-full bg-primary"
+							class="flex z-10 justify-center items-center w-12 h-12 font-bold text-white rounded-full shrink-0 bg-primary"
 						>
-							1
+							{{$index + 1}}
 						</div>
 						<div
-							class="flex-grow p-8 bg-white rounded-lg border shadow-sm border-outline-variant/10"
+							class="p-8 bg-white rounded-lg border shadow-sm grow border-outline-variant/10"
 						>
 							<div
 								class="flex flex-wrap gap-4 justify-between items-start mb-4"
@@ -227,20 +170,25 @@
 									>
 										Foundational Overview
 									</p>
-									<h4 class="text-xl font-bold">2025-08-20</h4>
+									<h4 class="text-xl font-bold">{{ session.day | date }}</h4>
 								</div>
 								<div class="flex gap-4 text-sm text-on-surface-variant">
 									<span class="flex gap-1 items-center"
-										><span class="text-lg material-symbols-outlined"
-											>schedule</span
-										>
-										90 mins</span
+										><span
+											class="text-lg icon-[material-symbols--schedule-outline]"
+											role="img"
+											aria-hidden="true"
+										></span>
+										{{session.duration}}
+										mins</span
 									>
 									<span class="flex gap-1 items-center"
-										><span class="text-lg material-symbols-outlined"
-											>location_on</span
-										>
-										G block 119</span
+										><span
+											class="text-lg icon-[material-symbols--location-on-outline]"
+											role="img"
+											aria-hidden="true"
+										></span>
+										{{ session.venue }}</span
 									>
 								</div>
 							</div>
@@ -251,117 +199,42 @@
 								<ul
 									class="grid grid-cols-1 gap-3 text-sm italic md:grid-cols-2 text-on-surface"
 								>
-									<li class="flex gap-2 items-start">• Sed a voluptas...</li>
-									<li class="flex gap-2 items-start">• Vel nisi eos...</li>
+									@for (objective of session.objectives; track objective) {
+									<li class="flex gap-2 items-start">• {{objective}}</li>
+									}
 								</ul>
 							</div>
 						</div>
 					</div>
-					<!-- Session 2 -->
-					<div class="flex relative flex-col gap-8 md:flex-row">
-						<div
-							class="flex z-10 flex-shrink-0 justify-center items-center w-12 h-12 font-bold text-white rounded-full bg-primary"
-						>
-							2
-						</div>
-						<div
-							class="flex-grow p-8 bg-white rounded-lg border shadow-sm border-outline-variant/10"
-						>
-							<div
-								class="flex flex-wrap gap-4 justify-between items-start mb-4"
-							>
-								<div>
-									<p
-										class="mb-1 text-xs font-bold tracking-widest uppercase text-primary"
-									>
-										Methodological Deep-Dive
-									</p>
-									<h4 class="text-xl font-bold">2025-09-24</h4>
-								</div>
-								<div class="flex gap-4 text-sm text-on-surface-variant">
-									<span class="flex gap-1 items-center"
-										><span class="text-lg material-symbols-outlined"
-											>schedule</span
-										>
-										150 mins</span
-									>
-									<span class="flex gap-1 items-center"
-										><span class="text-lg material-symbols-outlined"
-											>location_on</span
-										>
-										U block F</span
-									>
-								</div>
-							</div>
-							<div class="space-y-2">
-								<p class="text-sm font-semibold text-on-surface-variant">
-									Key Objectives:
-								</p>
-								<ul
-									class="grid grid-cols-1 gap-3 text-sm italic md:grid-cols-2 text-on-surface"
-								>
-									<li class="flex gap-2 items-start">• Odit enim vel...</li>
-									<li class="flex gap-2 items-start">• Voluptas fugit...</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					}
 					<!-- Session 3, 4, 5 (Simplified) -->
 					<div class="grid grid-cols-1 gap-6 ml-0 md:ml-20">
-						<!-- S3 -->
+						@for (session of (tutorial().sessions || []).slice(2); track
+						session.id) {
 						<div
 							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
 						>
 							<div class="flex gap-6 items-center">
-								<span class="text-2xl font-bold text-on-surface/30">03</span>
+								<span class="text-2xl font-bold text-on-surface/30"
+									>0{{$index + 2}}</span
+								>
 								<div>
-									<p class="text-sm font-bold">2025-10-02</p>
+									<p class="text-sm font-bold">
+										{{session.day | date : 'yyyy-MM-dd'}}
+									</p>
 									<p class="text-xs text-on-surface-variant">
-										U Block E • 210 mins session
+										{{session.venue}}
+										• {{session.duration}} mins session
 									</p>
 								</div>
 							</div>
 							<span
-								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
-								>chevron_right</span
-							>
+								class="opacity-0 transition-opacity group-hover:opacity-100 icon-[material-symbols--chevron-right-outline]"
+								role="img"
+								aria-hidden="true"
+							></span>
 						</div>
-						<!-- S4 -->
-						<div
-							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
-						>
-							<div class="flex gap-6 items-center">
-								<span class="text-2xl font-bold text-on-surface/30">04</span>
-								<div>
-									<p class="text-sm font-bold">2025-10-29</p>
-									<p class="text-xs text-on-surface-variant">
-										U Block E • 90 mins session
-									</p>
-								</div>
-							</div>
-							<span
-								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
-								>chevron_right</span
-							>
-						</div>
-						<!-- S5 -->
-						<div
-							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
-						>
-							<div class="flex gap-6 items-center">
-								<span class="text-2xl font-bold text-on-surface/30">05</span>
-								<div>
-									<p class="text-sm font-bold">2025-11-11</p>
-									<p class="text-xs text-on-surface-variant">
-										U block G • 180 mins session
-									</p>
-								</div>
-							</div>
-							<span
-								class="opacity-0 transition-opacity group-hover:opacity-100 material-symbols-outlined"
-								>chevron_right</span
-							>
-						</div>
+						}
 					</div>
 				</div>
 			</div>
@@ -379,7 +252,9 @@
 						src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ7R1o2mRDwSdXn_sN_em_Y410W0NqABkwTHFP5SKAqsV3dSZH610lKvFCuP-U3JrOkOoZQ2jfj9ZRdjb8f7tesUr4KqfI3ZsCBttTjxEWuZIJbUSzon9zZCCvgAHe6Cc-J_2FqoU3vxUbUL22mZBxbSxsPxu3X7pz8VXMd9nU9iuWLoTdAXXprEZo32R6Gbc10uG3zMtnX5BbeHwPdZMCLDZOEDuzl4u2i0VUqIBVGJ2aQcQPNkIlkVj6Au62M_9Yjcpii9UroL0"
 					>
 					<div>
-						<h5 class="text-xl font-bold">Adriana Bergstrom</h5>
+						<h5 class="text-xl font-bold">
+							{{tutorial().tutor?.first_name}} {{ tutorial().tutor?.last_name }}
+						</h5>
 						<p class="mb-4 font-medium text-primary">Senior Academic Tutor</p>
 						<p class="text-sm leading-relaxed text-on-surface-variant">
 							Adriana has over 12 years of experience in higher education,
@@ -388,11 +263,12 @@
 						</p>
 					</div>
 					<div class="flex gap-4 pt-6 border-t border-outline-variant/20">
-						<button
+						<a
+							[routerLink]="['/tutor', tutorial().tutor?.id]"
 							class="flex-1 py-3 text-sm font-bold bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
 						>
 							View Profile
-						</button>
+						</a>
 						<button
 							class="p-3 bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
 						>
@@ -405,9 +281,10 @@
 			<div class="grid grid-cols-2 gap-4">
 				<div class="col-span-2 p-6 rounded-lg bg-secondary/5">
 					<span
-						class="mb-4 text-3xl icon-[material-symbols--workspace-premiom-outline] text-secondary"
-						>workspace_premium</span
-					>
+						class="mb-4 text-3xl icon-[material-symbols--workspace-premium-outline] text-secondary"
+						role="img"
+						aria-hidden="true"
+					></span>
 					<p
 						class="mb-1 text-xs font-bold tracking-widest uppercase text-secondary"
 					>
@@ -418,9 +295,11 @@
 					</p>
 				</div>
 				<div class="p-6 rounded-lg bg-surface-container">
-					<span class="mb-4 material-symbols-outlined text-on-surface-variant"
-						>group</span
-					>
+					<span
+						class="mb-4 icon-[material-symbols--group-outline] text-on-surface-variant"
+						role="img"
+						aria-hidden="true"
+					></span>
 					<p
 						class="mb-1 text-xs font-bold tracking-widest uppercase text-on-surface-variant"
 					>
@@ -429,7 +308,8 @@
 					<p class="text-sm font-medium">12 Seats Left</p>
 				</div>
 				<div class="p-6 rounded-lg bg-surface-container">
-					<span class="mb-4 material-symbols-outlined text-on-surface-variant"
+					<span
+						class="mb-4 icon-[material-symbols--language] text-on-surface-variant"
 						>language</span
 					>
 					<p
@@ -455,10 +335,14 @@
 					<div
 						class="flex gap-2 items-center py-2 px-4 bg-white rounded-full shadow-lg"
 					>
-						<span class="material-symbols-outlined text-primary"
-							>location_on</span
+						<span
+							class="icon-[material-symbols--location-on-outline] text-primary"
+							role="img"
+							aria-hidden="true"
+						></span>
+						<span class="text-sm font-bold"
+							>{{ tutorial().session?.venue }}</span
 						>
-						<span class="text-sm font-bold">U Block Precinct</span>
 					</div>
 				</div>
 			</div>
