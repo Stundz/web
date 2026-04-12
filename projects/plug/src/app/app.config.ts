@@ -55,9 +55,9 @@ export const appConfig: ApplicationConfig = {
 			provide: ENVIRONMENT,
 			useValue: environment,
 		},
-		// {
-		// 	provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-		// 	useValue: { appearance: "outline" },
-		// },
+		{
+			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+			useValue: { appearance: "outline" },
+		},
 	],
 };
