@@ -15,26 +15,46 @@
 					<a
 						class="font-semibold transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
 						routerLink="/"
-						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
 						[routerLinkActiveOptions]="{ exact: true }"
 						>Home</a
 					>
 					<a
 						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
 						routerLink="/past-questions"
-						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+						[class.text-primary]="questionShowLink.isActive"
+						[class.border-primary]="questionShowLink.isActive"
+						[class.pb-1]="questionShowLink.isActive"
+						[class.border-b-2]="questionShowLink.isActive"
 						>Past Exams</a
 					>
 					<a
+						routerLink="/past-question"
+						routerLinkActive
+						#questionShowLink="routerLinkActive"
+						class="hidden"
+					></a>
+					<a
 						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
 						routerLink="/tutorials"
-						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+						[class.text-primary]="tutorialShowLink.isActive"
+						[class.border-primary]="tutorialShowLink.isActive"
+						[class.pb-1]="tutorialShowLink.isActive"
+						[class.border-b-2]="tutorialShowLink.isActive"
 						>Tutorials</a
 					>
 					<a
+						routerLink="/tutorial"
+						routerLinkActive
+						#tutorialShowLink="routerLinkActive"
+						class="hidden"
+					></a>
+					<a
 						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
 						routerLink="/projects"
-						[routerLinkActive]="['text-primary!', 'border-primary', 'pb-1', 'border-b-2']"
+						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
 						>Project Support</a
 					>
 				</nav>
@@ -80,8 +100,8 @@
 		class="flex flex-col gap-12 justify-between items-start pb-12 w-full max-w-7xl border-b md:flex-row md:items-center border-outline-variant/20"
 	>
 		<div class="flex flex-col gap-4">
-			<span class="font-serif text-lg text-[#812900] dark:text-[#a93800]"
-				>Plug Academic.</span
+			<span class="font-serif text-lg text-[#812900] dark:text-[#a93800]">
+				Academic.</span
 			>
 			<p class="max-w-xs text-sm text-on-surface-variant">
 				Forging the next generation of industry leaders through superior
