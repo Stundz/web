@@ -1,65 +1,63 @@
 <div
-  class="p-10 mx-auto mt-5 space-y-8 w-full max-w-md rounded-2xl shadow-lg bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) [--tw-shadow-color:_var(--mat-sys-surface-container-high)]"
+	class="p-10 mx-auto mt-5 space-y-8 w-full max-w-md rounded-2xl shadow-lg bg-(--mat-sys-surface-container) text-(--mat-sys-on-surface-container) [--tw-shadow-color:_var(--mat-sys-surface-container-high)]"
 >
-  <div>
-    <h2 class="text-3xl font-extrabold text-center">Welcome back</h2>
-    <p class="mt-2 text-sm text-center">Sign in to continue your academic journey.</p>
-    loading: {{ loading() }}
-  </div>
-  <form [formGroup]="form" class="mt-8 space-y-6 *:w-full" method="POST">
-    <mat-form-field>
-      <mat-label>Email or Username</mat-label>
-      <input type="email" matInput formControlName="email" />
-    </mat-form-field>
+	<div>
+		<h2 class="text-3xl font-extrabold text-center">Welcome back</h2>
+		<p class="mt-2 text-sm text-center">
+			Sign in to continue your academic journey.
+		</p>
+		loading: {{ form().submitting() }}
+	</div>
+	<form [formRoot]="form" class="mt-8 space-y-6 *:w-full" method="POST">
+		<mat-form-field>
+			<mat-label>Email or Username</mat-label>
+			<input type="email" matInput [formField]="form.email">
+		</mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password" />
-    </mat-form-field>
+		<mat-form-field>
+			<mat-label>Password</mat-label>
+			<input type="password" matInput [formField]="form.password">
+		</mat-form-field>
 
-    <mat-checkbox
-      [checked]="form.controls.remember.value"
-      (change)="form.controls.remember.setValue($event.checked)"
-      >Remember me</mat-checkbox
-    >
+		<mat-checkbox [formField]="form.remember">Remember me</mat-checkbox>
 
-    <div class="flex justify-end items-center">
-      <div class="text-sm">
-        <a
-          class="font-medium text-(--mat-sys-primary)"
-          routerLink="/forgot-password"
-          queryParamsHandling="preserve"
-        >
-          Forgot your password?
-        </a>
-      </div>
-    </div>
-    <div>
-      <button
-        class="w-full"
-        type="submit"
-        matButton="filled"
-        [disabled]="loading() || form.invalid"
-      >
-        @if (loading()) {
-          <span
-            class="self-center icon-[eos-icons--three-dots-loading]"
-            role="img"
-            aria-hidden="true"
-          ></span>
-        }
-        <span> Login </span>
-      </button>
-    </div>
-  </form>
-  <p class="mt-6 text-sm text-center text-text-secondary">
-    Don't have an account?
-    <a
-      class="font-medium text-(--mat-sys-tertiary)"
-      routerLink="/signup"
-      queryParamsHandling="preserve"
-    >
-      Sign up
-    </a>
-  </p>
+		<div class="flex justify-end items-center">
+			<div class="text-sm">
+				<a
+					class="font-medium text-(--mat-sys-primary)"
+					routerLink="/forgot-password"
+					queryParamsHandling="preserve"
+				>
+					Forgot your password?
+				</a>
+			</div>
+		</div>
+		<div>
+			<button
+				class="w-full"
+				type="submit"
+				matButton="filled"
+				[disabled]="form().submitting() || form().invalid()"
+			>
+				@if (form().submitting()) {
+				<span
+					class="self-center icon-[eos-icons--three-dots-loading]"
+					role="img"
+					aria-hidden="true"
+				></span>
+				}
+				<span> Login </span>
+			</button>
+		</div>
+	</form>
+	<p class="mt-6 text-sm text-center text-text-secondary">
+		Don't have an account?
+		<a
+			class="font-medium text-(--mat-sys-tertiary)"
+			routerLink="/signup"
+			queryParamsHandling="preserve"
+		>
+			Sign up
+		</a>
+	</p>
 </div>

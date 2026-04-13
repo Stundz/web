@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
 	FormBuilder,
@@ -7,21 +7,30 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from "@angular/forms";
+import {
+	email,
+	FormField,
+	FormRoot,
+	form,
+	required,
+} from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {
 	catchError,
 	filter,
+	firstValueFrom,
 	map,
 	startWith,
 	switchMap,
 	tap,
+	throwError,
 	timer,
 } from "rxjs";
-import { MatInputModule } from "@angular/material/input";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { Model, User } from "shared";
+import { Auth, type Model, User } from "shared";
 
 @Component({
 	selector: "app-login",
@@ -31,57 +40,49 @@ import { Model, User } from "shared";
 		ReactiveFormsModule,
 		MatInputModule,
 		MatCheckboxModule,
+		FormField,
+		FormRoot,
 	],
 	templateUrl: "./login.page.ng.html",
 	styleUrl: "./login.page.scss",
 })
 export class LoginPage {
 	user = input.required<Model.User | undefined>();
-	private _fb = inject(FormBuilder);
-	private _router = inject(Router);
-	private _route = inject(ActivatedRoute);
-	private _location = inject(Location);
-	private _snackBar = inject(MatSnackBar);
-	private _userService = inject(User);
+	#route = inject(ActivatedRoute);
+	#authService = inject(Auth);
 
-	form = this._fb.group({
-		email: this._fb.control<string>("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.email],
+	form = form(
+		signal({
+			email: "",
+			password: "",
+			remember: false,
 		}),
-		password: this._fb.control<string>("", {
-			nonNullable: true,
-			validators: [Validators.required],
-		}),
-		remember: this._fb.control<boolean>(false),
-	});
-
-	loading = toSignal(
-		this.form.events
-			.pipe(filter((event) => event instanceof FormSubmittedEvent))
-			.pipe(
-				switchMap(() =>
-					this._userService.login(this.form.getRawValue()).pipe(
-						switchMap(() => timer(500).pipe(map(() => false))),
-						catchError(() => {
-							// TODO: Handle past questions creation errors
-							return timer(500).pipe(map(() => false));
-						}),
-						tap(() => {
-							const callback =
-								this._route.snapshot.queryParamMap.get("callback");
-							if (callback != null) {
-								window.location.replace(callback);
-							} else {
-								this._router.navigateByUrl("/");
-							}
-						}),
-						startWith(true),
-					),
-				),
-			),
+		(root) => {
+			required(root.email);
+			email(root.email);
+			required(root.password);
+		},
 		{
-			initialValue: false,
+			submission: {
+				action: (tree) => {
+					return firstValueFrom(
+						this.#authService
+							.login(tree().value())
+							.pipe(map(() => undefined))
+							.pipe(
+								tap(() => {
+									console.log("What the fuck");
+									window.location.href =
+										this.#route.snapshot.queryParams["callback"] || "/";
+								}),
+								catchError((error) => {
+									console.log("login error caught");
+									return throwError(() => error);
+								}),
+							),
+					);
+				},
+			},
 		},
 	);
 }
