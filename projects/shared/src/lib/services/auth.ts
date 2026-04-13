@@ -44,4 +44,10 @@ export class Auth {
 				),
 			);
 	}
+
+	login(data: Pick<Model.User, "email"> & { password: string }) {
+		return this.#http
+			.post<void>(`${this.#environment.url.api}/login`, data)
+			.pipe(switchMap(() => this.getUser().pipe(ignoreElements())));
+	}
 }
