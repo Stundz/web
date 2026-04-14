@@ -1,12 +1,5 @@
-import { Location } from "@angular/common";
 import { Component, inject, input, signal } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
-import {
-	FormBuilder,
-	FormSubmittedEvent,
-	ReactiveFormsModule,
-	Validators,
-} from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
 	email,
 	FormField,
@@ -17,20 +10,9 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import {
-	catchError,
-	filter,
-	firstValueFrom,
-	map,
-	startWith,
-	switchMap,
-	tap,
-	throwError,
-	timer,
-} from "rxjs";
-import { Auth, type Model, User } from "shared";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { catchError, firstValueFrom, map, tap, throwError } from "rxjs";
+import { Auth, type Model } from "shared";
 
 @Component({
 	selector: "app-login",
