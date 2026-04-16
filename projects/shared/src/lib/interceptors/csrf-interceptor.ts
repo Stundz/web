@@ -39,12 +39,6 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 
 	if (isServerSideRequest) {
 		if (serverReq) {
-			console.log({
-				server: Object.fromEntries(serverReq?.headers.entries() || []),
-				reqHeaders: Object.fromEntries(
-					(req.headers as any)?.headers?.entries() || [],
-				),
-			});
 			token = getToken(serverReq);
 			headers = extractSafeHeaders(
 				Object.fromEntries(serverReq.headers.entries() || []),
