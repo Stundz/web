@@ -7,88 +7,97 @@ import {
 	HttpXsrfTokenExtractor,
 } from "@angular/common/http";
 import { inject, PLATFORM_ID, REQUEST } from "@angular/core";
-import { switchMap } from "rxjs";
+import { switchMap, tap } from "rxjs";
 import { ENVIRONMENT } from "../types";
 
 export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 	const tokenService = inject(HttpXsrfTokenExtractor);
 	const environment = inject(ENVIRONMENT);
-	const handler = inject(HttpBackend);
 	const platformId = inject(PLATFORM_ID);
 	const serverReq = inject(REQUEST, { optional: true });
-	const http = new HttpClient(handler);
+	const http = new HttpClient(inject(HttpBackend));
 
 	const isApiRequest = req.url.startsWith(`${environment.url.api}`);
 	const isServerSideRequest = isPlatformServer(platformId);
+	const skipCsrfCheck = ["/user"].includes(
+		req.url.replace(environment.url.api, ""),
+	);
 
 	if (!isApiRequest) {
 		return next(req);
 	}
 
-	if (serverReq) {
-		console.log("REQUEST available");
-	} else {
-		console.log("REQUST is missing");
-	}
+	let token: string | null;
+	let headers: { [k: string]: string | Array<string> } = {};
 
-	let token: string | null = "";
-	let headers = req.headers;
-	let cookie: string | Array<string> = isServerSideRequest
-		? String(serverReq?.headers?.get("cookie"))
-		: "";
+	console.log(
+		isServerSideRequest ? "[SERVER]" : "[Client]",
+		serverReq ? "[REQUEST]" : "[Null]",
+		"for",
+		req.url,
+	);
 
 	if (isServerSideRequest) {
-		token = getToken(serverReq);
-		cookie = String(serverReq?.headers.get("cookie"));
+		if (serverReq) {
+			console.log({
+				server: Object.fromEntries(serverReq?.headers.entries() || []),
+				reqHeaders: Object.fromEntries(
+					(req.headers as any)?.headers?.entries() || [],
+				),
+			});
+			token = getToken(serverReq);
+			headers = extractSafeHeaders(
+				Object.fromEntries(serverReq.headers.entries() || []),
+			);
+		} else {
+			token = null;
+			headers = extractSafeHeaders(
+				Object.fromEntries((req.headers as any).headers?.entries() || []),
+			);
+		}
 	} else {
 		token = tokenService.getToken();
+		headers = Object.fromEntries((req.headers as any).headers.entries());
 	}
 
-	if (!token) {
-		const csrfHeaders: Record<string, string> = {};
-		if (cookie) {
-			csrfHeaders["cookie"] = String(cookie);
-		}
-
+	if (!token && !skipCsrfCheck) {
 		return http
 			.get(`${environment.url.api}/csrf`, {
-				headers: csrfHeaders,
-				withCredentials: true,
+				withCredentials: !isServerSideRequest,
 				observe: "response",
 			})
 			.pipe(
 				switchMap((response) => {
-					let newToken = "";
-					cookie = response.headers?.has("set-cookie")
-						? response.headers.getAll("set-cookie")!
-						: [];
+					headers["x-xsrf-token"] = serverReq
+						? ""
+						: tokenService.getToken() || "";
 
-					for (const c of cookie) {
-						const match = c.match(/^XSRF-TOKEN=([^;]+)/);
+					headers["cookie"] = (response.headers.getAll("set-cookie") || []).map(
+						(c) => c.split(";")[0].trim(),
+					);
 
-						if (match) {
-							newToken = decodeURIComponent(match[1]);
+					if (!headers["x-xsrf-token"]) {
+						for (const c of headers["cookie"]) {
+							const match = c.match(/^XSRF-TOKEN=([^;]+)/);
+							if (match) headers["x-xsrf-token"] = decodeURIComponent(match[1]);
 						}
 					}
-					headers = headers.set("X-XSRF-TOKEN", newToken).set("cookie", cookie);
 
 					return next(
 						req.clone({
-							headers,
-							withCredentials: true,
+							setHeaders: headers,
+							withCredentials: !isServerSideRequest,
 						}),
 					);
 				}),
 			);
 	}
 
-	if (token) {
-		headers = headers.set("X-XSRF-TOKEN", token).set("cookie", cookie);
-	}
+	headers["X-XSRF-TOKEN"] = String(token);
 
 	return next(
 		req.clone({
-			headers,
+			setHeaders: headers,
 			withCredentials: true,
 		}),
 	);
@@ -102,4 +111,29 @@ const getToken = (request: Request | null) => {
 	const cookie = request.headers?.get("cookie") || "";
 	const match = cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
 	return match ? decodeURIComponent(match[1]) : null;
+};
+
+const extractSafeHeaders = (
+	object: Record<string, string | Array<string>> | HttpHeaders,
+) => {
+	let h: Record<string, string | Array<string>>;
+
+	if (object instanceof HttpHeaders) {
+		h = Object.fromEntries((object as any).headers?.entries() || []);
+	} else {
+		h = object;
+	}
+
+	console.log("Raw headers", h);
+
+	const safeHeaders = ["cookie", "referer", "x-xsrf-token"];
+	const headers: { [k: string]: string | Array<string> } = {};
+
+	for (const [key, value] of Object.entries(h)) {
+		if (safeHeaders.includes(key)) {
+			headers[key] = value;
+		}
+	}
+
+	return headers;
 };
