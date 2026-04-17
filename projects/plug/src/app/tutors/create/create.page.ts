@@ -1,11 +1,13 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { isPlatformBrowser } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
-	ChangeDetectorRef,
 	Component,
 	effect,
 	inject,
 	input,
+	linkedSignal,
+	PLATFORM_ID,
 	signal,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
@@ -16,8 +18,19 @@ import {
 	Validators,
 } from "@angular/forms";
 import {
+	disabled,
+	email,
+	FormField,
+	FormRoot,
+	form,
+	minLength,
+	pattern,
+	required,
+	validate,
+} from "@angular/forms/signals";
+import {
 	MatAutocompleteModule,
-	MatAutocompleteSelectedEvent,
+	type MatAutocompleteSelectedEvent,
 } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -36,7 +49,7 @@ import {
 	tap,
 	timer,
 } from "rxjs";
-import { Dropzone, Model, StunzValidator } from "shared";
+import { Dropzone, type Model, StunzValidator } from "shared";
 import { environment } from "../../../environments/environment";
 import { Tutor } from "../../common/services/tutor";
 
@@ -52,6 +65,8 @@ import { Tutor } from "../../common/services/tutor";
 		MatTableModule,
 		ReactiveFormsModule,
 		Dropzone,
+		FormRoot,
+		FormField,
 	],
 	templateUrl: "./create.page.ng.html",
 	styleUrl: "./create.page.scss",
@@ -61,7 +76,8 @@ export class CreatePage {
 	private _breakpointObserver = inject(BreakpointObserver);
 	private _tutorService = inject(Tutor);
 	#fb = inject(NonNullableFormBuilder);
-	private _snackBar = inject(MatSnackBar);
+	#snackBar = inject(MatSnackBar);
+	#platformId = inject(PLATFORM_ID);
 
 	stepperOrientation = toSignal(
 		this._breakpointObserver
@@ -71,6 +87,81 @@ export class CreatePage {
 			initialValue: "horizontal",
 		},
 	);
+
+	formModel = linkedSignal(() => ({
+		personal: {
+			first_name: this.user()?.first_name || "",
+			last_name: this.user()?.last_name || "",
+			email: this.user()?.email || "",
+			phone: "",
+		},
+		tutoring: {
+			courses: [] as Array<Model.Plug.Course>,
+		},
+		endorsement: {
+			name: "",
+			email: "",
+		},
+		verification: {
+			profile: null as File | null,
+			transacript: undefined as File | undefined,
+		},
+	}));
+
+	f = form(this.formModel, (root) => {
+		required(root.personal.first_name, {
+			message: "This field is required",
+			when: ({ stateOf }) => stateOf(root).touched(),
+		});
+		minLength(root.personal.first_name, 3, {
+			message: "The minimum required number of characters is 3",
+		});
+
+		required(root.personal.last_name, {
+			message: "This field is required",
+			when: ({ stateOf }) => stateOf(root).touched(),
+		});
+		minLength(root.personal.last_name, 3, {
+			message: "The minimum required number of characters is 3",
+		});
+
+		required(root.personal.email, {
+			message: "This field is required",
+			when: ({ stateOf }) => stateOf(root).touched(),
+		});
+		email(root.personal.email, { message: "Invalid email" });
+
+		required(root.personal.phone, {
+			message: "This field is required",
+			when: ({ stateOf }) => stateOf(root).touched(),
+		});
+		pattern(root.personal.phone, /^\+?(237)?6[87259][0-9]{7}$/, {
+			message: "Invalid phone number",
+		});
+
+		required(root.tutoring.courses, {
+			message: "This field is required",
+			when: ({ stateOf }) => stateOf(root.tutoring).touched(),
+		});
+		minLength(root.tutoring.courses, 3, {
+			message: "You must select at least 1 course",
+		});
+
+		required(root.verification.profile, {
+			message: "Please provide a profile photo",
+			when: ({ stateOf }) => stateOf(root).touched(),
+		});
+		validate(root.verification.profile, ({ value }) => {
+			if (value() instanceof File) {
+				return undefined;
+			}
+
+			return {
+				kind: "file",
+				message: "Upload a valid profile photo",
+			};
+		});
+	});
 
 	form = this.#fb.group({
 		personal: this.#fb.group({
@@ -194,99 +285,61 @@ export class CreatePage {
 		{ initialValue: [] },
 	);
 
-	loading = toSignal(
-		this.form.events
-			.pipe(filter((event) => event instanceof FormSubmittedEvent))
-			.pipe(
-				switchMap(() =>
-					this._tutorService
-						.create(
-							Object.assign({}, ...Object.values(this.form.getRawValue())),
-						)
-						.pipe(
-							catchError(() => {
-								// TODO: Handle past questions creation errors
-								return timer(500).pipe(map(() => false));
-							}),
-							switchMap(() =>
-								timer(500).pipe(
-									map(() => false),
-									tap(() => {
-										this._snackBar.open(
-											"Your application was saved successfully and awaiting a review.",
-										);
-										this.form
-											?.get("tutoring")
-											?.get("courses")
-											?.setValue([], { emitEvent: false });
-										this.form.reset();
-									}),
-								),
-							),
-							startWith(true),
-						),
-				),
-			),
-		{
-			initialValue: false,
-		},
-	);
-
 	constructor() {
 		effect(() => {
-			this.courses.hasValue()
-				? this.form.controls.tutoring.controls.courses.enable()
-				: this.form.controls.tutoring.controls.courses.disable();
-		});
-
-		effect(() => {
-			if (this.user() === undefined) {
-				this.form.disable();
+			if (!this.user()) {
+				// TODO: Disable form
 			} else {
 				if (this.user()?.plug?.tutor) {
-					this.form.disable();
-					this._snackBar.open(
-						"You have already applied to become a tutor",
-						"",
-						{
-							duration: 5000,
-							horizontalPosition: "center",
-							verticalPosition: "top",
-						},
-					);
-				} else {
-					this.form.enable();
-					this.form.controls.personal.patchValue({
-						first_name: this.user()?.first_name,
-						last_name: this.user()?.last_name,
-						email: this.user()?.email,
-					});
+					// TODO: Disble form
+
+					if (isPlatformBrowser(this.#platformId))
+						this.#snackBar.open(
+							"You have already applied to become a tutor",
+							"",
+							{
+								duration: 5000,
+								horizontalPosition: "center",
+								verticalPosition: "top",
+							},
+						);
 				}
 			}
 		});
 	}
 
 	removeCourse(index: number) {
-		this.form.controls.tutoring.controls.courses.removeAt(index);
+		this.f.tutoring
+			.courses()
+			.value.update((value) => value.filter((_, i) => i !== index));
 	}
 
 	addCourse(e: MatAutocompleteSelectedEvent) {
 		const course: Model.Plug.Course = e.option.value;
 
-		if (
-			this.form.controls.tutoring.controls.courses.value.some(
-				(c) => c?.id === course.id,
-			)
-		) {
-			this._snackBar.open("This course has already been added", "", {
+		if (this.f.tutoring.courses().value().length > 2) {
+			this.#snackBar.open("You cannot add more than 3 courses", "", {
 				duration: 3000,
 				politeness: "assertive",
 			});
 			return;
 		}
 
-		this.form.controls.tutoring.controls.courses.push(this.#fb.control(course));
-		this.courseSearch.setValue("");
+		if (
+			this.f.tutoring
+				.courses()
+				.value()
+				.some((c) => c.id === course.id)
+		) {
+			this.#snackBar.open("This course has already been added", "", {
+				duration: 3000,
+				politeness: "assertive",
+			});
+			return;
+		}
+
+		this.f.tutoring.courses().value.update((value) => [...value, course]);
+		this.courseSearch.reset("");
 	}
 
 	courseDisplay = (course: Model.Plug.Course | undefined) => {
