@@ -31,6 +31,11 @@ export const appConfig: ApplicationConfig = {
 		provideRouter(routes, withComponentInputBinding()),
 		provideClientHydration(withEventReplay()),
 		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
+		provideAppInitializer(async () => {
+			const authService = inject(Auth);
+
+			return await firstValueFrom(authService.getUser());
+		}),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,
