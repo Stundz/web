@@ -1,3 +1,4 @@
+import { isPlatformServer } from "@angular/common";
 import {
 	provideHttpClient,
 	withFetch,
@@ -7,6 +8,7 @@ import {
 	type ApplicationConfig,
 	enableProdMode,
 	inject,
+	PLATFORM_ID,
 	provideAppInitializer,
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
@@ -47,17 +49,15 @@ export const appConfig: ApplicationConfig = {
 		provideAppInitializer(async () => {
 			const authService = inject(Auth);
 
-			return await firstValueFrom(
-				authService.getUser().pipe(catchError(() => of(null))),
-			);
+			return await firstValueFrom(authService.getUser());
 		}),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,
 		},
-		// {
-		// 	provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-		// 	useValue: { appearance: "outline" },
-		// },
+		{
+			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+			useValue: { appearance: "outline" },
+		},
 	],
 };

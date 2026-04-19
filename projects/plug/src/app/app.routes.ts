@@ -53,6 +53,13 @@ export const routes: Routes = [
 							import("./dashboard/dashboard.page").then((m) => m.DashboardPage),
 					},
 					{
+						path: "my-sessions",
+						loadComponent: () =>
+							import("./my-sessions/my-sessions.page").then(
+								(m) => m.MySessionsPage,
+							),
+					},
+					{
 						path: "projects",
 						loadComponent: () =>
 							import("./projects/projects.page").then((m) => m.ProjectsPage),

@@ -4,7 +4,7 @@
 
 	"installCommand": "bun install",
 
-	"buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bunx ng build admin && bunx ng build landing",
+	"buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bux ng build premifly && bunx ng build admin && bunx ng build landing",
 
 	"functions": {
 		"api/admin.js": {
@@ -15,6 +15,9 @@
 		},
 		"api/auth.js": {
 			"includeFiles": "dist/auth/browser/**"
+		},
+		"api/premifly.js": {
+			"includeFiles": "dist/premifly/browser/**"
 		},
 		"api/index.js": {
 			"includeFiles": "dist/landing/browser/**"

@@ -5,6 +5,8 @@ import {
 } from "@angular/common/http";
 import {
 	type ApplicationConfig,
+	inject,
+	provideAppInitializer,
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
 } from "@angular/core";
@@ -17,7 +19,8 @@ import {
 	withEventReplay,
 } from "@angular/platform-browser";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
-import { csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
+import { firstValueFrom } from "rxjs";
+import { Auth, csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
@@ -28,6 +31,11 @@ export const appConfig: ApplicationConfig = {
 		provideRouter(routes, withComponentInputBinding()),
 		provideClientHydration(withEventReplay()),
 		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
+		provideAppInitializer(async () => {
+			const authService = inject(Auth);
+
+			return await firstValueFrom(authService.getUser());
+		}),
 		{
 			provide: ENVIRONMENT,
 			useValue: environment,

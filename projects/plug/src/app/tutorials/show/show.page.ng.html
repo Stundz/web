@@ -87,14 +87,17 @@
 						} @empty { @if (tutorial().session) { This session has no specified
 						objectives } }
 					</ul>
+					@if (user()) {
 					<button
 						class="py-4 w-full text-lg font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-br from-primary to-primary-container shadow-primary/20 hover:scale-[1.02]"
+						(click)="book()"
 					>
 						Book This Tutorial
 					</button>
 					<p class="mt-4 text-xs text-center text-on-surface-variant">
 						Secure Checkout via Global Payments
 					</p>
+					} @else { Please login to book this tutorial }
 				</div>
 			</div>
 			}
