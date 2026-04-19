@@ -61,15 +61,18 @@ export class IndexPage {
 	#title = inject(Title);
 
 	filters = signal({
-		query: this.#route.snapshot.queryParams["q"] as string,
+		query: (this.#route.snapshot.queryParams["q"] as string) || null,
 		filters: {
 			page: 0,
 			limit: 0,
-			institution: this.#route.snapshot.queryParams["institution"] as string,
-			faculty: this.#route.snapshot.queryParams["faculty"] as string,
-			department: this.#route.snapshot.queryParams["department"] as string,
-			course: this.#route.snapshot.queryParams["course"] as string,
-			semester: this.#route.snapshot.queryParams["semester"] as string,
+			institution:
+				(this.#route.snapshot.queryParams["institution"] as string) || null,
+			faculty: (this.#route.snapshot.queryParams["faculty"] as string) || null,
+			department:
+				(this.#route.snapshot.queryParams["department"] as string) || null,
+			course: (this.#route.snapshot.queryParams["course"] as string) || null,
+			semester:
+				(this.#route.snapshot.queryParams["semester"] as string) || null,
 		},
 	});
 	tutorialFilters = form(this.filters, (root) => {
