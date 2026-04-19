@@ -3,7 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import {
 	BehaviorSubject,
 	catchError,
-	ignoreElements,
+	map,
 	of,
 	shareReplay,
 	switchMap,
@@ -46,7 +46,12 @@ export class Auth {
 			.post<void>(`${this.#environment.url.api}/signup`, data)
 			.pipe(
 				switchMap(() =>
-					this.getUser().pipe(tap(this.#user.next), ignoreElements()),
+					this.getUser().pipe(
+						tap(this.#user.next),
+						map(() => {
+							return;
+						}),
+					),
 				),
 			);
 	}
@@ -54,6 +59,14 @@ export class Auth {
 	login(data: Pick<Model.User, "email"> & { password: string }) {
 		return this.#http
 			.post<void>(`${this.#environment.url.api}/login`, data)
-			.pipe(switchMap(() => this.getUser().pipe(ignoreElements())));
+			.pipe(
+				switchMap(() =>
+					this.getUser().pipe(
+						map(() => {
+							return;
+						}),
+					),
+				),
+			);
 	}
 }
