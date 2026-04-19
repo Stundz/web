@@ -58,6 +58,12 @@
     },
     {
       "path": "./projects/landing/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/premifly/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/premifly/tsconfig.spec.json"
     }
   ]
 }
