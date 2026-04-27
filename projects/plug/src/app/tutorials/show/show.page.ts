@@ -36,6 +36,8 @@ export class ShowPage {
 	});
 
 	book() {
-		this.#dialog.open(BookingForm);
+		this.#dialog.open(BookingForm, {
+			data: this.tutorial().session,
+		});
 	}
 }

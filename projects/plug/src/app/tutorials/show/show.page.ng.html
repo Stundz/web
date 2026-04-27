@@ -80,7 +80,7 @@
 						objective) {
 						<li class="flex gap-3 items-center">
 							<span
-								class="text-lg icon-[material-symbols--check-circle-outline] text-primary"
+								class="text-lg icon-[material-symbols--check-circle-outline] text-primary shrink-0"
 							></span>
 							{{objective}}
 						</li>
@@ -97,7 +97,15 @@
 					<p class="mt-4 text-xs text-center text-on-surface-variant">
 						Secure Checkout via Global Payments
 					</p>
-					} @else { Please login to book this tutorial }
+					} @else { <div class="flex gap-2 items-center animate-pulse">
+						<span
+							class="text-lg text-amber-400 icon-[material-symbols--warning-outline]"
+						></span>
+						<span class="text-secondary">
+							Please login to book this tutorial
+						</span>
+					</div>
+					}
 				</div>
 			</div>
 			}
@@ -128,7 +136,7 @@
 						<p
 							class="mb-2 text-xs font-bold tracking-tighter uppercase text-on-surface-variant"
 						>
-							Primary Course
+							Course
 						</p>
 						<p class="font-medium text-on-surface">
 							{{tutorial().course?.title }}. ({{tutorial().course?.code}})
@@ -140,7 +148,10 @@
 						>
 							Academic Level
 						</p>
-						<p class="font-medium text-on-surface">Post-Graduate / Advanced</p>
+						<p class="font-medium text-on-surface">
+							{{tutorial().course!.level?.program?.name}}
+							{{tutorial().course!.level?.name}}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -150,12 +161,15 @@
 				<div class="relative space-y-12">
 					<!-- Vertical line for timeline -->
 					<div
-						class="hidden absolute top-4 bottom-4 w-0.5 md:block left-[23px] bg-surface-container-high"
+						class="hidden absolute top-4 bottom-4 w-0.5 md:block left-5.75 bg-surface-container-high"
 					></div>
 					@for (session of (tutorial().sessions || []).slice(0,2); track
 					session.id) {
 					<!-- Session 1 -->
-					<div class="flex relative flex-col gap-8 md:flex-row">
+					<a
+						class="flex relative flex-col gap-8 md:flex-row"
+						[routerLink]="['session', session.id]"
+					>
 						<div
 							class="flex z-10 justify-center items-center w-12 h-12 font-bold text-white rounded-full shrink-0 bg-primary"
 						>
@@ -208,14 +222,15 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</a>
 					}
 					<!-- Session 3, 4, 5 (Simplified) -->
 					<div class="grid grid-cols-1 gap-6 ml-0 md:ml-20">
 						@for (session of (tutorial().sessions || []).slice(2); track
 						session.id) {
-						<div
+						<a
 							class="flex justify-between items-center p-6 rounded-lg transition-colors bg-surface-container group hover:bg-surface-container-high"
+							[routerLink]="['session', session.id]"
 						>
 							<div class="flex gap-6 items-center">
 								<span class="text-2xl font-bold text-on-surface/30"
@@ -236,7 +251,7 @@
 								role="img"
 								aria-hidden="true"
 							></span>
-						</div>
+						</a>
 						}
 					</div>
 				</div>
@@ -268,7 +283,8 @@
 					<div class="flex gap-4 pt-6 border-t border-outline-variant/20">
 						<a
 							[routerLink]="['/tutor', tutorial().tutor?.id]"
-							class="flex-1 py-3 text-sm font-bold bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
+							matButton="tonal"
+							class="grow"
 						>
 							View Profile
 						</a>
