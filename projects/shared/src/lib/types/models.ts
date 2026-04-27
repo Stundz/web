@@ -71,10 +71,11 @@ export namespace Model {
 			/** The amount to be paid by students for session participations */
 			price: number;
 
-			course?: Course;
-			tutor?: Tutor;
-			sessions?: Array<Session>;
-			session?: Session;
+			course?: Plug.Course;
+			tutor?: Plug.Tutor;
+			sessions?: Array<Plug.Session>;
+			session?: Plug.Session;
+			level?: Plug.Level;
 		}
 
 		export interface Tutor extends Model {
@@ -130,6 +131,7 @@ export namespace Model {
 			title: string;
 			code: string;
 			department: Department;
+			level?: Plug.Level;
 		}
 	}
 
