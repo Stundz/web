@@ -33,12 +33,13 @@
 	<section class="grid grid-cols-1 gap-6 mb-24 md:grid-cols-12">
 		<!-- Featured Live Session -->
 		<div
-			class="overflow-hidden relative rounded-xl cursor-pointer md:col-span-8 bg-surface-container-lowest group h-[400px]"
+			class="overflow-hidden relative rounded-xl cursor-pointer md:col-span-8 bg-surface-container-lowest group h-100"
 		>
 			<img
 				class="object-cover absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105"
 				data-alt="close-up of architectural blueprints and a digital tablet on a clean wooden desk with warm cinematic lighting"
-				src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv5HEtpjy66wvySdooSKGHQ1TdVWGAS1znqcLXWDblSuxTmR4jgkYRfSOpIHLkvDS9GKHBWz_VV1tbJFbQOFujq3_7r94fBvHYOJ8M4elq4pEhlNaXkjBcVXcefqEOuWA3HhJfNXxb5YtDHDNtcx6STBRa6ILkWK_Rd2sx-273or0ccmuEii7tND220MwLq0cg0_awMtim13gkix_LnFuwbMdrwRnGjokBuUjbPWHdR4tAOciTun0aVNZeJvv0agtB9L7zNt_V9Ow"
+				ngSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCv5HEtpjy66wvySdooSKGHQ1TdVWGAS1znqcLXWDblSuxTmR4jgkYRfSOpIHLkvDS9GKHBWz_VV1tbJFbQOFujq3_7r94fBvHYOJ8M4elq4pEhlNaXkjBcVXcefqEOuWA3HhJfNXxb5YtDHDNtcx6STBRa6ILkWK_Rd2sx-273or0ccmuEii7tND220MwLq0cg0_awMtim13gkix_LnFuwbMdrwRnGjokBuUjbPWHdR4tAOciTun0aVNZeJvv0agtB9L7zNt_V9Ow"
+				fill
 			>
 			<div
 				class="absolute inset-0 to-transparent bg-linear-to-t from-black/80 via-black/20"
@@ -105,24 +106,46 @@
 	</section>
 	<!-- Tutor Directory -->
 	<section class="mb-24">
-		<div class="flex justify-between items-baseline mb-12">
+		<div class="flex flex-wrap gap-y-4 justify-between items-baseline mb-12">
 			<h2 class="text-4xl font-bold font-headline text-on-surface">
 				Senior Tutor Directory
 			</h2>
+			<!-- (change)="handleDaySelection($event)" -->
 			<mat-chip-listbox
-				(change)="handleDaySelection($event)"
 				aria-label="Tutorial Days"
+				[formField]="tutorialFilters.filters.day"
 			>
-				<mat-chip-option selected>All</mat-chip-option>
+				<mat-chip-option selected value="">All</mat-chip-option>
 				<mat-chip-option>Today</mat-chip-option>
 				<mat-chip-option>tomorrow</mat-chip-option>
 			</mat-chip-listbox>
+			<mat-form-field class="basis-full">
+				<input
+					matInput
+					[formField]="tutorialFilters.q"
+					placeholder="Search a course, tutor, etc.."
+				>
+			</mat-form-field>
 		</div>
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
 			@for (tutorial of tutorials().data || []; track tutorial.id) { <!-- Tutor Card 1 -->
 			<plug-tutorial-card [tutorial]="tutorial" />
+			} @empty {
+			<!-- Handle empty state for tutorials. If nothing was sent from the backend -->
+			<mat-card class="col-span-full">
+				<mat-card-content class="text-center">
+					No tutorial sessions matching the given filters
+				</mat-card-content>
+			</mat-card>
 			}
 		</div>
+
+		<mat-paginator
+			[pageIndex]="(tutorials().meta.current_page || 1) - 1"
+			[length]="tutorials().meta.total"
+			[pageSize]="tutorials().meta.per_page"
+			(page)="handlePaginatorEvent($event)"
+		/>
 	</section>
 	<!-- Recordings Section -->
 	<section
