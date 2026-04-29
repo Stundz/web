@@ -25,7 +25,7 @@ import {
 	withRouterConfig,
 } from "@angular/router";
 import { catchError, firstValueFrom, of } from "rxjs";
-import { Auth, csrfInterceptor, ENVIRONMENT } from "shared";
+import { Auth, csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
@@ -45,7 +45,10 @@ export const appConfig: ApplicationConfig = {
 			}),
 		),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
+		provideHttpClient(
+			withFetch(),
+			withInterceptors([stundzInterceptor, csrfInterceptor]),
+		),
 		provideAppInitializer(async () => {
 			const authService = inject(Auth);
 
