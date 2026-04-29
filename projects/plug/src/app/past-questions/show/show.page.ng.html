@@ -20,7 +20,8 @@
 		<!-- Main Content Area: PDF Viewer -->
 		<div class="space-y-8 lg:col-span-8">
 			<div
-				class="flex overflow-hidden relative flex-col rounded-lg bg-surface-container-low min-h-[850px]"
+				class="flex overflow-hidden relative flex-col rounded-lg bg-surface-container-low min-h-212.5"
+				#pdfContainer
 			>
 				<!-- PDF Controls Toolbar -->
 				<div
@@ -29,6 +30,7 @@
 					<div class="flex gap-4 items-center">
 						<button
 							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+							(click)="zoomOut()"
 						>
 							<span
 								class="icon-[material-symbols--zoom-out]"
@@ -39,49 +41,69 @@
 						<span class="text-sm font-medium">100%</span>
 						<button
 							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+							click="zoomIn()"
 						>
 							<span
 								class="icon-[material-symbols--zoom-in]"
 								role="img"
 								aria-hidden="true"
-								>zoom_in</span
-							>
+							></span>
 						</button>
 					</div>
 					<div class="flex gap-3 items-center">
 						@if (pages() > 0) {
 						<div class="flex gap-1 items-center">
-							<span
-								class="cursor-pointer icon-[material-symbols--keyboard-double-arrow-left-rounded]"
-								role="img"
-								aria-hidden="true"
+							<button
 								(click)="firstPage()"
 								title="First page"
-							></span>
-							<span
-								class="cursor-pointer icon-[material-symbols--chevron-left]"
-								role="img"
-								aria-hidden="true"
+								[disabled]="page() == 1"
+								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
+							>
+								<span
+									class="icon-[material-symbols--keyboard-double-arrow-left-rounded]"
+									role="img"
+									aria-hidden="true"
+								></span>
+							</button>
+							<button
 								(click)="previous()"
 								title="Previous"
-							></span>
+								[disabled]="page() < 2"
+								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
+							>
+								<span
+									class="cursor-pointer icon-[material-symbols--chevron-left]"
+									role="img"
+									aria-hidden="true"
+								></span>
+							</button>
 							<span class="mx-2 text-sm text-on-surface-variant"
 								>Page {{page()}} of {{pages()}}</span
 							>
-							<span
+							<button
 								(click)="next()"
-								class="cursor-pointer icon-[material-symbols--chevron-right]"
-								role="img"
-								aria-hidden="true"
 								title="Next"
-							></span>
-							<span
+								[disabled]="page() >= pages()"
+								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
+							>
+								<span
+									class="cursor-pointer icon-[material-symbols--chevron-right]"
+									role="img"
+									aria-hidden="true"
+								></span>
+							</button>
+							<button
 								(click)="lastPage()"
-								class="cursor-pointer icon-[material-symbols--keyboard-double-arrow-right-rounded]"
-								role="img"
-								aria-hidden="true"
 								title="Last page"
-							></span>
+								[disabled]="page() >= pages()"
+								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
+							>
+								<span
+									class="cursor-pointer icon-[material-symbols--keyboard-double-arrow-right-rounded]"
+									role="img"
+									aria-hidden="true"
+								></span>
+							</button>
 						</div>
 						} @else { <div
 							class="w-20 h-5 bg-gray-300 rounded animate-pulse"
@@ -91,6 +113,7 @@
 					<div class="flex gap-2 items-center">
 						<button
 							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
+							(click)="toggleFullscreen()"
 						>
 							<span
 								class="icon-[material-symbols--fullscreen]"
@@ -107,7 +130,13 @@
 				</div>
 				<!-- Paper Canvas -->
 				@if (doc() !== null) { @defer(on timer(1000ms)) {
-				<plug-pdf-viewer [doc]="doc()!" [page]="page()" />
+				<plug-pdf-viewer
+					[class.w-full]="!isFullscreen()"
+					[class.*:size-full]="!isFullscreen()"
+					[doc]="doc()!"
+					[zoom]="zoom()"
+					[page]="page()"
+				/>
 				} @loading (after 500ms; minimum 1s) {
 				<div class="w-full bg-gray-300 animate-pulse aspect-[1/1.414]"></div>
 				} @placeholder {
@@ -160,7 +189,7 @@
 						>
 							Pages
 						</p>
-						<p class="font-bold">12</p>
+						<p class="font-bold">{{ pages() }}</p>
 					</div>
 				</div>
 				<div class="space-y-4">

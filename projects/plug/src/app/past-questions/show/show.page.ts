@@ -3,11 +3,13 @@ import { HttpContext, HttpParams, httpResource } from "@angular/common/http";
 import {
 	Component,
 	computed,
+	type ElementRef,
 	effect,
 	inject,
 	input,
 	PLATFORM_ID,
 	signal,
+	viewChild,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -36,6 +38,7 @@ export class ShowPage {
 	queryParams = toSignal(inject(ActivatedRoute).queryParams, {
 		requireSync: true,
 	});
+	pdfContainer = viewChild.required<ElementRef<HTMLDivElement>>("pdfContainer");
 
 	blob = httpResource.blob(
 		() => ({
@@ -48,6 +51,8 @@ export class ShowPage {
 
 	doc = signal<PDFDocumentProxy | null>(null);
 	page = signal(1);
+	zoom = signal(1.5);
+	isFullscreen = signal(false);
 	pages = computed(() => this.doc()?.numPages || 0);
 
 	blobEffect = effect(() => {
@@ -58,8 +63,6 @@ export class ShowPage {
 		const currentBlob = this.blob.value();
 
 		if (!(currentBlob instanceof Blob) || currentBlob.size === 0) return;
-
-		console.log("effecting the blob");
 
 		this.prepareDocument(currentBlob);
 	});
@@ -91,5 +94,35 @@ export class ShowPage {
 
 	lastPage() {
 		this.page.set(this.pages());
+	}
+
+	zoomIn() {
+		this.zoom.update((value) => value + 1 * 1.25);
+	}
+
+	zoomOut() {
+		this.zoom.update((value) => value - 1 * 0.75);
+	}
+
+	async toggleFullscreen() {
+		if (isPlatformServer(this.#platformId)) return;
+
+		const el = this.pdfContainer().nativeElement;
+		console.log("Attemptin fullscreen toggle for ", el);
+		try {
+			if (!document.fullscreenElement) {
+				// Enter fullscreen
+				await el.requestFullscreen().then(() => this.isFullscreen.set(true));
+			} else {
+				// Exit fullscreen
+				if (document.exitFullscreen) {
+					await document
+						.exitFullscreen()
+						.then(() => this.isFullscreen.set(false));
+				}
+			}
+		} catch (err: any) {
+			console.error(`Error attempting to toggle fullscreen: ${err.message}`);
+		}
 	}
 }
