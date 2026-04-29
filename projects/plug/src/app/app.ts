@@ -8,9 +8,11 @@ import {
 	signal,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { Meta } from "@angular/platform-browser";
 import {
+	ActivatedRoute,
 	NavigationCancel,
 	NavigationEnd,
 	NavigationError,
@@ -27,12 +29,22 @@ import { environment } from "../environments/environment";
 
 @Component({
 	selector: "app-root",
-	imports: [RouterOutlet, RouterLink, RouterLinkActive, MatProgressBarModule],
+	imports: [
+		RouterOutlet,
+		RouterLink,
+		RouterLinkActive,
+		MatProgressBarModule,
+		MatMenuModule,
+	],
 	templateUrl: "./app.ng.html",
 	styleUrl: "./app.css",
 })
 export class App {
 	#router = inject(Router);
+	#route = inject(ActivatedRoute);
+	user = toSignal(this.#route.data.pipe(map((data) => data["user"])), {
+		requireSync: true,
+	});
 	protected readonly title = signal("plug");
 
 	loading = toSignal(

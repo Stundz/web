@@ -68,20 +68,26 @@
 						data-icon="notifications"
 						aria-hidden="true"
 						role="img"
-						>notifications</span
-					>
+						aria-label="Notifications"
+					></span>
 				</button>
+				@if (user()) {
 				<button
-					class="flex gap-2 items-center p-1 pr-4 rounded-full transition-all bg-surface-container hover:bg-surface-container-high"
+					class="flex gap-2 justify-center items-center rounded-full transition-all size-8 bg-surface-container hover:bg-surface-container-high"
+					[matMenuTriggerFor]="userProfileDropdown"
 				>
 					<span
-						class="icon-[material-symbols--account-circle-outline] text-primary"
+						class="text-lg icon-[material-symbols--account-circle-outline] text-primary"
 						data-icon="account_circle"
 						style="font-variation-settings: 'FILL' 1;"
-						>account_circle</span
-					>
-					<span class="text-sm font-medium">Scholar Portal</span>
+						aria-label="Scholar's Profile"
+					></span>
 				</button>
+				<mat-menu #userProfileDropdown="matMenu">
+					<a mat-menu-item [routerLink]="['/dashboard']">My Account</a>
+					<a mat-menu-item [routerLink]="['/my-sessions']"> My Sessions </a>
+				</mat-menu>
+				}
 			</div>
 		</div>
 		@if (loading()) {
