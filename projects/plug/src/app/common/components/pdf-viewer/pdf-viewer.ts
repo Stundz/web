@@ -12,80 +12,45 @@ import {
 	untracked,
 	viewChild,
 } from "@angular/core";
-import {
-	DomSanitizer,
-	type SafeResourceUrl,
-	type SafeValue,
-} from "@angular/platform-browser";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 
 @Component({
 	selector: "plug-pdf-viewer",
 	imports: [],
 	templateUrl: "./pdf-viewer.ng.html",
-	styleUrl: "./pdf-viewer.scss",
+	styleUrl: "./pdf-viewer.css",
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		ngSkipHydration: "true",
 	},
 })
 export class PdfViewer {
-	blob = input.required<Blob>();
+	doc = input.required<PDFDocumentProxy>();
+	page = input(1);
+	zoom = input(0.8);
 
 	#platformId = inject(PLATFORM_ID);
-	#sanitizer = inject(DomSanitizer);
-
-	safeUrl = signal<SafeResourceUrl | null>(null);
 
 	canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>("pdf");
 
-	isBrowser = !isPlatformServer(this.#platformId);
-
-	blobEffect = effect((onCleanup) => {
+	blobEffect = effect(() => {
 		if (isPlatformServer(this.#platformId)) return;
 
-		const currentBlob = this.blob();
+		if (!this.doc()) return;
 
-		if (!(currentBlob instanceof Blob) || currentBlob.size === 0) return;
-
-		const url = URL.createObjectURL(
-			new Blob([currentBlob], { type: "application/pdf" }),
-		);
-
-		this.safeUrl.set(this.#sanitizer.bypassSecurityTrustResourceUrl(url));
-
-		// 3. Untrack the ViewChild to prevent unnecessary effect executions
-		const canvasEl = untracked(this.canvasRef).nativeElement;
-
-		// 4. Trigger the rendering process
-		this.renderPdf(currentBlob, canvasEl);
-
-		onCleanup(() => {
-			URL.revokeObjectURL(url);
-		});
+		this.renderPdf();
 	});
 
-	private async renderPdf(
-		pdfBlob: Blob,
-		canvas: HTMLCanvasElement,
-	): Promise<void> {
+	private async renderPdf(): Promise<void> {
+		const canvas = untracked(this.canvasRef).nativeElement;
+
 		try {
-			// Convert the Blob to an ArrayBuffer, which is exactly what PDF.js expects
-			const arrayBuffer = await pdfBlob.arrayBuffer();
-
-			const { getDocument, GlobalWorkerOptions } = await import("pdfjs-dist");
-
-			// This file is configured using angular.json assets
-			GlobalWorkerOptions.workerSrc = `/pdfjs-dist/pdf.worker.min.mjs`;
-
-			const loadingTask = getDocument(arrayBuffer);
-			const pdfDocument = await loadingTask.promise;
-
 			// Fetch the first page (To render multiple pages, you'd loop through pdfDocument.numPages)
-			const page = await pdfDocument.getPage(1);
+			const page = await this.doc().getPage(this.page());
 
 			// Calculate the viewport.
 			// A scale of 1.5 or 2.0 improves text clarity on high-DPI (Retina) screens.
-			const viewport = page.getViewport({ scale: 1.5 });
+			const viewport = page.getViewport({ scale: this.zoom() });
 
 			// Prepare the canvas dimensions to match the PDF page
 			const context = canvas.getContext("2d");
