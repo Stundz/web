@@ -88,10 +88,7 @@
 						objectives } }
 					</ul>
 					@if (user()) {
-					<button
-						class="py-4 w-full text-lg font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-br from-primary to-primary-container shadow-primary/20 hover:scale-[1.02]"
-						(click)="book()"
-					>
+					<button matButton="filled" class="w-full" (click)="book()">
 						Book This Tutorial
 					</button>
 					<p class="mt-4 text-xs text-center text-on-surface-variant">
@@ -280,7 +277,9 @@
 							rigorous academic theory with practical application.
 						</p>
 					</div>
-					<div class="flex gap-4 pt-6 border-t border-outline-variant/20">
+					<div
+						class="flex gap-4 items-center pt-6 border-t border-outline-variant/20"
+					>
 						<a
 							[routerLink]="['/tutor', tutorial().tutor?.id]"
 							matButton="tonal"
@@ -289,9 +288,14 @@
 							View Profile
 						</a>
 						<button
-							class="p-3 bg-white rounded-full border transition-colors border-outline-variant/30 hover:bg-surface"
+							class="flex justify-center items-center bg-white rounded-full border transition-colors size-10"
 						>
-							<span class="material-symbols-outlined">mail</span>
+							<span
+								class="icon-[material-symbols--mail-outline]"
+								role="img"
+								aria-hidden="true"
+								>mail</span
+							>
 						</button>
 					</div>
 				</div>
