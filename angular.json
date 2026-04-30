@@ -28,12 +28,17 @@
 							{
 								"glob": "**/*",
 								"input": "projects/plug/public"
+							},
+							{
+								"glob": "pdf.worker.min.mjs",
+								"input": "node_modules/pdfjs-dist/build",
+								"output": "/pdfjs-dist"
 							}
 						],
 						"styles": [
-              "projects/plug/src/material-theme.scss",
-              "projects/plug/src/styles.css"
-            ],
+							"projects/plug/src/material-theme.scss",
+							"projects/plug/src/styles.css"
+						],
 						"server": "projects/plug/src/main.server.ts",
 						"outputMode": "server",
 						"ssr": {
@@ -399,77 +404,75 @@
 					}
 				}
 			}
-    },
-    "premifly": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "projects/premifly",
-      "sourceRoot": "projects/premifly/src",
-      "prefix": "premifly",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "projects/premifly/src/main.ts",
-            "tsConfig": "projects/premifly/tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/premifly/public"
-              }
-            ],
-            "styles": [
-              "projects/premifly/src/styles.css"
-            ],
-            "server": "projects/premifly/src/main.server.ts",
-            "outputMode": "server",
-            "security": {
-              "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "projects/premifly/src/server.ts"
-            }
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "premifly:build:production"
-            },
-            "development": {
-              "buildTarget": "premifly:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test"
-        }
-      }
-    }
+		},
+		"premifly": {
+			"projectType": "application",
+			"schematics": {},
+			"root": "projects/premifly",
+			"sourceRoot": "projects/premifly/src",
+			"prefix": "premifly",
+			"architect": {
+				"build": {
+					"builder": "@angular/build:application",
+					"options": {
+						"browser": "projects/premifly/src/main.ts",
+						"tsConfig": "projects/premifly/tsconfig.app.json",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/premifly/public"
+							}
+						],
+						"styles": ["projects/premifly/src/styles.css"],
+						"server": "projects/premifly/src/main.server.ts",
+						"outputMode": "server",
+						"security": {
+							"allowedHosts": []
+						},
+						"ssr": {
+							"entry": "projects/premifly/src/server.ts"
+						}
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular/build:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "premifly:build:production"
+						},
+						"development": {
+							"buildTarget": "premifly:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"test": {
+					"builder": "@angular/build:unit-test"
+				}
+			}
+		}
 	}
 }
