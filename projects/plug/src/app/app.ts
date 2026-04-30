@@ -24,7 +24,7 @@ import {
 	RouterLinkActive,
 	RouterOutlet,
 } from "@angular/router";
-import { filter, map, of, switchMap, timer } from "rxjs";
+import { filter, map, of, switchMap, tap, timer } from "rxjs";
 import { environment } from "../environments/environment";
 
 @Component({
