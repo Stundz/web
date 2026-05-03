@@ -12,7 +12,6 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { Meta } from "@angular/platform-browser";
 import {
-	ActivatedRoute,
 	NavigationCancel,
 	NavigationEnd,
 	NavigationError,
@@ -24,7 +23,8 @@ import {
 	RouterLinkActive,
 	RouterOutlet,
 } from "@angular/router";
-import { filter, map, of, switchMap, tap, timer } from "rxjs";
+import { filter, map, of, switchMap, timer } from "rxjs";
+import { Auth } from "shared";
 import { environment } from "../environments/environment";
 
 @Component({
@@ -41,8 +41,8 @@ import { environment } from "../environments/environment";
 })
 export class App {
 	#router = inject(Router);
-	#route = inject(ActivatedRoute);
-	user = toSignal(this.#route.data.pipe(map((data) => data["user"])), {
+	#authService = inject(Auth);
+	user = toSignal(this.#authService.user$, {
 		requireSync: true,
 	});
 	protected readonly title = signal("plug");
