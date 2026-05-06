@@ -7,10 +7,12 @@
 			class="flex justify-between items-center px-8 mx-auto max-w-screen-2xl h-20"
 		>
 			<div class="flex gap-12 items-center">
-				<span
+				<a
+					routerLink="/"
 					class="font-serif text-2xl font-bold tracking-tighter text-primary"
-					>Plug</span
 				>
+					Plug
+				</a>
 				<nav class="hidden gap-8 md:flex">
 					<a
 						class="font-semibold transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
@@ -32,6 +34,7 @@
 					<a
 						routerLink="/past-question"
 						routerLinkActive
+						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
 						#questionShowLink="routerLinkActive"
 						class="hidden"
 					></a>
@@ -49,6 +52,7 @@
 						routerLink="/tutorial"
 						routerLinkActive
 						#tutorialShowLink="routerLinkActive"
+						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
 						class="hidden"
 					></a>
 					<a

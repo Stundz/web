@@ -128,7 +128,7 @@
 			</mat-form-field>
 		</div>
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-			@for (tutorial of tutorials().data || []; track tutorial.id) { <!-- Tutor Card 1 -->
+			@for (tutorial of tutorials()?.data || []; track tutorial.id) { <!-- Tutor Card 1 -->
 			<plug-tutorial-card [tutorial]="tutorial" />
 			} @empty {
 			<!-- Handle empty state for tutorials. If nothing was sent from the backend -->

@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from "@angular/common";
 import { Component, effect, inject, input, signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { NonNullableFormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { debounce, FormField, form } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -19,7 +19,7 @@ import { MatTableModule } from "@angular/material/table";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { tap } from "rxjs";
-import type { Model } from "shared";
+import type { Model, Paginated } from "shared";
 import { TutorialCard } from "../../common/components/tutorial-card/tutorial-card";
 import { Tutorial } from "../../common/services/tutorial";
 
@@ -52,9 +52,7 @@ export class IndexPage {
 	user = input.required<Model.User>();
 	#tutorialService = inject(Tutorial);
 	#route = inject(ActivatedRoute);
-	tutorials = toSignal(this.#tutorialService.tutorials$.pipe(), {
-		requireSync: true,
-	});
+	tutorials = toSignal(this.#tutorialService.tutorials$, { requireSync: true });
 	#router = inject(Router);
 	#meta = inject(Meta);
 	#title = inject(Title);
@@ -141,24 +139,6 @@ export class IndexPage {
 			name: "keywords",
 			content:
 				"plug, stundz, study, tutorials, tutor, past questions, revision, education",
-		});
-		this.#meta.updateTag({
-			id: "og:image",
-			property: "og:image",
-			content:
-				"https://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
-		});
-		this.#meta.updateTag({
-			id: "og:image.url",
-			property: "og:image",
-			content:
-				"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
-		});
-		this.#meta.updateTag({
-			id: "og:image.secure_url",
-			property: "og:image",
-			content:
-				"http://lh3.googleusercontent.com/aida-public/AB6AXuDVeHxpk_drXp9EcCmSEJuyY77JIswtRVf0U_jrFGMeXKJfnA2dSZgaQiQwkETC234nHhSIGxEf2eV_-i-FcmzSESBDjapcN4W4oQ62l0UFXAATz-RFvbRn9cljeJ8g6RBJuFztxtoh3vQBBHC2l-ZQfS0Bnh7fQJqLVLK3wI-b_TJpWc8EZVSqxYv5C3w68srJOxHH0OOe6ABsV17Qusv8f9-R2YbYXENCM76RbyBKK1Q65bM8By7pKJ2iPL3Mod6ZsivqTcrXV8oL",
 		});
 	}
 

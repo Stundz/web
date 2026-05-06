@@ -1,1 +1,239 @@
-<p>show works!</p>
+@let tutorial = session().tutorial!;
+<main class="px-8 pt-24 pb-20 mx-auto max-w-screen-2xl">
+	<!-- Hero Section -->
+	<section class="mt-12 mb-16">
+		<div class="flex flex-col gap-8 justify-between md:flex-row md:items-end">
+			<div class="max-w-3xl">
+				<span
+					class="inline-block py-1 px-4 mb-6 text-sm font-medium rounded-full bg-tertiary-fixed text-on-tertiary-fixed"
+					>{{ tutorial.course?.code }}
+					- {{ tutorial.course?.title}}</span
+				>
+				<h1
+					class="mb-4 text-5xl font-bold tracking-tight leading-tight md:text-7xl font-display text-on-surface"
+				>
+					{{tutorial?.name }}
+				</h1>
+				<div class="flex gap-4 items-center text-on-surface-variant">
+					<span class="icon-[material-symbols--event-outline]">event</span>
+					<span class="font-medium"
+						>{{ session().day | date : 'MMM, dd yyyy'}}</span
+					>
+					<span class="rounded-full size-1 bg-outline-variant"></span>
+					<span class="font-medium">{{ session().day | date : 'HH:MM'}}</span>
+				</div>
+			</div>
+			<div class="flex flex-col gap-3">
+				<button matButton="filled">
+					<div class="flex gap-2 items-center">
+						<span
+							class="icon-[material-symbols--calendar-add-on-outline]"
+							style="font-variation-settings: 'FILL' 1;"
+							aria-hidden="true"
+							role="img"
+						></span>
+						Add to Calendar
+					</div>
+				</button>
+				<button
+					matButton="filled"
+					color="secondary"
+					[style.--mat-sys-primary]="'var(--mat-sys-tertiary-container)'"
+					[style.--mat-sys-on-primary]="'var(--mat-sys-on-tertiary-container)'"
+				>
+					<div class="flex gap-2 items-center">
+						<!-- TODO: Just students who participated in the session are eligible to report it.  -->
+						<span
+							class="text-xl icon-[material-symbols--report-outline]"
+							aria-hidden="true"
+							role="img"
+						></span>
+						Report Session
+					</div>
+				</button>
+			</div>
+		</div>
+	</section>
+	<!-- Bento Layout Content -->
+	<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+		<!-- Left Column: Description & Objectives -->
+		<div class="flex flex-col gap-8 lg:col-span-8">
+			<!-- Description Card -->
+			<div
+				class="p-10 rounded-lg border shadow-sm bg-surface-container-lowest border-outline-variant/15"
+			>
+				<h2 class="mb-6 text-2xl font-bold font-display text-on-surface">
+					Overview
+				</h2>
+				<p class="text-lg leading-relaxed text-on-surface-variant font-body">
+					{{tutorial.description}}
+				</p>
+			</div>
+			<!-- Objectives Bento Section -->
+			<div class="p-10 rounded-lg bg-surface-container-low">
+				<h2 class="mb-8 text-2xl font-bold font-display text-on-surface">
+					Learning Objectives
+				</h2>
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+					@for (objective of session().objectives; track objective) {
+
+					<div
+						class="flex gap-4 p-6 border bg-surface-container-lowest rounded-DEFAULT border-outline-variant/10"
+					>
+						<span
+							class="icon-[material-symbols--check-circle-outline] text-primary-container shrink-0"
+							role="img"
+							aria-hidden="true"
+						></span>
+						<span class="font-medium leading-snug text-on-surface"
+							>{{objective}}</span
+						>
+					</div>
+					}
+				</div>
+			</div>
+		</div>
+		<!-- Right Column: Sidebar Logistics & Tutor -->
+		<div class="flex flex-col gap-8 lg:col-span-4">
+			<!-- Logistics Card -->
+			<div
+				class="p-8 rounded-lg shadow-xl bg-primary text-on-primary editorial-gradient shadow-primary/10"
+			>
+				<h3 class="mb-8 text-xl font-bold opacity-90 font-display">
+					Session Logistics
+				</h3>
+				<div class="space-y-6">
+					<div class="flex gap-4 items-start">
+						<div class="p-3 rounded-xl bg-white/10 backdrop-blur-md">
+							<span
+								class="icon-[material-symbols--schedule-outline]"
+								role="img"
+								aria-hidden="true"
+							>
+								schedule
+							</span>
+						</div>
+						<div>
+							<p
+								class="mb-1 text-xs font-bold tracking-widest uppercase opacity-70"
+							>
+								Duration
+							</p>
+							<p class="text-lg font-medium">
+								{{ session().duration }}
+								minutes
+							</p>
+						</div>
+					</div>
+					<div class="flex gap-4 items-start">
+						<div class="p-3 rounded-xl bg-white/10 backdrop-blur-md">
+							<span
+								class="icon-[material-symbols--location-on-outline]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<div>
+							<p
+								class="mb-1 text-xs font-bold tracking-widest uppercase opacity-70"
+							>
+								Venue
+							</p>
+							<p class="text-lg font-medium leading-snug">
+								{{session().venue}}
+							</p>
+							<button
+								class="mt-2 text-sm font-semibold underline hover:opacity-80 underline-offset-4"
+							>
+								View Map
+							</button>
+						</div>
+					</div>
+				</div>
+				@if (bookable()) {
+				<button class="mt-10" matButton="filled">Book Session</button>
+				} @else { <div class="p-1 mt-10 text-center">
+					This session is not more bookable
+				</div>
+				}
+			</div>
+			<!-- Tutor Card -->
+			<div
+				class="p-8 rounded-lg border bg-surface-container-low border-outline-variant/20"
+			>
+				<div class="flex gap-4 items-center mb-6">
+					<img
+						[alt]="`${tutorial!.tutor?.first_name} ${tutorial!.tutor?.last_name}`"
+						class="object-cover w-16 h-16 rounded-full ring-4 ring-white shadow-sm"
+						[attr.data-alt]="`A portrait of ${tutorial!.tutor?.first_name} ${tutorial!.tutor?.last_name}, an experienced academic tutor in his late 30s with a professional and friendly demeanor. He is wearing a minimalist navy blazer and a clean white shirt. The setting is a bright, high-ceilinged modern university atrium with blurred architectural details. The lighting is soft and directional, creating a sense of professional warmth and intellectual authority.`"
+						src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHQFYE3bhMlr34ltLqYf4PFei16fxyYCzyBr8644_7vEuTP9SEM0RnKZaZtgzTbDWhoDaeKVbDLueuBeea7Ph-cAFwYlT8EVPsNVozRCqRgpkivNqii4a-ZJmjTeBfAWczceAqyxdX1ldEasy1idKQJiViUzRp1LNm9dI7fffAOfli1GQXuABkN4Uz3H2V0Kba7NbGzq9qfncXwsWw22mPiE1JAEjCqo8XsfvmMpn1X5cpmh2XXrrXMlUT1XlYKJita7qat8_OWqA"
+					>
+					<div>
+						<p class="text-xl font-bold font-display text-on-surface">
+							{{tutorial!.tutor?.first_name}} {{tutorial!.tutor?.last_name}}
+						</p>
+						<p class="text-sm text-on-surface-variant">Senior Academic Tutor</p>
+					</div>
+				</div>
+				<div class="mb-8 space-y-4">
+					<div class="flex gap-3 items-center text-on-surface-variant">
+						<span
+							class="text-lg text-amber-400 icon-[material-symbols--star-outline]"
+							>star</span
+						>
+						<span class="text-sm font-medium">4.9 / 5.0 (214 Reviews)</span>
+					</div>
+					<div class="flex gap-3 items-center text-on-surface-variant">
+						<span
+							role="img"
+							aria-hidden="true"
+							class="text-lg icon-[material-symbols--school-outline]"
+							>school</span
+						>
+						<span class="text-sm font-medium">Expert in Advanced Rhetoric</span>
+					</div>
+				</div>
+				<a
+					[routerLink]="['/tutor', tutorial?.tutor?.id]"
+					matButton="tonal"
+					class="w-full"
+				>
+					View Profile
+				</a>
+			</div>
+			<!-- Related Resources Mini Bento -->
+			<div
+				class="flex overflow-hidden relative flex-col justify-end p-8 rounded-lg group bg-surface-container min-h-60"
+			>
+				<div
+					class="absolute inset-0 z-10 to-transparent bg-linear-to-t from-black/60"
+				></div>
+				<img
+					alt="Background Study"
+					class="object-cover absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-110"
+					data-alt="A detailed, atmospheric shot of an open vintage academic book resting on a dark wooden library table. Beside the book is a modern sleek tablet displaying a digital graph. The room is filled with dust motes dancing in a single beam of warm afternoon sunlight. The overall aesthetic is a blend of old-world academia and new-age technology, mirroring the Plug brand identity."
+					src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyaLY8-cq274Xh2luXzawZwwgX22X-PwF3aKU81EsDIxuAJAwavBrNcPgb2a9xumzrEtfBaIrOVB-A-yPPQsiQplGmfxPM9dIkTCdGRYf8rgxzKSplPzEGJm-uk-yMkWfUkbnB1v0pBM2uQkkW6nG_wLO-oqoDYCA49pKUf5s33HqvupPvia2lvEU89YzVaE6YOSu-ApDAVZh8rLL4qPh8h9c7Uxeq_C9o1p1E50jZ0BZjJ3f1jn1PAkc-JQSmaZnvohoTN_EVl6w"
+				>
+				<div class="relative z-20 text-white">
+					<span
+						class="block mb-2 text-xs font-bold tracking-widest uppercase opacity-80"
+						>Resource</span
+					>
+					<h4 class="text-lg font-bold leading-tight font-display">
+						Preparatory Reading for Rerum Vero
+					</h4>
+					<button class="flex gap-2 items-center mt-4 text-sm font-bold">
+						Download PDF
+						<span
+							class="text-base icon-[material-symbols--download]"
+							role="img"
+							aria-hidden="true"
+						>
+							download
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

@@ -1,12 +1,14 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
-import { environment } from "../../../environments/environment";
-import { Model, Paginated, toFormData } from "shared";
+import { Injectable, inject, signal } from "@angular/core";
 import { BehaviorSubject, shareReplay, startWith, switchMap, tap } from "rxjs";
+import { type Model, type Paginated, toFormData } from "shared";
+import { environment } from "../../../environments/environment";
+import { Session } from "./session";
 
 @Injectable()
 export class Tutorial {
-	private readonly _http = inject(HttpClient);
+	#http = inject(HttpClient);
+	#sessionService = inject(Session);
 	filters = new BehaviorSubject<Record<string, any>>({});
 	filters$ = this.filters.asObservable().pipe(shareReplay());
 
@@ -18,7 +20,7 @@ export class Tutorial {
 				),
 			);
 
-			return this._http.get<Paginated<Model.Plug.Tutorial>>(
+			return this.#http.get<Paginated<Model.Plug.Tutorial>>(
 				`${environment.production ? "https" : "http"}://api.${environment.domain}/plug/tutorials`,
 				{
 					params,
@@ -34,7 +36,7 @@ export class Tutorial {
 			"name" | "description" | "course_id" | "price"
 		>,
 	) {
-		return this._http.post<void>(
+		return this.#http.post<void>(
 			`https://api.${environment.domain}/plug/tutorial`,
 			toFormData(payload),
 		);
@@ -44,9 +46,13 @@ export class Tutorial {
 		tutorial: Model.Plug.Tutorial["id"],
 		payload: Pick<Model.Plug.Session, "day" | "duration" | "objectives">,
 	) {
-		return this._http.post<void>(
+		return this.#http.post<void>(
 			`https://api.${environment.domain}/plug/tutorial/${tutorial}/session`,
 			toFormData(payload),
 		);
+	}
+
+	getSession(id: string) {
+		return this.#sessionService.getSession(id);
 	}
 }
