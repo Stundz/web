@@ -1,4 +1,3 @@
-import { isPlatformServer } from "@angular/common";
 import {
 	provideHttpClient,
 	withFetch,
@@ -8,7 +7,6 @@ import {
 	type ApplicationConfig,
 	enableProdMode,
 	inject,
-	PLATFORM_ID,
 	provideAppInitializer,
 	provideBrowserGlobalErrorListeners,
 	provideZonelessChangeDetection,
@@ -23,9 +21,10 @@ import {
 	provideRouter,
 	withComponentInputBinding,
 	withRouterConfig,
+	withViewTransitions,
 } from "@angular/router";
-import { catchError, firstValueFrom, of } from "rxjs";
-import { Auth, csrfInterceptor, ENVIRONMENT } from "shared";
+import { firstValueFrom } from "rxjs";
+import { Auth, csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
@@ -40,12 +39,16 @@ export const appConfig: ApplicationConfig = {
 		provideRouter(
 			routes,
 			withComponentInputBinding(),
+			withViewTransitions(),
 			withRouterConfig({
 				paramsInheritanceStrategy: "always",
 			}),
 		),
 		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
+		provideHttpClient(
+			withFetch(),
+			withInterceptors([stundzInterceptor, csrfInterceptor]),
+		),
 		provideAppInitializer(async () => {
 			const authService = inject(Auth);
 

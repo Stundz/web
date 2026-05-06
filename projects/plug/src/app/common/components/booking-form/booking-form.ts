@@ -9,8 +9,10 @@ import {
 	required,
 } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { firstValueFrom, map } from "rxjs";
+import type { Model } from "../../../../../../../dist/shared/types/shared";
 import { environment } from "../../../../environments/environment";
 
 @Component({
@@ -21,6 +23,8 @@ import { environment } from "../../../../environments/environment";
 })
 export class BookingForm {
 	#http = inject(HttpClient);
+
+	session = inject<Model.Plug.Session>(MAT_DIALOG_DATA);
 
 	form = form(
 		signal({
@@ -41,7 +45,10 @@ export class BookingForm {
 				action: (tree) => {
 					return firstValueFrom(
 						this.#http
-							.post(`${environment.url.api}/plug/tutorial/book`, tree().value())
+							.post(
+								`${environment.url.api}/plug/session/${this.session.id}/booking`,
+								tree().value(),
+							)
 							.pipe(map(() => undefined)),
 					);
 				},

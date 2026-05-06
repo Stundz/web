@@ -7,10 +7,12 @@
 			class="flex justify-between items-center px-8 mx-auto max-w-screen-2xl h-20"
 		>
 			<div class="flex gap-12 items-center">
-				<span
+				<a
+					routerLink="/"
 					class="font-serif text-2xl font-bold tracking-tighter text-primary"
-					>Plug</span
 				>
+					Plug
+				</a>
 				<nav class="hidden gap-8 md:flex">
 					<a
 						class="font-semibold transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
@@ -32,6 +34,7 @@
 					<a
 						routerLink="/past-question"
 						routerLinkActive
+						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
 						#questionShowLink="routerLinkActive"
 						class="hidden"
 					></a>
@@ -49,6 +52,7 @@
 						routerLink="/tutorial"
 						routerLinkActive
 						#tutorialShowLink="routerLinkActive"
+						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
 						class="hidden"
 					></a>
 					<a
@@ -68,20 +72,26 @@
 						data-icon="notifications"
 						aria-hidden="true"
 						role="img"
-						>notifications</span
-					>
+						aria-label="Notifications"
+					></span>
 				</button>
+				@if (user()) {
 				<button
-					class="flex gap-2 items-center p-1 pr-4 rounded-full transition-all bg-surface-container hover:bg-surface-container-high"
+					class="flex gap-2 justify-center items-center rounded-full transition-all size-8 bg-surface-container hover:bg-surface-container-high"
+					[matMenuTriggerFor]="userProfileDropdown"
 				>
 					<span
-						class="icon-[material-symbols--account-circle-outline] text-primary"
+						class="text-lg icon-[material-symbols--account-circle-outline] text-primary"
 						data-icon="account_circle"
 						style="font-variation-settings: 'FILL' 1;"
-						>account_circle</span
-					>
-					<span class="text-sm font-medium">Scholar Portal</span>
+						aria-label="Scholar's Profile"
+					></span>
 				</button>
+				<mat-menu #userProfileDropdown="matMenu">
+					<a mat-menu-item [routerLink]="['/dashboard']">My Account</a>
+					<a mat-menu-item [routerLink]="['/my-sessions']"> My Sessions </a>
+				</mat-menu>
+				}
 			</div>
 		</div>
 		@if (loading()) {

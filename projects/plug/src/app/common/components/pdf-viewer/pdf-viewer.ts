@@ -3,40 +3,69 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	type ElementRef,
+	effect,
 	inject,
 	input,
 	PLATFORM_ID,
+	signal,
+	untracked,
 	viewChild,
 } from "@angular/core";
-import { DomSanitizer, SafeValue } from "@angular/platform-browser";
-import { getDocument } from "pdfjs-dist";
-import { from, lastValueFrom } from "rxjs";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 
 @Component({
 	selector: "plug-pdf-viewer",
 	imports: [],
 	templateUrl: "./pdf-viewer.ng.html",
-	styleUrl: "./pdf-viewer.scss",
+	styleUrl: "./pdf-viewer.css",
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		ngSkipHydration: "true",
 	},
 })
 export class PdfViewer {
-	private _platformId = inject(PLATFORM_ID);
-	private _sanitizer = inject(DomSanitizer);
-	private _canvas = viewChild<HTMLCanvasElement>("pdfViewer");
-	isServer = isPlatformServer(this._platformId);
+	doc = input.required<PDFDocumentProxy>();
+	page = input(1);
+	zoom = input(0.8);
 
-	data = input.required<SafeValue, Blob>({
-		transform: (value) => {
-			if (this.isServer) {
-				return "";
-			}
+	#platformId = inject(PLATFORM_ID);
 
-			return this._sanitizer.bypassSecurityTrustResourceUrl(
-				URL.createObjectURL(new Blob([value], { type: "application/pdf" })),
-			);
-		},
+	canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>("pdf");
+
+	blobEffect = effect(() => {
+		if (isPlatformServer(this.#platformId)) return;
+
+		if (!this.doc()) return;
+
+		this.renderPdf();
 	});
+
+	private async renderPdf(): Promise<void> {
+		const canvas = untracked(this.canvasRef).nativeElement;
+
+		try {
+			// Fetch the first page (To render multiple pages, you'd loop through pdfDocument.numPages)
+			const page = await this.doc().getPage(this.page());
+
+			// Calculate the viewport.
+			// A scale of 1.5 or 2.0 improves text clarity on high-DPI (Retina) screens.
+			const viewport = page.getViewport({ scale: this.zoom() });
+
+			// Prepare the canvas dimensions to match the PDF page
+			const context = canvas.getContext("2d");
+			if (!context) return;
+
+			canvas.height = viewport.height;
+			canvas.width = viewport.width;
+
+			await page.render({
+				canvasContext: context,
+				viewport: viewport,
+				canvas,
+			}).promise;
+		} catch (error) {
+			console.error("Error rendering PDF with PDF.js:", error);
+		}
+	}
 }

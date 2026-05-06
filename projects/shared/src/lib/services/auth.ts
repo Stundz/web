@@ -23,15 +23,16 @@ export class Auth {
 
 	getUser() {
 		return this.#http
-			.get<Model.User>("https://api.stundz.localhost/user", {
+			.get<Model.User>(`${this.#environment.url.api}/user`, {
 				withCredentials: true,
 			})
 			.pipe(
 				catchError((error) => {
-					if (error instanceof HttpErrorResponse && error.status === 401)
-						return of(null);
+					if (error instanceof HttpErrorResponse && error.status === 401) {
+					}
+					return of(null);
 
-					return throwError(() => error);
+					// return throwError(() => error);
 				}),
 				tap((user) => this.#user.next(user)),
 				shareReplay(),

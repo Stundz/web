@@ -1,4 +1,5 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
+import { sessionResolver } from "../../../common/resolvers/session-resolver";
 
 export const routes: Routes = [
 	{
@@ -30,6 +31,9 @@ export const routes: Routes = [
 		},
 		children: [
 			{
+				resolve: {
+					session: sessionResolver,
+				},
 				path: "",
 				pathMatch: "full",
 				loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),

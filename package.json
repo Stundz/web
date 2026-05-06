@@ -40,7 +40,6 @@
 		"@date-fns/tz": "date-fns/tz",
 		"@netlify/angular-runtime": "^3.0.1",
 		"@ngrx/signals": "^21.1.0",
-		"@types/pdfjs-dist": "^2.10.378",
 		"date-fns": "^4.1.0",
 		"driver.js": "^1.4.0",
 		"express": "^5.1.0",

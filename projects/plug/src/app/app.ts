@@ -8,6 +8,7 @@ import {
 	signal,
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { Meta } from "@angular/platform-browser";
 import {
@@ -23,16 +24,27 @@ import {
 	RouterOutlet,
 } from "@angular/router";
 import { filter, map, of, switchMap, timer } from "rxjs";
+import { Auth } from "shared";
 import { environment } from "../environments/environment";
 
 @Component({
 	selector: "app-root",
-	imports: [RouterOutlet, RouterLink, RouterLinkActive, MatProgressBarModule],
+	imports: [
+		RouterOutlet,
+		RouterLink,
+		RouterLinkActive,
+		MatProgressBarModule,
+		MatMenuModule,
+	],
 	templateUrl: "./app.ng.html",
 	styleUrl: "./app.css",
 })
 export class App {
 	#router = inject(Router);
+	#authService = inject(Auth);
+	user = toSignal(this.#authService.user$, {
+		requireSync: true,
+	});
 	protected readonly title = signal("plug");
 
 	loading = toSignal(
