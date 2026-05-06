@@ -50,6 +50,16 @@
 			"has": [
 				{
 					"type": "host",
+					"value": "premifly.stundz.com"
+				}
+			],
+			"destination": "/api/premifly.js"
+		},
+		{
+			"source": "/(.*)",
+			"has": [
+				{
+					"type": "host",
 					"value": "plug.stundz.com"
 				}
 			],
