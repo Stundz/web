@@ -452,13 +452,22 @@
 						"development": {
 							"optimization": false,
 							"extractLicenses": false,
-							"sourceMap": true
+							"sourceMap": true,
+							"fileReplacements": [
+								{
+									"replace": "projects/premifly/src/environments/environment.ts",
+									"with": "projects/premifly/src/environments/environment.development.ts"
+								}
+							]
 						}
 					},
 					"defaultConfiguration": "production"
 				},
 				"serve": {
 					"builder": "@angular/build:dev-server",
+					"options": {
+						"port": 7877
+					},
 					"configurations": {
 						"production": {
 							"buildTarget": "premifly:build:production"
