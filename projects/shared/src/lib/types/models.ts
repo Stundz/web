@@ -144,4 +144,18 @@ export namespace Model {
 
 		plug?: Plug.User;
 	}
+
+	export namespace Premifly {
+		export interface User extends Model {}
+
+		export interface Service extends Model {
+			name: string;
+			price: number;
+			enabled: boolean;
+		}
+
+		export interface Account extends Model {
+			email: string;
+		}
+	}
 }
