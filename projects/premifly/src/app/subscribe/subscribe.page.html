@@ -1,0 +1,136 @@
+<style>
+body {
+	background-color: #0a0a0c;
+	background-image:
+		radial-gradient(
+			circle at top right,
+			rgba(45, 8, 10, 0.4) 0%,
+			transparent 40%
+		),
+		radial-gradient(
+			circle at bottom left,
+			rgba(76, 29, 149, 0.2) 0%,
+			transparent 50%
+		);
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+.glass-panel {
+	background: rgba(20, 20, 22, 0.7);
+	backdrop-filter: blur(20px);
+	border: 1px solid transparent;
+	border-image: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.15),
+			rgba(255, 255, 255, 0.05)
+		)
+		1;
+}
+.glow-orb {
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	background: radial-gradient(
+		circle,
+		rgba(158, 27, 50, 0.4) 0%,
+		transparent 70%
+	);
+	border-radius: 50%;
+	filter: blur(40px);
+	z-index: -1;
+	pointer-events: none;
+}
+</style>
+<!-- Main Content -->
+<main class="flex relative justify-center items-center grow py-xxl px-gutter">
+	<div
+		class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glow-orb"
+	></div>
+	<div
+		class="flex relative z-10 flex-col p-10 w-full rounded-xl border-t border-b border-transparent shadow-2xl glass-panel max-w-150 gap-lg"
+	>
+		<div class="text-center mb-md">
+			<h1
+				class="tracking-tight text-headline-md font-headline-md text-on-surface mb-xs"
+			>
+				Apply for Access
+			</h1>
+			<p class="text-body-md font-body-md text-on-surface-variant">
+				Secure your exclusive premium subscription tier.
+			</p>
+		</div>
+		<form class="flex flex-col gap-lg" [formRoot]="form">
+			<!-- Full Name Field -->
+			<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+				<!-- First Name Field -->
+				<mat-form-field>
+					<mat-label>First name</mat-label>
+					<input matInput [formField]="form.first_name">
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Last name</mat-label>
+					<input matInput [formField]="form.last_name">
+				</mat-form-field>
+			</div>
+
+			<mat-form-field>
+				<mat-label>Email</mat-label>
+				<input matInput type="email" [formField]="form.email">
+			</mat-form-field>
+			<!-- Subscription Dropdown -->
+			<div class="flex flex-col gap-2">
+				<label
+					class="text-label-md font-label-md text-on-surface-variant"
+					for="subscription"
+					>Select Service</label
+				>
+				<mat-chip-listbox (change)="form.service_id().value.set($event.value)">
+					@for (service of services.value(); track service.id) {
+					<mat-chip-option [value]="service.id" class="">
+						@let name = service.name.toLowerCase();
+
+						<span
+							matChipAvatar
+							class="text-[25px]"
+							[class.icon-[logos--claude-icon]]="name === 'claude'"
+							[class.icon-[logos--openai-icon]]="name === 'chatgpt'"
+							[class.icon-[vscode-icons--file-type-gemini]]="name === 'gemini'"
+							[class.icon-[ri--grok-ai-fill]]="name === 'grok'"
+							[class.icon-[logos--netflix-icon]]="name === 'netflix'"
+							[class.icon-[cbi--prime-video]]="name === 'amazon'"
+						></span>
+						{{ service.name }}
+					</mat-chip-option>
+					}
+				</mat-chip-listbox>
+				<input
+					id="subscription"
+					name="subscription"
+					type="hidden"
+					value="netflix"
+				>
+			</div>
+			<!-- Submit Button -->
+			<button type="submit" matButton="filled" class="mt-10 w-full">
+				<div class="flex gap-2 items-center">
+					Apply Now
+					<span
+						class="icon-[material-symbols--arrow-forward] text-[18px]"
+						aria-hidden="true"
+						role="img"
+					></span>
+				</div>
+			</button>
+		</form>
+		<div
+			class="w-full h-px from-transparent to-transparent bg-linear-to-r via-white/20 mt-md mb-xs"
+		></div>
+		<p
+			class="text-center text-label-sm font-label-sm text-on-surface-variant/60"
+		>
+			By applying, you agree to our stringent terms of service.
+		</p>
+	</div>
+</main>
+<!-- Footer -->
