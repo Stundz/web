@@ -7,6 +7,7 @@ export interface ENVIRONMENT extends Record<string, any> {
 	production: boolean;
 	url: {
 		api: string;
+		auth: string;
 	};
 }
 
