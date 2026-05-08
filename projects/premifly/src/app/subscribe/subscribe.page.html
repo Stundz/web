@@ -47,7 +47,7 @@ body {
 		class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glow-orb"
 	></div>
 	<div
-		class="flex relative z-10 flex-col p-10 w-full rounded-xl border-t border-b border-transparent shadow-2xl glass-panel max-w-150 gap-lg"
+		class="flex overflow-hidden relative z-10 flex-col p-10 w-full rounded-xl border-t border-b border-transparent shadow-2xl glass-panel max-w-150 gap-lg"
 	>
 		<div class="text-center mb-md">
 			<h1
@@ -59,7 +59,20 @@ body {
 				Secure your exclusive premium subscription tier.
 			</p>
 		</div>
-		<form class="flex flex-col gap-lg" [formRoot]="form">
+		<div class="flex absolute inset-0 justify-center items-center opacity-5">
+			<span
+				matChipAvatar
+				[class.icon-[logos--claude-icon]]="service()?.slug === 'claude'"
+				[class.icon-[logos--openai-icon]]="service()?.slug === 'chatgpt'"
+				[class.icon-[vscode-icons--file-type-gemini]]="service()?.slug === 'gemini'"
+				[class.icon-[ri--grok-ai-fill]]="service()?.slug === 'grok'"
+				[class.icon-[logos--netflix-icon]]="service()?.slug === 'netflix'"
+				[class.icon-[cbi--prime-video]]="service()?.slug === 'amazon'"
+				[class.text-blue-400!]="service()?.slug === 'amazon'"
+				class="text-[600px]"
+			></span>
+		</div>
+		<form class="flex relative z-10 flex-col gap-4 gap-lg" [formRoot]="form">
 			<!-- Full Name Field -->
 			<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
 				<!-- First Name Field -->
@@ -77,6 +90,17 @@ body {
 			<mat-form-field>
 				<mat-label>Email</mat-label>
 				<input matInput type="email" [formField]="form.email">
+				<mat-hint>Your email is required profile code</mat-hint>
+				<mat-error>
+					@for (error of form.email().errors(); track error.kind) {
+					{{ error.message }}
+					}
+				</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Phone</mat-label>
+				<input matInput type="phone" [formField]="form.phone">
 			</mat-form-field>
 			<!-- Subscription Dropdown -->
 			<div class="flex flex-col gap-2">
@@ -87,18 +111,18 @@ body {
 				>
 				<mat-chip-listbox (change)="form.service_id().value.set($event.value)">
 					@for (service of services.value(); track service.id) {
-					<mat-chip-option [value]="service.id" class="">
-						@let name = service.name.toLowerCase();
+					<mat-chip-option [value]="service.id" class="h-12!">
+						@let slug = service.slug;
 
 						<span
 							matChipAvatar
-							class="text-[25px]"
-							[class.icon-[logos--claude-icon]]="name === 'claude'"
-							[class.icon-[logos--openai-icon]]="name === 'chatgpt'"
-							[class.icon-[vscode-icons--file-type-gemini]]="name === 'gemini'"
-							[class.icon-[ri--grok-ai-fill]]="name === 'grok'"
-							[class.icon-[logos--netflix-icon]]="name === 'netflix'"
-							[class.icon-[cbi--prime-video]]="name === 'amazon'"
+							[class.icon-[logos--claude-icon]]="slug === 'claude'"
+							[class.icon-[logos--openai-icon]]="slug === 'chatgpt'"
+							[class.icon-[vscode-icons--file-type-gemini]]="slug === 'gemini'"
+							[class.icon-[ri--grok-ai-fill]]="slug === 'grok'"
+							[class.icon-[logos--netflix-icon]]="slug === 'netflix'"
+							[class.icon-[cbi--prime-video]]="slug === 'amazon'"
+							[class.text-blue-400!]="slug === 'amazon'"
 						></span>
 						{{ service.name }}
 					</mat-chip-option>
@@ -111,8 +135,16 @@ body {
 					value="netflix"
 				>
 			</div>
+			<span class="text-amber-300"
+				>Don't proceed if you're not ready to make your subscribe now</span
+			>
 			<!-- Submit Button -->
-			<button type="submit" matButton="filled" class="mt-10 w-full">
+			<button
+				type="submit"
+				matButton="filled"
+				class="mt-10 w-full"
+				[disabled]="form().invalid() || !form().touched()"
+			>
 				<div class="flex gap-2 items-center">
 					Apply Now
 					<span
