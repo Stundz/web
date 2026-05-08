@@ -3,6 +3,7 @@ import { Injectable, inject } from "@angular/core";
 import {
 	BehaviorSubject,
 	catchError,
+	EMPTY,
 	map,
 	of,
 	shareReplay,
@@ -48,9 +49,8 @@ export class Auth {
 			.pipe(
 				switchMap(() =>
 					this.getUser().pipe(
-						tap(this.#user.next),
-						map(() => {
-							return;
+						switchMap(() => {
+							return EMPTY;
 						}),
 					),
 				),
@@ -63,8 +63,8 @@ export class Auth {
 			.pipe(
 				switchMap(() =>
 					this.getUser().pipe(
-						map(() => {
-							return;
+						switchMap(() => {
+							return EMPTY;
 						}),
 					),
 				),
