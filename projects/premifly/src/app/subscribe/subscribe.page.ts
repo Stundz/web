@@ -1,5 +1,14 @@
+import { isPlatformBrowser } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component, signal } from "@angular/core";
+import {
+	Component,
+	computed,
+	inject,
+	input,
+	linkedSignal,
+	PLATFORM_ID,
+	signal,
+} from "@angular/core";
 import {
 	email,
 	FormField,
@@ -28,6 +37,7 @@ import { environment } from "../../environments/environment";
 	styleUrl: "./subscribe.page.css",
 })
 export class SubscribePage {
+	user = input.required<Model.User | null>();
 	services = httpResource<Array<Model.Premifly.Service>>(
 		() => `${environment.url.api}/premifly/services`,
 		{
@@ -35,40 +45,54 @@ export class SubscribePage {
 		},
 	);
 
-	formModel = signal({
-		first_name: "",
-		last_name: "",
-		email: "",
-		service_id: "",
-		phone_type: "",
-	});
+	#platformId = inject(PLATFORM_ID);
+
+	loginUrl!: string;
+	signupUrl!: string;
+
+	formModel = linkedSignal(
+		() => ({
+			user_id: this.user()?.id,
+			service_id: "",
+			phone_type: "",
+		}),
+		{
+			debugName: "Subscription Form",
+		},
+	);
 
 	form = form(this.formModel, (root) => {
-		required(root.first_name, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-
-		required(root.last_name, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-
-		required(root.email, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-		email(root.email, { message: "Invalid email" });
-
-		required(root.service_id, { message: "Please select a service" });
 		required(root.service_id, { message: "Please select a service" });
 	});
 
-	accounts = httpResource<Array<Model.Premifly.Account>>(() =>
-		this.formModel().service_id
-			? {
-					url: `${environment.url.api}/premifly/service/${this.formModel().service_id}/accounts`,
-				}
-			: undefined,
+	accounts = httpResource<Array<Model.Premifly.Account>>(
+		() =>
+			this.formModel().service_id
+				? {
+						url: `${environment.url.api}/premifly/service/${this.formModel().service_id}/accounts`,
+					}
+				: undefined,
+		{
+			defaultValue: [],
+		},
 	);
+
+	account = linkedSignal(() =>
+		this.accounts
+			.value()
+			.sort((a, b) => a.subscriptions_count - b.subscriptions_count)
+			.at(0),
+	);
+
+	service = computed(() =>
+		this.services.value().find((s) => s.id === this.form().value().service_id),
+	);
+
+	ngOnInit() {
+		if (isPlatformBrowser(this.#platformId)) {
+			const callback = `?callback=${window.location.href}`;
+			this.loginUrl = `${environment.url.auth}/login${callback}`;
+			this.signupUrl = `${environment.url.auth}/signup${callback}`;
+		}
+	}
 }

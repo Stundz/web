@@ -49,45 +49,46 @@ export class LoginPage {
 			submission: {
 				action: (tree) => {
 					return firstValueFrom(
-						this.#authService
-							.login(tree().value())
-							.pipe(map(() => undefined))
-							.pipe(
-								tap(() => {
-									console.log("What the fuck");
-									window.location.href =
-										this.#route.snapshot.queryParams["callback"] || "/";
-								}),
-								catchError((error: HttpErrorResponse) => {
-									if (error.status === 422) {
-										const mappedErrors = Object.entries(
-											error.error.errors,
-										).flatMap(([key, messages]) => {
-											const keyParts = key.split(".");
-											let control: any = form;
-											for (const part of keyParts) {
-												if (control && part in control) {
-													control = control[part];
-												} else {
-													control = null;
-													break;
-												}
-											}
-
-											if (control) {
-												return (messages as string[]).map((message, i) => ({
-													fieldTree: control,
-													kind: String(i),
-													message,
-												}));
-											}
-											return [];
-										});
-										return of(mappedErrors);
+						this.#authService.login(tree().value()).pipe(
+							tap({
+								complete: () => {
+									console.log("Hello world");
+									if (this.#route.snapshot.queryParams["callback"]) {
+										window.location.href =
+											this.#route.snapshot.queryParams["callback"];
 									}
-									return throwError(() => error);
-								}),
-							),
+								},
+							}),
+							catchError((error: HttpErrorResponse) => {
+								if (error.status === 422) {
+									const mappedErrors = Object.entries(
+										error.error.errors,
+									).flatMap(([key, messages]) => {
+										const keyParts = key.split(".");
+										let control: any = form;
+										for (const part of keyParts) {
+											if (control && part in control) {
+												control = control[part];
+											} else {
+												control = null;
+												break;
+											}
+										}
+
+										if (control) {
+											return (messages as string[]).map((message, i) => ({
+												fieldTree: control,
+												kind: String(i),
+												message,
+											}));
+										}
+										return [];
+									});
+									return of(mappedErrors);
+								}
+								return throwError(() => error);
+							}),
+						),
 					);
 				},
 			},

@@ -5,5 +5,6 @@ export const environment: ENVIRONMENT = {
 	domain: "stundz.com",
 	url: {
 		api: "https://api.stundz.com",
+		auth: "https://auth.stundz.com",
 	},
 };
