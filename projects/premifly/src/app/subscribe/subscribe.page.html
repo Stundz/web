@@ -47,8 +47,9 @@ body {
 		class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glow-orb"
 	></div>
 	<div
-		class="flex overflow-hidden relative z-10 flex-col p-10 w-full rounded-xl border-t border-b border-transparent shadow-2xl glass-panel max-w-150 gap-lg"
+		class="flex overflow-hidden relative z-10 flex-col gap-8 p-10 mt-4 w-full rounded-xl border-t border-b border-transparent shadow-2xl glass-panel max-w-150"
 	>
+		@if (user()) {
 		<div class="text-center mb-md">
 			<h1
 				class="tracking-tight text-headline-md font-headline-md text-on-surface mb-xs"
@@ -59,51 +60,62 @@ body {
 				Secure your exclusive premium subscription tier.
 			</p>
 		</div>
-		<div class="flex absolute inset-0 justify-center items-center opacity-5">
-			<span
-				matChipAvatar
-				[class.icon-[logos--claude-icon]]="service()?.slug === 'claude'"
-				[class.icon-[logos--openai-icon]]="service()?.slug === 'chatgpt'"
-				[class.icon-[vscode-icons--file-type-gemini]]="service()?.slug === 'gemini'"
-				[class.icon-[ri--grok-ai-fill]]="service()?.slug === 'grok'"
-				[class.icon-[logos--netflix-icon]]="service()?.slug === 'netflix'"
-				[class.icon-[cbi--prime-video]]="service()?.slug === 'amazon'"
-				[class.text-blue-400!]="service()?.slug === 'amazon'"
-				class="text-[600px]"
-			></span>
+		<div class="absolute inset-0 opacity-5 text-[600px]">
+			<div
+				class="relative size-full flex justify-center items-center *:absolute *:left-1/2 *:-translate-x-1/2 *:top-1/2 *:-translate-y-1/2 *:starting:opacity-0 *:starting:scale-0"
+			>
+				@switch(service()?.slug) { @case('claude') {
+				<span
+					class="icon-[logos--claude-icon]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} @case ('chatgpt') {
+				<span
+					class="icon-[logos--openai-icon]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} @case ('gemini') {
+
+				<span
+					class="icon-[vscode-icons--file-type-gemini]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} @case ('grok') {
+
+				<span
+					class="icon-[ri--grok-ai-fill]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} @case ('netflix') {
+				<span
+					class="icon-[logos--netflix-icon]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} @case ('amazon') {
+
+				<span
+					class="text-blue-400 icon-[cbi--prime-video]"
+					animate.enter="enter-animation"
+					animate.leave="leave-animation"
+				></span>
+				} }
+			</div>
 		</div>
 		<form class="flex relative z-10 flex-col gap-4 gap-lg" [formRoot]="form">
-			<!-- Full Name Field -->
-			<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-				<!-- First Name Field -->
-				<mat-form-field>
-					<mat-label>First name</mat-label>
-					<input matInput [formField]="form.first_name">
-				</mat-form-field>
-
-				<mat-form-field>
-					<mat-label>Last name</mat-label>
-					<input matInput [formField]="form.last_name">
-				</mat-form-field>
-			</div>
-
-			<mat-form-field>
-				<mat-label>Email</mat-label>
-				<input matInput type="email" [formField]="form.email">
-				<mat-hint>Your email is required profile code</mat-hint>
-				<mat-error>
-					@for (error of form.email().errors(); track error.kind) {
-					{{ error.message }}
-					}
-				</mat-error>
-			</mat-form-field>
-
-			<mat-form-field>
-				<mat-label>Phone</mat-label>
-				<input matInput type="phone" [formField]="form.phone">
-			</mat-form-field>
 			<!-- Subscription Dropdown -->
 			<div class="flex flex-col gap-2">
+				<mat-form-field>
+					<mat-label>Phone type</mat-label>
+					<input matInput [formField]="form.phone_type">
+					@for (error of form.phone_type().errors(); track error.kind) {
+					<mat-error>{{error.message}}</mat-error>
+					}
+				</mat-form-field>
 				<label
 					class="text-label-md font-label-md text-on-surface-variant"
 					for="subscription"
@@ -163,6 +175,18 @@ body {
 		>
 			By applying, you agree to our stringent terms of service.
 		</p>
+		} @else {
+		<span>You are not connected. </span>
+		<span>
+			You must
+			<a [href]="signupUrl" class="text-green-400 hover:underline"
+				>create an account</a
+			>
+			or
+			<a [href]="loginUrl" class="text-blue-400 hover:underline">login</a>
+			in other to get a subscription
+		</span>
+		}
 	</div>
 </main>
 <!-- Footer -->

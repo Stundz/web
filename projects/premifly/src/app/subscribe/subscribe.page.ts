@@ -1,9 +1,12 @@
+import { isPlatformBrowser } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
 	Component,
 	computed,
+	inject,
 	input,
 	linkedSignal,
+	PLATFORM_ID,
 	signal,
 } from "@angular/core";
 import {
@@ -34,7 +37,7 @@ import { environment } from "../../environments/environment";
 	styleUrl: "./subscribe.page.css",
 })
 export class SubscribePage {
-	user = input.required<Model.User | undefined>();
+	user = input.required<Model.User | null>();
 	services = httpResource<Array<Model.Premifly.Service>>(
 		() => `${environment.url.api}/premifly/services`,
 		{
@@ -42,14 +45,16 @@ export class SubscribePage {
 		},
 	);
 
+	#platformId = inject(PLATFORM_ID);
+
+	loginUrl!: string;
+	signupUrl!: string;
+
 	formModel = linkedSignal(
 		() => ({
-			first_name: this.user()?.first_name || "",
-			last_name: this.user()?.last_name ?? "",
-			email: this.user()?.email ?? "",
+			user_id: this.user()?.id,
 			service_id: "",
 			phone_type: "",
-			phone: this.user()?.phone ?? "",
 		}),
 		{
 			debugName: "Subscription Form",
@@ -57,28 +62,7 @@ export class SubscribePage {
 	);
 
 	form = form(this.formModel, (root) => {
-		required(root.first_name, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-
-		required(root.last_name, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-
-		required(root.email, {
-			message: "This field is required",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
-		email(root.email, { message: "Invalid email" });
-
 		required(root.service_id, { message: "Please select a service" });
-
-		required(root.phone, {
-			message: "Please select a service",
-			when: ({ stateOf }) => stateOf(root).touched(),
-		});
 	});
 
 	accounts = httpResource<Array<Model.Premifly.Account>>(
@@ -101,6 +85,14 @@ export class SubscribePage {
 	);
 
 	service = computed(() =>
-		this.services.value().find((s) => s.id === this.form.service_id().value()),
+		this.services.value().find((s) => s.id === this.form().value().service_id),
 	);
+
+	ngOnInit() {
+		if (isPlatformBrowser(this.#platformId)) {
+			const callback = `?callback=${window.location.href}`;
+			this.loginUrl = `${environment.url.auth}/login${callback}`;
+			this.signupUrl = `${environment.url.auth}/signup${callback}`;
+		}
+	}
 }
