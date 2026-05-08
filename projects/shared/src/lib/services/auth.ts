@@ -19,7 +19,7 @@ export class Auth {
 	#http = inject(HttpClient);
 	#environment = inject(ENVIRONMENT);
 	#user = new BehaviorSubject<Model.User | null>(null);
-	user$ = this.#user.asObservable();
+	user$ = this.#user.asObservable().pipe(shareReplay());
 
 	getUser() {
 		return this.#http
