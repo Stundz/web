@@ -140,9 +140,17 @@ export namespace Model {
 
 		last_name: string;
 
+		/** The email address of the user */
 		email: string;
 
+		/** The phone number of the user */
+		phone: string;
+
+		/** Plug related data */
 		plug?: Plug.User;
+
+		/** Premifly related user data */
+		premifly: Premifly.User;
 	}
 
 	export namespace Premifly {
@@ -152,10 +160,12 @@ export namespace Model {
 			name: string;
 			price: number;
 			enabled: boolean;
+			slug: string;
 		}
 
 		export interface Account extends Model {
 			email: string;
+			subscriptions_count: number;
 		}
 	}
 }
