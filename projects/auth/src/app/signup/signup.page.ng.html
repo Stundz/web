@@ -112,6 +112,11 @@
 				</mat-form-field>
 
 				<mat-form-field class="w-full">
+					<mat-label>Phone</mat-label>
+					<input matInput type="tel" [formField]="form.phone">
+				</mat-form-field>
+
+				<mat-form-field class="w-full">
 					<mat-label>Passowrd</mat-label>
 					<input matInput type="password" [formField]="form.password">
 				</mat-form-field>
@@ -149,7 +154,9 @@
 				</div>
 				<!-- Submit Button -->
 				<button
-					class="py-4 w-full font-bold tracking-wide rounded-full transition-all duration-200 primary-gradient text-on-primary font-headline ambient-shadow hover:scale-[1.02] active:scale-[0.98]"
+					matButton="filled"
+					[disabled]="form().invalid() || !form().touched()"
+					class="w-full"
 					type="submit"
 				>
 					Create Account

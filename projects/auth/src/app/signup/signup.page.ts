@@ -12,7 +12,7 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { firstValueFrom, map } from "rxjs";
+import { firstValueFrom, map, tap } from "rxjs";
 import { Auth, User } from "shared";
 import { environment } from "../../environments/environment";
 
@@ -30,15 +30,16 @@ import { environment } from "../../environments/environment";
 	styleUrl: "./signup.page.scss",
 })
 export class SignupPage {
-	private _route = inject(ActivatedRoute);
+	#route = inject(ActivatedRoute);
 	#authService = inject(Auth);
 
-	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${this._route.snapshot.queryParams["callback"] ? "?callback=" + this._route.snapshot.queryParams["callback"] : ""}`;
+	googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${this.#route.snapshot.queryParams["callback"] ? "?callback=" + this.#route.snapshot.queryParams["callback"] : ""}`;
 
 	form = form(
 		signal({
 			first_name: "",
 			last_name: "",
+			phone: "",
 			email: "",
 			password: "",
 			password_confirmation: "",
@@ -102,9 +103,18 @@ export class SignupPage {
 			submission: {
 				action: async (schema) =>
 					firstValueFrom(
-						this.#authService
-							.signup(schema().value())
-							.pipe(map(() => undefined)),
+						this.#authService.signup(schema().value()).pipe(
+							tap({
+								complete: () => {
+									console.log("Hello world");
+									if (this.#route.snapshot.queryParams["callback"]) {
+										window.location.href =
+											this.#route.snapshot.queryParams["callback"];
+									}
+								},
+							}),
+							map(() => undefined),
+						),
 					),
 				onInvalid: async (field) => {
 					console.log("Form is invalid", field().value());
