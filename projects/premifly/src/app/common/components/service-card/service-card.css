@@ -1,0 +1,5 @@
+@reference '../../../../styles.css';
+
+:host {
+	@apply block  rounded-xl shadow-2xl transition-transform duration-500 transform -translate-y-5 hover:scale-105 glass-panel p-8 w-80 -rotate-y-5 rotate-x-4;
+}
