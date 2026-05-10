@@ -1,0 +1,27 @@
+<div class="flex justify-between items-center mb-lg">
+	<div class="flex gap-4 items-center">
+		<span
+			[class.icon-[logos--claude-icon]]="service().slug === 'claude'"
+			[class.icon-[logos--openai-icon]]="service().slug === 'chatgpt'"
+			[class.icon-[vscode-icons--file-type-gemini]]="service().slug === 'gemini'"
+			[class.icon-[ri--grok-ai-fill]]="service().slug === 'grok'"
+			[class.icon-[logos--netflix-icon]]="service().slug === 'netflix'"
+			[class.icon-[cbi--prime-video]]="service().slug === 'amazon'"
+			[class.text-blue-400!]="service().slug === 'amazon'"
+			class="text-[50px]"
+		></span>
+		<span class="text-on-surface captialize"> {{ service().name }} </span>
+	</div>
+</div>
+<div class="mb-lg">
+	<div class="text-headline-sm font-headline-sm text-on-surface">
+		{{service().price | currency}}
+		<span class="text-label-sm font-label-sm text-on-surface-variant">/mo</span>
+	</div>
+	<div class="line-through text-label-sm font-label-sm text-primary">
+		$14.99/mo standard
+	</div>
+</div>
+<button matButton="outlined" class="py-2 w-full glass-panel! mt-2">
+	Claim Offer
+</button>
