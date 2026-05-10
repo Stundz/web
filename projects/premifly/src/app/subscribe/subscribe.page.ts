@@ -97,7 +97,7 @@ export class SubscribePage {
 	form = form(this.formModel, (root) => {
 		required(root.service_id, { message: "Please select a service" });
 
-		required(root.phone, { message: "Please select a service" });
+		required(root.phone, { message: "Please Enter your phone number" });
 	});
 
 	accounts = httpResource<Array<Model.Premifly.Account>>(

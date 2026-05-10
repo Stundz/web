@@ -1,4 +1,6 @@
-import { Component, input } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { ActivatedRoute } from "@angular/router";
 import type { Model } from "shared";
 
 @Component({
@@ -10,4 +12,16 @@ import type { Model } from "shared";
 export class SubscriptionInstructions {
 	service = input.required<Model.Premifly.Service>();
 	account = input.required<Model.Premifly.Account>();
+
+	#user = inject(ActivatedRoute).snapshot.data["user"] as Model.User;
+
+	message = computed(() =>
+		encodeURIComponent(`
+      Premifly subscription for *${this.service().name}*
+
+      I am *${this.#user.first_name} ${this.#user.last_name} (${this.#user.email})*
+
+      looking to complete my subscription for with *${this.account().email}*.
+    `),
+	);
 }
