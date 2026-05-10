@@ -108,48 +108,75 @@ body {
 		</div>
 		<form class="flex relative z-10 flex-col gap-4 gap-lg" [formRoot]="form">
 			<!-- Subscription Dropdown -->
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-8">
+				<div class="flex flex-col">
+					<label
+						class="text-label-md font-label-md text-on-surface-variant"
+						for="subscription"
+						>Select Service</label
+					>
+					<mat-chip-listbox
+						(change)="form.service_id().value.set($event.value)"
+					>
+						@for (service of services.value(); track service.id) {
+						<mat-chip-option [value]="service.id" class="h-12!">
+							@let slug = service.slug;
+
+							<span
+								matChipAvatar
+								[class.icon-[logos--claude-icon]]="slug === 'claude'"
+								[class.icon-[logos--openai-icon]]="slug === 'chatgpt'"
+								[class.icon-[vscode-icons--file-type-gemini]]="slug === 'gemini'"
+								[class.icon-[ri--grok-ai-fill]]="slug === 'grok'"
+								[class.icon-[logos--netflix-icon]]="slug === 'netflix'"
+								[class.icon-[cbi--prime-video]]="slug === 'amazon'"
+								[class.text-blue-400!]="slug === 'amazon'"
+							></span>
+							{{ service.name }}
+						</mat-chip-option>
+						}
+					</mat-chip-listbox>
+				</div>
+
 				<mat-form-field>
-					<mat-label>Phone type</mat-label>
-					<input matInput [formField]="form.phone_type">
+					<mat-label>Phone</mat-label>
+					<input matInput [formField]="form.phone">
+					<mat-hint>
+						Whatsapp phone number preferable (Include country code)
+					</mat-hint>
+					@for (error of form.phone().errors(); track error.kind) {
+					<mat-error>{{error.message}}</mat-error>
+					}
+				</mat-form-field>
+				@if (['amazon', 'netflix'].includes((service()?.slug) || '')) {
+				<mat-form-field>
+					<mat-label>Device type</mat-label>
+					<input
+						placeholder="Select your device type"
+						matInput
+						[formField]="form.phone_type"
+						[matAutocomplete]="phoneList"
+					>
+					<mat-autocomplete #phoneList="matAutocomplete">
+						@for (type of phones; track type) {
+						<mat-option [value]="type" class="capitalize">{{type}}</mat-option>
+						}
+					</mat-autocomplete>
 					@for (error of form.phone_type().errors(); track error.kind) {
 					<mat-error>{{error.message}}</mat-error>
 					}
 				</mat-form-field>
-				<label
-					class="text-label-md font-label-md text-on-surface-variant"
-					for="subscription"
-					>Select Service</label
-				>
-				<mat-chip-listbox (change)="form.service_id().value.set($event.value)">
-					@for (service of services.value(); track service.id) {
-					<mat-chip-option [value]="service.id" class="h-12!">
-						@let slug = service.slug;
-
-						<span
-							matChipAvatar
-							[class.icon-[logos--claude-icon]]="slug === 'claude'"
-							[class.icon-[logos--openai-icon]]="slug === 'chatgpt'"
-							[class.icon-[vscode-icons--file-type-gemini]]="slug === 'gemini'"
-							[class.icon-[ri--grok-ai-fill]]="slug === 'grok'"
-							[class.icon-[logos--netflix-icon]]="slug === 'netflix'"
-							[class.icon-[cbi--prime-video]]="slug === 'amazon'"
-							[class.text-blue-400!]="slug === 'amazon'"
-						></span>
-						{{ service.name }}
-					</mat-chip-option>
-					}
-				</mat-chip-listbox>
-				<input
-					id="subscription"
-					name="subscription"
-					type="hidden"
-					value="netflix"
-				>
+				}
 			</div>
 			<span class="text-amber-300"
-				>Don't proceed if you're not ready to make your subscribe now</span
+				>Don't proceed if you're not ready to make your subscription now</span
 			>
+			@if (service() && account()) {
+			<premifly-subscription-instructions
+				[service]="service()!"
+				[account]="account()!"
+			/>
+			}
 			<!-- Submit Button -->
 			<button
 				type="submit"
