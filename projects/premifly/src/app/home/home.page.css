@@ -1,0 +1,20 @@
+@reference "../../styles.css";
+
+::ng-deep .service-card {
+	@apply absolute;
+}
+
+::ng-deep .service-card:is(* + .service-card) {
+	background-color: red !important;
+	right: 100px;
+}
+
+::ng-deep .service-card:has(+ .service-card:has(+ .service-card)) {
+	background-color: yellow !important;
+	right: 100px;
+}
+
+::ng-deep .service-card:is(+ *.service-card) {
+	background-color: blue !important;
+	right: 40px;
+}
