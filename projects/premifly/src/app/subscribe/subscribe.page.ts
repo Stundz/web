@@ -16,12 +16,14 @@ import {
 	form,
 	required,
 } from "@angular/forms/signals";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import type { Model } from "shared";
 import { environment } from "../../environments/environment";
+import { SubscriptionInstructions } from "../common/components/subscription-instructions/subscription-instructions";
 
 @Component({
 	selector: "premifly-subscribe",
@@ -32,6 +34,9 @@ import { environment } from "../../environments/environment";
 		MatInputModule,
 		MatFormFieldModule,
 		MatChipsModule,
+		MatAutocompleteModule,
+
+		SubscriptionInstructions,
 	],
 	templateUrl: "./subscribe.page.html",
 	styleUrl: "./subscribe.page.css",
@@ -50,11 +55,39 @@ export class SubscribePage {
 	loginUrl!: string;
 	signupUrl!: string;
 
+	phones = [
+		"Iphone 4/4S",
+		"Iphone 5/5S/5E",
+		"Iphone 6/6S/6+",
+		"Iphone 7/7+7S/7S+",
+		"Iphone 8/8+8S/8S+",
+		"Iphone X/XR/XS/Xs MAX",
+		"Iphone 11/11 Pro/11 Pro MAX",
+		"Iphone 12/12 Pro/12 Pro MAX",
+		"Iphone 13/13 Pro/13 Pro MAX",
+		"Iphone 14/14+/14 Pro/14 Pro MAX",
+		"Iphone 15/15+/15 Pro/15 Pro MAX",
+		"Iphone 16/16+/16 Pro/16 Pro MAX",
+		"Iphone 17/17 Air",
+		"Samsung S21/S21+/S21 Ultra",
+		"Samsung S22/S22+/S22 Ultra",
+		"Samsung S23/S23+/S23 Ultra",
+		"Samsung S24/S24+/S24 Ultra",
+		"Samsung S25/S25+/S25 Ultra",
+		"Samsung Z Fold 5/6",
+		"Samsung Z Flip 5/6",
+		"Lg TV",
+		"Hisense TV",
+		"Samsung TV",
+		"Other",
+	];
+
 	formModel = linkedSignal(
 		() => ({
 			user_id: this.user()?.id,
 			service_id: "",
 			phone_type: "",
+			phone: this.user()?.phone || "",
 		}),
 		{
 			debugName: "Subscription Form",
@@ -63,13 +96,15 @@ export class SubscribePage {
 
 	form = form(this.formModel, (root) => {
 		required(root.service_id, { message: "Please select a service" });
+
+		required(root.phone, { message: "Please select a service" });
 	});
 
 	accounts = httpResource<Array<Model.Premifly.Account>>(
 		() =>
-			this.formModel().service_id
+			this.form.service_id().value()
 				? {
-						url: `${environment.url.api}/premifly/service/${this.formModel().service_id}/accounts`,
+						url: `${environment.url.api}/premifly/service/${this.form.service_id().value()}/accounts`,
 					}
 				: undefined,
 		{
