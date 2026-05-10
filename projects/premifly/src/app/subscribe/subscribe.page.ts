@@ -1,26 +1,25 @@
-import { isPlatformBrowser } from "@angular/common";
-import { httpResource } from "@angular/common/http";
+import { isPlatformBrowser, NgOptimizedImage } from "@angular/common";
+import { HttpClient, httpResource } from "@angular/common/http";
 import {
 	Component,
 	computed,
+	effect,
 	inject,
 	input,
 	linkedSignal,
 	PLATFORM_ID,
-	signal,
+	viewChild,
 } from "@angular/core";
-import {
-	email,
-	FormField,
-	FormRoot,
-	form,
-	required,
-} from "@angular/forms/signals";
+import { FormField, FormRoot, form, required } from "@angular/forms/signals";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { type MatStepper, MatStepperModule } from "@angular/material/stepper";
+import { firstValueFrom, tap } from "rxjs";
 import type { Model } from "shared";
 import { environment } from "../../environments/environment";
 import { SubscriptionInstructions } from "../common/components/subscription-instructions/subscription-instructions";
@@ -35,6 +34,9 @@ import { SubscriptionInstructions } from "../common/components/subscription-inst
 		MatFormFieldModule,
 		MatChipsModule,
 		MatAutocompleteModule,
+		MatStepperModule,
+		MatCardModule,
+		NgOptimizedImage,
 
 		SubscriptionInstructions,
 	],
@@ -43,12 +45,15 @@ import { SubscriptionInstructions } from "../common/components/subscription-inst
 })
 export class SubscribePage {
 	user = input.required<Model.User | null>();
+	#snackBar = inject(MatSnackBar);
 	services = httpResource<Array<Model.Premifly.Service>>(
 		() => `${environment.url.api}/premifly/services`,
 		{
 			defaultValue: [],
 		},
 	);
+	#http = inject(HttpClient);
+	stepper = viewChild.required<MatStepper>("stepper");
 
 	#platformId = inject(PLATFORM_ID);
 
@@ -84,21 +89,51 @@ export class SubscribePage {
 
 	formModel = linkedSignal(
 		() => ({
-			user_id: this.user()?.id,
 			service_id: "",
-			phone_type: "",
+			account_id: "",
+			device_type: "",
 			phone: this.user()?.phone || "",
 		}),
 		{
-			debugName: "Subscription Form",
+			debugName: "Subscription Form Model",
 		},
 	);
 
-	form = form(this.formModel, (root) => {
-		required(root.service_id, { message: "Please select a service" });
+	form = form(
+		this.formModel,
+		(root) => {
+			required(root.service_id, { message: "Please select a service" });
 
-		required(root.phone, { message: "Please Enter your phone number" });
-	});
+			required(root.phone, {
+				message: "Please Enter your phone number",
+			});
+		},
+		{
+			name: "Subscription Form",
+			submission: {
+				action: async (tree, detail) => {
+					return firstValueFrom(
+						this.#http
+							.post<void>(
+								`${environment.url.api}/premifly/subscription`,
+								tree().value(),
+							)
+							.pipe(
+								tap(() => {
+									this.stepper().next();
+									this.form().reset({
+										service_id: "",
+										account_id: "",
+										device_type: "",
+										phone: this.user()?.phone || "",
+									});
+								}),
+							),
+					);
+				},
+			},
+		},
+	);
 
 	accounts = httpResource<Array<Model.Premifly.Account>>(
 		() =>
@@ -122,6 +157,12 @@ export class SubscribePage {
 	service = computed(() =>
 		this.services.value().find((s) => s.id === this.form().value().service_id),
 	);
+
+	accountEffect = effect(() => {
+		if (this.account()) {
+			this.form.account_id().value.set(this.account()!.id);
+		}
+	});
 
 	ngOnInit() {
 		if (isPlatformBrowser(this.#platformId)) {

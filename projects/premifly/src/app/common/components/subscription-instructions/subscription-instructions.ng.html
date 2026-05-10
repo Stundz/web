@@ -1,5 +1,17 @@
-@switch (service().slug) { @case ('netflix') {
-<ul class="list-disc list-inside">
+<div class="overflow-hidden relative w-full rounded aspect-video">
+	<img
+		[ngSrc]="`https://pub-f63e9d6103c5477cbcae0b504bd20e1b.r2.dev/instructions/${service().slug}.jpeg`"
+		fill
+		class="object-contain object-center"
+	>
+</div>
+<ul class="mt-2 list-disc list-inside *:list-item">
+	@switch (service().slug) { @case ('netflix') {
+	<li>
+		Send 1000 XAF for subscription fee to MoMo account 678631343 (name:
+		Anyangwa)
+	</li>
+	<li class="list-item">It’s 1000 XAF per device</li>
 	<li class="list-item">Open Netflix.</li>
 	<li class="list-item">
 		Put this email in the part for email
@@ -11,18 +23,53 @@
 	<li class="list-item">
 		Those using a
 		<span class="icon-[la--tv]" role="img" aria-hidden="true"></span>TV should
-		click on send link.
+		click on <span class="font-bold text-primary">send link.</span>
 	</li>
-	<li class="list-item">It’s 1k per device</li>
-	<li class="list-item">Please send the 1k here 678631343 Name: Anyangwa.</li>
-	<li class="list-item">
-		Send the screen shot to
-		<a [href]="`https://wa.me/678631343?text=${message()}`" target="_blank">
-			<span class="inline-flex gap-1">
+	} @case ('chatgpt') {
+	<li>
+		Send 1000 XAF for subscription fee to MoMo account 678631343 (name:
+		Anyangwa)
+	</li>
+	<li>Open chatgpt</li>
+	<li>
+		<span class="text-amber-500 icon-[typcn--warning]"></span
+		><span class="text-lg font-black">DO NOT</span>
+		click on
+		<span class="font-semibold">Login with Google</span>
+	</li>
+	<li class="list-inside">
+		Use the following email/passowrd to login
+		<ul class="list-inside list-[circle] ps-5">
+			<li>Email: <span class="font-bold">{{ account().email }}</span></li>
+			<li>password: <span class="font-bold">{{ account().password }}</span></li>
+		</ul>
+	</li>
+	} @case ('prime-video') {
+	<li>
+		Send 1000 XAF for subscription fee to MoMo account 678631343 (name:
+		Anyangwa)
+	</li>
+	<li class="list-inside">
+		Use the following email/passowrd to login
+		<ul class="list-inside list-[circle] ps-5">
+			<li>Email: <span class="font-bold">{{ account().email }}</span></li>
+			<li>password: <span class="font-bold">{{ account().password }}</span></li>
+		</ul>
+	</li>
+	} }
+
+	<li>
+		Click
+		<a
+			[href]="`https://wa.me/678631343?text=${message()}`"
+			class="hover:underline"
+			target="_blank"
+		>
+			<span class="inline-flex gap-1 items-center px-2">
 				<span class="icon-[logos--whatsapp-icon]"></span>
-				<span class="text-green-400">678631343</span>
+				<span class="text-lg text-green-400">here</span>
 			</span>
-		</a>.
+		</a>
+		to send the payment screenshot in order to receive confirmation code.
 	</li>
 </ul>
-} }

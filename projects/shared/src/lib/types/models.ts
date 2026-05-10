@@ -165,6 +165,7 @@ export namespace Model {
 
 		export interface Account extends Model {
 			email: string;
+			password: string;
 			subscriptions_count: number;
 		}
 	}
