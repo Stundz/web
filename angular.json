@@ -24,7 +24,7 @@
 					"options": {
 						"browser": "projects/plug/src/main.ts",
 						"tsConfig": "projects/plug/tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
+						"inlineStyleLanguage": "css",
 						"assets": [
 							{
 								"glob": "**/*",
@@ -234,7 +234,7 @@
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
-					"style": "scss"
+					"style": "css"
 				}
 			},
 			"root": "projects/admin",
@@ -246,14 +246,14 @@
 					"options": {
 						"browser": "projects/admin/src/main.ts",
 						"tsConfig": "projects/admin/tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
+						"inlineStyleLanguage": "css",
 						"assets": [
 							{
 								"glob": "**/*",
 								"input": "projects/admin/public"
 							}
 						],
-						"styles": ["projects/admin/src/styles.scss"],
+						"styles": ["projects/admin/src/styles.css"],
 						"server": "projects/admin/src/main.server.ts",
 						"outputMode": "server",
 						"ssr": {
@@ -306,14 +306,14 @@
 					"builder": "@angular/build:karma",
 					"options": {
 						"tsConfig": "projects/admin/tsconfig.spec.json",
-						"inlineStyleLanguage": "scss",
+						"inlineStyleLanguage": "css",
 						"assets": [
 							{
 								"glob": "**/*",
 								"input": "projects/admin/public"
 							}
 						],
-						"styles": ["projects/admin/src/styles.scss"]
+						"styles": ["projects/admin/src/styles.css"]
 					}
 				}
 			}
