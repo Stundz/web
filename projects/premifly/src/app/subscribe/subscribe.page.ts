@@ -8,9 +8,16 @@ import {
 	input,
 	linkedSignal,
 	PLATFORM_ID,
+	signal,
 	viewChild,
 } from "@angular/core";
-import { FormField, FormRoot, form, required } from "@angular/forms/signals";
+import {
+	FormField,
+	FormRoot,
+	form,
+	minLength,
+	required,
+} from "@angular/forms/signals";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -102,10 +109,26 @@ export class SubscribePage {
 	form = form(
 		this.formModel,
 		(root) => {
-			required(root.service_id, { message: "Please select a service" });
+			required(root.service_id, {
+				message: "Please select a service",
+				when: ({ stateOf }) => stateOf(root).touched(),
+			});
+
+			required(root.device_type, {
+				message: "Please select your device",
+				when: () => {
+					return ["prime-video", "netflix"].includes(
+						String(this.service()?.slug),
+					);
+				},
+			});
 
 			required(root.phone, {
 				message: "Please Enter your phone number",
+				when: ({ stateOf }) => stateOf(root).touched(),
+			});
+			minLength(root.phone, 8, {
+				message: "The minimum length of your phone number should be 8 digits",
 			});
 		},
 		{
@@ -121,6 +144,15 @@ export class SubscribePage {
 							.pipe(
 								tap(() => {
 									this.stepper().next();
+									this.#snackBar.open(
+										`You successfully subscribed to ${this.service()?.name}`,
+										"",
+										{
+											duration: 5000,
+											horizontalPosition: "end",
+											verticalPosition: "top",
+										},
+									);
 									this.form().reset({
 										service_id: "",
 										account_id: "",
@@ -153,11 +185,17 @@ export class SubscribePage {
 			.sort((a, b) => a.subscriptions_count - b.subscriptions_count)
 			.at(0),
 	);
+	service = signal<Model.Premifly.Service | undefined>(undefined);
 
-	service = computed(() =>
-		this.services.value().find((s) => s.id === this.form().value().service_id),
-	);
-
+	serviceEffect = effect(() => {
+		if (this.form.service_id().value()) {
+			this.service.set(
+				this.services
+					.value()
+					.find((s) => s.id === this.form.service_id().value()),
+			);
+		}
+	});
 	accountEffect = effect(() => {
 		if (this.account()) {
 			this.form.account_id().value.set(this.account()!.id);

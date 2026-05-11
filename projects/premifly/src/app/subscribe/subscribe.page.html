@@ -145,11 +145,14 @@ body {
 									</mat-chip-option>
 									}
 								</mat-chip-listbox>
+								@for (error of form.service_id().errors(); track error.kind) {
+								<mat-error>{{error.message}}</mat-error>
+								}
 							</div>
 
 							<mat-form-field>
 								<mat-label>Phone</mat-label>
-								<input matInput [formField]="form.phone">
+								<input matInput [formField]="form.phone" autofocus>
 								<mat-hint>
 									Whatsapp phone number preferable (Include country code)
 								</mat-hint>
