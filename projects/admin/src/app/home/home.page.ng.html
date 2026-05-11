@@ -1,0 +1,399 @@
+<main class="overflow-y-auto overflow-x-hidden flex-1 p-6">
+	<!-- Page Header -->
+	<div
+		class="flex flex-col gap-4 justify-between mb-8 sm:flex-row sm:items-end"
+	>
+		<div>
+			<h2 class="font-headline-lg text-headline-lg text-on-surface">
+				Overview Dashboard
+			</h2>
+			<p class="mt-1 font-body-lg text-body-lg text-on-surface-variant">
+				Stundz performance metrics.
+			</p>
+		</div>
+		<div class="flex gap-3">
+			<button matButton="outlined">
+				<span class="flex gap-2 justify-center items-center">
+					<span
+						class="icon-[material-symbols--calendar-month-outline] text-[20px]"
+						role="img"
+						aria-hidden="true"
+					></span>
+					Last 30 Days
+				</span>
+			</button>
+			<button matButton="filled">
+				<span class="flex gap-2 justify-center items-center">
+					<span
+						class="icon-[material-symbols--download] text-[20px]"
+						role="img"
+						aria-hidden="true"
+					></span>
+					Export Report
+				</span>
+			</button>
+		</div>
+	</div>
+	<!-- Bento Grid Layout -->
+	<div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2 lg:grid-cols-4">
+		<!-- KPI Card 1: Active Members -->
+		<div
+			class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+		>
+			<div
+				class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+			>
+				<span
+					class="icon-[material-symbols--group-outline] text-[64px] text-primary"
+					role="img"
+					aria-hidden="true"
+				></span>
+			</div>
+			<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+				Active Members
+			</p>
+			<h3
+				class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+			>
+				12,480
+			</h3>
+			<div
+				class="flex gap-1 items-center mt-4 text-primary-container font-label-lg text-label-lg"
+			>
+				<span
+					class="p-0.5 rounded-full icon-[material-symbols--trending-up] text-[16px] bg-primary-container text-on-primary-container"
+					role="img"
+					aria-hidden="true"
+				></span>
+				<span>+14.2%</span>
+				<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+					>vs last month</span
+				>
+			</div>
+		</div>
+		<!-- KPI Card 2: Total Revenue -->
+		<div
+			class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+		>
+			<div
+				class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+			>
+				<span
+					class="icon-[material-symbols--payments-outline] text-[64px] text-primary"
+					role="img"
+					aria-hidden="true"
+				></span>
+			</div>
+			<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+				Total Revenue
+			</p>
+			<h3
+				class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+			>
+				$84.2K
+			</h3>
+			<div
+				class="flex gap-1 items-center mt-4 text-primary-container font-label-lg text-label-lg"
+			>
+				<span
+					class="p-0.5 rounded-full icon-[material-symbols--trending-up] text-[16px] bg-primary-container text-on-primary-container"
+					role="img"
+					aria-hidden="true"
+				></span>
+				<span>+8.7%</span>
+				<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+					>vs last month</span
+				>
+			</div>
+		</div>
+		<!-- KPI Card 3: Subscription Growth -->
+		<div
+			class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+		>
+			<div
+				class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+			>
+				<span
+					class="icon-[material-symbols--card-membership-outline] text-[64px] text-secondary"
+					role="img"
+					aria-hidden="true"
+				></span>
+			</div>
+			<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+				Subscription Growth
+			</p>
+			<h3
+				class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+			>
+				3,205
+			</h3>
+			<div
+				class="flex gap-1 items-center mt-4 text-secondary font-label-lg text-label-lg"
+			>
+				<span
+					class="p-0.5 rounded-full icon-[material-symbols--rocket-launch-outline] text-[16px] bg-secondary-container text-on-secondary-container"
+					>rocket_launch</span
+				>
+				<span>+22.4%</span>
+				<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+					>vs last month</span
+				>
+			</div>
+		</div>
+		<!-- KPI Card 4: Hub Engagement -->
+		<div
+			class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+		>
+			<div
+				class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+			>
+				<span
+					class="icon-[material-symbols--analytics-outline] text-[64px] text-tertiary"
+					role="img"
+					aria-hidden="true"
+				></span>
+			</div>
+			<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+				Hub Engagement
+			</p>
+			<h3
+				class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+			>
+				86%
+			</h3>
+			<div
+				class="flex gap-1 items-center mt-4 text-tertiary font-label-lg text-label-lg"
+			>
+				<span
+					class="p-0.5 rounded-full icon-[material-symbols--vital-signs] text-[16px] bg-tertiary-container text-on-tertiary-container"
+					role="img"
+					aria-hidden="true"
+				></span>
+				<span>Stable</span>
+				<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+					>avg DAU/MAU</span
+				>
+			</div>
+		</div>
+	</div>
+	<!-- Middle Section: Chart & Activity -->
+	<div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+		<!-- Main Chart Pane (Spans 2 cols) -->
+		<div
+			class="flex overflow-hidden flex-col rounded-xl border lg:col-span-2 bg-surface-container-lowest border-outline-variant"
+		>
+			<div
+				class="flex justify-between items-center p-5 border-b border-surface-dim bg-surface"
+			>
+				<h3 class="font-title-lg text-title-lg text-on-surface">
+					Subscription vs Revenue Trend
+				</h3>
+				<button
+					class="p-1 rounded-full transition-colors text-on-surface-variant hover:bg-surface-container-highest"
+				>
+					<span class="icon-[material-symbols---outline]">more_vert</span>
+				</button>
+			</div>
+			<div
+				class="flex relative flex-1 items-end p-5 min-h-80 bg-surface-container-lowest"
+			>
+				<!-- Simulated Chart Grid Lines -->
+				<div
+					class="flex absolute inset-0 flex-col justify-between p-5 opacity-20 pointer-events-none"
+				>
+					<div class="w-full h-0 border-b border-outline-variant"></div>
+					<div class="w-full h-0 border-b border-outline-variant"></div>
+					<div class="w-full h-0 border-b border-outline-variant"></div>
+					<div class="w-full h-0 border-b border-outline-variant"></div>
+					<div class="w-full h-0 border-b border-outline-variant"></div>
+				</div>
+				<!-- Simulated Chart Data (SVG/CSS Hybrid) -->
+				<div class="flex z-10 gap-2 items-end px-2 pt-4 w-full h-70">
+					<!-- Revenue Bars (Primary) -->
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary-container rounded-t-md h-[40%] group-hover:bg-primary transition-colors relative"
+						>
+							<div
+								class="absolute -top-8 left-1/2 py-1 px-2 text-xs whitespace-nowrap rounded opacity-0 transition-opacity -translate-x-1/2 group-hover:opacity-100 bg-inverse-surface text-inverse-on-surface"
+							>
+								$42k
+							</div>
+						</div>
+						<span class="font-label-sm text-label-sm text-on-surface-variant"
+							>Jan</span
+						>
+					</div>
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary-container rounded-t-md h-[55%] group-hover:bg-primary transition-colors relative"
+						></div>
+						<span class="font-label-sm text-label-sm text-on-surface-variant"
+							>Feb</span
+						>
+					</div>
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary-container rounded-t-md h-[45%] group-hover:bg-primary transition-colors relative"
+						></div>
+						<span class="font-label-sm text-label-sm text-on-surface-variant"
+							>Mar</span
+						>
+					</div>
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary-container rounded-t-md h-[65%] group-hover:bg-primary transition-colors relative"
+						></div>
+						<span class="font-label-sm text-label-sm text-on-surface-variant"
+							>Apr</span
+						>
+					</div>
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary-container rounded-t-md h-[75%] group-hover:bg-primary transition-colors relative"
+						></div>
+						<span class="font-label-sm text-label-sm text-on-surface-variant"
+							>May</span
+						>
+					</div>
+					<div class="flex flex-col flex-1 gap-2 items-center group">
+						<div
+							class="w-full bg-primary rounded-t-md h-[90%] shadow-md relative"
+						>
+							<div
+								class="absolute -top-8 left-1/2 py-1 px-2 text-xs whitespace-nowrap rounded opacity-100 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface"
+							>
+								$84.2k
+							</div>
+						</div>
+						<span class="font-bold font-label-sm text-label-sm text-on-surface"
+							>Jun</span
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Recent Activity Pane (Spans 1 col) -->
+		<div
+			class="flex overflow-hidden flex-col rounded-xl border bg-surface-container-lowest border-outline-variant"
+		>
+			<div
+				class="flex justify-between items-center p-5 border-b border-surface-dim bg-surface"
+			>
+				<h3 class="font-title-lg text-title-lg text-on-surface">
+					Recent Activity
+				</h3>
+			</div>
+			<div class="overflow-y-auto flex-1 p-0">
+				<ul class="flex flex-col divide-y divide-surface-dim">
+					<!-- Activity Item 1 -->
+					<li
+						class="flex gap-4 items-start p-4 transition-colors hover:bg-surface-container-low"
+					>
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container shrink-0"
+						>
+							<span
+								class="icon-[material-symbols--person-add-outline] text-[20px]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<div class="flex-1">
+							<p class="font-body-md text-body-md text-on-surface">
+								<span class="font-semibold">Sarah Jenkins</span>
+								signed up via Premifly
+							</p>
+							<p
+								class="mt-1 font-label-sm text-label-sm text-on-surface-variant"
+							>
+								Premium Tier • 2 mins ago
+							</p>
+						</div>
+					</li>
+					<!-- Activity Item 2 -->
+					<li
+						class="flex gap-4 items-start p-4 transition-colors hover:bg-surface-container-low"
+					>
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container shrink-0"
+						>
+							<span
+								class="icon-[material-symbols--hub-outline] text-[20px]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<div class="flex-1">
+							<p class="font-body-md text-body-md text-on-surface">
+								New Hub Integration active from
+								<span class="font-semibold">Plug Network</span>
+							</p>
+							<p
+								class="mt-1 font-label-sm text-label-sm text-on-surface-variant"
+							>
+								System • 15 mins ago
+							</p>
+						</div>
+					</li>
+					<!-- Activity Item 3 -->
+					<li
+						class="flex gap-4 items-start p-4 transition-colors hover:bg-surface-container-low"
+					>
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-full bg-primary-container text-on-primary-container shrink-0"
+						>
+							<span
+								class="icon-[material-symbols--payments-outline] text-[20px]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<div class="flex-1">
+							<p class="font-body-md text-body-md text-on-surface">
+								Large subscription renewal processed
+							</p>
+							<p
+								class="mt-1 font-label-sm text-label-sm text-on-surface-variant"
+							>
+								Enterprise Plan • 1 hour ago
+							</p>
+						</div>
+					</li>
+					<!-- Activity Item 4 -->
+					<li
+						class="flex gap-4 items-start p-4 transition-colors hover:bg-surface-container-low"
+					>
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant shrink-0"
+						>
+							<span
+								class="icon-[material-symbols--edit-document-outline] text-[20px]"
+								role="img"
+								aria-hidden="true"
+							></span>
+						</div>
+						<div class="flex-1">
+							<p class="font-body-md text-body-md text-on-surface">
+								Admin <span class="font-semibold">M. Cole</span> updated Hub
+								settings
+							</p>
+							<p
+								class="mt-1 font-label-sm text-label-sm text-on-surface-variant"
+							>
+								Audit Log • 3 hours ago
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="p-3 text-center border-t border-surface-dim">
+				<button
+					class="transition-colors font-label-lg text-label-lg text-primary hover:text-on-primary-fixed-variant"
+				>
+					View All Activity
+				</button>
+			</div>
+		</div>
+	</div>
+</main>
