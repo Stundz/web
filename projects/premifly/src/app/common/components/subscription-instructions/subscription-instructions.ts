@@ -1,6 +1,5 @@
 import { NgOptimizedImage } from "@angular/common";
 import { Component, computed, inject, input } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute } from "@angular/router";
 import type { Model } from "shared";
 
