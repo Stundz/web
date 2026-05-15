@@ -186,18 +186,19 @@ body {
 						<span class="text-amber-300"
 							>Don't proceed if you're not ready to make your subscription now</span
 						>
-						@if (service() && account() && form().valid()) {
-						<premifly-subscription-instructions
-							[service]="service()!"
-							[account]="account()!"
-						/>
-						}
+						<!-- @if (service() && account() && form().valid()) { -->
+						<!-- <premifly-subscription-instructions -->
+						<!-- 	[service]="service()!" -->
+						<!-- 	[account]="account()!" -->
+						<!-- /> -->
+						<!-- } -->
 						<!-- Submit Button -->
 						<button
-							type="submit"
+							type="button"
 							matButton="filled"
 							class="mt-10 w-full"
 							[disabled]="form().invalid() || !form().touched() || form().submitting()"
+							(click)="openPaymentModal()"
 						>
 							<div class="flex gap-2 items-center">
 								Apply Now
