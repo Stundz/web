@@ -18,10 +18,12 @@
 		{{service().price | currency}}
 		<span class="text-label-sm font-label-sm text-on-surface-variant">/mo</span>
 	</div>
-	<div class="line-through text-label-sm font-label-sm text-primary">
-		$14.99/mo standard
-	</div>
 </div>
-<button matButton="outlined" class="py-2 w-full glass-panel! mt-2">
+<a
+	matButton="outlined"
+	class="py-2 w-full glass-panel! mt-2"
+	routerLink="/subscribe"
+	[queryParams]="{ service: service().id }"
+>
 	Claim Offer
-</button>
+</a>

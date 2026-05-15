@@ -1,20 +1,13 @@
 @reference "../../styles.css";
 
-::ng-deep .service-card {
-	@apply absolute;
-}
-
-::ng-deep .service-card:is(* + .service-card) {
-	background-color: red !important;
-	right: 100px;
-}
-
-::ng-deep .service-card:has(+ .service-card:has(+ .service-card)) {
-	background-color: yellow !important;
-	right: 100px;
-}
-
-::ng-deep .service-card:is(+ *.service-card) {
-	background-color: blue !important;
-	right: 40px;
-}
+/* ::ng-deep .service-card + * { */
+/* 	@apply bg-red-400! right-25!; */
+/* } */
+/**/
+/* ::ng-deep .service-card + * + * { */
+/* 	@apply bg-red-500! right-50!; */
+/* } */
+/**/
+/* ::ng-deep .service-card + * + * + * { */
+/* 	@apply bg-red-500! right-75!; */
+/* } */

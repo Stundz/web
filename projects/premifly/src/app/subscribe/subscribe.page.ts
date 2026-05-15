@@ -2,7 +2,6 @@ import { isPlatformBrowser, NgOptimizedImage } from "@angular/common";
 import { HttpClient, httpResource } from "@angular/common/http";
 import {
 	Component,
-	computed,
 	effect,
 	inject,
 	input,
@@ -22,6 +21,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -30,6 +30,7 @@ import { firstValueFrom, tap } from "rxjs";
 import type { Model } from "shared";
 import { environment } from "../../environments/environment";
 import { SubscriptionInstructions } from "../common/components/subscription-instructions/subscription-instructions";
+import { SubscriptionPayment } from "./common/components/subscription-payment/subscription-payment";
 
 @Component({
 	selector: "premifly-subscribe",
@@ -52,7 +53,10 @@ import { SubscriptionInstructions } from "../common/components/subscription-inst
 })
 export class SubscribePage {
 	user = input.required<Model.User | null>();
+
 	#snackBar = inject(MatSnackBar);
+	#dialog = inject(MatDialog);
+
 	services = httpResource<Array<Model.Premifly.Service>>(
 		() => `${environment.url.api}/premifly/services`,
 		{
@@ -208,5 +212,32 @@ export class SubscribePage {
 			this.loginUrl = `${environment.url.auth}/login${callback}`;
 			this.signupUrl = `${environment.url.auth}/signup${callback}`;
 		}
+	}
+
+	openPaymentModal() {
+		const dialogRef = this.#dialog.open(SubscriptionPayment, {
+			data: {
+				service: this.service()!,
+				account: this.account()!,
+				phone: this.form.phone().value(),
+				device_type: this.form.device_type().value(),
+			},
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				this.#snackBar.open(
+					`A confirmation email with instructions will be sent to ${this.user()?.email} after payment has been confirmed`,
+					"close",
+				);
+
+				this.form().reset({
+					service_id: "",
+					account_id: "",
+					device_type: "",
+					phone: this.user()?.phone || "",
+				});
+			}
+		});
 	}
 }

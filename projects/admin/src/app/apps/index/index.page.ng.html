@@ -1,0 +1,56 @@
+<main
+	class="flex flex-col flex-1 p-4 min-h-screen ml-rail-width bg-surface-bright"
+>
+	<!-- Page Content -->
+	<div class="flex-1 p-container-padding">
+		<div class="mx-auto max-w-7xl">
+			<div class="mb-8">
+				<h1 class="mb-2 font-headline-lg text-headline-lg text-on-surface">
+					Select Application
+				</h1>
+				<p class="font-body-lg text-body-lg text-on-surface-variant">
+					Choose an application environment to manage configurations, users, and
+					billing.
+				</p>
+			</div>
+			<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+				@for (app of apps; track app.name) {
+				<a [routerLink]="[app.url]">
+					<mat-card class="hover:shadow-2xl! group hover:scale-103">
+						<mat-card-content>
+							<div class="flex justify-between items-start mb-6">
+								<div
+									class="flex justify-center items-center w-14 h-14 rounded-lg transition-colors bg-surface-container text-primary group-hover:bg-primary-container group-hover:text-on-primary-container"
+								>
+									<span
+										class="text-3xl {{app.icon}}"
+										role="img"
+										aria-hidden="true"
+									></span>
+								</div>
+								<span
+									class="py-1 px-3 rounded-full border bg-secondary-container/30 text-on-secondary-container font-label-sm text-label-sm border-secondary-container/50"
+									>Active</span
+								>
+							</div>
+							<div class="flex-1">
+								<h2
+									class="mb-2 capitalize font-title-lg text-title-lg text-on-surface"
+								>
+									{{app.name}}
+								</h2>
+								<p
+									class="mb-6 font-body-md text-body-md text-on-surface-variant"
+								>
+									Authentication &amp; Sync. Manage user identities, sessions,
+									and third-party integrations.
+								</p>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</a>
+				}
+			</div>
+		</div>
+	</div>
+</main>
