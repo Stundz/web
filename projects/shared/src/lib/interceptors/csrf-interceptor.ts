@@ -30,12 +30,12 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 	let token: string | null;
 	let headers: { [k: string]: string | Array<string> } = {};
 
-	console.log(
-		isServerSideRequest ? "[SERVER]" : "[Client]",
-		serverReq ? "[REQUEST]" : "[Null]",
-		"for",
-		req.url,
-	);
+	// console.log(
+	// 	isServerSideRequest ? "[SERVER]" : "[Client]",
+	// 	serverReq ? "[REQUEST]" : "[Null]",
+	// 	"for",
+	// 	req.url,
+	// );
 
 	if (isServerSideRequest) {
 		if (serverReq) {
@@ -118,7 +118,7 @@ const extractSafeHeaders = (
 		h = object;
 	}
 
-	console.log("Raw headers", h);
+	// console.log("Raw headers", h);
 
 	const safeHeaders = ["cookie", "referer", "x-xsrf-token"];
 	const headers: { [k: string]: string | Array<string> } = {};
