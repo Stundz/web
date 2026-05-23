@@ -1,1 +1,152 @@
-<p>premifly works!</p>
+<div class="grid-container">
+	<h1 class="mat-h1">Dashboard</h1>
+	<div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2 lg:grid-cols-4">
+		<!-- KPI Card 1: Active Members -->
+		<a routerLink="users" class="rounded-xl">
+			<div
+				class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+			>
+				<div
+					class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+				>
+					<span
+						class="icon-[material-symbols--group-outline] text-[64px] text-primary"
+						role="img"
+						aria-hidden="true"
+					></span>
+				</div>
+				<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+					Active Members
+				</p>
+				<h3
+					class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+				>
+					12,480
+				</h3>
+				<div
+					class="flex gap-1 items-center mt-4 text-primary-container font-label-lg text-label-lg"
+				>
+					<span
+						class="p-0.5 rounded-full icon-[material-symbols--trending-up] text-[16px] bg-primary-container text-on-primary-container"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<span>+14.2%</span>
+					<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+						>vs last month</span
+					>
+				</div>
+			</div>
+		</a>
+		<!-- KPI Card 2: Total Revenue -->
+		<a class="rounded-xl" routerLink="services">
+			<div
+				class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+			>
+				<div
+					class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+				>
+					<span
+						class="icon-[material-symbols--payments-outline] text-[64px] text-primary"
+						role="img"
+						aria-hidden="true"
+					></span>
+				</div>
+				<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+					Total Revenue
+				</p>
+				<h3
+					class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+				>
+					$84.2K
+				</h3>
+				<div
+					class="flex gap-1 items-center mt-4 text-primary-container font-label-lg text-label-lg"
+				>
+					<span
+						class="p-0.5 rounded-full icon-[material-symbols--trending-up] text-[16px] bg-primary-container text-on-primary-container"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<span>+8.7%</span>
+					<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+						>vs last month</span
+					>
+				</div>
+			</div>
+		</a>
+		<!-- KPI Card 3: Subscription Growth -->
+		<a class="rounded-xl" routerLink="subscriptions">
+			<div
+				class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+			>
+				<div
+					class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+				>
+					<span
+						class="icon-[material-symbols--card-membership-outline] text-[64px] text-secondary"
+						role="img"
+						aria-hidden="true"
+					></span>
+				</div>
+				<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+					Subscription Growth
+				</p>
+				<h3
+					class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+				>
+					3,205
+				</h3>
+				<div
+					class="flex gap-1 items-center mt-4 text-secondary font-label-lg text-label-lg"
+				>
+					<span
+						class="p-0.5 rounded-full icon-[material-symbols--rocket-launch-outline] text-[16px] bg-secondary-container text-on-secondary-container"
+						>rocket_launch</span
+					>
+					<span>+22.4%</span>
+					<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+						>vs last month</span
+					>
+				</div>
+			</div>
+		</a>
+		<!-- KPI Card 4: Hub Engagement -->
+		<a class="rounded-xl" routerLink="accounts">
+			<div
+				class="flex overflow-hidden relative flex-col p-5 rounded-xl border transition-shadow hover:shadow-sm bg-surface-container-lowest border-outline-variant group"
+			>
+				<div
+					class="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20"
+				>
+					<span
+						class="icon-[material-symbols--analytics-outline] text-[64px] text-tertiary"
+						role="img"
+						aria-hidden="true"
+					></span>
+				</div>
+				<p class="mb-1 font-title-md text-title-md text-on-surface-variant">
+					Accounts
+				</p>
+				<h3
+					class="mt-2 tracking-tight font-display-lg text-display-lg text-on-surface"
+				>
+					86%
+				</h3>
+				<div
+					class="flex gap-1 items-center mt-4 text-tertiary font-label-lg text-label-lg"
+				>
+					<span
+						class="p-0.5 rounded-full icon-[material-symbols--vital-signs] text-[16px] bg-tertiary-container text-on-tertiary-container"
+						role="img"
+						aria-hidden="true"
+					></span>
+					<span>Stable</span>
+					<span class="ml-1 text-on-surface-variant font-body-md text-body-md"
+						>avg DAU/MAU</span
+					>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>

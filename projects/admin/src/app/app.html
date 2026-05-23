@@ -1,3 +1,9 @@
+@if (isLoading()) {
+<mat-progress-bar
+	mode="indeterminate"
+	class="fixed top-0 left-0 right-0 z-100 h-0.75!"
+></mat-progress-bar>
+}
 <nav
 	class="flex fixed top-0 left-0 z-50 flex-col items-center py-2 w-20 h-screen border-r bg-surface-container-low border-outline-variant dark:bg-surface-container dark:border-outline"
 >
@@ -33,6 +39,8 @@
 			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
 			routerLink="/apps"
 			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
+			[class.bg-primary-container]="appLink.isActive"
+			[class.text-on-primary-container!]="appLink.isActive"
 		>
 			<span
 				class="p-1 rounded-full icon-[mingcute--appstore-line] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
@@ -40,10 +48,17 @@
 				aria-hidden="true"
 				data-weight="fill"
 			></span>
-			<span class="w-full text-center font-label-sm text-label-sm truncate"
-				>Apps</span
-			>
+			<span class="w-full text-center font-label-sm text-label-sm truncate">
+				Apps
+			</span>
 		</a>
+		<a
+			class="hidden"
+			routerLink="/app"
+			routerLinkActive
+			#appLink="routerLinkActive"
+			[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
+		></a>
 		<a
 			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
 			routerLink="/users"

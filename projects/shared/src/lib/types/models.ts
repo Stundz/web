@@ -161,11 +161,14 @@ export namespace Model {
 			price: number;
 			enabled: boolean;
 			slug: string;
+			limit: number | null;
 		}
 
 		export interface Account extends Model {
 			email: string;
 			password: string;
+			code: string;
+			expires_at: string | null;
 			subscriptions_count: number;
 		}
 	}

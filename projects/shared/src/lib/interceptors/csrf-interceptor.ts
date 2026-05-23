@@ -30,12 +30,12 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 	let token: string | null;
 	let headers: { [k: string]: string | Array<string> } = {};
 
-	// console.log(
-	// 	isServerSideRequest ? "[SERVER]" : "[Client]",
-	// 	serverReq ? "[REQUEST]" : "[Null]",
-	// 	"for",
-	// 	req.url,
-	// );
+	console.log(
+		isServerSideRequest ? "[SERVER]" : "[Client]",
+		serverReq ? "[REQUEST]" : "[Null]",
+		"for",
+		req.url,
+	);
 
 	if (isServerSideRequest) {
 		if (serverReq) {

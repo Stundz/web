@@ -36,7 +36,6 @@ export class SubscriptionPayment {
 	#snackBar = inject(MatSnackBar);
 	data = inject<{
 		service: Model.Premifly.Service;
-		account: Model.Premifly.Account;
 		phone: string;
 		device_type: string;
 	}>(MAT_DIALOG_DATA);
@@ -44,7 +43,6 @@ export class SubscriptionPayment {
 	form = form(
 		signal({
 			service_id: this.data.service?.id,
-			account_id: this.data.account?.id,
 			payer: "",
 			phone: this.data.phone,
 			device_type: this.data.device_type,
@@ -65,7 +63,7 @@ export class SubscriptionPayment {
 					return firstValueFrom(
 						this.#http
 							.post(
-								`${environment.url.api}/premifly/subscription`,
+								`${environment.url.api}/premifly/service/${tree.service_id().value()}/subscription`,
 								tree().value(),
 							)
 							.pipe(

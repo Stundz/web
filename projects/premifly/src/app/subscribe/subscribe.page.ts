@@ -101,7 +101,6 @@ export class SubscribePage {
 	formModel = linkedSignal(
 		() => ({
 			service_id: "",
-			account_id: "",
 			device_type: "",
 			phone: this.user()?.phone || "",
 		}),
@@ -159,7 +158,6 @@ export class SubscribePage {
 									);
 									this.form().reset({
 										service_id: "",
-										account_id: "",
 										device_type: "",
 										phone: this.user()?.phone || "",
 									});
@@ -171,24 +169,6 @@ export class SubscribePage {
 		},
 	);
 
-	accounts = httpResource<Array<Model.Premifly.Account>>(
-		() =>
-			this.form.service_id().value()
-				? {
-						url: `${environment.url.api}/premifly/service/${this.form.service_id().value()}/accounts`,
-					}
-				: undefined,
-		{
-			defaultValue: [],
-		},
-	);
-
-	account = linkedSignal(() =>
-		this.accounts
-			.value()
-			.sort((a, b) => a.subscriptions_count - b.subscriptions_count)
-			.at(0),
-	);
 	service = signal<Model.Premifly.Service | undefined>(undefined);
 
 	serviceEffect = effect(() => {
@@ -198,11 +178,6 @@ export class SubscribePage {
 					.value()
 					.find((s) => s.id === this.form.service_id().value()),
 			);
-		}
-	});
-	accountEffect = effect(() => {
-		if (this.account()) {
-			this.form.account_id().value.set(this.account()!.id);
 		}
 	});
 
@@ -218,7 +193,6 @@ export class SubscribePage {
 		const dialogRef = this.#dialog.open(SubscriptionPayment, {
 			data: {
 				service: this.service()!,
-				account: this.account()!,
 				phone: this.form.phone().value(),
 				device_type: this.form.device_type().value(),
 			},
@@ -233,7 +207,6 @@ export class SubscribePage {
 
 				this.form().reset({
 					service_id: "",
-					account_id: "",
 					device_type: "",
 					phone: this.user()?.phone || "",
 				});

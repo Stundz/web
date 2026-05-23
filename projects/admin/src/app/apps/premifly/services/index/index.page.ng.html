@@ -1,0 +1,297 @@
+<div
+	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+>
+	<!-- Modern Header Block -->
+	<header
+		class="flex flex-col gap-4 justify-between mb-8 md:flex-row md:items-center"
+	>
+		<div class="flex flex-col gap-1">
+			<h1
+				class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+			>
+				Premifly Services
+			</h1>
+			<p class="text-sm text-slate-500 dark:text-slate-400">
+				Manage and configure premium subscription tiers, pricing, and access
+				parameters.
+			</p>
+		</div>
+
+		<!-- Create CTA Button -->
+		<a [routerLink]="['..', 'services', 'create']" matButton="filled">
+			<div class="flex gap-2 items-center">
+				<span
+					class="text-xl icon-[material-symbols--add-circle-outline]"
+				></span>
+				<span>Create Service</span>
+			</div>
+		</a>
+	</header>
+
+	<!-- Overview Stats Grid -->
+	<section class="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-3">
+		<!-- Card 1: Total Services -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 rounded-2xl bg-primary/10 text-primary dark:bg-primary/20"
+			>
+				<span class="text-2xl icon-[material-symbols--layers-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Total Services</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					{{ services().meta.total }}
+				</span>
+			</div>
+		</div>
+
+		<!-- Card 2: Active Services -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-emerald-500 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20"
+			>
+				<span
+					class="text-2xl icon-[material-symbols--check-circle-outline]"
+				></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Active This Page</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					{{ activeCount() }}
+				</span>
+			</div>
+		</div>
+
+		<!-- Card 3: Network Status -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
+			>
+				<span class="text-2xl icon-[material-symbols--hub-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>System Network</span
+				>
+				<span
+					class="inline-flex gap-1.5 items-center py-0.5 text-sm font-bold text-emerald-500"
+				>
+					<span
+						class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
+					></span>
+					Online
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Main Table Card Container -->
+	<main
+		class="overflow-hidden bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+	>
+		<div class="overflow-x-auto w-full">
+			<mat-table [dataSource]="services().data || []" class="w-full">
+				<!-- Icon Column -->
+				<ng-container matColumnDef="icon">
+					<mat-header-cell
+						*matHeaderCellDef
+						class="w-16! min-w-16! max-w-16!"
+					></mat-header-cell>
+					<mat-cell *matCellDef="let service" class="w-16! min-w-16! max-w-16!">
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-xl border shadow-sm bg-slate-50 border-slate-100 dark:bg-slate-900 dark:border-slate-800/80"
+						>
+							<stundz-premifly-service-logo
+								class="text-[24px]"
+								[service]="service"
+							/>
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Name Column -->
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef>Service Name</mat-header-cell>
+					<mat-cell *matCellDef="let service">
+						<div class="flex flex-col gap-0.5">
+							<span
+								class="font-bold capitalize text-slate-800 dark:text-slate-200"
+							>
+								{{ service.name }}
+							</span>
+							<span class="text-xs text-slate-400 dark:text-slate-500">
+								Slug: /{{ service.slug }}
+							</span>
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Price Column -->
+				<ng-container matColumnDef="price">
+					<mat-header-cell *matHeaderCellDef>Monthly Price</mat-header-cell>
+					<mat-cell *matCellDef="let service">
+						<span class="font-semibold text-slate-700 dark:text-slate-300">
+							XAF {{ service.price | number : "1.0-2" }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Accounts Limit Column -->
+				<ng-container matColumnDef="limit">
+					<mat-header-cell *matHeaderCellDef>Account Limit</mat-header-cell>
+					<mat-cell *matCellDef="let service">
+						@if (service.limit !== null && service.limit !== undefined) {
+						<span
+							class="inline-flex gap-1.5 items-center py-1 px-2.5 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full border border-indigo-100 dark:text-indigo-300 dark:bg-indigo-950/40 dark:border-indigo-900/50"
+						>
+							<span
+								class="text-sm icon-[material-symbols--group-outline]"
+							></span>
+							{{ service.limit }}
+							Accounts
+						</span>
+						} @else {
+						<span
+							class="inline-flex gap-1.5 items-center py-1 px-2.5 text-xs font-semibold rounded-full border text-slate-500 bg-slate-50 border-slate-100 dark:text-slate-400 dark:bg-slate-900/40 dark:border-slate-800/80"
+						>
+							<span
+								class="text-sm icon-[material-symbols--all-inclusive]"
+							></span>
+							Unlimited
+						</span>
+						}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Status Column -->
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+					<mat-cell *matCellDef="let service">
+						@if (service.enabled) {
+						<span
+							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold text-emerald-700 bg-emerald-50 rounded-full border dark:text-emerald-300 border-emerald-200/50 dark:bg-emerald-950/40 dark:border-emerald-900/50"
+						>
+							<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+							Active
+						</span>
+						} @else {
+						<span
+							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold rounded-full border text-slate-500 bg-slate-100 border-slate-200 dark:text-slate-400 dark:bg-slate-800/50 dark:border-slate-700/50"
+						>
+							<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+							Disabled
+						</span>
+						}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Actions Column -->
+				<ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef class="flex justify-end pr-6"
+						>Actions</mat-header-cell
+					>
+					<mat-cell
+						*matCellDef="let service"
+						class="flex gap-2 justify-end pr-6"
+					>
+						<!-- Edit Action -->
+						<button
+							mat-icon-button
+							matTooltip="Edit Service Tiers"
+							(click)="editService(service, $event)"
+							class="inline-flex justify-center items-center w-9 h-9 rounded-full transition-colors duration-150 text-slate-500 bg-slate-50 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:bg-slate-800 hover:text-primary hover:bg-slate-100"
+						>
+							<span class="text-lg icon-[material-symbols--edit-outline]"></span>
+						</button>
+
+						<!-- Inline Confirmation Delete Action -->
+						<button
+							mat-button
+							[class.bg-red-500]="confirmDeleteId() === service.id"
+							[class.text-white]="confirmDeleteId() === service.id"
+							[class.border-red-600]="confirmDeleteId() === service.id"
+							[class.hover:bg-red-600]="confirmDeleteId() === service.id"
+							(click)="deleteService(service, $event)"
+							class="flex gap-1 justify-center items-center py-1 px-3 w-24 text-xs font-bold rounded-xl border transition-all duration-200"
+							[class.bg-slate-50]="confirmDeleteId() !== service.id"
+							[class.dark:bg-slate-900/50]="confirmDeleteId() !== service.id"
+							[class.text-red-500]="confirmDeleteId() !== service.id"
+							[class.border-slate-200]="confirmDeleteId() !== service.id"
+							[class.dark:border-slate-800/80]="confirmDeleteId() !== service.id"
+							[class.hover:bg-red-50]="confirmDeleteId() !== service.id"
+							[class.dark:hover:bg-red-950/20]="confirmDeleteId() !== service.id"
+							[class.hover:border-red-200]="confirmDeleteId() !== service.id"
+							[matTooltip]="
+								confirmDeleteId() === service.id
+									? 'Click again to permanently delete'
+									: 'Delete Service'
+							"
+						>
+              <div class="flex gap-1 items-center">
+                @if (confirmDeleteId() === service.id) {
+                <span
+                  class="text-sm animate-pulse icon-[material-symbols--check-circle-outline]"
+                ></span>
+                <span>Confirm</span>
+                } @else {
+                <span
+                  class="text-sm icon-[material-symbols--delete-outline]"
+                ></span>
+                <span>Delete</span>
+                }
+              </div>
+						</button>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Header & Row Bindings -->
+				<mat-header-row
+					*matHeaderRowDef="[
+						'icon',
+						'name',
+						'price',
+						'limit',
+						'status',
+						'actions'
+					]"
+				></mat-header-row>
+				<mat-row
+					*matRowDef="
+						let service;
+						columns: ['icon', 'name', 'price', 'limit', 'status', 'actions']
+					"
+					class="border-b transition-colors duration-200 cursor-pointer border-slate-100 dark:hover:bg-slate-900/40 dark:border-slate-900 hover:bg-slate-50/70"
+					[routerLink]="['..', 'service', service.id]"
+				></mat-row>
+			</mat-table>
+		</div>
+
+		<!-- Table Paginator Footer -->
+		<footer
+			class="flex justify-end p-4 border-t border-slate-100 bg-slate-50/50 dark:bg-slate-950/20 dark:border-slate-900"
+		>
+			<mat-paginator
+				[pageSizeOptions]="[services().meta.per_page, 5, 10, 20].sort()"
+				[pageIndex]="services().meta.current_page - 1"
+				[pageSize]="services().meta.per_page"
+				[length]="services().meta.total"
+				(page)="handlePaginatorEvent($event)"
+				showFirstLastButtons
+				class="bg-transparent!"
+			/>
+		</footer>
+	</main>
+</div>

@@ -11,8 +11,8 @@ export const routes: Routes = [
 		children: [
 			{
 				path: "premifly",
-				loadComponent: () =>
-					import("./premifly/premifly.page").then((m) => m.PremiflyPage),
+				loadChildren: () =>
+					import("./premifly/premifly.routes").then((m) => m.routes),
 			},
 			{
 				path: "plug",

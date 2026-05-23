@@ -1,0 +1,323 @@
+<div
+	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+>
+	<!-- Modern Header Block -->
+	<header
+		class="flex flex-col gap-4 justify-between mb-8 md:flex-row md:items-center"
+	>
+		<div class="flex flex-col gap-1">
+			<h1
+				class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+			>
+				Premifly Accounts
+			</h1>
+			<p class="text-sm text-slate-500 dark:text-slate-400">
+				Manage security credentials, email bindings, and subscription linkage parameters.
+			</p>
+		</div>
+
+		<!-- Create CTA Button -->
+		<a [routerLink]="['..', 'accounts', 'create']" matButton="filled" class="no-underline">
+			<div class="flex gap-2 items-center">
+				<span
+					class="text-xl icon-[material-symbols--add-circle-outline]"
+				></span>
+				<span>Create Account</span>
+			</div>
+		</a>
+	</header>
+
+	<!-- Overview Stats Grid -->
+	<section class="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-3">
+		<!-- Card 1: Total Accounts -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 rounded-2xl bg-primary/10 text-primary dark:bg-primary/20"
+			>
+				<span class="text-2xl icon-[material-symbols--shield-person-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Total Accounts</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					{{ accounts().meta.total }}
+				</span>
+			</div>
+		</div>
+
+		<!-- Card 2: Total Linked Subscriptions -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-violet-500 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20"
+			>
+				<span
+					class="text-2xl icon-[material-symbols--card-membership-outline]"
+				></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Linked Subscriptions</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					{{ totalSubscriptions() }}
+				</span>
+			</div>
+		</div>
+
+		<!-- Card 3: Network Status -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
+			>
+				<span class="text-2xl icon-[material-symbols--lock-reset-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Security Core</span
+				>
+				<span
+					class="inline-flex gap-1.5 items-center py-0.5 text-sm font-bold text-emerald-500"
+				>
+					<span
+						class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
+					></span>
+					Encrypted
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Main Table Card Container -->
+	<main
+		class="overflow-hidden bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+	>
+		<div class="overflow-x-auto w-full">
+			<mat-table [dataSource]="accounts().data || []" class="w-full">
+				<!-- Icon / Initial Avatar Column -->
+				<ng-container matColumnDef="avatar">
+					<mat-header-cell
+						*matHeaderCellDef
+						class="w-16! min-w-16! max-w-16! pl-6"
+					></mat-header-cell>
+					<mat-cell *matCellDef="let account" class="w-16! min-w-16! max-w-16! pl-6">
+						<div
+							class="flex justify-center items-center w-10 h-10 rounded-full border shadow-sm bg-indigo-500/10 text-indigo-600 border-indigo-200/50 text-xs font-black dark:text-indigo-400 dark:border-indigo-900/30"
+						>
+							{{ account.email ? account.email.trim().charAt(0).toUpperCase() : 'A' }}
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Email Column -->
+				<ng-container matColumnDef="email">
+					<mat-header-cell *matHeaderCellDef>Account Email</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						<div class="flex flex-col gap-0.5">
+							<span
+								class="font-bold text-slate-800 dark:text-slate-200"
+							>
+								{{ account.email }}
+							</span>
+							<span class="text-xs text-slate-400 dark:text-slate-500 font-medium">
+								ID: {{ account.id }}
+							</span>
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Password Column -->
+				<ng-container matColumnDef="password">
+					<mat-header-cell *matHeaderCellDef>Password</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						<button
+							matTooltip="Click to copy Password"
+							(click)="copyToClipboard(account.password, 'Password', account.id, 'password', $event)"
+							class="flex gap-2 items-center text-slate-500 dark:text-slate-400 font-medium text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/80 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
+						>
+							@if (copiedFieldId()?.id === account.id && copiedFieldId()?.type === 'password') {
+								<span class="text-sm text-emerald-500 icon-[material-symbols--check-circle-outline]"></span>
+								<span class="font-mono text-[9px] text-emerald-500 font-bold">Copied!</span>
+							} @else {
+								<span class="text-base text-slate-400 dark:text-slate-500 icon-[material-symbols--lock-outline]"></span>
+								<span class="font-mono tracking-widest text-[9px] text-slate-400">••••••••</span>
+							}
+						</button>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Code Column -->
+				<ng-container matColumnDef="code">
+					<mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						<button
+							matTooltip="Click to copy Code"
+							(click)="copyToClipboard(account.code, 'Code', account.id, 'code', $event)"
+							class="flex gap-2 items-center text-slate-500 dark:text-slate-400 font-medium text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/80 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
+						>
+							@if (copiedFieldId()?.id === account.id && copiedFieldId()?.type === 'code') {
+								<span class="text-sm text-emerald-500 icon-[material-symbols--check-circle-outline]"></span>
+								<span class="font-mono text-[9px] text-emerald-500 font-bold">Copied!</span>
+							} @else {
+								<span class="text-base text-slate-400 dark:text-slate-500 icon-[material-symbols--key-outline]"></span>
+								<span class="font-mono tracking-widest text-[9px] text-slate-400">••••••••</span>
+							}
+						</button>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Created At Column -->
+				<ng-container matColumnDef="created_at">
+					<mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						<span class="text-xs font-semibold text-slate-600 dark:text-slate-400">
+							{{ account.created_at | date : 'dd/MM/yyyy HH:mm' }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Updated At Column -->
+				<ng-container matColumnDef="updated_at">
+					<mat-header-cell *matHeaderCellDef>Updated At</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						<span class="text-xs font-semibold text-slate-600 dark:text-slate-400">
+							{{ account.updated_at | date : 'dd/MM/yyyy HH:mm' }}
+						</span>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Expires At Column -->
+				<ng-container matColumnDef="expires_at">
+					<mat-header-cell *matHeaderCellDef>Expires At</mat-header-cell>
+					<mat-cell *matCellDef="let account">
+						@if (account.expires_at) {
+							<span class="inline-flex gap-1 items-center py-1 px-2.5 text-[11px] font-bold text-amber-700 bg-amber-500/10 rounded-full border border-amber-500/20 dark:text-amber-400">
+								<span class="text-sm icon-[material-symbols--schedule-outline]"></span>
+								{{ account.expires_at | date : 'dd/MM/yyyy HH:mm' }}
+							</span>
+						} @else {
+							<span class="inline-flex gap-1 items-center py-1 px-2.5 text-[11px] font-bold text-emerald-700 bg-emerald-500/10 rounded-full border border-emerald-500/20 dark:text-emerald-400">
+								<span class="text-sm icon-[material-symbols--all-inclusive]"></span>
+								Never Expires
+							</span>
+						}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Actions Column -->
+				<ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef class="flex justify-end pr-6"
+						>Actions</mat-header-cell
+					>
+					<mat-cell
+						*matCellDef="let account"
+						class="flex gap-2 justify-end pr-6"
+					>
+						<!-- Edit Action -->
+						<button
+							mat-icon-button
+							matTooltip="Edit Account Credentials"
+							(click)="editAccount(account, $event)"
+							class="inline-flex justify-center items-center w-9 h-9 rounded-full transition-colors duration-150 text-slate-500 bg-slate-50 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:bg-slate-800 hover:text-primary hover:bg-slate-100"
+						>
+							<span class="text-lg icon-[material-symbols--edit-outline]"></span>
+						</button>
+
+						<!-- Inline Confirmation Delete Action -->
+						<button
+							mat-button
+							[class.bg-red-500]="confirmDeleteId() === account.id"
+							[class.text-white]="confirmDeleteId() === account.id"
+							[class.border-red-600]="confirmDeleteId() === account.id"
+							[class.hover:bg-red-600]="confirmDeleteId() === account.id"
+							(click)="deleteAccount(account, $event)"
+							class="flex gap-1 justify-center items-center py-1 px-3 w-24 text-xs font-bold rounded-xl border transition-all duration-200"
+							[class.bg-slate-50]="confirmDeleteId() !== account.id"
+							[class.dark:bg-slate-900/50]="confirmDeleteId() !== account.id"
+							[class.text-red-500]="confirmDeleteId() !== account.id"
+							[class.border-slate-200]="confirmDeleteId() !== account.id"
+							[class.dark:border-slate-800/80]="confirmDeleteId() !== account.id"
+							[class.hover:bg-red-50]="confirmDeleteId() !== account.id"
+							[class.dark:hover:bg-red-950/20]="confirmDeleteId() !== account.id"
+							[class.hover:border-red-200]="confirmDeleteId() !== account.id"
+							[matTooltip]="
+								confirmDeleteId() === account.id
+									? 'Click again to permanently delete'
+									: 'Delete Account'
+							"
+						>
+							<div class="flex gap-1 items-center">
+								@if (confirmDeleteId() === account.id) {
+								<span
+									class="text-sm animate-pulse icon-[material-symbols--check-circle-outline]"
+								></span>
+								<span>Confirm</span>
+								} @else {
+								<span
+									class="text-sm icon-[material-symbols--delete-outline]"
+								></span>
+								<span>Delete</span>
+								}
+							</div>
+						</button>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Header & Row Bindings -->
+				<mat-header-row
+					*matHeaderRowDef="[
+						'avatar',
+						'email',
+						'password',
+						'code',
+						'created_at',
+						'updated_at',
+						'expires_at',
+						'actions'
+					]"
+				></mat-header-row>
+				<mat-row
+					*matRowDef="
+						let account;
+						columns: [
+							'avatar',
+							'email',
+							'password',
+							'code',
+							'created_at',
+							'updated_at',
+							'expires_at',
+							'actions'
+						]
+					"
+					class="border-b transition-colors duration-200 cursor-pointer border-slate-100 dark:hover:bg-slate-900/40 dark:border-slate-900 hover:bg-slate-50/70"
+					[routerLink]="['..', 'account', account.id]"
+				></mat-row>
+			</mat-table>
+		</div>
+
+		<!-- Table Paginator Footer -->
+		<footer
+			class="flex justify-end p-4 border-t border-slate-100 bg-slate-50/50 dark:bg-slate-950/20 dark:border-slate-900"
+		>
+			<mat-paginator
+				[pageSizeOptions]="[accounts().meta.per_page, 5, 10, 20].sort()"
+				[pageIndex]="accounts().meta.current_page - 1"
+				[pageSize]="accounts().meta.per_page"
+				[length]="accounts().meta.total"
+				(page)="handlePaginatorEvent($event)"
+				showFirstLastButtons
+				class="bg-transparent!"
+			/>
+		</footer>
+	</main>
+</div>
