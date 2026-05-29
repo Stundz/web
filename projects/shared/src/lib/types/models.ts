@@ -159,14 +159,28 @@ export namespace Model {
 		export interface Service extends Model {
 			name: string;
 			price: number;
+			icon: string;
 			enabled: boolean;
 			slug: string;
+			limit: number | null;
+			credentials?: {
+				code: string;
+				password: string;
+				expires_at: string | null;
+			};
 		}
 
 		export interface Account extends Model {
 			email: string;
-			password: string;
+			services: Array<Service>;
+			services_count: number;
+			subscribers_count: number;
 			subscriptions_count: number;
+			credentials?: {
+				password: string;
+				code: string;
+				expires_at: string | null;
+			};
 		}
 	}
 }

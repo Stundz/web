@@ -1,0 +1,384 @@
+<div
+	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+>
+	<!-- Back Button & Header Action -->
+	<header
+		class="flex flex-col gap-4 justify-between mb-8 md:flex-row md:items-center"
+	>
+		<div class="flex flex-col gap-2">
+			<a
+				routerLink="/app/premifly/services"
+				class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
+			>
+				<span
+					class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
+				></span>
+				<span>Back to Services</span>
+			</a>
+			<div class="flex gap-4 items-center">
+				<div
+					class="flex justify-center items-center w-14 h-14 bg-white rounded-2xl border shadow-md border-outline-variant dark:bg-slate-950 dark:border-outline/40"
+				>
+					<img [ngSrc]="service().icon" class="size-8">
+				</div>
+				<div class="flex flex-col">
+					<h1
+						class="flex gap-2.5 items-center text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+					>
+						{{ service().name }}
+						@if (service().enabled) {
+						<span
+							class="inline-flex py-0.5 px-2 font-black tracking-wider text-emerald-500 uppercase rounded border text-[10px] bg-emerald-500/10 border-emerald-500/20"
+							>Active</span
+						>
+						} @else {
+						<span
+							class="inline-flex py-0.5 px-2 font-black tracking-wider uppercase rounded border text-[10px] bg-slate-500/10 text-slate-500 border-slate-500/20"
+							>Disabled</span
+						>
+						}
+					</h1>
+					<p class="text-xs text-slate-400 dark:text-slate-500">
+						Subscription specifications and detailed subscriber list logs.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Edit Action Button -->
+		<a [routerLink]="['edit']" matButton="filled">
+			<div class="flex items-center">
+				<mat-icon>
+					<span class="text-xl icon-[material-symbols--edit-outline]"></span>
+				</mat-icon>
+
+				<span>Edit Service</span>
+			</div>
+		</a>
+	</header>
+
+	<!-- Summary Stats Banner Grid -->
+	<section class="grid grid-cols-1 gap-6 mb-8 min-[850px]:grid-cols-3">
+		<!-- Monthly Price -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
+			>
+				<span class="text-2xl icon-[material-symbols--payments-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Monthly Price</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100"
+					>XAF {{ service().price | number : "1.0-2" }}</span
+				>
+			</div>
+		</div>
+
+		<!-- Accounts Limitation -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-violet-500 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20"
+			>
+				<span class="text-2xl icon-[material-symbols--group-outline]"></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Accounts Limit</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					{{ service().limit !== null ? service().limit + " Accounts" : "Unlimited" }}
+				</span>
+			</div>
+		</div>
+
+		<!-- Subscribers Volume -->
+		<div
+			class="flex gap-4 items-center p-6 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+		>
+			<div
+				class="flex justify-center items-center w-12 h-12 text-pink-500 rounded-2xl bg-pink-500/10 dark:bg-pink-500/20"
+			>
+				<span
+					class="text-2xl icon-[material-symbols--group-add-outline]"
+				></span>
+			</div>
+			<div class="flex flex-col">
+				<span
+					class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Total Subscribers</span
+				>
+				<span class="text-2xl font-black text-slate-800 dark:text-slate-100"
+					>{{
+					subscribers()?.meta?.total || 0
+				}}</span
+				>
+			</div>
+		</div>
+	</section>
+
+	<!-- Advanced Query & Filter Controls Panel -->
+	<section
+		class="flex flex-col gap-6 p-6 mb-8 bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+	>
+		<div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+			<!-- Search Query Input -->
+			<div class="relative w-full max-w-xl">
+				<span
+					class="absolute left-4 top-1/2 text-xl -translate-y-1/2 text-slate-400 icon-[material-symbols--search]"
+				></span>
+				<input
+					[formField]="form.q"
+					placeholder="Search subscribers by name, email, phone..."
+					type="text"
+					class="pr-4 pl-12 w-full h-12 text-sm rounded-2xl border transition-all outline-none focus:ring-1 bg-slate-50/50 border-slate-200 text-slate-800 dark:bg-slate-900/40 dark:border-slate-800 dark:text-slate-100 focus:border-primary focus:ring-primary"
+				>
+			</div>
+
+			<!-- Collapsible Filters Toggle Button -->
+			<button
+				(click)="toggleFilters()"
+				class="inline-flex gap-2 justify-center items-center py-2.5 px-4 w-full text-xs font-bold rounded-xl border transition-colors duration-200 md:w-auto"
+				[class.bg-primary/5]="isFiltersExpanded()"
+				[class.text-primary]="isFiltersExpanded()"
+				[class.border-primary/20]="isFiltersExpanded()"
+				[class.bg-slate-50]="!isFiltersExpanded()"
+				[class.text-slate-700]="!isFiltersExpanded()"
+				[class.border-slate-200]="!isFiltersExpanded()"
+				[class.dark:bg-slate-900]="!isFiltersExpanded()"
+				[class.dark:text-slate-300]="!isFiltersExpanded()"
+				[class.dark:border-slate-800]="!isFiltersExpanded()"
+			>
+				<span
+					class="text-lg icon-[material-symbols--filter-list-outline]"
+				></span>
+				<span>Advanced Filters</span>
+				<span
+					class="text-xs transition-transform duration-200 icon-[material-symbols--keyboard-arrow-down]"
+					[class.rotate-180]="isFiltersExpanded()"
+				></span>
+			</button>
+		</div>
+		<!-- Filters Panel Body -->
+		@if (isFiltersExpanded()) {
+		<div
+			class="grid grid-cols-1 gap-6 p-5 rounded-2xl border sm:grid-cols-2 border-slate-100 bg-slate-50/50 animate-fade-in dark:bg-slate-900/30 dark:border-slate-800/80"
+		>
+			<!-- Subscription Status Filter -->
+			<div class="flex flex-col gap-3">
+				<span
+					class="text-xs font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Subscription Status</span
+				>
+				<mat-radio-group
+					[formField]="form.status"
+					class="flex flex-col gap-y-2"
+				>
+					<mat-radio-button value="">All Statuses</mat-radio-button>
+					<mat-radio-button value="active">Active</mat-radio-button>
+					<mat-radio-button value="inactive">Inactive</mat-radio-button>
+					<mat-radio-button value="expired">Expired</mat-radio-button>
+				</mat-radio-group>
+			</div>
+
+			<!-- Signup Period Filter -->
+			<div class="flex flex-col gap-3">
+				<span
+					class="text-xs font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+					>Sign-up Period</span
+				>
+				<mat-radio-group
+					[formField]="form.period"
+					class="flex flex-col gap-y-1"
+				>
+					<mat-radio-button value="">All Time</mat-radio-button>
+					<mat-radio-button value="day">Today</mat-radio-button>
+					<mat-radio-button value="week">This Week</mat-radio-button>
+					<mat-radio-button value="month">This Month</mat-radio-button>
+					<mat-radio-button value="year">This Year</mat-radio-button>
+				</mat-radio-group>
+			</div>
+		</div>
+		}
+	</section>
+
+	<!-- Subscribers Table Card Container -->
+	<main
+		class="overflow-hidden bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950"
+	>
+		<div class="overflow-x-auto w-full">
+			<mat-table
+				[dataSource]="subscribers().data || []"
+				[trackBy]="(index, el) => el.id"
+				class="w-full"
+			>
+				<!-- Name/Profile Avatar Column -->
+				<ng-container matColumnDef="name">
+					<mat-header-cell *matHeaderCellDef class="pl-6"
+						>Subscriber</mat-header-cell
+					>
+					<mat-cell *matCellDef="let user" class="pl-6">
+						<div class="flex gap-3.5 items-center">
+							<!-- Stylized Initials Circle Avatar -->
+							<div
+								class="flex justify-center items-center w-10 h-10 rounded-full border text-xs font-black shadow-sm shrink-0 {{
+									getAvatarColor(user.first_name, user.last_name)
+								}}"
+							>
+								{{ getInitials(user.first_name, user.last_name) }}
+							</div>
+							<div class="flex flex-col">
+								<span
+									class="font-bold capitalize text-slate-800 dark:text-slate-200"
+								>
+									{{ user.first_name }} {{ user.last_name }}
+								</span>
+								<span
+									class="font-medium text-[11px] text-slate-400 dark:text-slate-500"
+								>
+									ID: {{ user.id }}
+								</span>
+							</div>
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Contact Info Column -->
+				<ng-container matColumnDef="contact">
+					<mat-header-cell *matHeaderCellDef>Contact</mat-header-cell>
+					<mat-cell *matCellDef="let user">
+						<div class="flex flex-col gap-0.5">
+							<span class="font-semibold text-slate-700 dark:text-slate-300">
+								{{ user.email }}
+							</span>
+							<span
+								class="text-xs font-medium text-slate-400 dark:text-slate-500"
+							>
+								{{ user.phone || 'No phone number' }}
+							</span>
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Expiry / Subscription Accounts Loop Column -->
+				<ng-container matColumnDef="expiry">
+					<mat-header-cell *matHeaderCellDef class="pr-6"
+						>Linked Subscription Accounts</mat-header-cell
+					>
+					<mat-cell *matCellDef="let user" class="pr-6">
+						<div class="flex flex-col gap-2.5 py-3 w-full">
+							@for (account of user.premifly_accounts; track
+							account.subscription.id) {
+							<div
+								class="flex flex-col gap-1.5 p-3 rounded-2xl border border-slate-100 bg-slate-50/50 dark:border-slate-800/40 dark:bg-slate-900/30"
+							>
+								<div class="flex gap-2 justify-between items-center">
+									<span
+										class="text-xs font-bold text-slate-700 truncate max-w-44 dark:text-slate-300"
+										>{{ account.email }}</span
+									>
+									<!-- Expiry Status Badges -->
+									@if (account.subscription.expires_at === null) {
+									<span
+										class="inline-flex gap-1 items-center py-0.5 px-2 font-bold text-amber-600 bg-amber-50 rounded-full border dark:text-amber-400 text-[10px] border-amber-200/50 dark:bg-amber-950/20 dark:border-amber-900/30"
+									>
+										Inactive
+									</span>
+									} @else if
+									(isActiveSubscription(account.subscription.expires_at)) {
+									<span
+										class="inline-flex gap-1 items-center py-0.5 px-2 font-bold text-emerald-600 bg-emerald-50 rounded-full border dark:text-emerald-400 text-[10px] border-emerald-200/50 dark:bg-emerald-950/20 dark:border-emerald-900/30"
+									>
+										Active
+									</span>
+									} @else {
+									<span
+										class="inline-flex gap-1 items-center py-0.5 px-2 font-bold text-rose-600 bg-rose-50 rounded-full border dark:text-rose-400 text-[10px] border-rose-200/50 dark:bg-rose-950/20 dark:border-rose-900/30"
+									>
+										Expired
+									</span>
+									}
+								</div>
+
+								<div
+									class="grid grid-cols-2 gap-y-1 gap-x-2 mt-1 font-medium text-[11px] text-slate-400 dark:text-slate-500"
+								>
+									<div class="flex gap-1 items-center">
+										<span
+											class="text-slate-400 icon-[material-symbols--phone-iphone]"
+										></span>
+										<span>{{ account.subscription.device_type ?? 'N/A' }}</span>
+									</div>
+									<div class="flex gap-1 justify-end items-center">
+										<span
+											class="text-slate-400 icon-[material-symbols--calendar-today-outline]"
+										></span>
+										<span
+											>Sub:
+											{{
+												account.subscription.created_at | date : 'dd-MM-yyyy'
+											}}</span
+										>
+									</div>
+									@if (account.subscription.expires_at) {
+									<div
+										class="flex col-span-2 gap-1 items-center mt-0.5 text-slate-400"
+									>
+										<span
+											class="text-slate-400 icon-[material-symbols--timer-outline]"
+										></span>
+										<span
+											>Expires:
+											{{
+												account.subscription.expires_at
+													| date : 'dd-MM-yyyy HH:mm'
+											}}</span
+										>
+									</div>
+									}
+								</div>
+							</div>
+							} @empty {
+							<span
+								class="text-xs italic font-medium text-slate-400 dark:text-slate-500"
+								>No linked accounts found.</span
+							>
+							}
+						</div>
+					</mat-cell>
+				</ng-container>
+
+				<!-- Header & Row Bindings -->
+				<mat-header-row
+					*matHeaderRowDef="['name', 'contact', 'expiry']"
+				></mat-header-row>
+				<mat-row
+					*matRowDef="let row; columns: ['name', 'contact', 'expiry']"
+					class="border-b border-slate-100 dark:border-slate-900"
+				></mat-row>
+			</mat-table>
+		</div>
+
+		<!-- Table Paginator Footer -->
+		<footer
+			class="flex justify-end p-4 border-t border-slate-100 bg-slate-50/50 dark:bg-slate-950/20 dark:border-slate-900"
+		>
+			<mat-paginator
+				[pageSizeOptions]="pageSizes()"
+				[pageIndex]="subscribers().meta.current_page - 1"
+				[pageSize]="subscribers().meta.per_page"
+				[length]="subscribers().meta.total"
+				(page)="handlePaginatorEvent($event)"
+				showFirstLastButtons
+				class="bg-transparent!"
+			/>
+		</footer>
+	</main>
+</div>

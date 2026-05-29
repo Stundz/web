@@ -1,0 +1,83 @@
+:host {
+	display: block;
+}
+
+/* Premium Entry Fade-In Animation */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Table Overrides */
+.mat-mdc-table {
+	background: transparent !important;
+}
+
+.mat-mdc-header-row {
+	background-color: var(--slate-50, #f8fafc) !important;
+	border-bottom: 1px solid var(--slate-100, #e2e8f0) !important;
+	height: 56px !important;
+}
+
+:global(.dark) .mat-mdc-header-row {
+	background-color: rgba(15, 23, 42, 0.5) !important;
+	border-bottom: 1px solid rgba(51, 65, 85, 0.5) !important;
+}
+
+.mat-mdc-header-cell {
+	color: var(--slate-500, #64748b) !important;
+	font-weight: 700 !important;
+	font-size: 0.75rem !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.05em !important;
+}
+
+:global(.dark) .mat-mdc-header-cell {
+	color: var(--slate-400, #94a3b8) !important;
+}
+
+.mat-mdc-cell {
+	font-size: 0.875rem !important;
+	color: var(--slate-700, #334155) !important;
+	padding-top: 12px !important;
+	padding-bottom: 12px !important;
+}
+
+:global(.dark) .mat-mdc-cell {
+	color: var(--slate-300, #cbd5e1) !important;
+}
+
+.mat-mdc-row {
+	height: auto !important;
+	min-height: 72px !important;
+	border-bottom-color: var(--slate-100, #e2e8f0) !important;
+}
+
+:global(.dark) .mat-mdc-row {
+	border-bottom-color: rgba(51, 65, 85, 0.3) !important;
+}
+
+/* Fixes for Action Button layouts inside cells */
+.mat-mdc-cell button {
+	font-family: inherit !important;
+}
+
+/* Custom Paginator Override to merge with our table footer design */
+::ng-deep .mat-mdc-paginator {
+	background-color: transparent !important;
+	color: var(--slate-600, #475569) !important;
+}
+
+:global(.dark) ::ng-deep .mat-mdc-paginator {
+	color: var(--slate-400, #94a3b8) !important;
+}

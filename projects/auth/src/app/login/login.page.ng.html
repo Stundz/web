@@ -44,7 +44,13 @@
 				<div
 					class="flex justify-center items-center w-12 h-12 rounded-full bg-primary-container text-on-primary-container"
 				>
-					<span class="material-symbols-outlined">menu_book</span>
+					<span
+						class="icon-[material-symbols--menu-book-outline]"
+						role="img"
+						aria-hidden="true"
+					>
+						menu_book
+					</span>
 				</div>
 				<span class="font-medium text-primary">Plug into Excellence.</span>
 			</div>
@@ -83,10 +89,19 @@
 					>
 				</div>
 				<button
-					class="py-4 w-full text-lg font-semibold text-white rounded-full shadow-md transition-all duration-200 hover:shadow-lg active:scale-95 bg-linear-to-br from-primary to-primary-dim"
+					[disabled]="form().invalid() || form().submitting()"
+					matButton="filled"
+					class="w-full"
 					type="submit"
 				>
-					Log In
+					<div class="flex gap-2 items-center">
+						@if (form().submitting()) {
+						<span class="text-lg animate-spin icon-[ei--spinner]"></span>
+						<span>Loading...</span>
+						} @else {
+						<span> Log In </span>
+						}
+					</div>
 				</button>
 			</form>
 			<!-- Social Logins -->
@@ -99,32 +114,38 @@
 					>
 				</div>
 				<div class="grid grid-cols-2 gap-4">
-					<button
-						class="flex gap-3 justify-center items-center py-3 font-medium rounded-full transition-all bg-secondary-container text-on-secondary-container hover:brightness-95"
+					<a matButton="tonal" class="cursor-not-allowed">
+						<span class="flex gap-2 items-center">
+							<span
+								class="icon-[logos--google-icon]"
+								role="img"
+								aria-hidden="true"
+							></span>
+							<span>Google</span>
+						</span>
+					</a>
+					<a
+						matButton="tonal"
+						disabled
+						class="disabled:cursor-not-allowed"
+						title="Apple currently not available"
 					>
-						<img
-							alt="Google"
-							class="w-5 h-5"
-							data-alt="google logo colorful icon"
-							src="https://lh3.googleusercontent.com/aida-public/AB6AXuArTqh3GDKNuV33Y_88_g8Y55MGJoYoIGaL1T502y-fYEXiaXmGXOK9BeknVMKJ3nwiFKaXgKNyXt_1Jr6Ec89-3sKMIuwmtLGwDIrqjsNek9e6YkIyg_1kbzpSZYaz0XmBnEkas8LIYW8YOGNpWSSpqjjv5VCgSOHb0W5WYsfOI3RKioylRp-CH7tt44w_CzYz7SMalVjZ1_aFIr-qoYkgiNL7pQRx63chDCYHCH7Nn3wBJz0lT9b5KWGmMTaPuYGPqN61sqmgz7A"
-						>
-						<span>Google</span>
-					</button>
-					<button
-						class="flex gap-3 justify-center items-center py-3 font-medium rounded-full transition-all bg-secondary-container text-on-secondary-container hover:brightness-95"
-					>
-						<span
-							class="text-xl material-symbols-outlined"
-							style="font-variation-settings: 'FILL' 1;"
-							>ios</span
-						>
-						<span>Apple</span>
-					</button>
+						<span class="flex gap-2 items-center">
+							<span
+								class="icon-[logos--apple]"
+								role="img"
+								aria-hidden="true"
+							></span>
+							<span>Apple</span>
+						</span>
+					</a>
 				</div>
 			</div>
 			<p class="mt-12 text-sm text-center text-on-surface-variant">
 				New to the Sanctuary?
-				<a class="ml-1 font-bold hover:underline text-primary" href="#"
+				<a
+					class="ml-1 font-bold hover:underline text-primary"
+					routerLink="/signup"
 					>Create an account</a
 				>
 			</p>

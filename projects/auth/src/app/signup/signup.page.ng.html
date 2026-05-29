@@ -159,7 +159,14 @@
 					class="w-full"
 					type="submit"
 				>
-					Create Account
+					<div class="flex gap-2 items-center">
+						@if (form().submitting()) {
+						<span class="text-lg animate-spin icon-[ei--spinner]"></span>
+						<span>Loading...</span>
+						} @else {
+						<span> Create account </span>
+						}
+					</div>
 				</button>
 				<!-- Login Link -->
 				<div class="pt-4 text-center">
