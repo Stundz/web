@@ -54,14 +54,6 @@ export class EditPage {
 	// Sync resolved route data to form state
 	formState = linkedSignal(() => {
 		const acc = this.account();
-		const dateObj = acc.expires_at ? new Date(acc.expires_at) : null;
-		const offset = dateObj ? dateObj.getTimezoneOffset() : 0;
-		const localDate = dateObj
-			? new Date(dateObj.getTime() - offset * 60 * 1000)
-			: null;
-		const expiresStr = localDate
-			? localDate.toISOString().substring(0, 16)
-			: "";
 
 		return {
 			email: acc.email,

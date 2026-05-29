@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe } from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -34,8 +34,6 @@ import {
 	selector: "admin-index",
 	imports: [
 		RouterLink,
-		DecimalPipe,
-		DatePipe,
 		MatTableModule,
 		MatPaginatorModule,
 		MatButtonModule,

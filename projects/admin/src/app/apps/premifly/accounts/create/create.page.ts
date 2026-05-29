@@ -8,10 +8,12 @@ import {
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
+	email,
 	FormField,
 	FormRoot,
 	form,
 	minLength,
+	pattern,
 	required,
 	validate,
 } from "@angular/forms/signals";
@@ -52,36 +54,25 @@ export class CreatePage {
 	form = form(
 		signal({
 			email: "",
-			password: "",
-			code: "",
-			expires_at: "",
 		}),
 		(root) => {
 			required(root.email, { message: "Account email is required" });
-			validate(root.email, ({ value }) => {
-				const val = value();
-				if (val === undefined || val === null || val === "") {
-					return undefined; // Handled by 'required'
-				}
-				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-				if (!emailRegex.test(val)) {
-					return {
-						kind: "email",
-						message: "Please enter a valid email address",
-					};
-				}
-				return undefined;
+			email(root.email, {
+				message: "Please enter a valid email address",
 			});
-
-			required(root.password, { message: "Security password is required" });
-			minLength(root.password, 6, {
-				message: "Password must be at least 6 characters long",
+			pattern(root.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+				message: "Please enter a valid email address",
 			});
-
-			required(root.code, { message: "Account code is required" });
-			minLength(root.code, 3, {
-				message: "Code must be at least 3 characters long",
-			});
+			//
+			// required(root.password, { message: "Security password is required" });
+			// minLength(root.password, 6, {
+			// 	message: "Password must be at least 6 characters long",
+			// });
+			//
+			// required(root.code, { message: "Account code is required" });
+			// minLength(root.code, 3, {
+			// 	message: "Code must be at least 3 characters long",
+			// });
 		},
 		{
 			submission: {
@@ -90,9 +81,6 @@ export class CreatePage {
 
 					const payload = {
 						email: val.email,
-						password: val.password,
-						code: val.code,
-						expires_at: val.expires_at ? new Date(val.expires_at).toISOString() : null,
 					};
 
 					return firstValueFrom(

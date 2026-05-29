@@ -1,5 +1,5 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
-import { DatePipe, DecimalPipe } from "@angular/common";
+import { DatePipe, DecimalPipe, NgOptimizedImage } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -42,6 +42,7 @@ import {
 	selector: "admin-show",
 	imports: [
 		DatePipe,
+		NgOptimizedImage,
 		DecimalPipe,
 		RouterLink,
 		FormField,
@@ -54,7 +55,6 @@ import {
 		MatButtonModule,
 		MatIconModule,
 		MatTooltipModule,
-		PremiflyServiceLogo,
 		ScrollingModule,
 	],
 	templateUrl: "./show.page.ng.html",

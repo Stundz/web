@@ -1,4 +1,4 @@
-import { DecimalPipe } from "@angular/common";
+import { DecimalPipe, NgOptimizedImage } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -35,6 +35,7 @@ import {
 	imports: [
 		RouterLink,
 		DecimalPipe,
+		NgOptimizedImage,
 		MatTableModule,
 		MatPaginatorModule,
 		MatButtonModule,

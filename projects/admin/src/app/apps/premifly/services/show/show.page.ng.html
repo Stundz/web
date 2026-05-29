@@ -19,10 +19,7 @@
 				<div
 					class="flex justify-center items-center w-14 h-14 bg-white rounded-2xl border shadow-md border-outline-variant dark:bg-slate-950 dark:border-outline/40"
 				>
-					<stundz-premifly-service-logo
-						[service]="service()"
-						class="text-[32px]"
-					/>
+					<img [ngSrc]="service().icon" class="size-8">
 				</div>
 				<div class="flex flex-col">
 					<h1
