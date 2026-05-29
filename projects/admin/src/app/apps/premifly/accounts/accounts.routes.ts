@@ -1,5 +1,5 @@
 import type { Routes } from "@angular/router";
-import { premiflyAccountsResolver, premiflyAccountResolver } from "shared";
+import { premiflyAccountResolver, premiflyAccountsResolver } from "shared";
 
 export const routes: Routes = [
 	{
