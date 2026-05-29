@@ -27,6 +27,7 @@ import {
 	type Model,
 	type Paginated,
 	PremiflyAccount,
+	PremiflyServiceLogo,
 } from "shared";
 
 @Component({
@@ -41,6 +42,7 @@ import {
 		MatIconModule,
 		MatTooltipModule,
 		MatSnackBarModule,
+		PremiflyServiceLogo,
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.css",
@@ -57,7 +59,9 @@ export class IndexPage {
 	// Derived state for total subscriptions sum across all listed accounts
 	totalSubscriptions = computed(() => {
 		const data = this.accounts().data;
-		return data ? data.reduce((sum, acc) => sum + (acc.subscriptions_count || 0), 0) : 0;
+		return data
+			? data.reduce((sum, acc) => sum + (acc.subscriptions_count || 0), 0)
+			: 0;
 	});
 
 	// Track which account ID is currently waiting for delete confirmation
@@ -65,10 +69,18 @@ export class IndexPage {
 	#resetTimeout: any = null;
 
 	// Track which account and field has been copied recently to show a success checkmark
-	copiedFieldId = signal<{ id: string; type: "password" | "code" } | null>(null);
+	copiedFieldId = signal<{ id: string; type: "password" | "code" } | null>(
+		null,
+	);
 	#copyTimeout: any = null;
 
-	copyToClipboard(text: string, label: string, accountId: string, type: "password" | "code", event: Event) {
+	copyToClipboard(
+		text: string,
+		label: string,
+		accountId: string,
+		type: "password" | "code",
+		event: Event,
+	) {
 		event.stopPropagation(); // Avoid row click navigation
 		if (!text) return;
 
@@ -90,7 +102,7 @@ export class IndexPage {
 				this.#snackBar.open(`Failed to copy ${label.toLowerCase()}.`, "Close", {
 					duration: 2000,
 				});
-			}
+			},
 		);
 	}
 
@@ -148,7 +160,7 @@ export class IndexPage {
 								"Failed to delete account. Please try again.",
 							"Close",
 							{ duration: 4000 },
-							);
+						);
 						return of(null);
 					}),
 				),

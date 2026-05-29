@@ -12,12 +12,17 @@
 				Premifly Accounts
 			</h1>
 			<p class="text-sm text-slate-500 dark:text-slate-400">
-				Manage security credentials, email bindings, and subscription linkage parameters.
+				Manage security credentials, email bindings, and subscription linkage
+				parameters.
 			</p>
 		</div>
 
 		<!-- Create CTA Button -->
-		<a [routerLink]="['..', 'accounts', 'create']" matButton="filled" class="no-underline">
+		<a
+			[routerLink]="['..', 'accounts', 'create']"
+			matButton="filled"
+			class="no-underline"
+		>
 			<div class="flex gap-2 items-center">
 				<span
 					class="text-xl icon-[material-symbols--add-circle-outline]"
@@ -36,7 +41,9 @@
 			<div
 				class="flex justify-center items-center w-12 h-12 rounded-2xl bg-primary/10 text-primary dark:bg-primary/20"
 			>
-				<span class="text-2xl icon-[material-symbols--shield-person-outline]"></span>
+				<span
+					class="text-2xl icon-[material-symbols--shield-person-outline]"
+				></span>
 			</div>
 			<div class="flex flex-col">
 				<span
@@ -78,7 +85,9 @@
 			<div
 				class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
 			>
-				<span class="text-2xl icon-[material-symbols--lock-reset-outline]"></span>
+				<span
+					class="text-2xl icon-[material-symbols--lock-reset-outline]"
+				></span>
 			</div>
 			<div class="flex flex-col">
 				<span
@@ -109,9 +118,12 @@
 						*matHeaderCellDef
 						class="w-16! min-w-16! max-w-16! pl-6"
 					></mat-header-cell>
-					<mat-cell *matCellDef="let account" class="w-16! min-w-16! max-w-16! pl-6">
+					<mat-cell
+						*matCellDef="let account"
+						class="w-16! min-w-16! max-w-16! pl-6"
+					>
 						<div
-							class="flex justify-center items-center w-10 h-10 rounded-full border shadow-sm bg-indigo-500/10 text-indigo-600 border-indigo-200/50 text-xs font-black dark:text-indigo-400 dark:border-indigo-900/30"
+							class="flex justify-center items-center w-10 h-10 text-xs font-black text-indigo-600 rounded-full border shadow-sm dark:text-indigo-400 bg-indigo-500/10 border-indigo-200/50 dark:border-indigo-900/30"
 						>
 							{{ account.email ? account.email.trim().charAt(0).toUpperCase() : 'A' }}
 						</div>
@@ -123,93 +135,33 @@
 					<mat-header-cell *matHeaderCellDef>Account Email</mat-header-cell>
 					<mat-cell *matCellDef="let account">
 						<div class="flex flex-col gap-0.5">
-							<span
-								class="font-bold text-slate-800 dark:text-slate-200"
-							>
+							<span class="font-bold text-slate-800 dark:text-slate-200">
 								{{ account.email }}
 							</span>
-							<span class="text-xs text-slate-400 dark:text-slate-500 font-medium">
+							<span
+								class="text-xs font-medium text-slate-400 dark:text-slate-500"
+							>
 								ID: {{ account.id }}
 							</span>
 						</div>
 					</mat-cell>
 				</ng-container>
 
-				<!-- Password Column -->
-				<ng-container matColumnDef="password">
-					<mat-header-cell *matHeaderCellDef>Password</mat-header-cell>
+				<ng-container matColumnDef="services">
+					<mat-header-cell *matHeaderCellDef>Services</mat-header-cell>
 					<mat-cell *matCellDef="let account">
-						<button
-							matTooltip="Click to copy Password"
-							(click)="copyToClipboard(account.password, 'Password', account.id, 'password', $event)"
-							class="flex gap-2 items-center text-slate-500 dark:text-slate-400 font-medium text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/80 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
-						>
-							@if (copiedFieldId()?.id === account.id && copiedFieldId()?.type === 'password') {
-								<span class="text-sm text-emerald-500 icon-[material-symbols--check-circle-outline]"></span>
-								<span class="font-mono text-[9px] text-emerald-500 font-bold">Copied!</span>
-							} @else {
-								<span class="text-base text-slate-400 dark:text-slate-500 icon-[material-symbols--lock-outline]"></span>
-								<span class="font-mono tracking-widest text-[9px] text-slate-400">••••••••</span>
-							}
-						</button>
-					</mat-cell>
-				</ng-container>
-
-				<!-- Code Column -->
-				<ng-container matColumnDef="code">
-					<mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-					<mat-cell *matCellDef="let account">
-						<button
-							matTooltip="Click to copy Code"
-							(click)="copyToClipboard(account.code, 'Code', account.id, 'code', $event)"
-							class="flex gap-2 items-center text-slate-500 dark:text-slate-400 font-medium text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/80 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
-						>
-							@if (copiedFieldId()?.id === account.id && copiedFieldId()?.type === 'code') {
-								<span class="text-sm text-emerald-500 icon-[material-symbols--check-circle-outline]"></span>
-								<span class="font-mono text-[9px] text-emerald-500 font-bold">Copied!</span>
-							} @else {
-								<span class="text-base text-slate-400 dark:text-slate-500 icon-[material-symbols--key-outline]"></span>
-								<span class="font-mono tracking-widest text-[9px] text-slate-400">••••••••</span>
-							}
-						</button>
-					</mat-cell>
-				</ng-container>
-
-				<!-- Created At Column -->
-				<ng-container matColumnDef="created_at">
-					<mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
-					<mat-cell *matCellDef="let account">
-						<span class="text-xs font-semibold text-slate-600 dark:text-slate-400">
-							{{ account.created_at | date : 'dd/MM/yyyy HH:mm' }}
-						</span>
-					</mat-cell>
-				</ng-container>
-
-				<!-- Updated At Column -->
-				<ng-container matColumnDef="updated_at">
-					<mat-header-cell *matHeaderCellDef>Updated At</mat-header-cell>
-					<mat-cell *matCellDef="let account">
-						<span class="text-xs font-semibold text-slate-600 dark:text-slate-400">
-							{{ account.updated_at | date : 'dd/MM/yyyy HH:mm' }}
-						</span>
-					</mat-cell>
-				</ng-container>
-
-				<!-- Expires At Column -->
-				<ng-container matColumnDef="expires_at">
-					<mat-header-cell *matHeaderCellDef>Expires At</mat-header-cell>
-					<mat-cell *matCellDef="let account">
-						@if (account.expires_at) {
-							<span class="inline-flex gap-1 items-center py-1 px-2.5 text-[11px] font-bold text-amber-700 bg-amber-500/10 rounded-full border border-amber-500/20 dark:text-amber-400">
-								<span class="text-sm icon-[material-symbols--schedule-outline]"></span>
-								{{ account.expires_at | date : 'dd/MM/yyyy HH:mm' }}
+						<div class="grid grid-cols-4 gap-4 justify-items-end md:gap-6">
+							@for (service of account.services; track service.id) {
+							<stundz-premifly-service-logo
+								[service]="service"
+								class="text-xl md:text-3xl"
+							/>
+							} @empty {
+							<span class="col-span-full font-bold text-center">
+								No services attached to this account yet
 							</span>
-						} @else {
-							<span class="inline-flex gap-1 items-center py-1 px-2.5 text-[11px] font-bold text-emerald-700 bg-emerald-500/10 rounded-full border border-emerald-500/20 dark:text-emerald-400">
-								<span class="text-sm icon-[material-symbols--all-inclusive]"></span>
-								Never Expires
-							</span>
-						}
+							}
+						</div>
 					</mat-cell>
 				</ng-container>
 
@@ -277,11 +229,7 @@
 					*matHeaderRowDef="[
 						'avatar',
 						'email',
-						'password',
-						'code',
-						'created_at',
-						'updated_at',
-						'expires_at',
+            'services',
 						'actions'
 					]"
 				></mat-header-row>
@@ -291,11 +239,7 @@
 						columns: [
 							'avatar',
 							'email',
-							'password',
-							'code',
-							'created_at',
-							'updated_at',
-							'expires_at',
+              'services',
 							'actions'
 						]
 					"

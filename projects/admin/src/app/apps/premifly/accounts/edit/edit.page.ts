@@ -30,7 +30,6 @@ import { type Model, PremiflyAccount } from "shared";
 	imports: [
 		RouterLink,
 		ReactiveFormsModule,
-		DatePipe,
 		MatIconModule,
 		MatButtonModule,
 		MatInputModule,
@@ -57,14 +56,15 @@ export class EditPage {
 		const acc = this.account();
 		const dateObj = acc.expires_at ? new Date(acc.expires_at) : null;
 		const offset = dateObj ? dateObj.getTimezoneOffset() : 0;
-		const localDate = dateObj ? new Date(dateObj.getTime() - offset * 60 * 1000) : null;
-		const expiresStr = localDate ? localDate.toISOString().substring(0, 16) : "";
+		const localDate = dateObj
+			? new Date(dateObj.getTime() - offset * 60 * 1000)
+			: null;
+		const expiresStr = localDate
+			? localDate.toISOString().substring(0, 16)
+			: "";
 
 		return {
 			email: acc.email,
-			password: acc.password,
-			code: acc.code || "",
-			expires_at: expiresStr,
 		};
 	});
 
@@ -87,16 +87,6 @@ export class EditPage {
 				}
 				return undefined;
 			});
-
-			required(root.password, { message: "Security password is required" });
-			minLength(root.password, 6, {
-				message: "Password must be at least 6 characters long",
-			});
-
-			required(root.code, { message: "Account code is required" });
-			minLength(root.code, 3, {
-				message: "Code must be at least 3 characters long",
-			});
 		},
 		{
 			submission: {
@@ -105,9 +95,6 @@ export class EditPage {
 
 					const payload = {
 						email: val.email,
-						password: val.password,
-						code: val.code,
-						expires_at: val.expires_at ? new Date(val.expires_at).toISOString() : null,
 					};
 
 					return firstValueFrom(
@@ -115,7 +102,7 @@ export class EditPage {
 							tap({
 								next: () => {
 									this.#snackBar.open(
-										`Account "${this.form.email().value()}" updated successfully!`,
+										`Account ${this.account().email} updated to "${this.form.email().value()}" successfully!`,
 										"Close",
 										{
 											duration: 3000,

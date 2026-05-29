@@ -28,7 +28,7 @@
 		<section class="flex flex-col gap-6 lg:col-span-5">
 			<mat-card class="bg-transparent border-0 shadow-none!">
 				<div
-					class="flex overflow-hidden relative flex-col justify-between p-8 rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50 bg-white dark:bg-slate-950"
+					class="flex overflow-hidden relative flex-col justify-between p-8 bg-white rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50 dark:bg-slate-950"
 				>
 					<!-- Card Background Accent -->
 					<div
@@ -54,68 +54,28 @@
 						</div>
 
 						<div
-							class="flex justify-center items-center w-12 h-12 rounded-full border shadow-sm bg-indigo-500/10 text-indigo-500 border-indigo-200/50 text-base font-black dark:text-indigo-400 dark:border-indigo-900/30"
+							class="flex justify-center items-center w-12 h-12 text-base font-black text-indigo-500 rounded-full border shadow-sm dark:text-indigo-400 bg-indigo-500/10 border-indigo-200/50 dark:border-indigo-900/30"
 						>
 							{{ form.email().value() ? form.email().value().trim().charAt(0).toUpperCase() : 'A' }}
 						</div>
 					</div>
 
-					<!-- Stats & Meta Info Area -->
-					<div class="grid grid-cols-2 gap-4 relative z-10 my-6">
-						<div class="flex flex-col gap-1">
-							<div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-								Account Password
-							</div>
-							<div class="flex gap-2 items-center text-slate-700 dark:text-slate-300 font-medium text-xs bg-slate-50 dark:bg-slate-900/50 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/60 w-fit">
-								<span class="text-base text-indigo-500 icon-[material-symbols--lock-outline]"></span>
-								<span class="font-mono tracking-widest text-[10px] text-slate-500 dark:text-slate-400">
-									{{ form.password().value() ? '••••••••' : '(Not set)' }}
-								</span>
-							</div>
-						</div>
-
-						<div class="flex flex-col gap-1">
-							<div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-								Account Code
-							</div>
-							<div class="flex gap-2 items-center text-slate-700 dark:text-slate-300 font-medium text-xs bg-slate-50 dark:bg-slate-900/50 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-800/60 w-fit">
-								<span class="text-base text-indigo-500 icon-[material-symbols--key-outline]"></span>
-								<span class="font-mono tracking-widest text-[10px] text-slate-500 dark:text-slate-400">
-									{{ form.code().value() ? '••••••••' : '(Not set)' }}
-								</span>
-							</div>
-						</div>
-					</div>
-
-					<!-- Expiration preview if specified -->
-					@if (form.expires_at().value()) {
-						<div class="flex gap-2 items-center text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl text-xs font-semibold w-fit mb-4 relative z-10">
-							<span class="text-base icon-[material-symbols--schedule-outline]"></span>
-							<span>Expires: {{ form.expires_at().value() | date: 'dd/MM/yyyy HH:mm' }}</span>
-						</div>
-					} @else {
-						<div class="flex gap-2 items-center text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl text-xs font-semibold w-fit mb-4 relative z-10">
-							<span class="text-base icon-[material-symbols--all-inclusive]"></span>
-							<span>Never Expires</span>
-						</div>
-					}
-
 					<!-- Bottom Area -->
 					<div
 						class="flex relative z-10 justify-between items-center pt-5 border-t border-slate-100 dark:border-slate-800/80"
 					>
-						<div class="flex gap-2 items-center text-emerald-500 dark:text-emerald-400">
+						<div
+							class="flex gap-2 items-center text-emerald-500 dark:text-emerald-400"
+						>
 							<span
 								class="text-xl icon-[material-symbols--shield-check-outline]"
 							></span>
-							<span
-								class="text-xs font-bold uppercase tracking-wider"
-							>
+							<span class="text-xs font-bold tracking-wider uppercase">
 								Fully Secured
 							</span>
 						</div>
 						<span
-							class="text-[10px] italic font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500"
+							class="italic font-bold tracking-wide uppercase text-[10px] text-slate-400 dark:text-slate-500"
 						>
 							Changes preview
 						</span>
@@ -136,8 +96,9 @@
 					</h3>
 					<p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
 						Modifying email, password, or code details immediately updates the
-						authentication nodes across all linked client subscription devices. All active sessions 
-						will synchronize automatically to prevent access interruptions.
+						authentication nodes across all linked client subscription devices.
+						All active sessions will synchronize automatically to prevent access
+						interruptions.
 					</p>
 				</div>
 			</div>
@@ -168,77 +129,6 @@
 							@for (error of form.email().errors(); track error.kind) {
 							<mat-error>{{ error.message }}</mat-error>
 							}
-						</mat-form-field>
-					</div>
-
-					<!-- Password Field -->
-					<div class="flex flex-col gap-1">
-						<mat-form-field class="w-full">
-							<mat-label>Security Password</mat-label>
-							<input
-								matInput
-								type="password"
-								[formField]="form.password"
-								placeholder="Enter secure password"
-								autocomplete="off"
-							>
-							<mat-icon matSuffix>
-								<span
-									class="mr-2 text-xl icon-[material-symbols--lock-outline] text-slate-400"
-								></span>
-							</mat-icon>
-							@for (error of form.password().errors(); track error.kind) {
-							<mat-error>{{ error.message }}</mat-error>
-							}
-							<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
-								Choose a password containing at least 6 characters.
-							</mat-hint>
-						</mat-form-field>
-					</div>
-
-					<!-- Code Field -->
-					<div class="flex flex-col gap-1">
-						<mat-form-field class="w-full">
-							<mat-label>Account Code / Token</mat-label>
-							<input
-								matInput
-								type="text"
-								[formField]="form.code"
-								placeholder="e.g. PRM-77382-X"
-								autocomplete="off"
-							>
-							<mat-icon matSuffix>
-								<span
-									class="mr-2 text-xl icon-[material-symbols--key-outline] text-slate-400"
-								></span>
-							</mat-icon>
-							@for (error of form.code().errors(); track error.kind) {
-							<mat-error>{{ error.message }}</mat-error>
-							}
-							<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
-								The unique tracking/access code for this credentials set.
-							</mat-hint>
-						</mat-form-field>
-					</div>
-
-					<!-- Expiration Date Field -->
-					<div class="flex flex-col gap-1">
-						<mat-form-field class="w-full">
-							<mat-label>Expiration Date & Time</mat-label>
-							<input
-								matInput
-								type="datetime-local"
-								[formField]="form.expires_at"
-								autocomplete="off"
-							>
-							<mat-icon matSuffix>
-								<span
-									class="mr-2 text-xl icon-[material-symbols--calendar-today-outline] text-slate-400"
-								></span>
-							</mat-icon>
-							<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
-								Leave empty if this account never expires.
-							</mat-hint>
 						</mat-form-field>
 					</div>
 
