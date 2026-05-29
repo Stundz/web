@@ -29,7 +29,6 @@ import { type MatStepper, MatStepperModule } from "@angular/material/stepper";
 import { firstValueFrom, tap } from "rxjs";
 import type { Model } from "shared";
 import { environment } from "../../environments/environment";
-import { SubscriptionInstructions } from "../common/components/subscription-instructions/subscription-instructions";
 import { SubscriptionPayment } from "./common/components/subscription-payment/subscription-payment";
 
 @Component({
@@ -45,8 +44,6 @@ import { SubscriptionPayment } from "./common/components/subscription-payment/su
 		MatStepperModule,
 		MatCardModule,
 		NgOptimizedImage,
-
-		SubscriptionInstructions,
 	],
 	templateUrl: "./subscribe.page.html",
 	styleUrl: "./subscribe.page.css",
