@@ -27,14 +27,17 @@ export class PremiflyAccount<T = Paginated<Model.Premifly.Account>> {
 		);
 	}
 
-	create(body: Pick<Model.Premifly.Account, "email" | "password" | "code" | "expires_at">) {
+	create(body: Pick<Model.Premifly.Account, "email">) {
 		return this.#http.post<Model.Premifly.Account>(
 			`${this.#environment.url.api}/premifly/account`,
 			body,
 		);
 	}
 
-	update(id: Model.Premifly.Account["id"], payload: Partial<Pick<Model.Premifly.Account, "email" | "password" | "code" | "expires_at">>) {
+	update(
+		id: Model.Premifly.Account["id"],
+		payload: Partial<Pick<Model.Premifly.Account, "email">>,
+	) {
 		return this.#http.patch<Model.Premifly.Account>(
 			`${this.#environment.url.api}/premifly/account/${id}`,
 			payload,

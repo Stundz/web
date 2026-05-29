@@ -2,12 +2,14 @@ import { isPlatformServer } from "@angular/common";
 import {
 	HttpBackend,
 	HttpClient,
+	HttpErrorResponse,
 	HttpHeaders,
 	type HttpInterceptorFn,
+	HttpRequest,
 	HttpXsrfTokenExtractor,
 } from "@angular/common/http";
 import { inject, PLATFORM_ID, REQUEST } from "@angular/core";
-import { switchMap, tap } from "rxjs";
+import { catchError, switchMap, tap, throwError } from "rxjs";
 import { ENVIRONMENT } from "../types";
 
 export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
@@ -19,7 +21,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 
 	const isApiRequest = req.url.startsWith(`${environment.url.api}`);
 	const isServerSideRequest = isPlatformServer(platformId);
-	const skipCsrfCheck = ["/user"].includes(
+	const skipCsrfCheck = ["/user", "/login", "/signup"].includes(
 		req.url.replace(environment.url.api, ""),
 	);
 
@@ -27,7 +29,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 		return next(req);
 	}
 
-	let token: string | null;
+	let token: string | null = null;
 	let headers: { [k: string]: string | Array<string> } = {};
 
 	console.log(
@@ -54,47 +56,101 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
 		headers = Object.fromEntries((req.headers as any).headers.entries());
 	}
 
-	if (!token && !skipCsrfCheck) {
+	if (token) {
+		headers["X-XSRF-TOKEN"] = token;
+		headers["x-xsrf-token"] = token;
+	}
+
+	const hasXsrfCookie = (): boolean => {
+		if (isServerSideRequest) {
+			if (serverReq) {
+				const cookie = serverReq.headers?.get("cookie") || "";
+				return cookie.includes("XSRF-TOKEN=");
+			}
+			const cookie = req.headers.get("cookie") || "";
+			return cookie.includes("XSRF-TOKEN=");
+		}
+		return document.cookie.includes("XSRF-TOKEN=");
+	};
+
+	const fetchCsrfToken = () => {
 		return http
 			.get(`${environment.url.api}/csrf`, {
 				withCredentials: !isServerSideRequest,
 				observe: "response",
 			})
 			.pipe(
-				switchMap((response) => {
-					headers["x-xsrf-token"] = serverReq
-						? ""
-						: tokenService.getToken() || "";
-
-					headers["cookie"] = (response.headers.getAll("set-cookie") || []).map(
+				tap((response) => {
+					const cookies = (response.headers.getAll("set-cookie") || []).map(
 						(c) => c.split(";")[0].trim(),
 					);
+					if (cookies.length > 0) {
+						headers["cookie"] = cookies;
+					}
 
-					if (!headers["x-xsrf-token"]) {
-						for (const c of headers["cookie"]) {
+					let xsrfToken = "";
+					if (!isServerSideRequest) {
+						xsrfToken = tokenService.getToken() || "";
+					}
+
+					if (!xsrfToken) {
+						for (const c of cookies) {
 							const match = c.match(/^XSRF-TOKEN=([^;]+)/);
-							if (match) headers["x-xsrf-token"] = decodeURIComponent(match[1]);
+							if (match) xsrfToken = decodeURIComponent(match[1]);
 						}
 					}
 
-					return next(
-						req.clone({
-							setHeaders: headers,
-							withCredentials: !isServerSideRequest,
-						}),
-					);
+					if (xsrfToken) {
+						headers["x-xsrf-token"] = xsrfToken;
+						headers["X-XSRF-TOKEN"] = xsrfToken;
+					}
 				}),
 			);
+	};
+
+	const executeRequest = (clonedReq: HttpRequest<any>) => {
+		return next(clonedReq).pipe(
+			catchError((error) => {
+				if (
+					error instanceof HttpErrorResponse &&
+					error.status === 419 &&
+					!skipCsrfCheck
+				) {
+					console.log("CSRF expired (419), fetching new token...");
+					return fetchCsrfToken().pipe(
+						switchMap(() => {
+							const retryReq = req.clone({
+								setHeaders: headers,
+								withCredentials: true,
+							});
+							return next(retryReq);
+						}),
+					);
+				}
+				return throwError(() => error);
+			}),
+		);
+	};
+
+	const isCookieMissing = !hasXsrfCookie();
+
+	if (isCookieMissing && !skipCsrfCheck) {
+		return fetchCsrfToken().pipe(
+			switchMap(() => {
+				const clonedReq = req.clone({
+					setHeaders: headers,
+					withCredentials: true,
+				});
+				return executeRequest(clonedReq);
+			}),
+		);
 	}
 
-	headers["X-XSRF-TOKEN"] = String(token);
-
-	return next(
-		req.clone({
-			setHeaders: headers,
-			withCredentials: true,
-		}),
-	);
+	const clonedReq = req.clone({
+		setHeaders: headers,
+		withCredentials: true,
+	});
+	return executeRequest(clonedReq);
 };
 
 const getToken = (request: Request | null) => {
