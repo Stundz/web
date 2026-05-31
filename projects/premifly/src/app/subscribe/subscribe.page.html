@@ -62,49 +62,19 @@ body {
 							Secure your exclusive premium subscription tier.
 						</p>
 					</div>
-					<div class="absolute inset-0 opacity-5 text-[600px]">
+					<div class="absolute inset-0 opacity-5">
 						<div
-							class="relative size-full flex justify-center items-center *:absolute *:left-1/2 *:-translate-x-1/2 *:top-1/2 *:-translate-y-1/2 *:starting:opacity-0 *:starting:scale-0"
+							class="flex relative justify-center items-center size-full *:starting:scale-0 *:starting:opacity-0"
 						>
-							@switch(service()?.slug) { @case('claude') {
-							<span
-								class="icon-[logos--claude-icon]"
+							@for (service of services.value(); track service.id) {
+							<!-- unncessary comment to avoid formatter for joining lines i dont want -->
+							@if (service.id === form.service_id().value()) {
+							<img
+								[src]="service.icon"
+								class="size-100 block! absolute"
 								animate.enter="enter-animation"
 								animate.leave="leave-animation"
-							></span>
-							} @case ('chatgpt') {
-							<span
-								class="icon-[logos--openai-icon]"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							></span>
-							} @case ('gemini') {
-
-							<span
-								class="icon-[vscode-icons--file-type-gemini]"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							></span>
-							} @case ('grok') {
-
-							<span
-								class="icon-[ri--grok-ai-fill]"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							></span>
-							} @case ('netflix') {
-							<span
-								class="icon-[logos--netflix-icon]"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							></span>
-							} @case ('prime-video') {
-
-							<span
-								class="text-blue-400 icon-[cbi--prime-video]"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							></span>
+							>
 							} }
 						</div>
 					</div>
@@ -129,19 +99,13 @@ body {
 										[value]="service.id"
 										class="h-12!"
 									>
-										@let slug = service.slug;
-
-										<span
-											matChipAvatar
-											[class.icon-[logos--claude-icon]]="slug === 'claude'"
-											[class.icon-[logos--openai-icon]]="slug === 'chatgpt'"
-											[class.icon-[vscode-icons--file-type-gemini]]="slug === 'gemini'"
-											[class.icon-[ri--grok-ai-fill]]="slug === 'grok'"
-											[class.icon-[logos--netflix-icon]]="slug === 'netflix'"
-											[class.icon-[cbi--prime-video]]="slug === 'prime-video'"
-											[class.text-blue-400!]="slug === 'prime-video'"
-										></span>
-										{{ service.name }}
+										<div class="flex gap-2 items-center">
+											<stundz-premifly-service-logo
+												[service]="service"
+												class="size-5"
+											/>
+											{{ service.name }}
+										</div>
 									</mat-chip-option>
 									}
 								</mat-chip-listbox>
@@ -149,6 +113,17 @@ body {
 								<mat-error>{{error.message}}</mat-error>
 								}
 							</div>
+
+							<mat-form-field>
+								<mat-label>Duration</mat-label>
+								<input matInput [formField]="form.duration" type="number">
+								<mat-hint>
+									How many months would you like to pay for ?
+								</mat-hint>
+								@for (error of form.duration().errors(); track error.kind) {
+								<mat-error>{{error.message}}</mat-error>
+								}
+							</mat-form-field>
 
 							<mat-form-field>
 								<mat-label>Phone</mat-label>
@@ -159,6 +134,13 @@ body {
 								@for (error of form.phone().errors(); track error.kind) {
 								<mat-error>{{error.message}}</mat-error>
 								}
+								<mat-icon matPrefix>
+									<span
+										class="text-lg text-green-600 icon-[logos--whatsapp-icon]"
+										role="img"
+										aria-hidden="true"
+									></span>
+								</mat-icon>
 							</mat-form-field>
 							@if (['prime-video', 'netflix'].includes((service()?.slug) || ''))
 							{

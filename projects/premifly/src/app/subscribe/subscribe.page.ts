@@ -14,6 +14,7 @@ import {
 	FormField,
 	FormRoot,
 	form,
+	min,
 	minLength,
 	required,
 } from "@angular/forms/signals";
@@ -23,11 +24,13 @@ import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDialog } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { type MatStepper, MatStepperModule } from "@angular/material/stepper";
 import { firstValueFrom, tap } from "rxjs";
-import type { Model } from "shared";
+import { type Model, PremiflyServiceLogo } from "shared";
 import { environment } from "../../environments/environment";
 import { SubscriptionPayment } from "./common/components/subscription-payment/subscription-payment";
 
@@ -37,13 +40,16 @@ import { SubscriptionPayment } from "./common/components/subscription-payment/su
 		FormRoot,
 		FormField,
 		MatButtonModule,
+		MatIconModule,
 		MatInputModule,
 		MatFormFieldModule,
 		MatChipsModule,
 		MatAutocompleteModule,
 		MatStepperModule,
+		MatSelectModule,
 		MatCardModule,
 		NgOptimizedImage,
+		PremiflyServiceLogo,
 	],
 	templateUrl: "./subscribe.page.html",
 	styleUrl: "./subscribe.page.css",
@@ -55,7 +61,12 @@ export class SubscribePage {
 	#dialog = inject(MatDialog);
 
 	services = httpResource<Array<Model.Premifly.Service>>(
-		() => `${environment.url.api}/premifly/services`,
+		() => ({
+			url: `${environment.url.api}/premifly/services`,
+			params: {
+				status: "active",
+			},
+		}),
 		{
 			defaultValue: [],
 		},
@@ -99,6 +110,7 @@ export class SubscribePage {
 		() => ({
 			service_id: "",
 			device_type: "",
+			duration: 1,
 			phone: this.user()?.phone || "",
 		}),
 		{
@@ -122,6 +134,8 @@ export class SubscribePage {
 					);
 				},
 			});
+
+			min(root.duration, 1);
 
 			required(root.phone, {
 				message: "Please Enter your phone number",
@@ -155,6 +169,7 @@ export class SubscribePage {
 									);
 									this.form().reset({
 										service_id: "",
+										duration: 1,
 										device_type: "",
 										phone: this.user()?.phone || "",
 									});
@@ -190,6 +205,7 @@ export class SubscribePage {
 		const dialogRef = this.#dialog.open(SubscriptionPayment, {
 			data: {
 				service: this.service()!,
+				duration: this.form.duration().value(),
 				phone: this.form.phone().value(),
 				device_type: this.form.device_type().value(),
 			},
@@ -204,6 +220,7 @@ export class SubscribePage {
 
 				this.form().reset({
 					service_id: "",
+					duration: 1,
 					device_type: "",
 					phone: this.user()?.phone || "",
 				});
