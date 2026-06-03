@@ -1,123 +1,278 @@
-<!-- Main Content -->
-<main
-	class="flex relative z-10 flex-col mx-auto w-full max-w-container-max px-gutter pt-xxl pb-xxl gap-xxl"
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+  rel="stylesheet"
 >
-	<!-- Hero Section -->
-	<section class="flex flex-col items-center text-center mt-xl gap-xl">
-		<div class="flex flex-col items-center max-w-200 gap-md">
-			<h1
-				class="text-transparent bg-clip-text from-white bg-linear-to-br text-display-xl font-display-xl to-on-surface-variant"
-			>
-				Premium Subscriptions.<br>Smarter Prices.
-			</h1>
-			<p
-				class="text-headline-sm font-headline-sm text-on-surface-variant max-w-150"
-			>
-				Get exclusive access to your favorite services at a fraction of the
-				cost.
-			</p>
-			<div class="flex gap-md mt-lg">
-				<button matButton="filled">Explore Marketplace</button>
-				<button
-					class="rounded-full transition-all active:scale-95 glass-panel text-on-surface px-xl py-md text-label-md font-label-md hover:bg-white/5"
-					matButton="tonal"
-				>
-					View Tiers
-				</button>
-			</div>
-		</div>
-		<!-- Floating UI Mockup -->
-		<div
-			class="flex relative justify-center items-center w-full max-w-225 h-100 mt-xxl perspective-[1000px]"
-		>
-			@for (service of services.value().slice(0, 5); track service.id) {
-			<premifly-service-card [service]="service" />
-			}
-		</div>
-	</section>
-	<!-- Divider -->
-	<div
-		class="my-8 w-full h-px from-transparent to-transparent bg-linear-to-r via-white/20"
-	></div>
-	<!-- Features Section (Bento Grid) -->
-	<section class="grid grid-cols-1 gap-8 px-2 sm:px-4 md:grid-cols-3">
-		<!-- Feature 1 -->
-		<div
-			class="flex overflow-hidden relative flex-col gap-8 p-4 rounded-xl glass-panel group"
-		>
-			<div
-				class="absolute inset-0 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-linear-to-br from-primary-container/10"
-			></div>
-			<div
-				class="flex justify-center items-center w-12 h-12 rounded-full border glass-panel border-primary-container/30"
-			>
-				<span
-					class="icon-[material-symbols--price-check] text-primary text-[24px]"
-					role="img"
-					aria-hidden="true"
-				></span>
-			</div>
-			<div>
-				<h3 class="text-headline-sm font-headline-sm text-on-surface mb-sm">
-					Smarter Pricing
-				</h3>
-				<p class="text-body-md font-body-md text-on-surface-variant">
-					Unlock premium tiers across multiple platforms through our aggregated
-					enterprise licensing model.
-				</p>
-			</div>
-		</div>
-		<!-- Feature 2 -->
-		<div
-			class="flex overflow-hidden relative flex-col gap-8 p-4 rounded-xl glass-panel group"
-		>
-			<div
-				class="absolute inset-0 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-linear-to-br from-tertiary-container/10"
-			></div>
-			<div
-				class="flex justify-center items-center w-12 h-12 rounded-full border glass-panel border-tertiary-container/30"
-			>
-				<span
-					class="icon-[material-symbols--flash-on-outline] text-tertiary text-[24px]"
-					>flash_on</span
-				>
-			</div>
-			<div>
-				<h3 class="text-headline-sm font-headline-sm text-on-surface mb-sm">
-					Instant Access
-				</h3>
-				<p class="text-body-md font-body-md text-on-surface-variant">
-					Credentials provisioned automatically upon payment. No waiting, no
-					manual setups.
-				</p>
-			</div>
-		</div>
-		<!-- Feature 3 -->
-		<div
-			class="flex overflow-hidden relative flex-col gap-8 p-4 rounded-xl glass-panel group"
-		>
-			<div
-				class="absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 from-inverse-primary/10"
-			></div>
-			<div
-				class="flex justify-center items-center w-12 h-12 rounded-full border glass-panel border-inverse-primary/30"
-			>
-				<span
-					class="icon-[material-symbols--lock-outline] text-inverse-primary text-[24px]"
-					role="img"
-					aria-hidden="true"
-					>lock</span
-				>
-			</div>
-			<div>
-				<h3 class="text-headline-sm font-headline-sm text-on-surface mb-sm">
-					Secure Payments
-				</h3>
-				<p class="text-body-md font-body-md text-on-surface-variant">
-					End-to-end encrypted transactions ensuring your financial data remains
-					completely private.
-				</p>
-			</div>
-		</div>
-	</section>
+<style>
+.atmospheric-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(229, 9, 20, 0.15) 0%,
+    rgba(18, 18, 18, 0) 70%
+  );
+  pointer-events: none;
+}
+.glass-card {
+  background: rgba(28, 28, 28, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 180, 170, 0.05);
+}
+.pulse-red {
+  animation: pulse-red 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse-red {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+</style>
+<!-- Background Elements -->
+<main class="relative z-10">
+  <!-- Hero Section -->
+  <section
+    class="grid gap-12 items-center py-16 mx-auto max-w-7xl md:grid-cols-2 md:py-24 px-gutter"
+  >
+    <div class="flex flex-col items-start space-y-6">
+      <div
+        class="inline-flex gap-2 items-center py-1 px-3 tracking-wider uppercase rounded-full bg-surface-container-high text-primary font-label-md text-label-md"
+      >
+        <span
+          class="icon-[material-symbols--workspace-premium-outline] text-[14px]"
+          >workspace_premium</span
+        >
+        Elite Access
+      </div>
+      <h1
+        class="tracking-tight leading-tight font-display-lg text-[48px] md:text-display-lg"
+      >
+        Unlock Premium <br>
+        <span class="italic text-primary-container">for Less</span>
+      </h1>
+      <p class="max-w-md font-body-lg text-body-lg text-on-surface-variant">
+        Experience the finest digital entertainment and productivity tools with
+        exclusive, consolidated subscriptions. High-tier access, fraction of the
+        cost.
+      </p>
+      <div class="flex flex-col gap-4 pt-4 w-full sm:flex-row sm:w-auto">
+        <a
+          matButton="filled"
+          class="font-bold shadow-xl transition-all active:scale-95 font-label-lg text-label-lg shadow-primary-container/30"
+          routerLink="subscribe"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+    <div class="relative group">
+      <div
+        class="absolute -inset-4 transition-all duration-700 bg-primary-container/20 blur-3xl group-hover:bg-primary-container/30"
+      ></div>
+      <img
+        alt="Premium Entertainment Concept"
+        class="object-cover relative w-full rounded-2xl border shadow-2xl border-white/5 aspect-video md:aspect-square"
+        data-alt="A premium geometric digital illustration with sleek obsidian-colored shards and flowing ribbons of ruby red energy. The composition uses high-contrast lighting to create a sense of depth and luxury, mirroring a cinematic streaming environment. The background is a dark, textured charcoal with soft atmospheric dust particles catching the light. The overall mood is sophisticated, exclusive, and technologically advanced."
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk"
+      >
+      <div
+        class="flex absolute right-6 bottom-6 left-6 justify-between items-center p-4 rounded-xl border glass-card border-white/10"
+      >
+        <div>
+          <div class="font-bold text-primary font-label-md text-label-md">
+            Current Savings
+          </div>
+          <div class="font-bold text-title-lg font-title-lg">Up to 75% Off</div>
+        </div>
+        <span
+          class="icon-[material-symbols--trending-down] text-primary text-[32px]"
+        ></span>
+      </div>
+    </div>
+  </section>
+  <!-- Value Cards -->
+  <section class="py-20 bg-surface-container-lowest">
+    <div class="mx-auto max-w-7xl px-gutter">
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Save Big -->
+        <div
+          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+        >
+          <div
+            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+          >
+            <span class="icon-[material-symbols--savings-outline] text-[28px]"
+              >savings</span
+            >
+          </div>
+          <h3 class="mb-3 font-title-lg text-title-lg">Save Big</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Our collective bargaining power brings you elite subscriptions at
+            prices you won't find anywhere else on the web.
+          </p>
+        </div>
+        <!-- All-in-One -->
+        <div
+          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+        >
+          <div
+            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+          >
+            <span
+              class="icon-[material-symbols--auto-awesome-motion-outline] text-[28px]"
+              >auto_awesome_motion</span
+            >
+          </div>
+          <h3 class="mb-3 font-title-lg text-title-lg">All-in-One</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Manage all your premium accounts under one roof with a single,
+            streamlined dashboard and unified billing system.
+          </p>
+        </div>
+        <!-- Secure -->
+        <div
+          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+        >
+          <div
+            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+          >
+            <span
+              class="icon-[material-symbols--verified-user-outline] text-[28px]"
+              >verified_user</span
+            >
+          </div>
+          <h3 class="mb-3 font-title-lg text-title-lg">Secure</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            We prioritize your privacy and account security with military-grade
+            encryption and 24/7 elite status monitoring.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Trending Deals -->
+  <section class="py-24 mx-auto max-w-7xl px-gutter">
+    <div
+      class="flex flex-col gap-6 justify-between items-end mb-12 md:flex-row"
+    >
+      <div>
+        <h2 class="mb-2 font-headline-lg text-headline-lg">Trending Deals</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Get instant access to the world's most popular platforms.
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <span
+          class="py-2 px-4 rounded-full cursor-pointer bg-primary-container text-on-primary-container font-label-md text-label-md"
+          >All</span
+        >
+        <span
+          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          >Streaming</span
+        >
+        <span
+          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          >AI Tools</span
+        >
+        <span
+          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          >Music</span
+        >
+      </div>
+    </div>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      @for (service of services.value(); track service.id) {
+
+      <!-- Deal: Netflix -->
+      <div
+        class="flex flex-col p-6 rounded-2xl transition-all cursor-pointer hover:shadow-2xl glass-card group hover:shadow-primary-container/10"
+      >
+        <div class="flex gap-4 items-center mb-6">
+          <div
+            class="flex overflow-hidden justify-center items-center p-2 w-16 h-16 rounded-xl bg-black/30"
+          >
+            <img
+              alt="Netflix"
+              class="object-contain w-full h-full mix-blend-difference"
+              data-alt="A clean, minimalist 3D rendering of the Netflix N logo in vibrant red, floating against a dark, textured cinematic background with subtle light flares and bokeh effects. The style is premium, modern, and aligned with a high-end streaming service aesthetic, focusing on luxury digital content."
+              [src]="service.icon"
+            >
+          </div>
+          <div>
+            <h4 class="font-title-lg text-title-lg">{{service.name}}</h4>
+            <div class="text-on-surface-variant font-label-md text-label-md">
+              {{service.slug}}
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-3 items-baseline mb-6">
+          <div class="font-bold text-[32px] text-primary">
+            {{service.price}}
+            <span class="font-normal text-label-md text-on-surface-variant"
+              >/mo</span
+            >
+          </div>
+          <div class="line-through text-label-md text-on-surface-variant">
+            $19.99
+          </div>
+          <div
+            class="py-1 px-2 ml-auto font-bold tracking-tighter text-green-400 uppercase rounded bg-green-500/10 text-[10px]"
+          >
+            -75% OFF
+          </div>
+        </div>
+        <a
+          matButton="filled"
+          [routerLink]="['subscribe']"
+          [queryParams]="{service: service.slug}"
+        >
+          Subscribe Now
+        </a>
+      </div>
+      }
+    </div>
+  </section>
+  <!-- CTA Section -->
+  <section class="py-20 mx-auto max-w-7xl px-gutter">
+    <div
+      class="overflow-hidden relative p-12 text-center border md:p-20 bg-linear-to-br rounded-[2.5rem] from-primary-container/40 to-surface-container border-primary-container/20"
+    >
+      <div
+        class="absolute top-0 right-0 w-96 h-96 rounded-full translate-x-1/2 -translate-y-1/2 bg-primary-container/20 blur-[100px]"
+      ></div>
+      <div class="relative z-10">
+        <h2
+          class="mb-6 md:leading-tight font-headline-lg text-headline-lg md:text-[48px]"
+        >
+          Ready for Elite Savings?
+        </h2>
+        <p
+          class="mx-auto mb-10 max-w-2xl font-body-lg text-body-lg text-on-surface-variant"
+        >
+          Join over 300 premium members who are already enjoying more for less.
+          No contracts, cancel anytime.
+        </p>
+        @if (user()) {
+        <a matButton="filled" routerLink="subscribe">Get Started</a>
+        } @else {
+        <a matButton="filled" [href]="signupUrl"> Create Your Account </a>
+        }
+      </div>
+    </div>
+  </section>
 </main>
+<script>
+// Simple micro-interaction for cards
+document.querySelectorAll(".glass-card").forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  });
+});
+</script>

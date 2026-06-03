@@ -1,63 +1,96 @@
-<!-- Atmospheric Layering: The Void & The Glow -->
+<div class="fixed inset-0 z-0 atmospheric-glow"></div>
 <div
-	class="fixed inset-0 z-0 bg-linear-to-br from-[#0A0A0C] to-[#2D080A]"
-></div>
-<div class="fixed inset-0 z-0 bg-noise"></div>
-<div
-	class="gradient-orb w-150 h-150 bg-primary-container -top-50 -left-50"
-></div>
-<div
-	class="gradient-orb w-200 h-200 bg-tertiary-container top-[20%] -right-75 opacity-30"
-></div>
-<div
-	class="gradient-orb w-125 h-125 bg-error-container -bottom-25 left-[20%] opacity-40"
+  class="fixed top-[-10%] right-[-10%] size-150 bg-primary-container/10 blur-[120px] pulse-red rounded-full z-0"
 ></div>
 <!-- TopNavBar -->
-<nav
-	class="sticky top-0 z-50 border-b shadow-xl docked full-width bg-surface/70 backdrop-blur-[20px] border-white/10 dark:bg-surface/70 dark:border-white/5"
->
-	<div
-		class="flex justify-between items-center mx-auto w-full h-20 px-gutter max-w-container-max"
-	>
-		<div class="flex items-center">
-			<a
-				class="font-bold tracking-tighter transition-transform active:scale-95 text-headline-md font-display-lg text-primary dark:text-primary"
-				routerLink="/"
-			>
-				Premifly
-			</a>
-		</div>
-		<div class="hidden gap-4 items-center md:flex">
-			<a
-				class="font-medium transition-all duration-300 text-on-surface-variant text-label-md font-label-md px-sm py-xs rounded-DEFAULT hover:text-primary hover:bg-white/5"
-				href="#"
-				>Marketplace</a
-			>
-			<a
-				class="font-medium transition-all duration-300 text-on-surface-variant text-label-md font-label-md px-sm py-xs rounded-DEFAULT hover:text-primary hover:bg-white/5"
-				href="#"
-				>Explore</a
-			>
-			<a
-				class="font-medium transition-all duration-300 text-on-surface-variant text-label-md font-label-md px-sm py-xs rounded-DEFAULT hover:text-primary hover:bg-white/5"
-				href="#"
-				>Premium</a
-			>
-			<a
-				class="font-medium transition-all duration-300 text-on-surface-variant text-label-md font-label-md px-sm py-xs rounded-DEFAULT hover:text-primary hover:bg-white/5"
-				href="#"
-				>Subscriptions</a
-			>
-		</div>
-		<div class="flex items-center">
-			@if (!user()) {
-			<button
-				class="rounded-full border-t transition-all active:scale-95 bg-linear-to-b from-inverse-primary to-primary-container text-on-primary border-white/20 px-lg py-sm text-label-md font-label-md shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110"
-			>
-				Sign In
-			</button>
-			}
-		</div>
-	</div>
-</nav>
+<header class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md">
+  <nav
+    class="flex justify-between items-center py-4 mx-auto w-full max-w-7xl px-gutter"
+  >
+    <a
+      routerLink="/"
+      class="font-bold text-title-lg font-title-lg text-primary"
+    >
+      Premifly
+    </a>
+    <div class="hidden gap-8 items-center md:flex">
+      <a
+        class="font-bold border-b-2 transition-colors text-primary border-primary font-label-lg text-label-lg"
+        href="#"
+        >Explore</a
+      >
+      <a
+        class="transition-colors text-on-surface-variant font-label-lg text-label-lg hover:text-primary"
+        href="#"
+        >How it Works</a
+      >
+    </div>
+    <button
+      matButton="filled"
+      [style.--mat-button-filled-container-shape]="'9999px !important'"
+      routerLink="subscribe"
+      routerLinkActive="hidden!"
+    >
+      Get Started
+    </button>
+  </nav>
+</header>
+
 <router-outlet />
+
+<!-- Footer -->
+<footer class="py-12 mt-20 border-t bg-surface-container-low border-white/5">
+  <div
+    class="flex flex-col gap-8 justify-between items-center mx-auto w-full max-w-7xl md:flex-row px-gutter"
+  >
+    <div class="flex flex-col gap-4 items-center md:items-start">
+      <div class="font-bold text-title-lg font-title-lg text-primary">
+        Premifly
+      </div>
+      <p class="text-on-surface-variant font-body-md text-body-md">
+        © 2024 Premifly Elite Subscriptions
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-8 justify-center">
+      <a
+        class="underline transition-all text-on-surface-variant font-body-md text-body-md hover:text-primary"
+        href="#"
+        >Privacy Policy</a
+      >
+      <a
+        class="underline transition-all text-on-surface-variant font-body-md text-body-md hover:text-primary"
+        href="#"
+        >Terms of Service</a
+      >
+      <a
+        class="underline transition-all text-on-surface-variant font-body-md text-body-md hover:text-primary"
+        href="#"
+        >Support</a
+      >
+      <a
+        class="underline transition-all text-on-surface-variant font-body-md text-body-md hover:text-primary"
+        href="#"
+        >Contact</a
+      >
+    </div>
+    <div class="flex gap-4">
+      <div
+        class="flex justify-center items-center w-10 h-10 rounded-full transition-colors cursor-pointer bg-surface-container-high hover:bg-primary-container/20"
+      >
+        <span class="icon-[material-symbols--share-outline] text-[20px]"
+          >share</span
+        >
+      </div>
+      <div
+        class="flex justify-center items-center w-10 h-10 rounded-full transition-colors cursor-pointer bg-surface-container-high hover:bg-primary-container/20"
+      >
+        <span
+          class="icon-[material-symbols--public] text-[20px]"
+          role="img"
+          [ariaHidden]="true"
+          >public</span
+        >
+      </div>
+    </div>
+  </div>
+</footer>
