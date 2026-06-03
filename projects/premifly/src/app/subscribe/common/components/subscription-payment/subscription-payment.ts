@@ -36,14 +36,15 @@ export class SubscriptionPayment {
 	#snackBar = inject(MatSnackBar);
 	data = inject<{
 		service: Model.Premifly.Service;
+		duration: number;
 		phone: string;
 		device_type: string;
 	}>(MAT_DIALOG_DATA);
 
 	form = form(
 		signal({
-			service_id: this.data.service?.id,
-			payer: "",
+			service_id: this.data.service?.slug,
+			payer: this.data.phone,
 			phone: this.data.phone,
 			device_type: this.data.device_type,
 		}),
