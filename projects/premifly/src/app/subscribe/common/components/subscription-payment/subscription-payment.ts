@@ -43,7 +43,7 @@ export class SubscriptionPayment {
 
 	form = form(
 		signal({
-			service_id: this.data.service?.id,
+			service_id: this.data.service?.slug,
 			payer: this.data.phone,
 			phone: this.data.phone,
 			device_type: this.data.device_type,
