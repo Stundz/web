@@ -4,11 +4,12 @@
 @source "../../shared";
 @plugin "@iconify/tailwind4";
 @import "./theme";
+@import "./overrides";
 
 @layer base {
-	body {
-		@apply overflow-x-hidden relative min-h-screen antialiased bg-background text-on-surface  selection:bg-primary-container selection:text-on-primary-container;
-	}
+  body {
+    @apply overflow-x-hidden relative min-h-screen antialiased bg-background text-on-surface  selection:bg-primary-container selection:text-on-primary-container;
+  }
 }
 
 @utility glass-panel {
