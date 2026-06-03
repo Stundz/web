@@ -2,6 +2,7 @@ import { isPlatformBrowser, NgOptimizedImage } from "@angular/common";
 import { HttpClient, httpResource } from "@angular/common/http";
 import {
 	Component,
+	DOCUMENT,
 	effect,
 	inject,
 	input,
@@ -58,6 +59,7 @@ export class SubscribePage {
 	user = input.required<Model.User | null>();
 
 	#snackBar = inject(MatSnackBar);
+	#document = inject(DOCUMENT);
 	#dialog = inject(MatDialog);
 
 	services = httpResource<Array<Model.Premifly.Service>>(
@@ -74,10 +76,8 @@ export class SubscribePage {
 	#http = inject(HttpClient);
 	stepper = viewChild.required<MatStepper>("stepper");
 
-	#platformId = inject(PLATFORM_ID);
-
-	loginUrl!: string;
-	signupUrl!: string;
+	loginUrl = `${environment.url.auth.replace(/^https?:/, this.#document.location.protocol)}/login?callback=${this.#document.location.href}`;
+	signupUrl = `${environment.url.auth.replace(/^https?:/, this.#document.location.protocol)}/signup?callback=${this.#document.location.href}`;
 
 	phones = [
 		"Iphone 4/4S",
@@ -192,14 +192,6 @@ export class SubscribePage {
 			);
 		}
 	});
-
-	ngOnInit() {
-		if (isPlatformBrowser(this.#platformId)) {
-			const callback = `?callback=${window.location.href}`;
-			this.loginUrl = `${environment.url.auth}/login${callback}`;
-			this.signupUrl = `${environment.url.auth}/signup${callback}`;
-		}
-	}
 
 	openPaymentModal() {
 		const dialogRef = this.#dialog.open(SubscriptionPayment, {
