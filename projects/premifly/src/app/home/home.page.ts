@@ -1,6 +1,6 @@
 import { DOCUMENT } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, Renderer2 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
@@ -17,6 +17,7 @@ import { environment } from "../../environments/environment";
 export class HomePage {
   #document = inject(DOCUMENT);
   #meta = inject(Meta);
+  #renderer = inject(Renderer2);
   #title = inject(Title);
   user = input.required<Model.User | null>();
   services = httpResource<Array<Model.Premifly.Service>>(
@@ -35,6 +36,18 @@ export class HomePage {
     const url = `https://${document.location.hostname}`;
     const image =
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk";
+
+    // Canonical URL
+    const existingCanonical = this.#document.querySelector(
+      "link[rel='canonical']",
+    );
+    if (existingCanonical) {
+      this.#renderer.removeChild(this.#document.head, existingCanonical);
+    }
+    const link: HTMLLinkElement = this.#renderer.createElement("link");
+    this.#renderer.setAttribute(link, "rel", "canonical");
+    this.#renderer.setAttribute(link, "href", url);
+    this.#renderer.appendChild(this.#document.head, link);
 
     this.#meta.updateTag({
       id: "description",
