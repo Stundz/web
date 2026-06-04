@@ -1,209 +1,211 @@
 <style>
 .glass-panel {
-	background: rgba(20, 20, 22, 0.7);
-	backdrop-filter: blur(20px);
-	border: 1px solid transparent;
-	border-image: linear-gradient(
-			to bottom,
-			rgba(255, 255, 255, 0.15),
-			rgba(255, 255, 255, 0.05)
-		)
-		1;
+  background: rgba(20, 20, 22, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  border-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.05)
+    )
+    1;
 }
 .glow-orb {
-	position: absolute;
-	width: 400px;
-	height: 400px;
-	background: radial-gradient(
-		circle,
-		rgba(158, 27, 50, 0.4) 0%,
-		transparent 70%
-	);
-	border-radius: 50%;
-	filter: blur(40px);
-	z-index: -1;
-	pointer-events: none;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(158, 27, 50, 0.4) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
 }
 </style>
 <!-- Main Content -->
-<main class="flex relative justify-center items-center py-12 grow px-gutter">
-	<div
-		class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glow-orb"
-	></div>
-	<mat-card>
-		<mat-card-content>
-			@if (user()) {
-			<mat-stepper #stepper [disableRipple]="true" class="bg-transparent!">
-				<mat-step [completed]="form().valid()">
-					<ng-template matStepLabel>Select Service</ng-template>
-					<div class="text-center mb-md">
-						<h1
-							class="tracking-tight text-headline-md font-headline-md text-on-surface mb-xs"
-						>
-							Apply for Access
-						</h1>
-						<p class="text-body-md font-body-md text-on-surface-variant">
-							Secure your exclusive premium subscription tier.
-						</p>
-					</div>
-					<div class="absolute inset-0 opacity-5">
-						<div
-							class="flex relative justify-center items-center size-full *:starting:scale-0 *:starting:opacity-0"
-						>
-							@for (service of services.value(); track service.id) {
-							<!-- unncessary comment to avoid formatter for joining lines i dont want -->
-							@if (service.id === form.service_id().value()) {
-							<img
-								[src]="service.icon"
-								class="size-100 block! absolute"
-								animate.enter="enter-animation"
-								animate.leave="leave-animation"
-							>
-							} }
-						</div>
-					</div>
-					<form
-						class="flex relative z-10 flex-col gap-4 gap-lg"
-						[formRoot]="form"
-					>
-						<!-- Subscription Dropdown -->
-						<div class="flex flex-col gap-8">
-							<div class="flex flex-col">
-								<label
-									class="text-label-md font-label-md text-on-surface-variant"
-									for="subscription"
-									>Select Service</label
-								>
-								<mat-chip-listbox
-									(change)="form.service_id().value.set($event.value)"
-								>
-									@for (service of services.value(); track service.id) {
-									<mat-chip-option
-										[disabled]="!service.enabled"
-										[value]="service.id"
-										class="h-12!"
-									>
-										<div class="flex gap-2 items-center">
-											<stundz-premifly-service-logo
-												[service]="service"
-												class="size-5"
-											/>
-											{{ service.name }}
-										</div>
-									</mat-chip-option>
-									}
-								</mat-chip-listbox>
-								@for (error of form.service_id().errors(); track error.kind) {
-								<mat-error>{{error.message}}</mat-error>
-								}
-							</div>
+<main
+  class="flex relative justify-center items-center py-12 grow px-gutter min-h-[80vh]"
+>
+  <div
+    class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glow-orb"
+  ></div>
+  <mat-card>
+    <mat-card-content [class.text-center]="!user()">
+      @if (user()) {
+      <mat-stepper #stepper [disableRipple]="true" class="bg-transparent!">
+        <mat-step [completed]="form().valid()">
+          <ng-template matStepLabel>Select Service</ng-template>
+          <div class="text-center mb-md">
+            <h1
+              class="tracking-tight text-headline-md font-headline-md text-on-surface mb-xs"
+            >
+              Apply for Access
+            </h1>
+            <p class="text-body-md font-body-md text-on-surface-variant">
+              Secure your exclusive premium subscription tier.
+            </p>
+          </div>
+          <div class="absolute inset-0 opacity-5">
+            <div
+              class="flex relative justify-center items-center size-full *:starting:scale-0 *:starting:opacity-0"
+            >
+              @for (service of services.value(); track service.id) {
+              <!-- unncessary comment to avoid formatter for joining lines i dont want -->
+              @if (service.id === form.service_id().value()) {
+              <img
+                [src]="service.icon"
+                class="size-100 block! absolute"
+                animate.enter="enter-animation"
+                animate.leave="leave-animation"
+              >
+              } }
+            </div>
+          </div>
+          <form
+            class="flex relative z-10 flex-col gap-4 gap-lg"
+            [formRoot]="form"
+          >
+            <!-- Subscription Dropdown -->
+            <div class="flex flex-col gap-8">
+              <div class="flex flex-col">
+                <label
+                  class="text-label-md font-label-md text-on-surface-variant"
+                  for="subscription"
+                  >Select Service</label
+                >
+                <mat-chip-listbox
+                  (change)="form.service_id().value.set($event.value)"
+                >
+                  @for (service of services.value(); track service.id) {
+                  <mat-chip-option
+                    [disabled]="!service.enabled"
+                    [value]="service.id"
+                    class="h-12!"
+                  >
+                    <div class="flex gap-2 items-center">
+                      <stundz-premifly-service-logo
+                        [service]="service"
+                        class="size-5"
+                      />
+                      {{ service.name }}
+                    </div>
+                  </mat-chip-option>
+                  }
+                </mat-chip-listbox>
+                @for (error of form.service_id().errors(); track error.kind) {
+                <mat-error>{{error.message}}</mat-error>
+                }
+              </div>
 
-							<mat-form-field>
-								<mat-label>Duration</mat-label>
-								<input matInput [formField]="form.duration" type="number">
-								<mat-hint>
-									How many months would you like to pay for ?
-								</mat-hint>
-								@for (error of form.duration().errors(); track error.kind) {
-								<mat-error>{{error.message}}</mat-error>
-								}
-							</mat-form-field>
+              <mat-form-field>
+                <mat-label>Duration</mat-label>
+                <input matInput [formField]="form.duration" type="number">
+                <mat-hint>
+                  How many months would you like to pay for ?
+                </mat-hint>
+                @for (error of form.duration().errors(); track error.kind) {
+                <mat-error>{{error.message}}</mat-error>
+                }
+              </mat-form-field>
 
-							<mat-form-field>
-								<mat-label>Phone</mat-label>
-								<input matInput [formField]="form.phone" autofocus>
-								<mat-hint>
-									Whatsapp phone number preferable (Include country code)
-								</mat-hint>
-								@for (error of form.phone().errors(); track error.kind) {
-								<mat-error>{{error.message}}</mat-error>
-								}
-								<mat-icon matPrefix>
-									<span
-										class="text-lg text-green-600 icon-[logos--whatsapp-icon]"
-										role="img"
-										aria-hidden="true"
-									></span>
-								</mat-icon>
-							</mat-form-field>
-							@if (['prime-video', 'netflix'].includes((service()?.slug) || ''))
-							{
-							<mat-form-field>
-								<mat-label>Device type</mat-label>
-								<input
-									placeholder="Select your device type"
-									matInput
-									[formField]="form.device_type"
-									[matAutocomplete]="phoneList"
-								>
-								<mat-autocomplete #phoneList="matAutocomplete">
-									@for (type of phones; track type) {
-									<mat-option [value]="type" class="capitalize"
-										>{{type}}</mat-option
-									>
-									}
-								</mat-autocomplete>
-								@for (error of form.device_type().errors(); track error.kind) {
-								<mat-error>{{error.message}}</mat-error>
-								}
-							</mat-form-field>
-							}
-						</div>
-						<span class="text-amber-300"
-							>Don't proceed if you're not ready to make your subscription now</span
-						>
-						<!-- Submit Button -->
-						<button
-							type="button"
-							matButton="filled"
-							class="mt-10 w-full"
-							[disabled]="form().invalid() || !form().touched() || form().submitting()"
-							(click)="openPaymentModal()"
-						>
-							<div class="flex gap-2 items-center">
-								Apply Now
-								<span
-									class="icon-[material-symbols--arrow-forward] text-[18px]"
-									aria-hidden="true"
-									role="img"
-								></span>
-							</div>
-						</button>
-					</form>
-					<div
-						class="w-full h-px from-transparent to-transparent bg-linear-to-r via-white/20 mt-md mb-xs"
-					></div>
-					<p
-						class="text-center text-label-sm font-label-sm text-on-surface-variant/60"
-					>
-						By applying, you agree to our stringent terms of service.
-					</p>
-				</mat-step>
-				<mat-step>
-					<ng-template matStepLabel>Disclaimer</ng-template>
-					@if (!!service()) {
-					<div class="relative w-full h-160">
-						<img
-							[ngSrc]="`https://pub-f63e9d6103c5477cbcae0b504bd20e1b.r2.dev/disclaimer/${service()?.slug}.jpeg`"
-							fill
-						>
-					</div>
-					}
-				</mat-step>
-			</mat-stepper>
-			} @else {
-			<span>You are not connected. </span>
-			<span>
-				You must
-				<a [href]="signupUrl" class="text-green-400 hover:underline"
-					>create an account</a
-				>
-				or
-				<a [href]="loginUrl" class="text-blue-400 hover:underline">login</a>
-				in other to get a subscription
-			</span>
-			}
-		</mat-card-content>
-	</mat-card>
+              <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput [formField]="form.phone" autofocus>
+                <mat-hint>
+                  Whatsapp phone number preferable (Include country code)
+                </mat-hint>
+                @for (error of form.phone().errors(); track error.kind) {
+                <mat-error>{{error.message}}</mat-error>
+                }
+                <mat-icon matPrefix>
+                  <span
+                    class="text-lg text-green-600 icon-[logos--whatsapp-icon]"
+                    role="img"
+                    aria-hidden="true"
+                  ></span>
+                </mat-icon>
+              </mat-form-field>
+              @if (['prime-video', 'netflix'].includes((service()?.slug) || ''))
+              {
+              <mat-form-field>
+                <mat-label>Device type</mat-label>
+                <input
+                  placeholder="Select your device type"
+                  matInput
+                  [formField]="form.device_type"
+                  [matAutocomplete]="phoneList"
+                >
+                <mat-autocomplete #phoneList="matAutocomplete">
+                  @for (type of phones; track type) {
+                  <mat-option [value]="type" class="capitalize"
+                    >{{type}}</mat-option
+                  >
+                  }
+                </mat-autocomplete>
+                @for (error of form.device_type().errors(); track error.kind) {
+                <mat-error>{{error.message}}</mat-error>
+                }
+              </mat-form-field>
+              }
+            </div>
+            <span class="text-amber-300"
+              >Don't proceed if you're not ready to make your subscription now</span
+            >
+            <!-- Submit Button -->
+            <button
+              type="button"
+              matButton="filled"
+              class="mt-10 w-full"
+              [disabled]="form().invalid() || !form().touched() || form().submitting()"
+              (click)="openPaymentModal()"
+            >
+              <div class="flex gap-2 items-center">
+                Apply Now
+                <span
+                  class="icon-[material-symbols--arrow-forward] text-[18px]"
+                  aria-hidden="true"
+                  role="img"
+                ></span>
+              </div>
+            </button>
+          </form>
+          <div
+            class="w-full h-px from-transparent to-transparent bg-linear-to-r via-white/20 mt-md mb-xs"
+          ></div>
+          <p
+            class="text-center text-label-sm font-label-sm text-on-surface-variant/60"
+          >
+            By applying, you agree to our stringent terms of service.
+          </p>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Disclaimer</ng-template>
+          @if (!!service()) {
+          <div class="relative w-full h-160">
+            <img
+              [ngSrc]="`https://pub-f63e9d6103c5477cbcae0b504bd20e1b.r2.dev/disclaimer/${service()?.slug}.jpeg`"
+              fill
+            >
+          </div>
+          }
+        </mat-step>
+      </mat-stepper>
+      } @else {
+      <span>You are not connected. </span>
+      <span>
+        You must
+        <a [href]="signupUrl" class="text-green-400 hover:underline"
+          >create an account</a
+        >
+        or
+        <a [href]="loginUrl" class="hover:underline text-primary">login</a>
+        in other to get a subscription
+      </span>
+      }
+    </mat-card-content>
+  </mat-card>
 </main>
 <!-- Footer -->
