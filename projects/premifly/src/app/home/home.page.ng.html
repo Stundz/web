@@ -12,7 +12,6 @@
   pointer-events: none;
 }
 .glass-card {
-  background: rgba(28, 28, 28, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 180, 170, 0.05);
 }
@@ -187,51 +186,53 @@
       @for (service of services.value(); track service.id) {
 
       <!-- Deal: Netflix -->
-      <div
-        class="flex flex-col p-6 rounded-2xl transition-all cursor-pointer hover:shadow-2xl glass-card group hover:shadow-primary-container/10"
-      >
-        <div class="flex gap-4 items-center mb-6">
-          <div
-            class="flex overflow-hidden justify-center items-center p-2 w-16 h-16 rounded-xl bg-black/30"
-          >
-            <img
-              alt="Netflix"
-              class="object-contain w-full h-full mix-blend-difference"
-              data-alt="A clean, minimalist 3D rendering of the Netflix N logo in vibrant red, floating against a dark, textured cinematic background with subtle light flares and bokeh effects. The style is premium, modern, and aligned with a high-end streaming service aesthetic, focusing on luxury digital content."
-              [src]="service.icon"
+      <mat-card>
+        <div
+          class="flex flex-col p-6 rounded-2xl transition-all cursor-pointer hover:shadow-2xl glass-card group hover:shadow-primary-container/10"
+        >
+          <div class="flex gap-4 items-center mb-6">
+            <div
+              class="flex overflow-hidden justify-center items-center p-2 w-16 h-16 rounded-xl bg-black/30"
             >
-          </div>
-          <div>
-            <h4 class="font-title-lg text-title-lg">{{service.name}}</h4>
-            <div class="text-on-surface-variant font-label-md text-label-md">
-              {{service.slug}}
+              <img
+                alt="Netflix"
+                class="object-contain w-full h-full mix-blend-difference"
+                data-alt="A clean, minimalist 3D rendering of the Netflix N logo in vibrant red, floating against a dark, textured cinematic background with subtle light flares and bokeh effects. The style is premium, modern, and aligned with a high-end streaming service aesthetic, focusing on luxury digital content."
+                [src]="service.icon"
+              >
+            </div>
+            <div>
+              <h4 class="font-title-lg text-title-lg">{{service.name}}</h4>
+              <div class="text-on-surface-variant font-label-md text-label-md">
+                {{service.slug}}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="flex gap-3 items-baseline mb-6">
-          <div class="font-bold text-[32px] text-primary">
-            {{service.price}}
-            <span class="font-normal text-label-md text-on-surface-variant"
-              >/mo</span
+          <div class="flex gap-3 items-baseline mb-6">
+            <div class="font-bold text-[32px] text-primary">
+              {{service.price}}
+              <span class="font-normal text-label-md text-on-surface-variant"
+                >/mo</span
+              >
+            </div>
+            <div class="line-through text-label-md text-on-surface-variant">
+              $19.99
+            </div>
+            <div
+              class="py-1 px-2 ml-auto font-bold tracking-tighter text-green-400 uppercase rounded bg-green-500/10 text-[10px]"
             >
+              -75% OFF
+            </div>
           </div>
-          <div class="line-through text-label-md text-on-surface-variant">
-            $19.99
-          </div>
-          <div
-            class="py-1 px-2 ml-auto font-bold tracking-tighter text-green-400 uppercase rounded bg-green-500/10 text-[10px]"
+          <a
+            matButton="filled"
+            [routerLink]="['subscribe']"
+            [queryParams]="{service: service.slug}"
           >
-            -75% OFF
-          </div>
+            Subscribe Now
+          </a>
         </div>
-        <a
-          matButton="filled"
-          [routerLink]="['subscribe']"
-          [queryParams]="{service: service.slug}"
-        >
-          Subscribe Now
-        </a>
-      </div>
+      </mat-card>
       }
     </div>
   </section>
