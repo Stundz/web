@@ -1,5 +1,5 @@
 import { httpResource } from "@angular/common/http";
-import { Component, DOCUMENT, inject, input, Renderer2 } from "@angular/core";
+import { Component, DOCUMENT, inject, input, Renderer2, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
@@ -11,6 +11,7 @@ import { environment } from "../../environments/environment";
   selector: "premifly-home",
   imports: [MatButtonModule, MatCardModule, RouterLink],
   templateUrl: "./home.page.ng.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./home.page.css",
 })
 export class HomePage {

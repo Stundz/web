@@ -15,8 +15,9 @@ import {
 	type MatFormFieldDefaultOptions,
 } from "@angular/material/form-field";
 import {
-	provideClientHydration,
-	withEventReplay,
+  provideClientHydration,
+  withEventReplay,
+  withNoIncrementalHydration
 } from "@angular/platform-browser";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { firstValueFrom } from "rxjs";
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
 		provideBrowserGlobalErrorListeners(),
 		provideZonelessChangeDetection(),
 		provideRouter(routes, withComponentInputBinding()),
-		provideClientHydration(withEventReplay()),
+		provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
 		provideHttpClient(withFetch(), withInterceptors([csrfInterceptor])),
 		provideAppInitializer(async () => {
 			const authService = inject(Auth);

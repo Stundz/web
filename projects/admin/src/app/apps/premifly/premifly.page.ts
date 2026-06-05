@@ -1,6 +1,6 @@
 import { DecimalPipe, PercentPipe } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -22,6 +22,7 @@ import { environment } from "../../../environments/environment";
 		MatCardModule,
 	],
 	templateUrl: "./premifly.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./premifly.page.css",
 })
 export class PremiflyPage {

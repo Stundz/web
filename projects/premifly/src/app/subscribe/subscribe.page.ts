@@ -10,6 +10,7 @@ import {
   Renderer2,
   signal,
   viewChild,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import {
   FormField,
@@ -54,6 +55,7 @@ import { SubscriptionPayment } from "./common/components/subscription-payment/su
     PremiflyServiceLogo,
   ],
   templateUrl: "./subscribe.page.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./subscribe.page.css",
 })
 export class SubscribePage {

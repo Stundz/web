@@ -5,6 +5,7 @@ import {
   inject,
   Renderer2,
   signal,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -21,6 +22,7 @@ import type { Model } from "../../../../dist/shared/types/shared";
   selector: "premifly-root",
   imports: [RouterOutlet, RouterLink, MatButtonModule, RouterLinkActive],
   templateUrl: "./app.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./app.css",
 })
 export class App {

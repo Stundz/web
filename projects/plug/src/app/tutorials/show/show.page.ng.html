@@ -282,7 +282,7 @@
 						class="flex gap-4 items-center pt-6 border-t border-outline-variant/20"
 					>
 						<a
-							[routerLink]="['/tutor', tutorial().tutor?.id]"
+							[routerLink]="['/tutor', $safeNavigationMigration(tutorial().tutor?.id)]"
 							matButton="tonal"
 							class="grow"
 						>

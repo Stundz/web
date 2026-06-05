@@ -1,5 +1,5 @@
 import { httpResource } from "@angular/common/http";
-import { Component, effect, inject } from "@angular/core";
+import { Component, effect, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
 	FormBuilder,
 	FormSubmittedEvent,
@@ -33,6 +33,7 @@ import { PastQuestion } from "../../common/services/past-question";
 		Dropzone,
 	],
 	templateUrl: "./create.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./create.page.scss",
 })
 export class CreatePage {

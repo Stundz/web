@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
 	FormArray,
@@ -38,6 +38,7 @@ import { MatButtonModule } from "@angular/material/button";
 		MatTimepickerModule,
 	],
 	templateUrl: "./create.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./create.page.scss",
 })
 export class CreatePage {

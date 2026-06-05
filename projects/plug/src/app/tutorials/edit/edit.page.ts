@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-edit',
   imports: [],
   templateUrl: './edit.page.ng.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './edit.page.scss'
 })
 export class EditPage {

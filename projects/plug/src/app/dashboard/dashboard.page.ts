@@ -1,5 +1,5 @@
 import { httpResource } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { environment } from "../../environments/environment";
@@ -8,6 +8,7 @@ import { environment } from "../../environments/environment";
 	selector: "app-dashboard",
 	imports: [MatButtonModule, RouterLink],
 	templateUrl: "./dashboard.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./dashboard.page.scss",
 })
 export class DashboardPage {

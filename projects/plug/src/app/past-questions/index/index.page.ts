@@ -1,5 +1,5 @@
 import { ViewportScroller } from "@angular/common";
-import { Component, DestroyRef, inject, input, viewChild } from "@angular/core";
+import { Component, DestroyRef, inject, input, viewChild, ChangeDetectionStrategy } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -22,6 +22,7 @@ import { PastQuestion } from "../../common/services/past-question";
 		MatExpansionModule,
 	],
 	templateUrl: "./index.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./index.page.scss",
 })
 export class IndexPage {

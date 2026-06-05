@@ -186,7 +186,7 @@
           @if (!!service()) {
           <div class="relative w-full h-160">
             <img
-              [ngSrc]="`https://pub-f63e9d6103c5477cbcae0b504bd20e1b.r2.dev/disclaimer/${service()?.slug}.jpeg`"
+              [ngSrc]="`https://pub-f63e9d6103c5477cbcae0b504bd20e1b.r2.dev/disclaimer/${$safeNavigationMigration(service()?.slug)}.jpeg`"
               fill
             >
           </div>

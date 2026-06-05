@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import {
 	ActivatedRoute,
@@ -20,6 +20,7 @@ import { ENVIRONMENT, Model, User } from "shared";
 		RouterLinkWithHref,
 	],
 	templateUrl: "./guest.layout.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./guest.layout.scss",
 })
 export class GuestLayout {

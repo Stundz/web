@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import {
 	MatPaginatorModule,
 	type PageEvent,
@@ -11,6 +11,7 @@ import type { Model, Paginated } from "shared";
 	selector: "admin-index",
 	imports: [RouterLink, MatTableModule, MatPaginatorModule],
 	templateUrl: "./index.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./index.page.css",
 })
 export class IndexPage {

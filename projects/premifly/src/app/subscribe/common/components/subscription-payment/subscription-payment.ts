@@ -1,6 +1,6 @@
 import { CurrencyPipe } from "@angular/common";
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import {
 	FormField,
 	FormRoot,
@@ -28,6 +28,7 @@ import { environment } from "../../../../../environments/environment";
 		MatInputModule,
 	],
 	templateUrl: "./subscription-payment.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./subscription-payment.css",
 })
 export class SubscriptionPayment {

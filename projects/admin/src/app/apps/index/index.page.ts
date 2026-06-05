@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { RouterLink } from "@angular/router";
 
@@ -6,6 +6,7 @@ import { RouterLink } from "@angular/router";
 	selector: "admin-index",
 	imports: [RouterLink, MatCardModule],
 	templateUrl: "./index.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./index.page.css",
 })
 export class IndexPage {

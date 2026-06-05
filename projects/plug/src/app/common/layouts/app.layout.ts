@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { RouterOutlet } from "@angular/router";
 import { Model } from "shared";
@@ -8,6 +8,7 @@ import { SignupForm } from "../component/signup-form/signup-form";
 	selector: "plug-app-layout",
 	imports: [RouterOutlet],
 	templateUrl: "./app.layout.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./app.layout.scss",
 })
 export class AppLayout {

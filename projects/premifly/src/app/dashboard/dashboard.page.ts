@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatTableModule } from "@angular/material/table";
@@ -22,6 +22,7 @@ import { environment } from "../../environments/environment";
     MatTableModule,
   ],
   templateUrl: "./dashboard.page.ng.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./dashboard.page.css",
 })
 export class DashboardPage {

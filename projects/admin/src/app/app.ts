@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -28,6 +28,7 @@ import { filter, map } from "rxjs";
 		MatProgressBarModule,
 	],
 	templateUrl: "./app.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./app.scss",
 })
 export class App {

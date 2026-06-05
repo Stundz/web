@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { httpResource } from "@angular/common/http";
-import { Component, effect, inject } from "@angular/core";
+import { Component, effect, inject, ChangeDetectionStrategy } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
 	FormArray,
@@ -40,6 +40,7 @@ import { MatTimepickerModule } from "@angular/material/timepicker";
 	],
 	templateUrl: "./create.page.ng.html",
 	styleUrl: "./create.page.scss",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	providers: [provideNativeDateAdapter()],
 })
 export class CreatePage {

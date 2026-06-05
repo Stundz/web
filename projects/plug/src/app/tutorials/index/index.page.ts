@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from "@angular/common";
-import { Component, effect, inject, input, signal } from "@angular/core";
+import { Component, effect, inject, input, signal, ChangeDetectionStrategy } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { ReactiveFormsModule } from "@angular/forms";
 import { debounce, FormField, form } from "@angular/forms/signals";
@@ -44,6 +44,7 @@ import { Tutorial } from "../../common/services/tutorial";
 	],
 	templateUrl: "./index.page.ng.html",
 	styleUrl: "./index.page.scss",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		ngSkipHydration: "true",
 	},

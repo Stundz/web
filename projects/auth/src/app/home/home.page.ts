@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { ENVIRONMENT, Model } from "shared";
@@ -7,6 +7,7 @@ import { ENVIRONMENT, Model } from "shared";
 	selector: "auth-home",
 	imports: [MatButtonModule, RouterLink],
 	templateUrl: "./home.page.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./home.page.scss",
 })
 export class HomePage {
