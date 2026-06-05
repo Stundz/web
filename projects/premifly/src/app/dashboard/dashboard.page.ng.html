@@ -1,0 +1,493 @@
+<style>
+.red-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(229, 9, 20, 0.08) 0%,
+    rgba(19, 19, 19, 0) 70%
+  );
+}
+.bento-card {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #131313;
+}
+::-webkit-scrollbar-thumb {
+  background: #353534;
+  border-radius: 10px;
+}
+</style>
+<!-- Sidebar Shell -->
+<aside
+  class="hidden fixed top-0 bottom-0 left-0 z-40 flex-col w-64 h-full border-r md:flex bg-surface-container border-outline-variant/10"
+>
+  <div class="py-8 px-6">
+    <h1 class="font-bold text-title-lg font-title-lg text-primary">Premifly</h1>
+  </div>
+  <nav class="flex-1 mt-4 space-y-1">
+    <!-- Active State: Dashboard -->
+    <a
+      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      routerLink="/dashboard"
+      [routerLinkActive]="['bg-primary-container!', 'text-on-primary-container!', 'active:opacity-80']"
+    >
+      <span
+        class="icon-[material-symbols--dashboard-outline]"
+        role="img"
+        [ariaHidden]="true"
+      ></span>
+      <span>Dashboard</span>
+    </a>
+    <a
+      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      href="#"
+    >
+      <span
+        class="icon-[material-symbols--subscriptions-outline]"
+        role="img"
+        [ariaHidden]="true"
+      ></span>
+      <span>Subscriptions</span>
+    </a>
+    <a
+      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      href="#"
+    >
+      <span
+        class="icon-[material-symbols--history]"
+        role="img"
+        [ariaHidden]="true"
+        >history</span
+      >
+      <span>History</span>
+    </a>
+    <a
+      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      href="#"
+    >
+      <span
+        class="icon-[material-symbols--settings-outline]"
+        role="img"
+        [ariaHidden]="true"
+      ></span>
+      <span>Settings</span>
+    </a>
+  </nav>
+  <div class="p-4 mx-4 mb-8 rounded-xl bg-surface-container-highest">
+    <div class="flex gap-3 items-center mb-3">
+      <div
+        class="flex overflow-hidden justify-center items-center w-10 h-10 rounded-full bg-primary-container"
+      >
+        <img
+          alt="User Profile"
+          class="object-cover w-full h-full"
+          data-alt="A sophisticated close-up portrait of a professional modern user icon, rendered in a high-fidelity 3D aesthetic. The color palette features deep obsidian blacks and glowing primary reds, reflecting a premium dark-mode subscription service brand. Soft cinematic lighting highlights the smooth surfaces and clean circular silhouette. The mood is elite and exclusive."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpX-xk-cDoCELOeIKdeUcxCUVvXAbvP7SxEme7WnIdja403rgPkAgv5Az0hTsJdOc4uyjYI_lJK6GWZcxaUe23ZzNNbnUiVnT-bMVHtUJ81KEJ92aM3FGw17aPDYTD5rgr4DUXfEQsWGbaDSVJp2QihnzawOzZHGFP4wO9PmOx3ESs4FBHq6JqOUsol2-MJ5K5OX239IIWKYmIOwYiysDGAqgl_dUHAQoFXzFnwD4ZYiZWZ4e8Rd4VrDCwrjYQPKTw8N_eYtpmjRwF"
+        >
+      </div>
+      <div>
+        <p class="font-label-lg text-label-lg text-on-surface">
+          Premium Member
+        </p>
+        <p class="font-bold tracking-wider uppercase text-[10px] text-primary">
+          Elite Status
+        </p>
+      </div>
+    </div>
+    <button
+      class="py-2 w-full rounded-lg transition-all active:scale-95 bg-primary text-on-primary font-label-md text-label-md hover:brightness-110"
+    >
+      Upgrade Now
+    </button>
+  </div>
+</aside>
+<!-- Main Content Area -->
+<main class="relative min-h-screen md:ml-64 red-glow">
+  <!-- Header -->
+  <header
+    class="flex justify-between items-center py-6 mx-auto w-full max-w-7xl px-gutter"
+  >
+    <div>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">
+        Welcome back, {{ user().first_name }}
+      </h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">
+        Here's your subscription overview for {{ date | date : 'MMMM yyy' }}.
+      </p>
+    </div>
+    <div class="flex gap-4 items-center">
+      <button
+        class="flex justify-center items-center w-12 h-12 rounded-full transition-colors bg-surface-container text-on-surface hover:bg-surface-container-high"
+      >
+        <span class="icon-[material-symbols--notifications-outline]"
+          >notifications</span
+        >
+      </button>
+      <button
+        class="flex justify-center items-center w-12 h-12 rounded-full transition-colors md:hidden bg-surface-container text-on-surface hover:bg-surface-container-high"
+      >
+        <span class="icon-[material-symbols--menu-outline]">menu</span>
+      </button>
+    </div>
+  </header>
+  <div class="pb-12 mx-auto max-w-7xl px-gutter">
+    <!-- Summary Grid -->
+    <section
+      class="grid grid-cols-1 gap-6 mb-10 md:grid-cols-3 *:hover:-translate-y-0.5"
+    >
+      <mat-card>
+        <mat-card-content>
+          <div class="flex justify-between items-center mb-4">
+            <span
+              class="text-3xl icon-[material-symbols--star-outline] text-primary"
+              >star</span
+            >
+            <span class="text-label-md font-label-md text-on-surface-variant"
+              >+12% vs last month</span
+            >
+          </div>
+          <p class="font-label-lg text-label-lg text-on-surface-variant">
+            Active Subscriptions
+          </p>
+          <h3 class="mt-1 font-display-lg text-display-lg text-on-surface">
+            14
+          </h3>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <div class="flex justify-between items-center mb-4">
+            <span
+              class="text-3xl icon-[material-symbols--savings-outline] text-primary"
+              >savings</span
+            >
+            <span
+              class="py-1 px-2 font-bold rounded bg-primary/10 text-primary text-[10px]"
+              >ELITE SAVER</span
+            >
+          </div>
+          <p class="font-label-lg text-label-lg text-on-surface-variant">
+            Total Monthly Savings
+          </p>
+          <h3 class="mt-1 font-display-lg text-display-lg text-on-surface">
+            $142<span
+              class="text-title-lg font-title-lg text-on-surface-variant"
+              >.50</span
+            >
+          </h3>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="bg-primary-container! text-on-primary-container!">
+        <mat-card-content>
+          <div
+            class="absolute -right-4 -bottom-4 opacity-10 transition-transform group-hover:scale-110"
+          >
+            <span
+              class="icon-[material-symbols--workspace-premium-outline] text-[120px]"
+              >workspace_premium</span
+            >
+          </div>
+          <div>
+            <p class="font-label-lg text-label-lg text-on-primary-container/80">
+              Next Billing Cycle
+            </p>
+            <h3
+              class="mt-1 font-headline-lg text-headline-lg text-on-primary-container"
+            >
+              June 24, 2024
+            </h3>
+          </div>
+          <div class="mt-4">
+            <p class="mb-2 font-body-md text-body-md text-on-primary-container">
+              Upcoming: $28.99
+            </p>
+            <button matButton="filled">Manage Payment</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+    <!-- Main Content Layout -->
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <!-- Active Subscriptions Table -->
+      <section class="lg:col-span-2">
+        <mat-card>
+          <mat-card-content>
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="font-title-lg text-title-lg text-on-surface">
+                Recent Subscriptions
+              </h4>
+            </div>
+            <div class="overflow-x-auto">
+              <table
+                class="w-full text-left  bg-transparent!"
+                mat-table
+                [dataSource]="subscriptions.value()?.data || []"
+              >
+                <ng-container matColumnDef="service">
+                  <th mat-header-cell *matHeaderCellDef>Service</th>
+                  <td mat-cell *matCellDef="let subscription">
+                    <div class="flex gap-2 items-center">
+                      <div
+                        class="overflow-hidden relative p-px rounded-2xl size-10 bg-primary-container/5"
+                      >
+                        <img
+                          [src]="subscription.service.icon"
+                          [alt]="`${subscription.service.name}`"
+                        >
+                      </div>
+                      <span> {{subscription.service?.name}} </span>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="expiry">
+                  <th mat-header-cell *matHeaderCellDef>Expiry</th>
+                  <td mat-cell *matCellDef="let subscription">
+                    @if (isActiveSubscription(subscription.expires_at)) { Active
+                    }@else { Inactive }
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>Status</th>
+                  <td mat-cell *matCellDef="let subscription">
+                    @if (subscription.expires_at) {
+                    {{subscription.expires_at | date: 'medium'}}
+                    } @else { Not paid }
+                  </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef>Price</th>
+                  <td mat-cell *matCellDef="let subscription">
+                    {{subscription.service?.price | currency}}
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="['service', 'expiry', 'status', 'price']"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: ['service', 'expiry', 'status', 'price'];"
+                  class="odd:bg-primary-container/2! odd:hover:bg-primary-container/10! transition duration-300 even:hover:bg-secondary/3! "
+                ></tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+      <!-- Past History Section -->
+      <!-- <section class="lg:col-span-1"> -->
+      <!--   <div class="p-6 h-full rounded-3xl bg-surface-container"> -->
+      <!--     <div class="flex justify-between items-center mb-6"> -->
+      <!--       <h4 class="font-title-lg text-title-lg text-on-surface"> -->
+      <!--         Recent Activity -->
+      <!--       </h4> -->
+      <!--       <button -->
+      <!--         class="transition-colors text-on-surface-variant font-label-md text-label-md hover:text-primary" -->
+      <!--       > -->
+      <!--         <span class="icon-[material-symbols--filter-list]" -->
+      <!--           >filter_list</span -->
+      <!--         > -->
+      <!--       </button> -->
+      <!--     </div> -->
+      <!--     <div class="space-y-6"> -->
+      <!--       <div class="flex gap-4 items-start"> -->
+      <!--         <div -->
+      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--         > -->
+      <!--           <span -->
+      <!--             class="text-xl icon-[material-symbols--receipt-long-outline] text-on-surface-variant" -->
+      <!--             >receipt_long</span -->
+      <!--           > -->
+      <!--         </div> -->
+      <!--         <div class="flex-1"> -->
+      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--             Invoice Paid: Cinestream -->
+      <!--           </p> -->
+      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--             Yesterday, 14:20 PM -->
+      <!--           </p> -->
+      <!--         </div> -->
+      <!--         <span class="font-bold text-primary text-label-lg">-$19.99</span> -->
+      <!--       </div> -->
+      <!--       <div class="flex gap-4 items-start"> -->
+      <!--         <div -->
+      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--         > -->
+      <!--           <span -->
+      <!--             class="text-xl icon-[material-symbols--add-circle-outline] text-on-surface-variant" -->
+      <!--             >add_circle</span -->
+      <!--           > -->
+      <!--         </div> -->
+      <!--         <div class="flex-1"> -->
+      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--             New Subscription: Vitality -->
+      <!--           </p> -->
+      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--             June 12, 2024 -->
+      <!--           </p> -->
+      <!--         </div> -->
+      <!--         <span class="font-bold text-on-surface-variant text-label-lg" -->
+      <!--           >+$2.00 Cashback</span -->
+      <!--         > -->
+      <!--       </div> -->
+      <!--       <div class="flex gap-4 items-start"> -->
+      <!--         <div -->
+      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--         > -->
+      <!--           <span -->
+      <!--             class="text-xl icon-[material-symbols--pause-circle-outline] text-on-surface-variant" -->
+      <!--             >pause_circle</span -->
+      <!--           > -->
+      <!--         </div> -->
+      <!--         <div class="flex-1"> -->
+      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--             Paused Nexus Gaming -->
+      <!--           </p> -->
+      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--             June 10, 2024 -->
+      <!--           </p> -->
+      <!--         </div> -->
+      <!--         <span -->
+      <!--           class="icon-[material-symbols--more-horiz] text-on-surface-variant" -->
+      <!--           >more_horiz</span -->
+      <!--         > -->
+      <!--       </div> -->
+      <!--       <div class="flex gap-4 items-start"> -->
+      <!--         <div -->
+      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--         > -->
+      <!--           <span -->
+      <!--             class="text-xl icon-[material-symbols--savings-outline] text-on-surface-variant" -->
+      <!--             >savings</span -->
+      <!--           > -->
+      <!--         </div> -->
+      <!--         <div class="flex-1"> -->
+      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--             Monthly Savings Reached -->
+      <!--           </p> -->
+      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--             June 01, 2024 -->
+      <!--           </p> -->
+      <!--         </div> -->
+      <!--         <span class="font-bold text-primary text-label-lg">+$142.50</span> -->
+      <!--       </div> -->
+      <!--     </div> -->
+      <!--     <div class="pt-6 mt-8 border-t border-outline-variant/10"> -->
+      <!--       <div -->
+      <!--         class="flex justify-between items-center p-4 rounded-2xl transition-all cursor-pointer bg-surface-container-highest group hover:bg-surface-bright" -->
+      <!--       > -->
+      <!--         <div class="flex gap-3 items-center"> -->
+      <!--           <span class="icon-[material-symbols--download] text-primary" -->
+      <!--             >download</span -->
+      <!--           > -->
+      <!--           <span class="font-label-md text-label-md text-on-surface" -->
+      <!--             >Download Annual Report</span -->
+      <!--           > -->
+      <!--         </div> -->
+      <!--         <span -->
+      <!--           class="transition-transform group-hover:translate-x-1 icon-[material-symbols--chevron-right]" -->
+      <!--           >chevron_right</span -->
+      <!--         > -->
+      <!--       </div> -->
+      <!--     </div> -->
+      <!--   </div> -->
+      <!-- </section> -->
+    </div>
+  </div>
+  <!-- Footer Shell Integration -->
+  <footer
+    class="mt-12 border-t bg-surface-container-low border-outline-variant/5"
+  >
+    <div
+      class="flex flex-col justify-between items-center py-12 mx-auto w-full max-w-7xl md:flex-row px-gutter"
+    >
+      <div class="mb-6 md:mb-0">
+        <h5 class="font-bold text-title-lg font-title-lg text-primary">
+          Premifly
+        </h5>
+        <p class="mt-2 font-body-md text-body-md text-on-surface-variant">
+          © 2024 Premifly Elite Subscriptions
+        </p>
+      </div>
+      <div class="flex gap-8">
+        <a
+          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          href="#"
+          >Privacy Policy</a
+        >
+        <a
+          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          href="#"
+          >Terms of Service</a
+        >
+        <a
+          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          href="#"
+          >Support</a
+        >
+        <a
+          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          href="#"
+          >Contact</a
+        >
+      </div>
+    </div>
+  </footer>
+</main>
+<!-- Mobile Navigation Shell -->
+<nav
+  class="flex fixed right-0 bottom-0 left-0 z-50 justify-around items-center py-3 px-4 border-t md:hidden bg-surface-container border-outline-variant/10"
+>
+  <a
+    class="flex flex-col gap-1 items-center text-primary"
+    routerLink="/dashboard"
+  >
+    <span
+      class="icon-[material-symbols--dashboard-outline]"
+      style="font-variation-settings: 'FILL' 1;"
+      >dashboard</span
+    >
+    <span class="font-label-md text-[10px]">Dashboard</span>
+  </a>
+  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+    <span class="icon-[material-symbols--subscriptions-outline]"
+      >subscriptions</span
+    >
+    <span class="font-label-md text-[10px]">Subs</span>
+  </a>
+  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+    <span class="icon-[material-symbols--history]">history</span>
+    <span class="font-label-md text-[10px]">History</span>
+  </a>
+  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+    <span class="icon-[material-symbols--settings-outline]">settings</span>
+    <span class="font-label-md text-[10px]">Settings</span>
+  </a>
+</nav>
+<script>
+// Micro-interaction for numbers incrementing or charts could be here
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".bento-card");
+  cards.forEach((card) => {
+    card.addEventListener("mousedown", () => {
+      card.style.transform = "scale(0.98)";
+    });
+    card.addEventListener("mouseup", () => {
+      card.style.transform = "translateY(-2px) scale(1)";
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0) scale(1)";
+    });
+  });
+});
+</script>
