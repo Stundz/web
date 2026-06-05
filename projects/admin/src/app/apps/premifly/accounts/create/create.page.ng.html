@@ -1,170 +1,170 @@
 <div
-	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+  class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
 >
-	<!-- Back Button & Breadcrumbs -->
-	<header class="flex flex-col gap-2 mb-8">
-		<a
-			routerLink="/app/premifly/accounts"
-			class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
-		>
-			<span
-				class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
-			></span>
-			<span>Back to Accounts</span>
-		</a>
-		<h1
-			class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
-		>
-			Create New Account
-		</h1>
-		<p class="text-sm text-slate-500 dark:text-slate-400">
-			Register a fresh email credential set ready for premium subscription
-			bindings.
-		</p>
-	</header>
+  <!-- Back Button & Breadcrumbs -->
+  <header class="flex flex-col gap-2 mb-8">
+    <a
+      routerLink="/app/premifly/accounts"
+      class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
+    >
+      <span
+        class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
+      ></span>
+      <span>Back to Accounts</span>
+    </a>
+    <h1
+      class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+    >
+      Create New Account
+    </h1>
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      Register a fresh email credential set ready for premium subscription
+      bindings.
+    </p>
+  </header>
 
-	<!-- Main Asymmetric Grid Layout -->
-	<div class="grid grid-cols-1 gap-8 items-start lg:grid-cols-12">
-		<!-- Left Side: Live Premium Card Preview & Help Banner (5 cols) -->
-		<section class="flex flex-col gap-6 lg:col-span-5">
-			<mat-card class="bg-transparent border-0 shadow-none!">
-				<div
-					class="flex overflow-hidden relative flex-col justify-between p-8 bg-white rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50 dark:bg-slate-950"
-				>
-					<!-- Card Background Accent -->
-					<div
-						class="absolute -top-16 -right-16 w-48 h-48 rounded-full transition-colors duration-300 bg-indigo-500/10 blur-2xl group-hover:bg-indigo-500/15"
-					></div>
-					<div
-						class="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-primary/5 blur-2xl"
-					></div>
+  <!-- Main Asymmetric Grid Layout -->
+  <div class="grid grid-cols-1 gap-8 items-start lg:grid-cols-12">
+    <!-- Left Side: Live Premium Card Preview & Help Banner (5 cols) -->
+    <section class="flex flex-col gap-6 lg:col-span-5">
+      <mat-card class="bg-transparent border-0 shadow-none!">
+        <div
+          class="flex overflow-hidden relative flex-col justify-between p-8 bg-white rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50 dark:bg-slate-950"
+        >
+          <!-- Card Background Accent -->
+          <div
+            class="absolute -top-16 -right-16 w-48 h-48 rounded-full transition-colors duration-300 bg-indigo-500/10 blur-2xl group-hover:bg-indigo-500/15"
+          ></div>
+          <div
+            class="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-primary/5 blur-2xl"
+          ></div>
 
-					<!-- Header Area -->
-					<div class="flex relative z-10 justify-between items-start">
-						<div class="flex flex-col gap-1">
-							<span
-								class="text-xs font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500"
-							>
-								PREMIFLY PARTNER ACCOUNT
-							</span>
-							<h2
-								class="text-2xl font-bold tracking-tight transition-colors duration-200 wrap-break-word text-slate-800 max-w-62.5 dark:text-slate-100"
-							>
-								{{ form.email().value() || 'new-account@email.com' }}
-							</h2>
-						</div>
+          <!-- Header Area -->
+          <div class="flex relative z-10 justify-between items-start">
+            <div class="flex flex-col gap-1">
+              <span
+                class="text-xs font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500"
+              >
+                PREMIFLY PARTNER ACCOUNT
+              </span>
+              <h2
+                class="text-2xl font-bold tracking-tight transition-colors duration-200 wrap-break-word text-slate-800 max-w-62.5 dark:text-slate-100"
+              >
+                {{ form.email().value() || 'new-account@email.com' }}
+              </h2>
+            </div>
 
-						<div
-							class="flex justify-center items-center w-12 h-12 text-base font-black text-indigo-500 rounded-full border shadow-sm dark:text-indigo-400 bg-indigo-500/10 border-indigo-200/50 dark:border-indigo-900/30"
-						>
-							{{ form.email().value() ? form.email().value().trim().charAt(0).toUpperCase() : 'A' }}
-						</div>
-					</div>
+            <div
+              class="flex justify-center items-center w-12 h-12 text-base font-black text-indigo-500 rounded-full border shadow-sm dark:text-indigo-400 bg-indigo-500/10 border-indigo-200/50 dark:border-indigo-900/30"
+            >
+              {{ form.email().value() ? form.email().value().trim().charAt(0).toUpperCase() : 'A' }}
+            </div>
+          </div>
 
-					<!-- Bottom Area -->
-					<div
-						class="flex relative z-10 justify-between items-center pt-5 border-t border-slate-100 dark:border-slate-800/80"
-					>
-						<div
-							class="flex gap-2 items-center text-emerald-500 dark:text-emerald-400"
-						>
-							<span
-								class="text-xl icon-[material-symbols--shield-check-outline]"
-							></span>
-							<span class="text-xs font-bold tracking-wider uppercase">
-								Fully Secured
-							</span>
-						</div>
-						<span
-							class="italic font-bold tracking-wide uppercase text-[10px] text-slate-400 dark:text-slate-500"
-						>
-							Live preview
-						</span>
-					</div>
-				</div>
-			</mat-card>
+          <!-- Bottom Area -->
+          <div
+            class="flex relative z-10 justify-between items-center pt-5 border-t border-slate-100 dark:border-slate-800/80"
+          >
+            <div
+              class="flex gap-2 items-center text-emerald-500 dark:text-emerald-400"
+            >
+              <span
+                class="text-xl icon-[material-symbols--shield-check]"
+              ></span>
+              <span class="text-xs font-bold tracking-wider uppercase">
+                Fully Secured
+              </span>
+            </div>
+            <span
+              class="italic font-bold tracking-wide uppercase text-[10px] text-slate-400 dark:text-slate-500"
+            >
+              Live preview
+            </span>
+          </div>
+        </div>
+      </mat-card>
 
-			<!-- Dynamic Help Alert Card -->
-			<div
-				class="flex gap-4 items-start p-5 rounded-2xl border shadow-sm bg-primary/5 border-primary/10 dark:bg-primary/10"
-			>
-				<span
-					class="mt-0.5 text-2xl icon-[material-symbols--info-outline] text-primary shrink-0"
-				></span>
-				<div class="flex flex-col gap-1">
-					<h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
-						Account Registration Core
-					</h3>
-					<p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-						Provide a unique email address, a strong password, and an access
-						code/token. This account serves as the authentication node for
-						premium subscription services. An optional expiration date can be
-						set to limit validity duration.
-					</p>
-				</div>
-			</div>
-		</section>
+      <!-- Dynamic Help Alert Card -->
+      <div
+        class="flex gap-4 items-start p-5 rounded-2xl border shadow-sm bg-primary/5 border-primary/10 dark:bg-primary/10"
+      >
+        <span
+          class="mt-0.5 text-2xl icon-[material-symbols--info-outline] text-primary shrink-0"
+        ></span>
+        <div class="flex flex-col gap-1">
+          <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
+            Account Registration Core
+          </h3>
+          <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+            Provide a unique email address, a strong password, and an access
+            code/token. This account serves as the authentication node for
+            premium subscription services. An optional expiration date can be
+            set to limit validity duration.
+          </p>
+        </div>
+      </div>
+    </section>
 
-		<!-- Right Side: Creation Form Card (7 cols) -->
-		<main class="lg:col-span-7">
-			<div
-				class="p-8 bg-white rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50 dark:bg-slate-950"
-			>
-				<form [formRoot]="form" class="flex flex-col gap-6">
-					<!-- Email Field -->
-					<div class="flex flex-col gap-1">
-						<mat-form-field class="w-full">
-							<mat-label>Account Email Address</mat-label>
-							<input
-								matInput
-								type="email"
-								[formField]="form.email"
-								placeholder="e.g. support@premifly.com"
-								autocomplete="off"
-							>
-							<mat-icon matSuffix>
-								<span
-									class="mr-2 text-xl icon-[material-symbols--mail-outline] text-slate-400"
-								></span>
-							</mat-icon>
-							@for (error of form.email().errors(); track error.kind) {
-							<mat-error>{{ error.message }}</mat-error>
-							}
-						</mat-form-field>
-					</div>
+    <!-- Right Side: Creation Form Card (7 cols) -->
+    <main class="lg:col-span-7">
+      <div
+        class="p-8 bg-white rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50 dark:bg-slate-950"
+      >
+        <form [formRoot]="form" class="flex flex-col gap-6">
+          <!-- Email Field -->
+          <div class="flex flex-col gap-1">
+            <mat-form-field class="w-full">
+              <mat-label>Account Email Address</mat-label>
+              <input
+                matInput
+                type="email"
+                [formField]="form.email"
+                placeholder="e.g. support@premifly.com"
+                autocomplete="off"
+              >
+              <mat-icon matSuffix>
+                <span
+                  class="mr-2 text-xl icon-[material-symbols--mail-outline] text-slate-400"
+                ></span>
+              </mat-icon>
+              @for (error of form.email().errors(); track error.kind) {
+              <mat-error>{{ error.message }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
 
-					<!-- Submission Block -->
-					<div class="flex gap-4 items-center mt-4">
-						<button
-							matButton="filled"
-							type="submit"
-							[disabled]="form().invalid() || form().submitting()"
-							class="relative py-3 px-6 font-bold tracking-wide rounded-2xl shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none"
-						>
-							<div class="flex gap-2.5 justify-center items-center">
-								@if (form().submitting()) {
-								<span
-									class="text-lg text-white animate-spin icon-[ei--spinner]"
-								></span>
-								<span>Registering Account...</span>
-								} @else {
-								<span
-									class="text-xl icon-[material-symbols--add-circle-outline]"
-								></span>
-								<span>Create Account</span>
-								}
-							</div>
-						</button>
+          <!-- Submission Block -->
+          <div class="flex gap-4 items-center mt-4">
+            <button
+              matButton="filled"
+              type="submit"
+              [disabled]="form().invalid() || form().submitting()"
+              class="relative py-3 px-6 font-bold tracking-wide rounded-2xl shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none"
+            >
+              <div class="flex gap-2.5 justify-center items-center">
+                @if (form().submitting()) {
+                <span
+                  class="text-lg text-white animate-spin icon-[ei--spinner]"
+                ></span>
+                <span>Registering Account...</span>
+                } @else {
+                <span
+                  class="text-xl icon-[material-symbols--add-circle-outline]"
+                ></span>
+                <span>Create Account</span>
+                }
+              </div>
+            </button>
 
-						<a
-							routerLink="/app/premifly/accounts"
-							class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
-						>
-							Cancel
-						</a>
-					</div>
-				</form>
-			</div>
-		</main>
-	</div>
+            <a
+              routerLink="/app/premifly/accounts"
+              class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
+            >
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
 </div>

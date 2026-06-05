@@ -1,8 +1,9 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
-import { DatePipe, DecimalPipe, NgOptimizedImage } from "@angular/common";
+import { DatePipe, DecimalPipe } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
 	Component,
+	computed,
 	effect,
 	inject,
 	input,
@@ -12,6 +13,7 @@ import {
 import { toSignal } from "@angular/core/rxjs-interop";
 import { debounce, FormField, form } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -23,14 +25,9 @@ import {
 import { MatRadioModule } from "@angular/material/radio";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import {
-	ActivatedRoute,
-	type Params,
-	Router,
-	RouterLink,
-} from "@angular/router";
+import { ActivatedRoute, Params, Router, RouterLink } from "@angular/router";
 import { differenceInSeconds } from "date-fns";
-import { startWith, switchMap } from "rxjs";
+import { distinctUntilChanged, startWith, switchMap } from "rxjs";
 import {
 	type Model,
 	type Paginated,
@@ -42,10 +39,10 @@ import {
 	selector: "admin-show",
 	imports: [
 		DatePipe,
-		NgOptimizedImage,
 		DecimalPipe,
 		RouterLink,
 		FormField,
+		MatCardModule,
 		MatExpansionModule,
 		MatFormFieldModule,
 		MatInputModule,
@@ -56,6 +53,7 @@ import {
 		MatIconModule,
 		MatTooltipModule,
 		ScrollingModule,
+		PremiflyServiceLogo,
 	],
 	templateUrl: "./show.page.ng.html",
 	styleUrl: "./show.page.css",
@@ -68,47 +66,56 @@ export class ShowPage {
 
 	service = input.required<Model.Premifly.Service>();
 
-	subscribers = toSignal(
-		this.#route.queryParams.pipe(
-			startWith({}),
-			switchMap((params) =>
-				this.#service
-					.getSubscribers(this.#route.snapshot.params["service"], params)
-					.pipe(
-						startWith({
-							data: [],
-							meta: {
-								total: 0,
-								from: 0,
-								to: 0,
-								current_page: 1,
-								per_page: 15,
-							},
-							links: [],
-						} as Paginated<
-							Model.User & { premifly_accounts: Array<Model.Premifly.Account> }
-						>),
-					),
-			),
-		),
-		{
-			requireSync: true,
-		},
-	);
+	// Route QueryParams Stream mapped safely to a signal
+	#queryParams = toSignal(this.#route.queryParams, { initialValue: {} as Params });
+
+subscribers = toSignal(
+  this.#route.queryParams.pipe(
+    // 1. Prevent duplicate emissions if the route parameters haven't actually changed
+    distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
+    switchMap((params) =>
+      this.#service
+        .getSubscribers(this.#route.snapshot.params["service"], params)
+        .pipe(
+          // Keep this startWith to provide your empty/loading structural metadata safely
+          startWith({
+            data: [],
+            meta: {
+              total: 0,
+              from: 0,
+              to: 0,
+              current_page: 1,
+              per_page: 15,
+            },
+            links: [],
+          } as Paginated<
+            Model.User & { premifly_accounts: Array<Model.Premifly.Account> }
+          >),
+        ),
+    ),
+  ),
+  {
+    requireSync: true,
+  },
+);
 
 	pageSizes = linkedSignal(() => [
-		...new Set([5, 10, 15, 20, this.subscribers()?.meta?.per_page]),
+		...new Set([5, 10, 15, 20, this.subscribers()?.meta?.per_page || 15]),
 	]);
 
-	// Responsive collapsed filters panel toggle
 	isFiltersExpanded = signal(false);
 
-	formState = signal({
-		q: this.#route.snapshot.queryParamMap.get("q") || "",
-		status: this.#route.snapshot.queryParamMap.get("status"),
-		period: this.#route.snapshot.queryParamMap.get("period"),
-		page: this.#route.snapshot.queryParams["page"] || 1,
-		limit: this.#route.snapshot.queryParamMap.get("limit") || null,
+	// Automatically derives underlying form values from route params safely
+	formState = linkedSignal(() => {
+		const params = this.#queryParams();
+
+		return {
+			q: params["q"] || "",
+			status: params["status"] || "",
+			period: params["period"] || "",
+			page: Number(params["page"]) || 1,
+			limit: params["limit"] || null,
+		};
 	});
 
 	form = form(
@@ -119,26 +126,29 @@ export class ShowPage {
 		{},
 	);
 
-	queryEffect = effect(() => {
-		this.form().reset({
-			q: this.form.q().value(),
-			status: "",
-			period: "",
-			page: 1,
-			limit: null,
-		});
-	});
+	// Single source of truth effect handling sync back to the URL parameters
+	formNavigationEffect = effect(() => {
+		const rawValues = this.form().value();
 
-	formEffect = effect(() => {
 		const queryParams = Object.fromEntries(
-			Object.entries(this.form().value()).filter(
-				([key, value]) => Boolean(value) || (key === "page" && value > 1),
-			),
+			Object.entries(rawValues).filter(([key, value]) => {
+				if (key === "page" && Number(value) > 1) return true;
+				if (key !== "page" && Boolean(value)) return true;
+				return false;
+			})
 		);
 
-		this.#router.navigate([], {
-			queryParams,
-		});
+		// Resolve current URL structure to avoid navigating if the route mirrors current values
+		const currentParams = this.#queryParams();
+		const hasChanged = JSON.stringify(queryParams) !== JSON.stringify(currentParams);
+
+		if (hasChanged) {
+			this.#router.navigate([], {
+				queryParams,
+				// Optional: use 'replaceUrl: true' if you want typing inside `q` not to flood browser back history stack
+				replaceUrl: true,
+			});
+		}
 	});
 
 	handlePaginatorEvent(event: PageEvent) {
@@ -146,10 +156,12 @@ export class ShowPage {
 			value["page"] = event.pageIndex + 1;
 
 			if (
-				this.subscribers()?.meta.per_page &&
+				this.subscribers()?.meta?.per_page &&
 				this.subscribers()?.meta.per_page !== event.pageSize
 			) {
 				value["limit"] = String(event.pageSize);
+			} else {
+				value["limit"] = null;
 			}
 
 			return value;
@@ -157,14 +169,12 @@ export class ShowPage {
 	}
 
 	isActiveSubscription(date?: string) {
-		return date === undefined
-			? false
-			: differenceInSeconds(date, Date.now()) > 0;
+		return date === undefined ? false : differenceInSeconds(date, Date.now()) > 0;
 	}
 
 	getInitials(firstName?: string, lastName?: string): string {
-		const f = firstName ? firstName.trim().charAt(0) : "";
-		const l = lastName ? lastName.trim().charAt(0) : "";
+		const f = firstName?.trim().charAt(0) || "";
+		const l = lastName?.trim().charAt(0) || "";
 		return (f + l).toUpperCase() || "S";
 	}
 

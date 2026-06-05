@@ -25,14 +25,14 @@
         >How it Works</a
       >
     </div>
-    <button
+    <a
       matButton="filled"
       [style.--mat-button-filled-container-shape]="'9999px !important'"
-      routerLink="subscribe"
+      [routerLink]="[user() ? 'dashboard' : 'subscribe' ]"
       routerLinkActive="hidden!"
     >
-      Get Started
-    </button>
+      @if (user()) { My dashboard } @else { Get Started }
+    </a>
   </nav>
 </header>
 

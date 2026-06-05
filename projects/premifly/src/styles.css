@@ -3,8 +3,8 @@
 @import "tailwindcss";
 @source "../../shared";
 @plugin "@iconify/tailwind4";
-@import "./theme";
-@import "./overrides";
+@import "./theme" layer(theme);
+@import "./overrides" layer(base);
 
 @layer base {
   body {

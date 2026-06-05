@@ -1,6 +1,4 @@
-<div
-	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
->
+<div class="p-6 min-h-screen md:p-10 animate-fade-in">
 	<!-- Back Button & Breadcrumbs -->
 	<header class="flex flex-col gap-2 mb-8">
 		<a
@@ -28,7 +26,7 @@
 		<section class="flex flex-col gap-6 lg:col-span-5">
 			<mat-card>
 				<div
-					class="flex overflow-hidden relative flex-col justify-between p-8 rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-87.5 group dark:border-outline/50"
+					class="flex overflow-hidden relative flex-col justify-between p-8 rounded-3xl shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-87.5 group dark:border-outline/50"
 				>
 					<!-- Card Background Accent -->
 					<div
@@ -99,7 +97,7 @@
 								class="text-sm font-semibold text-slate-700 dark:text-slate-300"
 							>
 								@if (form.limit().value() !== null && form.limit().value() !==
-								undefined && form.limit().value() !== '') { Up to
+								undefined) { Up to
 								{{ form.limit().value() }}
 								Accounts limit } @else { Unlimited Accounts }
 							</span>
@@ -136,12 +134,12 @@
 
 		<!-- Right Side: Creation Form Card (7 cols) -->
 		<main class="lg:col-span-7">
-			<div
-				class="p-8 bg-white rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50 dark:bg-slate-950"
-			>
-				<form [formRoot]="form" class="flex flex-col gap-6">
-					<!-- Name Field -->
-					<div class="flex flex-col gap-1">
+			<mat-card>
+				<div
+					class="p-8 rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50"
+				>
+					<form [formRoot]="form" class="flex flex-col gap-6">
+						<!-- Name Field -->
 						<mat-form-field class="w-full">
 							<mat-label>Service Name</mat-label>
 							<input
@@ -159,112 +157,128 @@
 							<mat-error>{{ error.message }}</mat-error>
 							}
 						</mat-form-field>
-					</div>
 
-					<!-- Price Field -->
-					<div class="flex flex-col gap-1">
 						<mat-form-field class="w-full">
-							<mat-label>Monthly Price</mat-label>
-							<span
-								matPrefix
-								class="font-semibold pe-1 ps-1 text-slate-500 dark:text-slate-400"
-								>XAF</span
-							>
+							<mat-label>Icon url</mat-label>
 							<input
 								matInput
-								type="number"
-								[formField]="form.price"
-								placeholder="0.00"
+								[formField]="form.icon"
+								placeholder="Icon url from yesicon.app"
 								autocomplete="off"
 							>
 							<mat-icon matSuffix>
-								<span
-									class="text-xl icon-[material-symbols--payments-outline] text-slate-400"
-								></span>
+								<span class="mr-2 text-xl icon-[material-symbols--abc]"></span>
 							</mat-icon>
-							@for (error of form.price().errors(); track error.kind) {
+							@for (error of form.icon().errors(); track error.kind) {
 							<mat-error>{{ error.message }}</mat-error>
 							}
 						</mat-form-field>
-					</div>
 
-					<!-- Limit Field -->
-					<div class="flex flex-col gap-1">
-						<mat-form-field class="w-full">
-							<mat-label>Account Limit (Optional)</mat-label>
-							<input
-								matInput
-								type="number"
-								[formField]="form.limit"
-								placeholder="Leave blank for unlimited accounts"
-								autocomplete="off"
-							>
-							<span
-								matSuffix
-								class="mr-2 text-xl icon-[material-symbols--group-outline] text-slate-400"
-							></span>
-							@for (error of form.limit().errors(); track error.kind) {
-							<mat-error>{{ error.message }}</mat-error>
-							}
-							<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
-								Restrict subscription accounts. Unrestricted is default.
-							</mat-hint>
-						</mat-form-field>
-					</div>
-
-					<!-- Toggle Option with Checkbox (Aligned like a modern Slide Toggle) -->
-					<div
-						class="flex justify-between items-center py-3 px-4 rounded-2xl border transition-colors duration-200 bg-slate-50 border-slate-100 dark:bg-slate-900/50 dark:border-slate-800/80 dark:hover:bg-slate-900 hover:bg-slate-100/50"
-					>
-						<div class="flex flex-col gap-0.5">
-							<span
-								class="text-sm font-bold text-slate-800 dark:text-slate-200"
-							>
-								Enable Service Immediately
-							</span>
-							<span class="text-xs text-slate-400 dark:text-slate-500">
-								Toggle whether users can immediately view and purchase this
-								service.
-							</span>
-						</div>
-						<mat-checkbox
-							[formField]="form.enabled"
-							color="primary"
-						></mat-checkbox>
-					</div>
-
-					<!-- Submission Block -->
-					<div class="flex gap-4 items-center mt-4">
-						<button
-							matButton="filled"
-							type="submit"
-							[disabled]="form().invalid() || form().submitting()"
-							class="relative py-3 px-6 font-bold tracking-wide rounded-2xl shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none"
-						>
-							<div class="flex gap-2.5 justify-center items-center">
-								@if (form().submitting()) {
+						<!-- Price Field -->
+						<div class="flex flex-col gap-1">
+							<mat-form-field class="w-full">
+								<mat-label>Monthly Price</mat-label>
 								<span
-									class="text-lg text-white animate-spin icon-[ei--spinner]"
-								></span>
-								<span>Creating Service...</span>
-								} @else {
-								<span
-									class="text-xl icon-[material-symbols--add-circle-outline]"
-								></span>
-								<span>Create service</span>
+									matPrefix
+									class="font-semibold pe-1 ps-2 text-slate-500 dark:text-slate-400"
+									>XAF</span
+								>
+								<input
+									matInput
+									type="number"
+									[formField]="form.price"
+									placeholder="0.00"
+									autocomplete="off"
+								>
+								<mat-icon matSuffix>
+									<span
+										class="text-xl icon-[material-symbols--payments-outline] text-slate-400"
+									></span>
+								</mat-icon>
+								@for (error of form.price().errors(); track error.kind) {
+								<mat-error>{{ error.message }}</mat-error>
 								}
-							</div>
-						</button>
+							</mat-form-field>
+						</div>
 
-						<a
-							routerLink="/app/premifly/services"
-							class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
+						<!-- Limit Field -->
+						<div class="flex flex-col gap-1">
+							<mat-form-field class="w-full">
+								<mat-label>Account Limit (Optional)</mat-label>
+								<input
+									matInput
+									type="number"
+									[formField]="form.limit"
+									placeholder="Leave blank for unlimited accounts"
+									autocomplete="off"
+								>
+								<span
+									matSuffix
+									class="mr-2 text-xl icon-[material-symbols--group-outline] text-slate-400"
+								></span>
+								@for (error of form.limit().errors(); track error.kind) {
+								<mat-error>{{ error.message }}</mat-error>
+								}
+								<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
+									Restrict subscription accounts. Unrestricted is default.
+								</mat-hint>
+							</mat-form-field>
+						</div>
+
+						<!-- Toggle Option with Checkbox (Aligned like a modern Slide Toggle) -->
+						<div
+							class="flex justify-between items-center py-3 px-4 rounded-2xl border transition-colors duration-200 bg-slate-50 border-slate-100 dark:bg-slate-900/50 dark:border-slate-800/80 dark:hover:bg-slate-900 hover:bg-slate-100/50"
 						>
-							Cancel
-						</a>
-					</div>
-				</form>
-			</div>
+							<div class="flex flex-col gap-0.5">
+								<span
+									class="text-sm font-bold text-slate-800 dark:text-slate-200"
+								>
+									Enable Service Immediately
+								</span>
+								<span class="text-xs text-slate-400 dark:text-slate-500">
+									Toggle whether users can immediately view and purchase this
+									service.
+								</span>
+							</div>
+							<mat-checkbox
+								[formField]="form.enabled"
+								color="primary"
+							></mat-checkbox>
+						</div>
+
+						<!-- Submission Block -->
+						<div class="flex gap-4 items-center mt-4">
+							<button
+								matButton="filled"
+								type="submit"
+								[disabled]="form().invalid() || form().submitting()"
+								class="relative py-3 px-6 font-bold tracking-wide rounded-2xl shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none"
+							>
+								<div class="flex gap-2.5 justify-center items-center">
+									@if (form().submitting()) {
+									<span
+										class="text-lg text-white animate-spin icon-[ei--spinner]"
+									></span>
+									<span>Creating Service...</span>
+									} @else {
+									<span
+										class="text-xl icon-[material-symbols--add-circle-outline]"
+									></span>
+									<span>Create service</span>
+									}
+								</div>
+							</button>
+
+							<a
+								routerLink="/app/premifly/services"
+								class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
+							>
+								Cancel
+							</a>
+						</div>
+					</form>
+				</div>
+			</mat-card>
 		</main>
 	</div>
 </div>

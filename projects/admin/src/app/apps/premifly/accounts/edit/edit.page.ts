@@ -83,14 +83,8 @@ export class EditPage {
 		{
 			submission: {
 				action: (tree) => {
-					const val = tree().value();
-
-					const payload = {
-						email: val.email,
-					};
-
 					return firstValueFrom(
-						this.#accountService.update(this.account().id, payload).pipe(
+						this.#accountService.update(this.account().id, tree().value()).pipe(
 							tap({
 								next: () => {
 									this.#snackBar.open(
