@@ -1,11 +1,9 @@
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-} from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import {
   type ApplicationConfig,
+  DEFAULT_CURRENCY_CODE,
   inject,
+  LOCALE_ID,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
@@ -35,6 +33,11 @@ export const appConfig: ApplicationConfig = {
 
       return await firstValueFrom(authService.getUser());
     }),
+    { provide: DEFAULT_CURRENCY_CODE, useValue: "XAF" },
+    {
+      provide: LOCALE_ID,
+      useValue: "en-CM",
+    },
     {
       provide: ENVIRONMENT,
       useValue: environment,
