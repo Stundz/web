@@ -12,7 +12,8 @@ export const routes: Routes = [
       {
         path: "",
         pathMatch: "full",
-        title: "Subscribe to your favorite services at very affordable prices",
+        title:
+          "Subscribe to your favorite services at very affordable prices with premifly",
         loadComponent: () => import("./home/home.page").then((m) => m.HomePage),
       },
       {
