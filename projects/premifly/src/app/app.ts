@@ -38,20 +38,18 @@ export class App {
   );
 
   constructor() {
-    afterNextRender(() => {
-      // Canonical URL
-      const existingCanonical = this.#document.querySelector(
-        "link[rel='canonical']",
-      );
-      const url = `${this.#document.location.protocol}//${this.#document.location.hostname}${this.#document.location.pathname}`;
-      if (existingCanonical) {
-        this.#renderer.removeChild(this.#document.head, existingCanonical);
-      }
-      const link: HTMLLinkElement = this.#renderer.createElement("link");
-      this.#renderer.setAttribute(link, "rel", "canonical");
-      this.#renderer.setAttribute(link, "href", url);
-      this.#renderer.appendChild(this.#document.head, link);
-    });
+    // Canonical URL
+    const existingCanonical = this.#document.querySelector(
+      "link[rel='canonical']",
+    );
+    const url = `${this.#document.location.protocol}//${this.#document.location.hostname}${this.#document.location.pathname}`;
+    if (existingCanonical) {
+      this.#renderer.removeChild(this.#document.head, existingCanonical);
+    }
+    const link: HTMLLinkElement = this.#renderer.createElement("link");
+    this.#renderer.setAttribute(link, "rel", "canonical");
+    this.#renderer.setAttribute(link, "href", url);
+    this.#renderer.appendChild(this.#document.head, link);
   }
 
   ngOnInit() {}
