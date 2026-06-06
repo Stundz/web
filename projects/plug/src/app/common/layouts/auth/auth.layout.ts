@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input } from "@angular/core";
+import { Component, DestroyRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import {
 	NavigationCancel,
 	NavigationEnd,
@@ -35,6 +35,7 @@ import { MatButtonModule } from "@angular/material/button";
 		MatProgressBarModule,
 	],
 	templateUrl: "./auth.layout.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./auth.layout.scss",
 })
 export class AuthLayout {

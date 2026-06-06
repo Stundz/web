@@ -1,25 +1,21 @@
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import {
-	provideHttpClient,
-	withFetch,
-	withInterceptors,
-} from "@angular/common/http";
-import {
-	type ApplicationConfig,
-	inject,
-	provideAppInitializer,
-	provideBrowserGlobalErrorListeners,
+  type ApplicationConfig,
+  DEFAULT_CURRENCY_CODE,
+  inject,
+  LOCALE_ID,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
 } from "@angular/core";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import {
-	provideClientHydration,
-	withEventReplay,
-	withIncrementalHydration,
+  provideClientHydration,
+  withEventReplay,
 } from "@angular/platform-browser";
 import {
-	provideRouter,
-	withComponentInputBinding,
-	withRouterConfig,
-	withViewTransitions,
+  provideRouter,
+  withComponentInputBinding,
+  withViewTransitions,
 } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import { Auth, csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
@@ -27,33 +23,28 @@ import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
-	providers: [
-		provideBrowserGlobalErrorListeners(),
-		provideRouter(
-			routes,
-			withComponentInputBinding(),
-			withViewTransitions(),
-			withRouterConfig({
-				paramsInheritanceStrategy: "always",
-			}),
-		),
-		provideClientHydration(withEventReplay(), withIncrementalHydration()),
-		provideHttpClient(
-			withFetch(),
-			withInterceptors([stundzInterceptor, csrfInterceptor]),
-		),
-		provideAppInitializer(async () => {
-			const authService = inject(Auth);
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withInterceptors([stundzInterceptor, csrfInterceptor])),
+    provideAppInitializer(async () => {
+      const authService = inject(Auth);
 
-			return await firstValueFrom(authService.getUser());
-		}),
-		{
-			provide: ENVIRONMENT,
-			useValue: environment,
-		},
-		{
-			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-			useValue: { appearance: "outline" },
-		},
-	],
+      return await firstValueFrom(authService.getUser());
+    }),
+    { provide: DEFAULT_CURRENCY_CODE, useValue: "XAF" },
+    {
+      provide: LOCALE_ID,
+      useValue: "en-CM",
+    },
+    {
+      provide: ENVIRONMENT,
+      useValue: environment,
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: "outline" },
+    },
+  ],
 };

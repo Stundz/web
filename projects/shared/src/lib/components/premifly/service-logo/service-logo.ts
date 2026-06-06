@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import type { Model } from "../../../types/models";
 
@@ -6,6 +6,7 @@ import type { Model } from "../../../types/models";
 	selector: "stundz-premifly-service-logo",
 	imports: [MatTooltipModule],
 	templateUrl: "./service-logo.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./service-logo.css",
 })
 export class PremiflyServiceLogo {

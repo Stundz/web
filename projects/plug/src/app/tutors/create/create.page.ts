@@ -2,13 +2,14 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { isPlatformBrowser } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
-	Component,
-	effect,
-	inject,
-	input,
-	linkedSignal,
-	PLATFORM_ID,
-	signal,
+  Component,
+  effect,
+  inject,
+  input,
+  linkedSignal,
+  PLATFORM_ID,
+  signal,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import {
@@ -69,6 +70,7 @@ import { Tutor } from "../../common/services/tutor";
 		FormField,
 	],
 	templateUrl: "./create.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./create.page.scss",
 })
 export class CreatePage {

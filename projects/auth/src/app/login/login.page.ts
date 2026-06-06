@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from "@angular/common/http";
-import { Component, inject, input, signal } from "@angular/core";
+import { Component, inject, input, signal, ChangeDetectionStrategy } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
 	email,
@@ -27,6 +27,7 @@ import { Auth, type Model } from "shared";
 		FormRoot,
 	],
 	templateUrl: "./login.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./login.page.scss",
 })
 export class LoginPage {

@@ -163,7 +163,7 @@
 			>
 				<div class="flex gap-4 items-center mb-6">
 					<img
-						[alt]="`${tutorial!.tutor?.first_name} ${tutorial!.tutor?.last_name}`"
+						[alt]="`${$safeNavigationMigration(tutorial!.tutor?.first_name)} ${$safeNavigationMigration(tutorial!.tutor?.last_name)}`"
 						class="object-cover w-16 h-16 rounded-full ring-4 ring-white shadow-sm"
 						[attr.data-alt]="`A portrait of ${tutorial!.tutor?.first_name} ${tutorial!.tutor?.last_name}, an experienced academic tutor in his late 30s with a professional and friendly demeanor. He is wearing a minimalist navy blazer and a clean white shirt. The setting is a bright, high-ceilinged modern university atrium with blurred architectural details. The lighting is soft and directional, creating a sense of professional warmth and intellectual authority.`"
 						src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHQFYE3bhMlr34ltLqYf4PFei16fxyYCzyBr8644_7vEuTP9SEM0RnKZaZtgzTbDWhoDaeKVbDLueuBeea7Ph-cAFwYlT8EVPsNVozRCqRgpkivNqii4a-ZJmjTeBfAWczceAqyxdX1ldEasy1idKQJiViUzRp1LNm9dI7fffAOfli1GQXuABkN4Uz3H2V0Kba7NbGzq9qfncXwsWw22mPiE1JAEjCqo8XsfvmMpn1X5cpmh2XXrrXMlUT1XlYKJita7qat8_OWqA"
@@ -194,7 +194,7 @@
 					</div>
 				</div>
 				<a
-					[routerLink]="['/tutor', tutorial?.tutor?.id]"
+					[routerLink]="['/tutor', $safeNavigationMigration(tutorial?.tutor?.id)]"
 					matButton="tonal"
 					class="w-full"
 				>

@@ -1,15 +1,16 @@
 import { isPlatformServer } from "@angular/common";
 import { HttpContext, HttpParams, httpResource } from "@angular/common/http";
 import {
-	Component,
-	computed,
-	type ElementRef,
-	effect,
-	inject,
-	input,
-	PLATFORM_ID,
-	signal,
-	viewChild,
+  Component,
+  computed,
+  type ElementRef,
+  effect,
+  inject,
+  input,
+  PLATFORM_ID,
+  signal,
+  viewChild,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -25,6 +26,7 @@ import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 	selector: "plug-show-past-question",
 	imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
 	templateUrl: "./show.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {

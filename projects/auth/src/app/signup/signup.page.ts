@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import {
 	email,
@@ -27,6 +27,7 @@ import { environment } from "../../environments/environment";
 		FormRoot,
 	],
 	templateUrl: "./signup.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./signup.page.scss",
 })
 export class SignupPage {

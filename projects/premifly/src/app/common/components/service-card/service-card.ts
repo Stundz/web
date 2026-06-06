@@ -1,5 +1,5 @@
 import { CurrencyPipe } from "@angular/common";
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import type { Model } from "shared";
@@ -9,6 +9,7 @@ import type { Model } from "shared";
 	imports: [CurrencyPipe, MatButtonModule, RouterLink],
 	templateUrl: "./service-card.ng.html",
 	styleUrl: "./service-card.css",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		"[class.service-card]": "true",
 	},

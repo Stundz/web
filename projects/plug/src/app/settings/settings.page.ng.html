@@ -17,7 +17,7 @@
       <h2 class="mt-4 text-2xl font-bold">{{ user()?.first_name }} {{ user()?.last_name }}</h2>
       <p class="text-gray-500 dark:text-gray-400">Computer Science Major</p>
       <p class="mt-1 text-sm text-gray-400 dark:text-gray-500">
-        Joined in {{ user()?.created_at | date: 'y' }}
+        Joined in {{ $safeNavigationMigration(user()?.created_at) | date: 'y' }}
       </p>
       <button matButton="filled" class="rounded-lg! mt-2">Edit Profile</button>
     </div>
@@ -33,7 +33,7 @@
             matInput
             formControlName="email"
             placeholder="your.email@domain.com"
-            [value]="user()?.email"
+            [value]="$safeNavigationMigration(user()?.email)"
           />
         </mat-form-field>
         <mat-form-field>

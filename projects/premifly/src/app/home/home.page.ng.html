@@ -1,7 +1,3 @@
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
-  rel="stylesheet"
->
 <style>
 .atmospheric-glow {
   background: radial-gradient(
@@ -61,7 +57,7 @@
         <a
           matButton="filled"
           class="font-bold shadow-xl transition-all active:scale-95 font-label-lg text-label-lg shadow-primary-container/30"
-          routerLink="subscribe"
+          [routerLink]="[user() ? 'dashboard' : 'subscribe' ]"
         >
           Get Started
         </a>
@@ -202,15 +198,15 @@
               >
             </div>
             <div>
-              <h4 class="font-title-lg text-title-lg">{{service.name}}</h4>
+              <h4 class="font-title-lg text-title-lg">{{ service.name }}</h4>
               <div class="text-on-surface-variant font-label-md text-label-md">
-                {{service.slug}}
+                {{ service.slug }}
               </div>
             </div>
           </div>
           <div class="flex gap-3 items-baseline mb-6">
             <div class="font-bold text-[32px] text-primary">
-              {{service.price}}
+              {{ service.price }}
               <span class="font-normal text-label-md text-on-surface-variant"
                 >/mo</span
               >
@@ -257,7 +253,11 @@
           No contracts, cancel anytime.
         </p>
         @if (user()) {
-        <a matButton="filled" routerLink="subscribe">Get Started</a>
+        <a
+          matButton="filled"
+          [routerLink]="[user() ? 'dashboard' : 'subscribe' ]"
+          >Get Started</a
+        >
         } @else {
         <a matButton="filled" [href]="signupUrl"> Create Your Account </a>
         }
@@ -265,15 +265,3 @@
     </div>
   </section>
 </main>
-<script>
-// Simple micro-interaction for cards
-document.querySelectorAll(".glass-card").forEach((card) => {
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  });
-});
-</script>

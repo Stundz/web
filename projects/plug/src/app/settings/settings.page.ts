@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -24,6 +24,7 @@ import { map } from "rxjs";
 		ReactiveFormsModule,
 	],
 	templateUrl: "./settings.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./settings.page.scss",
 })
 export class SettingsPage {

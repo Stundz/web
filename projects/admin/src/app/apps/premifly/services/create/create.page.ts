@@ -22,7 +22,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
-import { PremiflyService } from "shared";
+import { type Model, PremiflyService } from "shared";
 
 @Component({
 	selector: "admin-create",
@@ -50,11 +50,17 @@ export class CreatePage {
 
 	// Signals-based form initialization
 	form = form(
-		signal({
+		signal<
+			Pick<
+				Model.Premifly.Service,
+				"name" | "price" | "icon" | "enabled" | "limit"
+			>
+		>({
 			name: "",
 			price: 10, // Initialize as empty string so it starts empty in the input field
+			icon: "",
 			enabled: true,
-			limit: "" as string | null, // Initialize as empty string/null
+			limit: null,
 		}),
 		(root) => {
 			required(root.name, { message: "Service name is required" });
@@ -80,7 +86,7 @@ export class CreatePage {
 
 			validate(root.limit, ({ value }) => {
 				const val = value();
-				if (val !== null && val !== undefined && val !== "") {
+				if (val !== null && val !== undefined) {
 					const numVal = Number(val);
 					if (isNaN(numVal) || numVal < 1) {
 						return {
@@ -95,21 +101,8 @@ export class CreatePage {
 		{
 			submission: {
 				action: (tree) => {
-					const val = tree().value();
-
-					// Format parameters cleanly
-					const payload = {
-						name: val.name,
-						price: Number(val.price),
-						enabled: Boolean(val.enabled),
-						limit:
-							val.limit !== "" && val.limit !== null && val.limit !== undefined
-								? Number(val.limit)
-								: null,
-					};
-
 					return firstValueFrom(
-						this.#service.create(payload).pipe(
+						this.#service.create(tree().value()).pipe(
 							tap({
 								next: () => {
 									this.#snackBar.open(

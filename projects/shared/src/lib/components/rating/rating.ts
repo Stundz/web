@@ -1,9 +1,10 @@
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
 	selector: "stundz-rating",
 	imports: [],
 	templateUrl: "./rating.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./rating.scss",
 })
 export class Rating {

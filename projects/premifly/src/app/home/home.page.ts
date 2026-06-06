@@ -1,6 +1,5 @@
-import { DOCUMENT } from "@angular/common";
 import { httpResource } from "@angular/common/http";
-import { Component, inject, input, Renderer2 } from "@angular/core";
+import { Component, DOCUMENT, inject, input, Renderer2 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
@@ -29,11 +28,11 @@ export class HomePage {
 
   signupUrl = `${environment.url.auth.replace(/^https?:/, this.#document.location.protocol)}/signup?callback=${this.#document.location.href}`;
 
-  ngOnInit() {
+  constructor() {
     const title = this.#title.getTitle();
     const description =
-      "Unlock premium digital subscriptions at a fraction of the cost. Save up to 75% on top streaming, AI, and productivity services with Premifly's exclusive consolidated plans.";
-    const url = `https://${document.location.hostname}`;
+      "Unlock premium digital subscriptions at a fraction of the cost. Save big on streaming, AI, and productivity services with Premifly's exclusive plans.";
+    const url = `${this.#document.location.protocol}//${this.#document.location.hostname}`;
     const image =
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk";
 

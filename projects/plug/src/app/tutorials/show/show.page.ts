@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from "@angular/common";
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -20,6 +20,7 @@ import { TutorialSessions } from "../../common/components/tutorial-sessions/tuto
 		TutorialSessions,
 	],
 	templateUrl: "./show.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {

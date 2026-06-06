@@ -1,5 +1,5 @@
 import { HttpClient, httpResource } from "@angular/common/http";
-import { Component, effect, inject } from "@angular/core";
+import { Component, effect, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
 	FormBuilder,
 	FormSubmittedEvent,
@@ -33,6 +33,7 @@ import { MatButtonModule } from "@angular/material/button";
 		MatButtonModule,
 	],
 	templateUrl: "./signup-form.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./signup-form.scss",
 })
 export class SignupForm {

@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { Meta, Title } from "@angular/platform-browser";
@@ -8,6 +8,7 @@ import { Model } from "shared";
 	selector: "plug-show",
 	imports: [MatTabsModule, MatButtonModule],
 	templateUrl: "./show.page.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {

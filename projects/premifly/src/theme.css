@@ -1,5 +1,5 @@
 /* Note: Color palettes are generated from primary: #9E1B32, secondary: #0A0A0C, tertiary: #4C1D95, neutral: #121214 */
-html {
+:root {
   /* COLOR SYSTEM VARIABLES */
   color-scheme: light dark;
 

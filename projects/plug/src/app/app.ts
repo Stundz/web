@@ -1,11 +1,12 @@
 import {
-	Component,
-	DOCUMENT,
-	effect,
-	Inject,
-	inject,
-	Renderer2,
-	signal,
+  Component,
+  DOCUMENT,
+  effect,
+  Inject,
+  inject,
+  Renderer2,
+  signal,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatMenuModule } from "@angular/material/menu";
@@ -37,6 +38,7 @@ import { environment } from "../environments/environment";
 		MatMenuModule,
 	],
 	templateUrl: "./app.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./app.css",
 })
 export class App {

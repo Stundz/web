@@ -113,7 +113,7 @@ export class EditPage {
 					};
 
 					return firstValueFrom(
-						this.#service.update(this.service().id, payload).pipe(
+						this.#service.update(this.service().slug, payload).pipe(
 							tap({
 								next: () => {
 									this.#snackBar.open(

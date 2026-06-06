@@ -1,5 +1,5 @@
 import { httpResource } from "@angular/common/http";
-import { Component, input } from "@angular/core";
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { Model, Paginated } from "shared";
 import { environment } from "../../../../environments/environment";
@@ -9,6 +9,7 @@ import { DatePipe } from "@angular/common";
 	selector: "plug-tutorial-sessions",
 	imports: [MatExpansionModule, DatePipe],
 	templateUrl: "./tutorial-sessions.ng.html",
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./tutorial-sessions.scss",
 })
 export class TutorialSessions {

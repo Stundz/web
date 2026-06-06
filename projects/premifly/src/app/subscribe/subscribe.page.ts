@@ -10,6 +10,7 @@ import {
   Renderer2,
   signal,
   viewChild,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import {
   FormField,
@@ -54,6 +55,7 @@ import { SubscriptionPayment } from "./common/components/subscription-payment/su
     PremiflyServiceLogo,
   ],
   templateUrl: "./subscribe.page.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./subscribe.page.css",
 })
 export class SubscribePage {
@@ -228,21 +230,9 @@ export class SubscribePage {
     const title = this.#title.getTitle();
     const description =
       "Get started with Premifly — choose your favorite premium service, pick a plan, and subscribe in minutes. Affordable access to Netflix, Spotify, AI tools, and more.";
-    const url = `https://${this.#document.location.hostname}/subscribe`;
+    const url = `${this.#document.location.protocol}//${this.#document.location.hostname}${this.#document.location.pathname}`;
     const image =
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk";
-
-    // Canonical URL
-    const existingCanonical = this.#document.querySelector(
-      "link[rel='canonical']",
-    );
-    if (existingCanonical) {
-      this.#renderer.removeChild(this.#document.head, existingCanonical);
-    }
-    const link: HTMLLinkElement = this.#renderer.createElement("link");
-    this.#renderer.setAttribute(link, "rel", "canonical");
-    this.#renderer.setAttribute(link, "href", url);
-    this.#renderer.appendChild(this.#document.head, link);
 
     this.#meta.updateTag({
       id: "description",
