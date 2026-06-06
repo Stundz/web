@@ -23,7 +23,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from "@angular/router";
-import { differenceInDays } from "date-fns";
+import { addMonths, differenceInDays, set } from "date-fns";
 import type { Model, Paginated } from "shared";
 import { environment } from "../../environments/environment";
 
@@ -41,12 +41,16 @@ import { environment } from "../../environments/environment";
     MatTableModule,
   ],
   templateUrl: "./dashboard.page.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./dashboard.page.css",
 })
 export class DashboardPage {
   user = input.required<Model.User>();
 
+  stats = httpResource<{ subscriptions: Record<"active" | "total", number> }>(
+    () => ({
+      url: `${environment.url.api}/premifly/stats`,
+    }),
+  );
   subscriptions = httpResource<Paginated<Model.Premifly.Subscription>>(
     () => ({
       url: `${environment.url.api}/premifly/subscriptions`,
@@ -69,14 +73,15 @@ export class DashboardPage {
   );
 
   date = new Date();
+  nextBilling =
+    new Date().getDay() >= 18
+      ? addMonths(set(new Date(), { date: 18 }), 1)
+      : set(new Date(), { date: 18 });
 
   #route = inject(ActivatedRoute);
   #queryParams = toSignal(this.#route.queryParams, {
     initialValue: {} as Params,
   });
-  stats = httpResource(() => ({
-    url: `${environment.url.api}/premifly/stats`,
-  }));
   formState = linkedSignal(() => {
     const params = this.#queryParams();
 

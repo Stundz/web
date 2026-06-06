@@ -145,17 +145,15 @@
           <div class="flex justify-between items-center mb-4">
             <span
               class="text-3xl icon-[material-symbols--star-outline] text-primary"
-              >star</span
-            >
-            <span class="text-label-md font-label-md text-on-surface-variant"
-              >+12% vs last month</span
-            >
+              role="img"
+              [ariaHidden]="true"
+            ></span>
           </div>
           <p class="font-label-lg text-label-lg text-on-surface-variant">
             Active Subscriptions
           </p>
           <h3 class="mt-1 font-display-lg text-display-lg text-on-surface">
-            14
+            {{ stats.value()?.subscriptions?.active }}
           </h3>
         </mat-card-content>
       </mat-card>
@@ -199,15 +197,15 @@
             <h3
               class="mt-1 font-headline-lg text-headline-lg text-on-primary-container"
             >
-              June 24, 2024
+              {{ nextBilling | date }}
             </h3>
           </div>
-          <div class="mt-4">
-            <p class="mb-2 font-body-md text-body-md text-on-primary-container">
-              Upcoming: $28.99
-            </p>
-            <button matButton="filled">Manage Payment</button>
-          </div>
+          <!-- <div class="mt-4"> -->
+          <!--   <p class="mb-2 font-body-md text-body-md text-on-primary-container"> -->
+          <!--     Upcoming: $28.99 -->
+          <!--   </p> -->
+          <!--   <button matButton="filled">Manage Payment</button> -->
+          <!-- </div> -->
         </mat-card-content>
       </mat-card>
     </section>
