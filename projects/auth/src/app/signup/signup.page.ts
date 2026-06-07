@@ -4,7 +4,7 @@ import {
   inject,
   signal,
 } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
   email,
   FormField,
@@ -16,9 +16,9 @@ import {
 } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { firstValueFrom, map, tap } from "rxjs";
-import { Auth, User } from "shared";
+import { Auth } from "shared";
 import { environment } from "../../environments/environment";
 
 @Component({

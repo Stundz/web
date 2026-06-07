@@ -1,188 +1,189 @@
 <style>
 .material-symbols-outlined {
-	font-variation-settings:
-		"FILL" 0,
-		"wght" 400,
-		"GRAD" 0,
-		"opsz" 24;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
 }
 .bg-login-hero {
-	background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBfEvPtpCsoKtZGvpL8U-_rGH5KWbbFzj0yfKqwt7IZA6qTu92pLhbM6JRsRAX0nqoUwMepW7BL_GaMj0-6wR_Gtll-VUMKmUrTeHl805-24fm-mwGg2qlG2WbpE1HyFFsnQ4iggDsDNhgBVRY4VC-NmHlN7zqXw0amqNhk3f94zwC9dRXIe5mtzLVXUJu0po_Ep6XoGE-gkPDorsbbOPYT33pz-dOmk_KfUaDaRrF74MrT3vFSb7i04wEB1Iyxjns16DE0aUaR7dU);
-	background-size: cover;
-	background-position: center;
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBfEvPtpCsoKtZGvpL8U-_rGH5KWbbFzj0yfKqwt7IZA6qTu92pLhbM6JRsRAX0nqoUwMepW7BL_GaMj0-6wR_Gtll-VUMKmUrTeHl805-24fm-mwGg2qlG2WbpE1HyFFsnQ4iggDsDNhgBVRY4VC-NmHlN7zqXw0amqNhk3f94zwC9dRXIe5mtzLVXUJu0po_Ep6XoGE-gkPDorsbbOPYT33pz-dOmk_KfUaDaRrF74MrT3vFSb7i04wEB1Iyxjns16DE0aUaR7dU);
+  background-size: cover;
+  background-position: center;
 }
 .glass-panel {
-	background: rgba(255, 255, 255, 0.8);
-	backdrop-filter: blur(24px);
-	box-shadow: 0 20px 40px rgba(47, 50, 58, 0.06);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 20px 40px rgba(47, 50, 58, 0.06);
 }
 </style>
 <main
-	class="flex relative justify-center items-center py-12 px-4 grow bg-login-hero"
-	data-alt="quiet sun-drenched university library with tall wooden shelves and students studying at large wooden tables in soft morning light"
+  class="flex relative justify-center items-center py-12 px-4 grow bg-login-hero"
+  data-alt="quiet sun-drenched university library with tall wooden shelves and students studying at large wooden tables in soft morning light"
 >
-	<!-- Overlay for better contrast -->
-	<div class="absolute inset-0 bg-primary/10 backdrop-brightness-75"></div>
-	<!-- Asymmetric Login Card -->
-	<div
-		class="grid overflow-hidden relative w-full max-w-5xl rounded-xl md:grid-cols-2 max-auto glass-panel"
-	>
-		<!-- Branding/Visual Side -->
-		<div class="hidden flex-col justify-between p-12 md:flex bg-primary/5">
-			<div>
-				<h1
-					class="mb-6 text-5xl font-extrabold tracking-tighter leading-tight font-headline text-primary"
-				>
-					Welcome back to your <br>Sanctuary.
-				</h1>
-				<p class="max-w-xs text-lg leading-relaxed text-on-surface-variant">
-					Access your academic hub, organize your research, and connect with
-					your peers in a space designed for focus.
-				</p>
-			</div>
-			<div class="flex gap-4 items-center">
-				<div
-					class="flex justify-center items-center w-12 h-12 rounded-full bg-primary-container text-on-primary-container"
-				>
-					<span
-						class="icon-[material-symbols--menu-book-outline]"
-						role="img"
-						aria-hidden="true"
-					>
-						menu_book
-					</span>
-				</div>
-				<span class="font-medium text-primary">Plug into Excellence.</span>
-			</div>
-		</div>
-		<!-- Form Side -->
-		<div class="p-8 md:p-16 bg-surface-container-lowest">
-			<div class="mb-12">
-				<h2 class="mb-2 text-3xl font-bold font-headline text-on-surface">
-					Login to Plug
-				</h2>
-				<p class="text-on-surface-variant">Continue your academic journey.</p>
-			</div>
-			<form class="space-y-6" [formRoot]="form">
-				<mat-form-field class="w-full">
-					<mat-label>Email</mat-label>
-					<input matInput [formField]="form.email">
-					@for (error of form.email().errors(); track error.kind) {
-					<mat-error>{{error.message}}</mat-error>
-					}
-				</mat-form-field>
-				<mat-form-field class="w-full">
-					<mat-label>Password</mat-label>
-					<input matInput [formField]="form.password" type="password">
-					@for (error of form.password().errors(); track error.kind) {
-					<mat-error>{{error.message}}</mat-error>
-					}
-				</mat-form-field>
-				<div class="flex gap-3 items-center px-1">
-					<input
-						class="w-5 h-5 rounded border-outline-variant text-primary bg-surface-container-highest focus:ring-primary/20"
-						id="remember"
-						type="checkbox"
-						[formField]="form.remember"
-					>
-					<label class="text-sm text-on-surface-variant" for="remember"
-						>Keep me logged in</label
-					>
-				</div>
-				<button
-					[disabled]="form().invalid() || form().submitting()"
-					matButton="filled"
-					class="w-full"
-					type="submit"
-				>
-					<div class="flex gap-2 items-center">
-						@if (form().submitting()) {
-						<span class="text-lg animate-spin icon-[ei--spinner]"></span>
-						<span>Loading...</span>
-						} @else {
-						<span> Log In </span>
-						}
-					</div>
-				</button>
-			</form>
-			<!-- Social Logins -->
-			<div class="mt-10">
-				<div class="flex relative justify-center items-center mb-8">
-					<div class="w-full h-px bg-outline-variant/15"></div>
-					<span
-						class="absolute px-4 text-xs font-medium tracking-widest uppercase bg-surface-container-lowest text-on-surface-variant"
-						>Or continue with</span
-					>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<a matButton="tonal" class="cursor-not-allowed">
-						<span class="flex gap-2 items-center">
-							<span
-								class="icon-[logos--google-icon]"
-								role="img"
-								aria-hidden="true"
-							></span>
-							<span>Google</span>
-						</span>
-					</a>
-					<a
-						matButton="tonal"
-						disabled
-						class="disabled:cursor-not-allowed"
-						title="Apple currently not available"
-					>
-						<span class="flex gap-2 items-center">
-							<span
-								class="icon-[logos--apple]"
-								role="img"
-								aria-hidden="true"
-							></span>
-							<span>Apple</span>
-						</span>
-					</a>
-				</div>
-			</div>
-			<p class="mt-12 text-sm text-center text-on-surface-variant">
-				New to the Sanctuary?
-				<a
-					class="ml-1 font-bold hover:underline text-primary"
-					routerLink="/signup"
-					>Create an account</a
-				>
-			</p>
-		</div>
-	</div>
+  <!-- Overlay for better contrast -->
+  <div class="absolute inset-0 bg-primary/10 backdrop-brightness-75"></div>
+  <!-- Asymmetric Login Card -->
+  <div
+    class="grid overflow-hidden relative w-full max-w-5xl rounded-xl md:grid-cols-2 max-auto glass-panel"
+  >
+    <!-- Branding/Visual Side -->
+    <div class="hidden flex-col justify-between p-12 md:flex bg-primary/5">
+      <div>
+        <h1
+          class="mb-6 text-5xl font-extrabold tracking-tighter leading-tight font-headline text-primary"
+        >
+          Welcome back to your <br>Sanctuary.
+        </h1>
+        <p class="max-w-xs text-lg leading-relaxed text-on-surface-variant">
+          Access your academic hub, organize your research, and connect with
+          your peers in a space designed for focus.
+        </p>
+      </div>
+      <div class="flex gap-4 items-center">
+        <div
+          class="flex justify-center items-center w-12 h-12 rounded-full bg-primary-container text-on-primary-container"
+        >
+          <span
+            class="icon-[material-symbols--menu-book-outline]"
+            role="img"
+            aria-hidden="true"
+          >
+            menu_book
+          </span>
+        </div>
+        <span class="font-medium text-primary">Plug into Excellence.</span>
+      </div>
+    </div>
+    <!-- Form Side -->
+    <div class="p-8 md:p-16 bg-surface-container-lowest">
+      <div class="mb-12">
+        <h2 class="mb-2 text-3xl font-bold font-headline text-on-surface">
+          Login to Plug
+        </h2>
+        <p class="text-on-surface-variant">Continue your academic journey.</p>
+      </div>
+      <form class="space-y-6" [formRoot]="form">
+        <mat-form-field class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput [formField]="form.email">
+          @for (error of form.email().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput [formField]="form.password" type="password">
+          @for (error of form.password().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+          }
+        </mat-form-field>
+        <div class="flex gap-3 items-center px-1">
+          <input
+            class="w-5 h-5 rounded border-outline-variant text-primary bg-surface-container-highest focus:ring-primary/20"
+            id="remember"
+            type="checkbox"
+            [formField]="form.remember"
+          >
+          <label class="text-sm text-on-surface-variant" for="remember"
+            >Keep me logged in</label
+          >
+        </div>
+        <button
+          [disabled]="form().invalid() || form().submitting()"
+          matButton="filled"
+          class="w-full"
+          type="submit"
+        >
+          <div class="flex gap-2 items-center">
+            @if (form().submitting()) {
+            <span class="text-lg animate-spin icon-[ei--spinner]"></span>
+            <span>Loading...</span>
+            } @else {
+            <span> Log In </span>
+            }
+          </div>
+        </button>
+      </form>
+      <!-- Social Logins -->
+      <div class="mt-10">
+        <div class="flex relative justify-center items-center mb-8">
+          <div class="w-full h-px bg-outline-variant/15"></div>
+          <span
+            class="absolute px-4 text-xs font-medium tracking-widest uppercase bg-surface-container-lowest text-on-surface-variant"
+            >Or continue with</span
+          >
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <a matButton="tonal" class="cursor-not-allowed">
+            <span class="flex gap-2 items-center">
+              <span
+                class="icon-[logos--google-icon]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <span>Google</span>
+            </span>
+          </a>
+          <a
+            matButton="tonal"
+            disabled
+            class="disabled:cursor-not-allowed"
+            title="Apple currently not available"
+          >
+            <span class="flex gap-2 items-center">
+              <span
+                class="icon-[logos--apple]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              <span>Apple</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      <p class="mt-12 text-sm text-center text-on-surface-variant">
+        New to the Sanctuary?
+        <a
+          class="ml-1 font-bold hover:underline text-primary"
+          routerLink="/signup"
+          queryParamsHandling="preserve"
+          >Create an account</a
+        >
+      </p>
+    </div>
+  </div>
 </main>
 <!-- Footer -->
 <footer class="py-8 mt-auto w-full bg-transparent">
-	<div
-		class="flex flex-col gap-6 justify-center items-center px-4 w-full md:flex-row"
-	>
-		<div class="text-lg font-semibold text-[#495f8b]">Academic Sanctuary</div>
-		<div class="flex flex-wrap gap-6 justify-center">
-			<a
-				class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
-				href="#"
-				>Privacy Policy</a
-			>
-			<a
-				class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
-				href="#"
-				>Terms of Service</a
-			>
-			<a
-				class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
-				href="#"
-				>Help Center</a
-			>
-			<a
-				class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
-				href="#"
-				>Security</a
-			>
-		</div>
-		<div class="opacity-80 Inter body-sm text-[#5c5f68] dark:text-slate-400">
-			© 2024 Academic Sanctuary. All rights reserved.
-		</div>
-	</div>
+  <div
+    class="flex flex-col gap-6 justify-center items-center px-4 w-full md:flex-row"
+  >
+    <div class="text-lg font-semibold text-[#495f8b]">Academic Sanctuary</div>
+    <div class="flex flex-wrap gap-6 justify-center">
+      <a
+        class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
+        href="#"
+        >Privacy Policy</a
+      >
+      <a
+        class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
+        href="#"
+        >Terms of Service</a
+      >
+      <a
+        class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
+        href="#"
+        >Help Center</a
+      >
+      <a
+        class="opacity-80 transition-all hover:opacity-100 Inter body-sm text-[#5c5f68] dark:text-slate-400 dark:hover:text-[#b0c7f9] hover:text-[#495f8b]"
+        href="#"
+        >Security</a
+      >
+    </div>
+    <div class="opacity-80 Inter body-sm text-[#5c5f68] dark:text-slate-400">
+      © 2024 Academic Sanctuary. All rights reserved.
+    </div>
+  </div>
 </footer>
