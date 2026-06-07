@@ -16,7 +16,13 @@ import {
 } from "@angular/platform-browser";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { Auth, csrfInterceptor, ENVIRONMENT } from "shared";
+import {
+  Auth,
+  csrfInterceptor,
+  ENVIRONMENT,
+  ssrInterceptor,
+  stundzInterceptor,
+} from "shared";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
@@ -26,7 +32,9 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptors([csrfInterceptor])),
+    provideHttpClient(
+      withInterceptors([stundzInterceptor, ssrInterceptor, csrfInterceptor]),
+    ),
     provideAppInitializer(async () => {
       const authService = inject(Auth);
 
