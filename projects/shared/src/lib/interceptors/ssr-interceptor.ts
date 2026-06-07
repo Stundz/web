@@ -10,29 +10,40 @@ export const ssrInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const serverReq = inject(REQUEST, { optional: true }) as any;
+
   if (!serverReq || !serverReq.headers) {
     return next(req);
   }
 
   const safeHeaders = [
-    "cookie",
-    "referer",
-    "authorization",
-    "x-requested-with",
+    "COOKIE",
+    "REFERER",
+    "AUTHORIZATION",
+    "X-REQUESTED-WITH",
+    "HOST",
+    "USER-AGENT",
   ];
-  let clonedHeaders = req.headers;
 
-  // Use clean dictionary lookups to avoid leaking internal structures
-  const rawHeaders =
-    typeof serverReq.headers.toJSON === "function"
-      ? serverReq.headers.toJSON()
-      : serverReq.headers;
+  // Explicitly typing this to accept any string key, accommodating our dynamic addition
+  const clonedHeaders: Record<string, string | Array<string>> = {};
 
-  for (const [key, value] of Object.entries(rawHeaders)) {
-    if (safeHeaders.includes(key.toLowerCase()) && value) {
-      clonedHeaders = clonedHeaders.set(key, value as string | string[]);
-    }
+  // 1. Transfer the safe headers from the incoming platform request
+  for (const key of safeHeaders) {
+    clonedHeaders[key] = decodeURIComponent(serverReq.headers.get(key) || "");
   }
 
-  return next(req.clone({ headers: clonedHeaders }));
+  // 2. Extract XSRF-TOKEN from the cookie string and set the token header
+  const cookieHeader = (clonedHeaders["COOKIE"] as string) || "";
+  const xsrfTokenMatch = cookieHeader.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
+
+  if (xsrfTokenMatch) {
+    const token = decodeURIComponent(xsrfTokenMatch[1]);
+    clonedHeaders["X-XSRF-TOKEN"] = token;
+  }
+  clonedHeaders["HOST"] = "api.stundz.localhost";
+  clonedHeaders["Accept"] = "application/json";
+
+  console.log("Cloned headers, ", clonedHeaders);
+
+  return next(req.clone({ setHeaders: clonedHeaders }));
 };

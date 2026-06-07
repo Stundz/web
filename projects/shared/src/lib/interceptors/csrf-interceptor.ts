@@ -7,38 +7,40 @@ import {
   HttpXsrfTokenExtractor,
 } from "@angular/common/http";
 import { inject, PLATFORM_ID } from "@angular/core";
-import { catchError, switchMap, tap, throwError } from "rxjs";
+import { catchError, switchMap, throwError } from "rxjs";
 import { ENVIRONMENT } from "../types";
 
 export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
   const environment = inject(ENVIRONMENT);
   const tokenExtractor = inject(HttpXsrfTokenExtractor);
   const platformId = inject(PLATFORM_ID);
-  const http = new HttpClient(inject(HttpBackend)); // Bypass interceptor loop for CSRF fetching
+  const http = new HttpClient(inject(HttpBackend));
 
-  // Rule 1: Do nothing if the request URL is not targeting the API
-  const isApiRequest = /^https?:\/\/api\.stundz\./i.test(req.url);
-  if (!isApiRequest) {
+  // 1. Only intercept if the request matches your API pattern
+  if (!/^https?:\/\/api\.stundz\./i.test(req.url)) {
     return next(req);
   }
 
-  const isServer = isPlatformServer(platformId);
-  const skipCsrfCheck = ["/user", "/login", "/signup"].some((path) =>
-    req.url.endsWith(path),
-  );
+  console.log((req.headers as any).keys());
 
-  // Helper to grab the token natively depending on the platform
+  const isServer = isPlatformServer(platformId);
+  const skipCsrfCheck = ["/user"].some((path) => req.url.endsWith(path));
+
+  // Safely extract token using Angular public APIs
   const getXsrfToken = (): string | null => {
+    console.log(req.url);
     if (isServer) {
-      // On server, read from cloned headers passed by the SSR Context Interceptor
+      console.log("IN server");
+      // Pulls cleanly from the headers that your SSR interceptor transferred over
       return req.headers.get("x-xsrf-token");
     }
+    console.log("is client");
     return tokenExtractor.getToken();
   };
 
   const token = getXsrfToken();
 
-  // Helper function to fetch token from backend, read Set-Cookie, and retry
+  // Unified logic to fetch a missing/expired token and retry safely
   const fetchCsrfAndRetry = () => {
     return http
       .get(`${environment.url.api}/csrf`, {
@@ -49,38 +51,37 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
         switchMap((res) => {
           let nextToken = tokenExtractor.getToken() || "";
 
-          // Server-side fallback parsing if cookies aren't automatically bound to the extractor
+          console.log("nextToken", nextToken);
+
           if (isServer && !nextToken) {
-            const cookies = res.headers.getAll("set-cookie") || [];
+            const cookies = res.headers.getAll("SET-COOKIE") || [];
             for (const c of cookies) {
               const match = c.match(/^XSRF-TOKEN=([^;]+)/);
               if (match) nextToken = decodeURIComponent(match[1]);
             }
           }
 
-          const retryReq = req.clone({
-            headers: req.headers
-              .set("X-XSRF-TOKEN", nextToken)
-              .set("x-xsrf-token", nextToken),
-            withCredentials: true,
-          });
-          return next(retryReq);
+          // Use native .set() chains. Never pass an object containing lazyInit properties to setHeaders
+          const retryHeaders = req.headers.set("X-XSRF-TOKEN", nextToken);
+
+          return next(
+            req.clone({ headers: retryHeaders, withCredentials: true }),
+          );
         }),
       );
   };
 
-  // Rule 2: If token is present, append headers and proceed
+  // 2. Token exists: Append using native immutable API chains
   if (token) {
-    const clonedReq = req.clone({
-      headers: req.headers
-        .set("X-XSRF-TOKEN", token)
-        .set("x-xsrf-token", token),
-      withCredentials: true,
-    });
+    const authorizedHeaders = req.headers.set("X-XSRF-TOKEN", token);
 
-    return next(clonedReq).pipe(
+    return next(
+      req.clone({
+        headers: authorizedHeaders,
+        withCredentials: true,
+      }),
+    ).pipe(
       catchError((error) => {
-        // Handle token expiration/rotation (419 match)
         if (
           error instanceof HttpErrorResponse &&
           error.status === 419 &&
@@ -93,7 +94,7 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
     );
   }
 
-  // Rule 3: If token is absent, hit /csrf endpoint first, then execute request
+  // 3. Token is completely absent: Fetch it first
   if (!skipCsrfCheck) {
     return fetchCsrfAndRetry();
   }
