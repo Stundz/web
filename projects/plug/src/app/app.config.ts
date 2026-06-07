@@ -1,8 +1,4 @@
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-} from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import {
   type ApplicationConfig,
   enableProdMode,
@@ -15,12 +11,10 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import {
   provideClientHydration,
   withEventReplay,
-  withIncrementalHydration,
 } from "@angular/platform-browser";
 import {
   provideRouter,
   withComponentInputBinding,
-  withRouterConfig,
   withViewTransitions,
 } from "@angular/router";
 import { firstValueFrom } from "rxjs";
