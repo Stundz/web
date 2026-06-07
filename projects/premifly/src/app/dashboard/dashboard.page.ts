@@ -52,12 +52,15 @@ export class DashboardPage {
     }),
   );
   subscriptions = httpResource<Paginated<Model.Premifly.Subscription>>(
-    () => ({
-      url: `${environment.url.api}/premifly/subscriptions`,
-      params: {
-        u: this.user().id,
-      },
-    }),
+    () =>
+      this.user()
+        ? {
+            url: `${environment.url.api}/premifly/subscriptions`,
+            params: {
+              u: this.user().id,
+            },
+          }
+        : undefined,
     {
       defaultValue: {
         data: [] as Array<Model.Premifly.Subscription>,
@@ -133,5 +136,9 @@ export class DashboardPage {
 
       return value;
     });
+  }
+
+  ngOnInit() {
+    console.log("here is the user from dashboard: ", this.user());
   }
 }
