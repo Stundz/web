@@ -28,7 +28,7 @@ export class HomePage {
 
   signupUrl = `${environment.url.auth.replace(/^https?:/, this.#document.location.protocol)}/signup?callback=${this.#document.location.href}`;
 
-  constructor() {
+  ngAfterViewInit() {
     const title = this.#title.getTitle();
     const description =
       "Unlock premium digital subscriptions at a fraction of the cost. Save big on streaming, AI, and productivity services with Premifly's exclusive plans.";
@@ -37,16 +37,16 @@ export class HomePage {
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk";
 
     // Canonical URL
-    const existingCanonical = this.#document.querySelector(
-      "link[rel='canonical']",
-    );
-    if (existingCanonical) {
-      this.#renderer.removeChild(this.#document.head, existingCanonical);
-    }
-    const link: HTMLLinkElement = this.#renderer.createElement("link");
-    this.#renderer.setAttribute(link, "rel", "canonical");
-    this.#renderer.setAttribute(link, "href", url);
-    this.#renderer.appendChild(this.#document.head, link);
+    // const existingCanonical = this.#document.querySelector(
+    //   "link[rel='canonical']",
+    // );
+    // if (existingCanonical) {
+    //   this.#renderer.removeChild(this.#document.head, existingCanonical);
+    // }
+    // const link: HTMLLinkElement = this.#renderer.createElement("link");
+    // this.#renderer.setAttribute(link, "rel", "canonical");
+    // this.#renderer.setAttribute(link, "href", url);
+    // this.#renderer.appendChild(this.#document.head, link);
 
     this.#meta.updateTag({
       id: "description",
