@@ -1,11 +1,4 @@
-import {
-  afterNextRender,
-  Component,
-  DOCUMENT,
-  inject,
-  Renderer2,
-  signal,
-} from "@angular/core";
+import { Component, DOCUMENT, inject, Renderer2, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import {
@@ -37,7 +30,7 @@ export class App {
     },
   );
 
-  constructor() {
+  ngAfterViewInit() {
     // Canonical URL
     const existingCanonical = this.#document.querySelector(
       "link[rel='canonical']",
@@ -51,6 +44,4 @@ export class App {
     this.#renderer.setAttribute(link, "href", url);
     this.#renderer.appendChild(this.#document.head, link);
   }
-
-  ngOnInit() {}
 }

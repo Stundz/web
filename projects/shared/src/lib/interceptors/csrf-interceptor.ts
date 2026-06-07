@@ -1,189 +1,103 @@
 import { isPlatformServer } from "@angular/common";
 import {
-	HttpBackend,
-	HttpClient,
-	HttpErrorResponse,
-	HttpHeaders,
-	type HttpInterceptorFn,
-	HttpRequest,
-	HttpXsrfTokenExtractor,
+  HttpBackend,
+  HttpClient,
+  HttpErrorResponse,
+  type HttpInterceptorFn,
+  HttpXsrfTokenExtractor,
 } from "@angular/common/http";
-import { inject, PLATFORM_ID, REQUEST } from "@angular/core";
-import { catchError, switchMap, tap, throwError } from "rxjs";
+import { inject, PLATFORM_ID } from "@angular/core";
+import { catchError, switchMap, throwError } from "rxjs";
 import { ENVIRONMENT } from "../types";
 
 export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
-	const tokenService = inject(HttpXsrfTokenExtractor);
-	const environment = inject(ENVIRONMENT);
-	const platformId = inject(PLATFORM_ID);
-	const serverReq = inject(REQUEST, { optional: true });
-	const http = new HttpClient(inject(HttpBackend));
+  const environment = inject(ENVIRONMENT);
+  const tokenExtractor = inject(HttpXsrfTokenExtractor);
+  const platformId = inject(PLATFORM_ID);
+  const http = new HttpClient(inject(HttpBackend));
 
-	const isApiRequest = req.url.startsWith(`${environment.url.api}`);
-	const isServerSideRequest = isPlatformServer(platformId);
-	const skipCsrfCheck = ["/user", "/login", "/signup"].includes(
-		req.url.replace(environment.url.api, ""),
-	);
+  // 1. Only intercept if the request matches your API pattern
+  if (!/^https?:\/\/api\.stundz\./i.test(req.url)) {
+    return next(req);
+  }
 
-	if (!isApiRequest) {
-		return next(req);
-	}
+  console.log((req.headers as any).keys());
 
-	let token: string | null = null;
-	let headers: { [k: string]: string | Array<string> } = {};
+  const isServer = isPlatformServer(platformId);
+  const skipCsrfCheck = ["/user"].some((path) => req.url.endsWith(path));
 
-	console.log(
-		isServerSideRequest ? "[SERVER]" : "[Client]",
-		serverReq ? "[REQUEST]" : "[Null]",
-		"for",
-		req.url,
-	);
+  // Safely extract token using Angular public APIs
+  const getXsrfToken = (): string | null => {
+    console.log(req.url);
+    if (isServer) {
+      console.log("IN server");
+      // Pulls cleanly from the headers that your SSR interceptor transferred over
+      return req.headers.get("x-xsrf-token");
+    }
+    console.log("is client");
+    return tokenExtractor.getToken();
+  };
 
-	if (isServerSideRequest) {
-		if (serverReq) {
-			token = getToken(serverReq);
-			headers = extractSafeHeaders(
-				Object.fromEntries(serverReq.headers.entries() || []),
-			);
-		} else {
-			token = null;
-			headers = extractSafeHeaders(
-				Object.fromEntries((req.headers as any).headers?.entries() || []),
-			);
-		}
-	} else {
-		token = tokenService.getToken();
-		headers = Object.fromEntries((req.headers as any).headers.entries());
-	}
+  const token = getXsrfToken();
 
-	if (token) {
-		headers["X-XSRF-TOKEN"] = token;
-		headers["x-xsrf-token"] = token;
-	}
+  // Unified logic to fetch a missing/expired token and retry safely
+  const fetchCsrfAndRetry = () => {
+    return http
+      .get(`${environment.url.api}/csrf`, {
+        withCredentials: true,
+        observe: "response",
+      })
+      .pipe(
+        switchMap((res) => {
+          let nextToken = tokenExtractor.getToken() || "";
 
-	const hasXsrfCookie = (): boolean => {
-		if (isServerSideRequest) {
-			if (serverReq) {
-				const cookie = serverReq.headers?.get("cookie") || "";
-				return cookie.includes("XSRF-TOKEN=");
-			}
-			const cookie = req.headers.get("cookie") || "";
-			return cookie.includes("XSRF-TOKEN=");
-		}
-		return document.cookie.includes("XSRF-TOKEN=");
-	};
+          console.log("nextToken", nextToken);
 
-	const fetchCsrfToken = () => {
-		return http
-			.get(`${environment.url.api}/csrf`, {
-				withCredentials: !isServerSideRequest,
-				observe: "response",
-			})
-			.pipe(
-				tap((response) => {
-					const cookies = (response.headers.getAll("set-cookie") || []).map(
-						(c) => c.split(";")[0].trim(),
-					);
-					if (cookies.length > 0) {
-						headers["cookie"] = cookies;
-					}
+          if (isServer && !nextToken) {
+            const cookies = res.headers.getAll("SET-COOKIE") || [];
+            for (const c of cookies) {
+              const match = c.match(/^XSRF-TOKEN=([^;]+)/);
+              if (match) nextToken = decodeURIComponent(match[1]);
+            }
+          }
 
-					let xsrfToken = "";
-					if (!isServerSideRequest) {
-						xsrfToken = tokenService.getToken() || "";
-					}
+          // Use native .set() chains. Never pass an object containing lazyInit properties to setHeaders
+          const retryHeaders = req.headers.set("X-XSRF-TOKEN", nextToken);
 
-					if (!xsrfToken) {
-						for (const c of cookies) {
-							const match = c.match(/^XSRF-TOKEN=([^;]+)/);
-							if (match) xsrfToken = decodeURIComponent(match[1]);
-						}
-					}
+          return next(
+            req.clone({ headers: retryHeaders, withCredentials: true }),
+          );
+        }),
+      );
+  };
 
-					if (xsrfToken) {
-						headers["x-xsrf-token"] = xsrfToken;
-						headers["X-XSRF-TOKEN"] = xsrfToken;
-					}
-				}),
-			);
-	};
+  // 2. Token exists: Append using native immutable API chains
+  if (token) {
+    const authorizedHeaders = req.headers.set("X-XSRF-TOKEN", token);
 
-	const executeRequest = (clonedReq: HttpRequest<any>) => {
-		return next(clonedReq).pipe(
-			catchError((error) => {
-				if (
-					error instanceof HttpErrorResponse &&
-					error.status === 419 &&
-					!skipCsrfCheck
-				) {
-					console.log("CSRF expired (419), fetching new token...");
-					return fetchCsrfToken().pipe(
-						switchMap(() => {
-							const retryReq = req.clone({
-								setHeaders: headers,
-								withCredentials: true,
-							});
-							return next(retryReq);
-						}),
-					);
-				}
-				return throwError(() => error);
-			}),
-		);
-	};
+    return next(
+      req.clone({
+        headers: authorizedHeaders,
+        withCredentials: true,
+      }),
+    ).pipe(
+      catchError((error) => {
+        if (
+          error instanceof HttpErrorResponse &&
+          error.status === 419 &&
+          !skipCsrfCheck
+        ) {
+          return fetchCsrfAndRetry();
+        }
+        return throwError(() => error);
+      }),
+    );
+  }
 
-	const isCookieMissing = !hasXsrfCookie();
+  // 3. Token is completely absent: Fetch it first
+  if (!skipCsrfCheck) {
+    return fetchCsrfAndRetry();
+  }
 
-	if (isCookieMissing && !skipCsrfCheck) {
-		return fetchCsrfToken().pipe(
-			switchMap(() => {
-				const clonedReq = req.clone({
-					setHeaders: headers,
-					withCredentials: true,
-				});
-				return executeRequest(clonedReq);
-			}),
-		);
-	}
-
-	const clonedReq = req.clone({
-		setHeaders: headers,
-		withCredentials: true,
-	});
-	return executeRequest(clonedReq);
-};
-
-const getToken = (request: Request | null) => {
-	if (!request) {
-		return null;
-	}
-
-	const cookie = request.headers?.get("cookie") || "";
-	const match = cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
-	return match ? decodeURIComponent(match[1]) : null;
-};
-
-const extractSafeHeaders = (
-	object: Record<string, string | Array<string>> | HttpHeaders,
-) => {
-	let h: Record<string, string | Array<string>>;
-
-	if (object instanceof HttpHeaders) {
-		h = Object.fromEntries((object as any).headers?.entries() || []);
-	} else {
-		h = object;
-	}
-
-	// console.log("Raw headers", h);
-
-	const safeHeaders = ["cookie", "referer", "x-xsrf-token"];
-	const headers: { [k: string]: string | Array<string> } = {};
-
-	for (const [key, value] of Object.entries(h)) {
-		if (safeHeaders.includes(key)) {
-			headers[key] = value;
-		}
-	}
-
-	return headers;
+  return next(req.clone({ withCredentials: true }));
 };
