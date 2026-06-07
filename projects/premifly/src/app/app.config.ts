@@ -18,7 +18,13 @@ import {
   withViewTransitions,
 } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { Auth, csrfInterceptor, ENVIRONMENT, stundzInterceptor } from "shared";
+import {
+  Auth,
+  csrfInterceptor,
+  ENVIRONMENT,
+  ssrInterceptor,
+  stundzInterceptor,
+} from "shared";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
@@ -27,7 +33,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptors([stundzInterceptor, csrfInterceptor])),
+    provideHttpClient(
+      withInterceptors([stundzInterceptor, ssrInterceptor, csrfInterceptor]),
+    ),
     provideAppInitializer(async () => {
       const authService = inject(Auth);
 

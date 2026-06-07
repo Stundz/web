@@ -1,5 +1,5 @@
 import type { Routes } from "@angular/router";
-import { userResolver } from "shared";
+import { authGuard, userResolver } from "shared";
 
 export const routes: Routes = [
   {
@@ -27,6 +27,7 @@ export const routes: Routes = [
         title: "Dashboard",
         loadComponent: () =>
           import("./dashboard/dashboard.page").then((m) => m.DashboardPage),
+        canActivate: [authGuard],
       },
     ],
   },
