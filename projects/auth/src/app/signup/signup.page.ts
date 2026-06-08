@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   inject,
   signal,
 } from "@angular/core";
@@ -38,8 +39,9 @@ import { environment } from "../../environments/environment";
 export class SignupPage {
   #route = inject(ActivatedRoute);
   #authService = inject(Auth);
+  #document = inject(DOCUMENT);
 
-  googleUrl = `https://oauth.${environment.domain}/auth/google/redirect${this.#route.snapshot.queryParams["callback"] ? "?callback=" + this.#route.snapshot.queryParams["callback"] : ""}`;
+  googleUrl = `${this.#document.location.protocol}//oauth.${environment.domain}/auth/google/redirect?redirect=${this.#document.location.href}`;
 
   form = form(
     signal({
