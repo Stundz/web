@@ -5,48 +5,64 @@ import { switchMap } from "rxjs";
 import { ENVIRONMENT, type Model, type Paginated } from "../../types";
 
 @Injectable({
-	providedIn: "root",
+  providedIn: "root",
 })
 export class PremiflyAccount<T = Paginated<Model.Premifly.Account>> {
-	#environment = inject(ENVIRONMENT);
-	#http = inject(HttpClient);
-	params = signal<Record<string, string | boolean | number>>({});
-	#params$ = toObservable(this.params);
+  #environment = inject(ENVIRONMENT);
+  #http = inject(HttpClient);
+  params = signal<Record<string, string | boolean | number>>({});
+  #params$ = toObservable(this.params);
 
-	accounts$ = this.#params$.pipe(
-		switchMap((params) =>
-			this.#http.get<T>(`${this.#environment.url.api}/premifly/accounts`, {
-				params,
-			}),
-		),
-	);
+  accounts$ = this.#params$.pipe(
+    switchMap((params) =>
+      this.#http.get<T>(`${this.#environment.url.api}/premifly/accounts`, {
+        params,
+      }),
+    ),
+  );
 
-	getAccount(id: Model.Premifly.Account["id"]) {
-		return this.#http.get<Model.Premifly.Account>(
-			`${this.#environment.url.api}/premifly/account/${id}`,
-		);
-	}
+  getAccount(id: Model.Premifly.Account["id"]) {
+    return this.#http.get<Model.Premifly.Account>(
+      `${this.#environment.url.api}/premifly/account/${id}`,
+    );
+  }
 
-	create(body: Pick<Model.Premifly.Account, "email">) {
-		return this.#http.post<Model.Premifly.Account>(
-			`${this.#environment.url.api}/premifly/account`,
-			body,
-		);
-	}
+  create(body: Pick<Model.Premifly.Account, "email">) {
+    return this.#http.post<Model.Premifly.Account>(
+      `${this.#environment.url.api}/premifly/account`,
+      body,
+    );
+  }
 
-	update(
-		id: Model.Premifly.Account["id"],
-		payload: Partial<Pick<Model.Premifly.Account, "email">>,
-	) {
-		return this.#http.patch<Model.Premifly.Account>(
-			`${this.#environment.url.api}/premifly/account/${id}`,
-			payload,
-		);
-	}
+  update(
+    id: Model.Premifly.Account["id"],
+    payload: Partial<Pick<Model.Premifly.Account, "email">>,
+  ) {
+    return this.#http.patch<Model.Premifly.Account>(
+      `${this.#environment.url.api}/premifly/account/${id}`,
+      payload,
+    );
+  }
 
-	delete(id: Model.Premifly.Account["id"]) {
-		return this.#http.delete<unknown>(
-			`${this.#environment.url.api}/premifly/account/${id}`,
-		);
-	}
+  delete(id: Model.Premifly.Account["id"]) {
+    return this.#http.delete<unknown>(
+      `${this.#environment.url.api}/premifly/account/${id}`,
+    );
+  }
+
+  getServices(id: Model.Premifly.Account["id"]) {
+    return this.#http.get<Paginated<Model.Premifly.Service>>(
+      `${this.#environment.url.api}/premifly/account/${id}/services`,
+    );
+  }
+
+  attachService(
+    accountId: Model.Premifly.Account["id"],
+    payload: Record<"service_id" | "code" | "password" | "expires_at", any>,
+  ) {
+    return this.#http.post<unknown>(
+      `${this.#environment.url.api}/premifly/account/${accountId}/service`,
+      payload,
+    );
+  }
 }

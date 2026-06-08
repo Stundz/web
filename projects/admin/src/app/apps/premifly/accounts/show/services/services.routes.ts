@@ -1,34 +1,29 @@
 import type { Routes } from "@angular/router";
-import { premiflyAccountResolver, premiflyAccountsResolver } from "shared";
+import { premiflyAccountServicesResolver } from "shared";
 
 export const routes: Routes = [
   {
-    path: "accounts",
+    path: "services",
     children: [
       {
         path: "",
         pathMatch: "full",
         resolve: {
-          accounts: premiflyAccountsResolver,
+          services: premiflyAccountServicesResolver,
         },
         runGuardsAndResolvers: "paramsOrQueryParamsChange",
         loadComponent: () =>
           import("./index/index.page").then((m) => m.IndexPage),
       },
-      {
-        path: "create",
-        loadComponent: () =>
-          import("./create/create.page").then((m) => m.CreatePage),
-      },
     ],
   },
   {
-    path: "account",
+    path: "service",
     children: [
       {
-        path: ":account",
+        path: ":service",
         resolve: {
-          account: premiflyAccountResolver,
+          // service: premiflyAccountResolver,
         },
         children: [
           {
@@ -36,12 +31,6 @@ export const routes: Routes = [
             pathMatch: "full",
             loadComponent: () =>
               import("./show/show.page").then((m) => m.ShowPage),
-          },
-          {
-            path: "",
-            pathMatch: "prefix",
-            loadChildren: () =>
-              import("./show/services/services.routes").then((m) => m.routes),
           },
           {
             path: "edit",
