@@ -43,7 +43,7 @@ export const ssrInterceptor: HttpInterceptorFn = (req, next) => {
   clonedHeaders["HOST"] = "api.stundz.localhost";
   clonedHeaders["Accept"] = "application/json";
 
-  console.log("Cloned headers, ", clonedHeaders);
+  // console.log("Cloned headers, ", clonedHeaders);
 
   return next(req.clone({ setHeaders: clonedHeaders }));
 };

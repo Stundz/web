@@ -21,20 +21,15 @@ export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  console.log((req.headers as any).keys());
-
   const isServer = isPlatformServer(platformId);
   const skipCsrfCheck = ["/user"].some((path) => req.url.endsWith(path));
 
   // Safely extract token using Angular public APIs
   const getXsrfToken = (): string | null => {
-    console.log(req.url);
     if (isServer) {
-      console.log("IN server");
       // Pulls cleanly from the headers that your SSR interceptor transferred over
       return req.headers.get("x-xsrf-token");
     }
-    console.log("is client");
     return tokenExtractor.getToken();
   };
 
