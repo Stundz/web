@@ -58,6 +58,12 @@ export class PastQuestion {
 		});
 	}
 
+	getPastQuestions(params: Record<string, string | number>) {
+		return this._http.get<Paginated<Model.Plug.PastQuestion>>(
+			`https://api.${environment.domain}/plug/past-questions`, { params },
+		);
+	}
+
 	create(payload: { course_id: string; file: File | null; year: number }) {
 		return this._http.post<void>(
 			`https://api.${environment.domain}/plug/past-question`,

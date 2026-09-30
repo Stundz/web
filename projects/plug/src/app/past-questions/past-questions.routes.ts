@@ -17,6 +17,7 @@ export const routes: Routes = [
 				resolve: {
 					pastQuestions: pastQuestionsResolver,
 				},
+				runGuardsAndResolvers: "paramsOrQueryParamsChange",
 				loadComponent: () =>
 					import("./index/index.page").then((m) => m.IndexPage),
 			},

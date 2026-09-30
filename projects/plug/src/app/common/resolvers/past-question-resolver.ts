@@ -13,7 +13,11 @@ export const pastQuestionsResolver: ResolveFn<
 > = (route, state) => {
 	const pastQuestionService = inject(PastQuestion);
 
-	return pastQuestionService.pastQuestions$.pipe(
+	const { solutions_count, institution, ...filters } = route.queryParams;
+	const user = route.pathFromRoot.map((snapshot) => snapshot.data["user"] as Model.User | undefined).find((value) => value != null);
+	const institutionId = user?.plug?.department?.faculty?.institution_id;
+	if (institutionId) filters["institution"] = institutionId;
+	return pastQuestionService.getPastQuestions(filters).pipe(
 		catchError(() => {
 			return of({
 				data: [],
