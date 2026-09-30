@@ -56,9 +56,10 @@ export class PremiflyService<T = Paginated<Model.Premifly.Service>> {
 		);
 	}
 
-	getAccounts(id: Model.Premifly.Service["id"]) {
-		return this.#http.get<Model.Premifly.Service>(
+	getAccounts(id: Model.Premifly.Service["id"], params: Record<string, string | number | boolean> = {}) {
+		return this.#http.get<Paginated<Model.Premifly.Account>>(
 			`${this.#environment.url.api}/premifly/service/${id}/accounts`,
+			{ params },
 		);
 	}
 

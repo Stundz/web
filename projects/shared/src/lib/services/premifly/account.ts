@@ -49,4 +49,16 @@ export class PremiflyAccount<T = Paginated<Model.Premifly.Account>> {
 			`${this.#environment.url.api}/premifly/account/${id}`,
 		);
 	}
+
+	attachService(accountId: Model.Premifly.Account["id"], payload: {
+		service_id: Model.Premifly.Service["id"];
+		password: string;
+		code: string;
+		expires_at: string;
+	}) {
+		return this.#http.post<unknown>(
+			`${this.#environment.url.api}/premifly/account/${accountId}/service`,
+			payload,
+		);
+	}
 }
