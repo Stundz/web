@@ -1,104 +1,173 @@
-import { ViewportScroller } from "@angular/common";
-import { Component, DestroyRef, inject, input, viewChild, ChangeDetectionStrategy } from "@angular/core";
-import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { httpResource } from "@angular/common/http";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  linkedSignal,
+} from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
+import {
+  debounce,
+  disabled,
+  FormField,
+  form,
+  validate,
+} from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatTab, MatTabsModule } from "@angular/material/tabs";
-import { ActivatedRoute, RouterLink } from "@angular/router";
-import { debounceTime, distinctUntilChanged, map, mergeWith, tap } from "rxjs";
-import { Model, Paginated, User } from "shared";
-import { PastQuestion } from "../../common/services/past-question";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import {
+  MatPaginatorModule,
+  type PageEvent,
+} from "@angular/material/paginator";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { map } from "rxjs";
+import type { Model, Paginated } from "shared";
+import { environment } from "../../../environments/environment";
 
 @Component({
-	selector: "app-index",
-	imports: [
-		RouterLink,
-		ReactiveFormsModule,
-		MatPaginatorModule,
-		MatTabsModule,
-		MatButtonModule,
-		MatExpansionModule,
-	],
-	templateUrl: "./index.page.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
-	styleUrl: "./index.page.scss",
+  selector: "app-index",
+  imports: [
+    RouterLink,
+    FormField,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+  ],
+  templateUrl: "./index.page.ng.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: "./index.page.scss",
 })
 export class IndexPage {
-	user = input.required<Model.User>();
-	pastQuestions = input.required<Paginated<Model.Plug.PastQuestion>>();
+  user = input.required<Model.User>();
+  pastQuestions = input.required<Paginated<Model.Plug.PastQuestion>>();
+  #route = inject(ActivatedRoute);
+  #router = inject(Router);
+  #params = toSignal(
+    this.#route.queryParams.pipe(
+      map((params) => {
+        const safeKeys = [
+          "q",
+          "institution",
+          "faculty",
+          "department",
+          "course",
+          "year",
+        ];
 
-	private _fb = inject(FormBuilder);
-	private _route = inject(ActivatedRoute);
-	private _pastQuestionService = inject(PastQuestion);
-	private _destroyRef = inject(DestroyRef);
-	viewPortScroller = inject(ViewportScroller);
-	myContributionTab = viewChild<MatTab>("myContributions");
+        return Object.fromEntries(
+          Object.entries(params).filter(([key]) => safeKeys.includes(key)),
+        );
+      }),
+    ),
+    {
+      initialValue: this.#route.snapshot.queryParams,
+    },
+  );
+  currentYear = new Date().getFullYear();
+  #filters = linkedSignal(() => ({
+    q: this.#route.snapshot.queryParams["q"] || "",
+    institution: this.user()?.plug?.department?.faculty?.institution_id || "",
+    faculty: this.#route.snapshot.queryParams["faculty"] || "",
+    department: this.#route.snapshot.queryParams["department"] || "",
+    course: this.#route.snapshot.queryParams["course"] || "",
+    year: this.#route.snapshot.queryParams["year"] || "",
+  }));
+  form = form(this.#filters, (fields) => {
+    debounce(fields.q, 600);
+    disabled(fields.institution);
+    disabled(fields.faculty, {
+      when: ({ valueOf }) => !valueOf(fields.institution),
+    });
+    disabled(fields.department, {
+      when: ({ valueOf }) => !valueOf(fields.faculty),
+    });
+    disabled(fields.course, {
+      when: ({ valueOf }) => !valueOf(fields.department),
+    });
+    validate(fields.year, ({ value }) => {
+      const year = value();
+      return year === "" ||
+        (/^\d{4}$/.test(String(year)) &&
+          Number(year) >= 1900 &&
+          Number(year) <= this.currentYear)
+        ? undefined
+        : { kind: "year", message: "Enter a valid exam year." };
+    });
+  });
+  institutions = httpResource<Array<Model.Plug.Institution>>(
+    () => ({
+      url: `https://api.${environment.domain}/plug/institutions`,
+    }),
+    { defaultValue: [] },
+  );
+  faculties = httpResource<Array<Model.Plug.Faculty>>(
+    () =>
+      this.form.institution().value()
+        ? {
+            url: `https://api.${environment.domain}/plug/institution/${this.form.institution().value()}/faculties`,
+          }
+        : undefined,
+    { defaultValue: [] },
+  );
+  departments = httpResource<Array<Model.Plug.Department>>(
+    () =>
+      this.form.faculty().value()
+        ? {
+            url: `https://api.${environment.domain}/plug/faculty/${this.form.faculty().value()}/departments`,
+          }
+        : undefined,
+    { defaultValue: [] },
+  );
+  courses = httpResource<Array<Model.Plug.Course>>(
+    () =>
+      this.form.department().value()
+        ? {
+            url: `https://api.${environment.domain}/plug/department/${this.form.department().value()}/courses`,
+          }
+        : undefined,
+    { defaultValue: [] },
+  );
 
-	form = this._fb.group({
-		q: this._fb.control<string>(this._route.snapshot.params["q"] ?? "", {
-			nonNullable: true,
-		}),
-		filters: this._fb.group({
-			page: this._fb.control<number>(0, { nonNullable: true }),
-			limit: this._fb.control<number>(0, { nonNullable: true }),
-			institution: this._fb.control<string>("", {
-				nonNullable: true,
-			}),
-			semester: this._fb.control<string>("", { nonNullable: true }),
-		}),
-	});
+  #navigatioEffectn = effect(() => {
+    const values = Object.fromEntries(
+      Object.entries({
+        q: this.form.q().value()?.trim(),
+        // institution: this.form.institution().value(),
+        faculty: this.form.faculty().value(),
+        department: this.form.department().value(),
+        course: this.form.course().value(),
+        year: this.form.year().value(),
+      }).filter(([_key, value]) => value !== "" && value !== null),
+    );
+    if (this.form().invalid()) return;
 
-	myContributedPastQuestions = toSignal(
-		this._pastQuestionService.myPastQuestions$,
-		{
-			initialValue: {
-				data: [],
-				meta: {
-					total: 0,
-					current_page: 0,
-					per_page: 0,
-					from: 0,
-					to: 0,
-				},
-				links: {},
-			},
-		},
-	);
+    this.#router.navigate([], {
+      relativeTo: this.#route,
+      queryParams: values,
+      queryParamsHandling: "replace",
+    });
+  });
 
-	constructor() {
-		this.form.controls.q.valueChanges
-			.pipe(
-				takeUntilDestroyed(this._destroyRef),
-				debounceTime(600),
-				distinctUntilChanged(),
-				map((q) => q.trim()),
-				tap((q) =>
-					this._pastQuestionService.filters.update((value) => ({
-						...value,
-						page: 1,
-						q,
-					})),
-				),
-				mergeWith(
-					this.form.controls.filters.valueChanges.pipe(
-						map((filters) =>
-							this._pastQuestionService.filters.update((value) => ({
-								...value,
-								...filters,
-							})),
-						),
-					),
-				),
-			)
-			.subscribe();
-	}
+  changePage(event: PageEvent) {
+    this.#router.navigate([], {
+      relativeTo: this.#route,
+      queryParamsHandling: "merge",
+      queryParams: { page: event.pageIndex + 1, limit: event.pageSize },
+    });
+  }
 
-	getMyContributions() {
-		console.log("hello");
-		if (this.user()) {
-			this._pastQuestionService.publisher.set(this.user()?.id);
-		}
-	}
+  handleSelection() {
+    console.log("Handling selection change");
+  }
 }
