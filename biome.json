@@ -22,7 +22,18 @@
     "useEditorconfig": true
   },
   "linter": {
-    "enabled": true
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "useSortedClasses": {
+          "fix": "safe",
+          "level": "warn",
+          "options": {
+            "attributes": ["classList", "ngClass"]
+          },
+        }
+      }
+    }
   },
   "javascript": {
     "formatter": {
@@ -44,12 +55,21 @@
       "interpolation": true
     }
   },
+  "css": {
+    "formatter": {
+      "enabled": true
+    },
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "assist": {
     "enabled": true,
     "actions": {
       "recommended": true,
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "noDuplicateClasses": "on",
       }
     }
   }
