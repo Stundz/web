@@ -1,53 +1,75 @@
 <div class="overflow-hidden">
   <div class="p-6 md:p-8">
-    <div class="flex flex-col gap-6 w-full md:flex-row md:gap-8">
+    <div class="flex w-full flex-col gap-6 md:flex-row md:gap-8">
       <div class="shrink-0">
         <div
-          class="mx-auto w-32 bg-center bg-no-repeat bg-cover rounded-full aspect-square min-h-32"
+          class="mx-auto aspect-square min-h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
           data-alt="Profile picture of Dr. Eleanor Vance"
           style="
             background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5GJbz23dbVrlmlbCGDaStVNETxjpqeNKzNh-VybVxQ_h5N9yc_Gv2XX3Bw_rHg3FIiOPVsXQxUA8DmsuNAcb_Js5dkycmVXxSyC1TzUyoe_5oL7aCV9Lf-8n-4iLBtp6Fr1ov8wVmzY8njYn8EbFJ8Aw_ZFK8_BBNENBVihSXzdPQLiA4E6SyroQ-Rg_BtUFsrG2UBk1x_ZFeMRoWtQYmQdG6_nEJdAFd3IJ_PS8QKFP65G44ia2ZuLJ4XtsKF4Mzk1ZNzDfNpk34');
           "
         ></div>
       </div>
-      <div class="text-center md:text-left grow">
+      <div class="grow text-center md:text-left">
         <h1
-          class="text-3xl font-bold leading-tight text-gray-900 dark:text-white tracking-[-0.015em]"
+          class="text-3xl leading-tight font-bold tracking-[-0.015em] text-gray-900 dark:text-white"
         >
           {{ tutor().first_name }} {{ tutor().last_name }}
         </h1>
-        <p class="mt-1 text-lg font-medium text-primary">
+        <p class="text-primary mt-1 text-lg font-medium">
           Expert in Quantum Physics and Advanced Calculus
         </p>
-        <div class="flex gap-2 justify-center items-center mt-2 text-yellow-500 md:justify-start">
-          <span class="material-symbols-outlined">star</span>
-          <span class="material-symbols-outlined">star</span>
-          <span class="material-symbols-outlined">star</span>
-          <span class="material-symbols-outlined">star</span>
-          <span class="material-symbols-outlined">star_half</span>
-          <span class="ml-2 text-base font-normal leading-normal text-gray-500 dark:text-gray-400"
+        <div
+          class="mt-2 flex items-center justify-center gap-2 text-yellow-500 md:justify-start"
+        >
+          <span class="icon-[material-symbols--star]"></span>
+          <span class="icon-[material-symbols--star]"></span>
+          <span class="icon-[material-symbols--star]"></span>
+          <span class="icon-[material-symbols--star]"></span>
+          <span class="icon-[material-symbols--star-half-outline]"></span>
+          <span
+            class="ml-2 text-base leading-normal font-normal text-gray-500 dark:text-gray-400"
             >4.8/5 (120 reviews)</span
           >
         </div>
-        <div class="flex flex-wrap gap-3 justify-center mt-4 md:justify-start">
+        <div class="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
           @for (course of tutor().courses; track course.id) {
-            <div
-              class="flex gap-x-2 justify-center items-center px-4 h-8 rounded-full shrink-0 bg-primary/20 text-primary-darker dark:text-primary-lighter"
-            >
-              <p class="text-sm font-medium" [title]="course.title">{{ course.code }}</p>
-            </div>
+          <div
+            class="bg-primary/20 text-primary-darker dark:text-primary-lighter flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4"
+          >
+            <p class="text-sm font-medium" [title]="course.title">
+              {{ course.code }}
+            </p>
+          </div>
           }
         </div>
       </div>
-      <div class="flex flex-col gap-3 w-full md:w-auto">
-        <button matButton="outlined" class="">
-          <div class="flex gap-2 justify-center items-center" role="img" aria-hidden="true">
-            <span class="icon-[material-symbols--event]" role="img" aria-hidden="true"></span>
+      <div class="flex w-full flex-col gap-3 md:w-auto">
+        <a
+          [routerLink]="['/tutorials']"
+          [queryParams]="{tutor: tutor().id}"
+          matButton="outlined"
+          class=""
+        >
+          <div
+            class="flex items-center justify-center gap-2"
+            role="img"
+            aria-hidden="true"
+          >
+            <span
+              class="icon-[material-symbols--event]"
+              role="img"
+              aria-hidden="true"
+            ></span>
             <span class="truncate">Book a Session</span>
           </div>
-        </button>
+        </a>
         <button matButton="filled">
-          <div class="flex gap-2 justify-center items-center" role="img" aria-hidden="true">
+          <div
+            class="flex items-center justify-center gap-2"
+            role="img"
+            aria-hidden="true"
+          >
             <span class="icon-[material-symbols--chat]"></span>
             <span class="truncate">Send Message</span>
           </div>
@@ -58,17 +80,20 @@
   <mat-tab-group>
     <mat-tab label="Info">
       <div class="p-6 md:p-8">
-        <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Academic</h3>
+        <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          Academic
+        </h3>
         <ul class="space-y-4">
-          <li class="flex gap-2 items-start">
+          <li class="flex items-start gap-2">
             <span
-              class="mt-1 icon-[material-symbols--school]"
+              class="icon-[material-symbols--school] mt-1"
               aria-hidden="true"
               role="image"
             ></span>
             <div>
               <p class="font-semibold text-gray-800 dark:text-gray-200">
-                {{ tutor().user?.level?.program?.name }} (Year {{ tutor().user?.level?.name }})
+                {{ tutor().user?.level?.program?.name }} (Year
+                {{ tutor().user?.level?.name }})
               </p>
               <p class="text-sm text-gray-500 dark:text-gray-400">
                 {{ tutor().user?.department?.faculty?.name }}
