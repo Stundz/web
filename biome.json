@@ -1,4 +1,21 @@
 {
+  "files": {
+    "includes": [
+      "**",
+      "!!.agents",
+      "!!.antigravitycli",
+      "!!.cluade",
+      "!!.codex",
+      "!!.gemini",
+      "!!.vscode",
+      "!!.github"
+    ]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "formatter": {
     "formatWithErrors": true,
     "enabled": true,
