@@ -13,7 +13,6 @@ import { debounce, FormField, form } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
-import { MatExpansionPanel } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -26,10 +25,9 @@ import { MatTableModule } from "@angular/material/table";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { skip, tap } from "rxjs";
-import type { Model, Paginated } from "shared";
+import type { Model } from "shared";
 import { TutorialCard } from "../../common/components/tutorial-card/tutorial-card";
 import { Tutorial } from "../../common/services/tutorial";
-
 @Component({
   selector: "plug-tutorials-index",
   imports: [
@@ -40,7 +38,6 @@ import { Tutorial } from "../../common/services/tutorial";
     RouterLink,
     MatButtonModule,
     ReactiveFormsModule,
-    MatExpansionPanel,
     MatPaginatorModule,
     MatCardModule,
     MatSelectModule,

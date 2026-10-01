@@ -25,7 +25,9 @@
           Direct access to elite senior tutors specializing in advanced
           academics and professional project delivery.
         </p>
-        <a matButton="filled" routerLink="/tutors/apply"> Become a Tutor </a>
+        <a matButton="filled" routerLink href="/tutors/apply">
+          Become a Tutor
+        </a>
       </div>
     </div>
   </section>
@@ -39,6 +41,7 @@
         class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         data-alt="close-up of architectural blueprints and a digital tablet on a clean wooden desk with warm cinematic lighting"
         ngSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCv5HEtpjy66wvySdooSKGHQ1TdVWGAS1znqcLXWDblSuxTmR4jgkYRfSOpIHLkvDS9GKHBWz_VV1tbJFbQOFujq3_7r94fBvHYOJ8M4elq4pEhlNaXkjBcVXcefqEOuWA3HhJfNXxb5YtDHDNtcx6STBRa6ILkWK_Rd2sx-273or0ccmuEii7tND220MwLq0cg0_awMtim13gkix_LnFuwbMdrwRnGjokBuUjbPWHdR4tAOciTun0aVNZeJvv0agtB9L7zNt_V9Ow"
+        alt="..."
         fill
       >
       <div
@@ -159,6 +162,7 @@
       class="pointer-events-none absolute top-0 right-0 h-full w-1/3 opacity-10"
     >
       <svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <title>Records</title>
         <path
           d="M44.7,-76.4C58.1,-69.2,69.5,-57.4,77.3,-43.8C85.1,-30.2,89.2,-15.1,88.4,-0.4C87.6,14.3,81.9,28.6,73.3,41C64.8,53.4,53.3,63.9,40.1,71.3C26.9,78.7,11.9,83.1,-2.9,88.1C-17.7,93.1,-32.3,98.7,-45.1,94.2C-57.9,89.7,-68.8,75,-76.1,60.5C-83.3,46,-86.8,31.7,-88.7,16.8C-90.6,1.9,-90.9,-13.7,-85.7,-27.6C-80.5,-41.5,-69.7,-53.7,-57.1,-61.6C-44.4,-69.5,-30,-73,-15.3,-75.7C-0.6,-78.4,14.2,-80.3,31.3,-83.5C31.3,-83.5,44.7,-76.4,44.7,-76.4Z"
           fill="#812900"
@@ -180,11 +184,13 @@
         </p>
         <div class="flex gap-4">
           <button
+            type="button"
             class="bg-primary text-on-primary rounded-full px-8 py-3 font-bold"
           >
             Access Library
           </button>
           <button
+            type="button"
             class="bg-surface-container-lowest text-primary border-outline-variant/20 rounded-full border px-8 py-3 font-bold"
           >
             Monthly Pass
@@ -254,6 +260,7 @@
 <!-- FAB (Suppressed based on context: Secondary screen, but contextually relevant for immediate booking on marketplace) -->
 <div class="fixed right-8 bottom-8 z-50">
   <button
+    type="button"
     class="bg-primary text-on-primary flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-transform hover:scale-110"
   >
     <span class="icon-[material-symbols--help-center-outline] text-xl"

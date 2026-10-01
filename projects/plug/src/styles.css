@@ -5,42 +5,42 @@
 /* components according to the Material 3 design spec. */
 /* Learn more about theming and how to use it for your application's */
 /* custom components at https://material.angular.dev/guide/theming */
-@use '@angular/material' as mat;
 @import "tailwindcss";
+@use '@angular/material' as mat;
 @source "../../shared";
 /* @import "theme"; */
 @plugin "@iconify/tailwind4";
 
 @layer base {
-	html,
-	body {
-		height: 100%;
+  html,
+  body {
+    height: 100%;
 
-		@apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary) scroll-smooth;
-	}
+    @apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary) scroll-smooth;
+  }
 
-	body {
-		margin: 0;
-		font-family: Roboto, "Helvetica Neue", sans-serif;
-		@apply bg-background text-on-surface font-body selection:bg-secondary-container;
-	}
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    @apply bg-background text-on-surface font-body selection:bg-secondary-container;
+  }
 
-	button,
-	[role="button"] {
-		@apply cursor-pointer;
-	}
+  button,
+  [role="button"] {
+    @apply cursor-pointer;
+  }
 
-	input,
-	textarea,
-	select {
-		@apply bg-(--mat-sys-surface-container-low)/80 hover:bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low) px-2 py-1;
-	}
+  input,
+  textarea,
+  select {
+    @apply bg-(--mat-sys-surface-container-low)/80 hover:bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low) px-2 py-1;
+  }
 }
 
 @layer components {
-	.skeleton {
-		@apply animate-pulse bg-linear-to-tr from-gray-600 to-gray-400 dark:from-gray-700;
-	}
+  .skeleton {
+    @apply animate-pulse bg-linear-to-tr from-gray-600 to-gray-400 dark:from-gray-700;
+  }
 }
 
 @theme {
@@ -98,10 +98,14 @@
 }
 
 @utility hero-gradient {
-	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-surface-tint) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-surface-tint) 100%
+  );
 }
 
 @utility glass-panel {
-	background: rgba(249, 249, 249, 0.8);
-	backdrop-filter: blur(20px);
+  background: rgba(249, 249, 249, 0.8);
+  backdrop-filter: blur(20px);
 }
