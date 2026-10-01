@@ -51,7 +51,7 @@
   --color-outline: var(--mat-sys-outline);
   --color-inverse-on-surface: var(--mat-sys-inverse-on-surface);
   --color-surface-variant: var(--mat-sys-surface-variant);
-  --color-on-tertiary-fixed: var(--mat-sys-on-tertiary);
+  --color-on-tertiary-fixed: var(--mat-sys-on-tertiary-fixed);
   --color-on-secondary-fixed: var(--mat-sys-on-secondary-fixed);
   --color-outline-variant: var(--mat-sys-outline-variant);
   --color-on-primary-fixed-variant: var(--mat-sys-primary-fixed-variant);
@@ -60,10 +60,10 @@
   --color-secondary-fixed: var(--mat-sys-secondary-fixed);
   --color-on-error-container: var(--mat-sys-on-error-container);
   --color-surface-bright: var(--mat-sys-surface-bright);
-  --color-on-surface: var(--mat-sys-on-surface-bright);
+  --color-on-surface: var(--mat-sys-on-surface);
   --color-tertiary-fixed-dim: var(--mat-sys-tertiary-fixed-dim);
   --color-primary-container: var(--mat-sys-primary-container);
-  --color-on-tertiary-container: var(--may-sys-on-tertiary-container);
+  --color-on-tertiary-container: var(--mat-sys-on-tertiary-container);
   --color-on-secondary: var(--mat-sys-on-secondary);
   --color-error: var(--mat-sys-error);
   --color-on-tertiary-fixed-variant: var(--mat-sys-on-tertiary-fixed-variant);
