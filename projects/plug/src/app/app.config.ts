@@ -15,6 +15,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import {
   provideClientHydration,
   withEventReplay,
+  withHttpTransferCacheOptions,
   withIncrementalHydration,
 } from "@angular/platform-browser";
 import {
@@ -37,7 +38,13 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(
+      withEventReplay(),
+      withHttpTransferCacheOptions({
+        includeRequestsWithCredentials: true,
+        includeNonCacheableRequests: true,
+      }),
+    ),
     provideHttpClient(withInterceptors([stundzInterceptor, csrfInterceptor])),
     provideAppInitializer(async () => {
       const authService = inject(Auth);
