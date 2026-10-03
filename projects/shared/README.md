@@ -2,6 +2,20 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
 
+## Injection tokens
+
+Import shared injection tokens from the `shared/tokens` secondary entry point:
+
+```ts
+import { AUTH_GUARD_REDIRECT_PATH } from "shared/tokens";
+
+// Add to application or route providers to override the default "/".
+{ provide: AUTH_GUARD_REDIRECT_PATH, useValue: "/login" }
+```
+
+Guards can read the configured path with `inject(AUTH_GUARD_REDIRECT_PATH)`.
+The token supplies configuration only; the existing auth guard does not yet use it.
+
 ## Shared styles
 
 `src/styles/theme.css` contains the Nova Mono font declaration, global font
