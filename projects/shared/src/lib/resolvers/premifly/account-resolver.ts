@@ -4,7 +4,7 @@ import { inject } from "@angular/core";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, throwError } from "rxjs";
 import { PremiflyAccount } from "../../services";
-import type { Paginated } from "../../types";
+import type { Paginated } from "shared/types";
 
 export const premiflyAccountsResolver: ResolveFn<
 	Paginated<Premifly.Account>

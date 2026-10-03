@@ -28,7 +28,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { map } from "rxjs";
-import type { Paginated } from "shared";
+import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 
 @Component({

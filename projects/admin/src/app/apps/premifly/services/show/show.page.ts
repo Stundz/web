@@ -29,11 +29,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Params, Router, RouterLink } from "@angular/router";
 import { differenceInSeconds } from "date-fns";
 import { distinctUntilChanged, startWith, switchMap } from "rxjs";
-import {
-	type Paginated,
-	PremiflyService,
-	PremiflyServiceLogo,
-} from "shared";
+import { PremiflyService, PremiflyServiceLogo } from "shared";
+import { type Paginated } from "shared/types";
 
 @Component({
 	selector: "admin-show",

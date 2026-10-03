@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { Subject, shareReplay, switchMap, tap } from "rxjs";
-import { ENVIRONMENT, type Paginated } from "../../types";
+import { ENVIRONMENT, type Paginated } from "shared/types";
 
 @Injectable({
 	providedIn: "root",

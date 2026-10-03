@@ -6,7 +6,7 @@ import {
 } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { type Params, Router, RouterLink } from "@angular/router";
-import type { Paginated } from "shared";
+import type { Paginated } from "shared/types";
 
 @Component({
 	selector: "admin-index",

@@ -25,7 +25,7 @@ import {
   RouterLinkActive,
 } from "@angular/router";
 import { addMonths, differenceInDays, set } from "date-fns";
-import type { Paginated } from "shared";
+import type { Paginated } from "shared/types";
 import { environment } from "../../environments/environment";
 
 @Component({

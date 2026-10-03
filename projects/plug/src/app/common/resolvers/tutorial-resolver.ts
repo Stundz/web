@@ -4,7 +4,7 @@ import { inject } from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, tap, throwError } from "rxjs";
-import type { Paginated } from "shared";
+import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 import { Tutorial } from "../services/tutorial";
 

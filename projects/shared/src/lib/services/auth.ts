@@ -14,7 +14,7 @@ import {
   tap,
   throwError,
 } from "rxjs";
-import { ENVIRONMENT } from "../types";
+import { ENVIRONMENT } from "shared/types";
 
 @Injectable({
   providedIn: "root",

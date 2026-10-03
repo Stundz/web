@@ -7,6 +7,5 @@ export * from "./lib/guards";
 export * from "./lib/resolvers";
 export * from "./lib/services";
 export * from "./lib/stores";
-export * from "./lib/types";
 export * from "./lib/utils";
 export * from "./lib/validators";

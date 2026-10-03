@@ -2,7 +2,7 @@ import type { User as UserModel } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { BehaviorSubject, map, shareReplay, switchMap, tap } from "rxjs";
-import { ENVIRONMENT } from "../types";
+import { ENVIRONMENT } from "shared/types";
 import { Cookie } from "./cookie";
 
 @Injectable({

@@ -2,7 +2,7 @@ import type { Plug } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { Paginated } from "shared";
+import { Paginated } from "shared/types";
 import { environment } from "../../../../environments/environment";
 import { DatePipe } from "@angular/common";
 

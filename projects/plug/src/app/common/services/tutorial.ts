@@ -2,7 +2,8 @@ import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { BehaviorSubject, shareReplay, startWith, switchMap, tap } from "rxjs";
-import { type Paginated, toFormData } from "shared";
+import { toFormData } from "shared";
+import { type Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 import { Session } from "./session";
 

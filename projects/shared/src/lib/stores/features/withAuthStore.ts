@@ -9,7 +9,7 @@ import {
 	withState,
 } from "@ngrx/signals";
 import { tap } from "rxjs";
-import { ENVIRONMENT } from "../../types";
+import { ENVIRONMENT } from "shared/types";
 import { Cookie } from "../../services";
 import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 

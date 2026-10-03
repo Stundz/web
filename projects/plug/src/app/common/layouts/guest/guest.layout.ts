@@ -9,7 +9,8 @@ import {
 	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
-import { ENVIRONMENT, User } from "shared";
+import { User } from "shared";
+import { ENVIRONMENT } from "shared/types";
 
 @Component({
 	selector: "app-guest",

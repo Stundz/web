@@ -2,7 +2,7 @@ import type { User } from "shared/models";
 import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
-import { ENVIRONMENT } from "shared";
+import { ENVIRONMENT } from "shared/types";
 
 @Component({
 	selector: "auth-home",

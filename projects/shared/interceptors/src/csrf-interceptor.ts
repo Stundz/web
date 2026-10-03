@@ -8,7 +8,7 @@ import {
 } from "@angular/common/http";
 import { inject, PLATFORM_ID } from "@angular/core";
 import { catchError, switchMap, throwError } from "rxjs";
-import { ENVIRONMENT } from "shared";
+import { ENVIRONMENT } from "shared/types";
 
 export const csrfInterceptor: HttpInterceptorFn = (req, next) => {
   const environment = inject(ENVIRONMENT);

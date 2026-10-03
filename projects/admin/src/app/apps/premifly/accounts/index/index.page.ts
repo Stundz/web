@@ -24,11 +24,8 @@ import {
 	RouterLink,
 } from "@angular/router";
 import { catchError, firstValueFrom, of, tap } from "rxjs";
-import {
-	type Paginated,
-	PremiflyAccount,
-	PremiflyServiceLogo,
-} from "shared";
+import { PremiflyAccount, PremiflyServiceLogo } from "shared";
+import { type Paginated } from "shared/types";
 
 @Component({
 	selector: "admin-index",
