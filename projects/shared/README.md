@@ -4,27 +4,36 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Shared styles
 
-`src/styles/material-tokens.css` maps Tailwind color utilities to the consuming
-application's `--mat-sys-*` variables. Apps keep their palettes, typography,
-Material configuration, and global element styling locally.
+`src/styles/theme.css` contains the Nova Mono font declaration, global font
+baseline, and one organized `@theme` block for typography and Material color
+aliases. The local font uses `font-display: swap` with a monospace fallback.
+Comments separate typography, color families, surfaces, outlines, and inverse
+colors. Apps supply their own `--mat-sys-*` palettes and keep app-specific theme
+settings and Material configuration locally.
 
-Import the tokens after Tailwind in an app's global CSS:
+Import the shared theme after Tailwind in an app's global CSS:
 
 ```css
 @import "tailwindcss";
-@import "../../shared/src/styles/material-tokens.css";
+@import "../../shared/src/styles/theme.css";
 ```
 
-For the existing Sass entry point, use
-`@use "../../shared/src/styles/material-tokens.css";` after its Tailwind `@use`.
+For Sass entry points, use `@use "../../shared/src/styles/theme.css";`.
+The font declaration and baseline also work for the landing app without loading
+Tailwind's reset or utilities. The library packages the font in
+`dist/shared/fonts` alongside the CSS in `dist/shared/styles`.
+
 Keep each app's `@source "../../shared"` and Iconify plugin registration local.
+Use `@plugin "@iconify/tailwind4";` from each app's global stylesheet.
+Existing `icon-[set--name]` classes remain unchanged; only icons used by
+templates are emitted. Restart the dev server after changing plugin configuration.
 
 `src/styles/utilities.css` optionally supplies `hero-gradient` and the light
 `glass-panel` used by auth and plug. Premifly keeps its own dark glass panel.
 Import this file only in apps that want those utilities.
 
-The library build copies both files to `dist/shared/styles`. Installed-package
-consumers can import `shared/styles/material-tokens.css` and
+The library build copies these CSS files to `dist/shared/styles`. Installed-package
+consumers can import `shared/styles/theme.css` and
 `shared/styles/utilities.css`; these files require Tailwind's build processing.
 
 ## Global animations

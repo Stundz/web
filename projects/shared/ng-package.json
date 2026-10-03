@@ -10,6 +10,11 @@
       "glob": "*.css",
       "input": "src/styles",
       "output": "styles"
+    },
+    {
+      "glob": "NovaMono-Regular.ttf",
+      "input": "src/fonts",
+      "output": "fonts"
     }
   ]
 }

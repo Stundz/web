@@ -6,19 +6,14 @@
 /* Learn more about theming and how to use it for your application's */
 /* custom components at https://material.angular.dev/guide/theming */
 @import "tailwindcss";
+@import "../../shared/src/styles/theme.css";
 @import "../../shared/src/styles/animations.css";
-@import "../../shared/src/styles/material-tokens.css";
 @import "../../shared/src/styles/utilities.css";
+@plugin "@iconify/tailwind4";
 @source "../../shared";
 /* @import "theme"; */
-@plugin "@iconify/tailwind4";
 
 @layer base {
-  @font-face {
-    font-family: "Nova Mono";
-    src: url("../../shared/src/fonts/NovaMono-Regular.ttf") format("Truetype");
-  }
-
   html,
   body {
     height: 100%;
@@ -28,7 +23,6 @@
 
   body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
     @apply bg-background text-on-surface font-body selection:bg-secondary-container;
   }
 
@@ -48,13 +42,4 @@
   .skeleton {
     @apply animate-pulse bg-linear-to-tr from-gray-600 to-gray-400 dark:from-gray-700;
   }
-}
-
-@theme {
-  --font-nova-mono: "Nova Mono";
-  --default-font-family: var(--font-nova-mono);
-
-  --font-headline: "Noto Serif";
-  --font-body: "Inter";
-  --font-label: "Inter";
 }

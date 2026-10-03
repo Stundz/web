@@ -4,9 +4,9 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use "tailwindcss";
+@use "../../shared/src/styles/theme.css";
 @use "../../shared/src/styles/animations.css";
 @use '@angular/material' as mat;
-@use "../../shared/src/styles/material-tokens.css";
 @use "../../shared/src/styles/utilities.css";
 @source "../../shared";
 @plugin "@iconify/tailwind4";
@@ -15,7 +15,7 @@ html {
   @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
-      typography: Roboto,
+      typography: "Nova Mono, monospace",
       density: 3,
     ));
 }
@@ -35,11 +35,4 @@ body {
 
   // Reset the user agent margin.
   margin: 0;
-}
-
-
-@theme {
-  --font-headline: "Noto Serif";
-  --font-body: "Inter";
-  --font-label: "Inter";
 }

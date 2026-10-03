@@ -14,7 +14,7 @@ html {
       primary: theme.$primary-palette,
       tertiary: theme.$tertiary-palette,
     ),
-    typography: Roboto,
+    typography: "Nova Mono, monospace",
     density: 0,
   ));
 }

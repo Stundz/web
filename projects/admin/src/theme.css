@@ -1,5 +1,3 @@
-@import "../../shared/src/styles/material-tokens.css";
-
 /* Note: Color palettes are generated from primary: #304ffe, secondary: #6571c2, tertiary: #bb3800 */
 html {
   /* COLOR SYSTEM VARIABLES */
@@ -77,8 +75,8 @@ html {
   /* TYPOGRAPHY SYSTEM VARIABLES */
 
   /* Typography variables. Only used in the different typescale system variables. */
-  --mat-sys-brand-font-family: Roboto; /* The font-family to use for brand text. */
-  --mat-sys-plain-font-family: Roboto; /* The font-family to use for plain text. */
+  --mat-sys-brand-font-family: var(--stundz-font-family); /* The font-family to use for brand text. */
+  --mat-sys-plain-font-family: var(--stundz-font-family); /* The font-family to use for plain text. */
   --mat-sys-bold-font-weight: 700; /* The font-weight to use for bold text. */
   --mat-sys-medium-font-weight: 500; /* The font-weight to use for medium text. */
   --mat-sys-regular-font-weight: 400; /* The font-weight to use for regular text. */
