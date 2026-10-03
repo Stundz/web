@@ -6,6 +6,7 @@
 /* Learn more about theming and how to use it for your application's */
 /* custom components at https://material.angular.dev/guide/theming */
 @import "tailwindcss";
+@import "../../shared/src/styles/animations.css";
 @import "../../shared/src/styles/material-tokens.css";
 @import "../../shared/src/styles/utilities.css";
 @source "../../shared";

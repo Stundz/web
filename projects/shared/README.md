@@ -27,6 +27,39 @@ The library build copies both files to `dist/shared/styles`. Installed-package
 consumers can import `shared/styles/material-tokens.css` and
 `shared/styles/utilities.css`; these files require Tailwind's build processing.
 
+## Global animations
+
+`src/styles/animations.css` provides shared Tailwind v4 utilities in admin,
+auth, plug, and premifly. Import it after Tailwind using `@import` in CSS
+or `@use` in SCSS. Package consumers can use `shared/styles/animations.css`.
+The landing app does not load Tailwind and does not import these utilities.
+
+| Classes | Effect |
+| --- | --- |
+| `animate-fade-in`, `animate-fade-out` | Fade in (200ms) or out (150ms) |
+| `animate-slide-in-up`, `animate-slide-in-down` | Enter moving up or down (300ms) |
+| `animate-slide-in-left`, `animate-slide-in-right` | Enter from the left or right (300ms) |
+| `animate-zoom-in`, `animate-zoom-out` | Fade and scale in (200ms) or out (150ms) |
+
+Animations run once and retain their final state. They are disabled automatically
+for `prefers-reduced-motion: reduce`. Built-in Tailwind animations remain available;
+use `motion-safe:animate-spin` or `motion-reduce:animate-none` for those.
+Existing component-local animation classes take precedence over shared utilities.
+
+```html
+<section class="animate-slide-in-up">Page content</section>
+
+@if (isOpen()) {
+  <aside animate.enter="animate-zoom-in" animate.leave="animate-fade-out">
+    Panel content
+  </aside>
+}
+```
+
+Use Angular's `animate.leave` for exit effects so removal waits for the animation.
+Customize timing with `[animation-duration:500ms]` and stagger with
+`[animation-delay:100ms]`; Tailwind's `duration-*` and `delay-*` control transitions.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

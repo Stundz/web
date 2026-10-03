@@ -1,0 +1,65 @@
+/* Shared Tailwind v4 animations. Add an animate-* class to opt in. */
+@theme {
+  --animate-fade-in: stundz-fade-in 200ms ease-out both;
+  --animate-fade-out: stundz-fade-out 150ms ease-in both;
+  --animate-slide-in-up: stundz-slide-in-up 300ms ease-out both;
+  --animate-slide-in-down: stundz-slide-in-down 300ms ease-out both;
+  --animate-slide-in-left: stundz-slide-in-left 300ms ease-out both;
+  --animate-slide-in-right: stundz-slide-in-right 300ms ease-out both;
+  --animate-zoom-in: stundz-zoom-in 200ms ease-out both;
+  --animate-zoom-out: stundz-zoom-out 150ms ease-in both;
+
+  @keyframes stundz-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes stundz-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes stundz-slide-in-up {
+    from { opacity: 0; translate: 0 1rem; }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes stundz-slide-in-down {
+    from { opacity: 0; translate: 0 -1rem; }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes stundz-slide-in-left {
+    from { opacity: 0; translate: -1rem 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes stundz-slide-in-right {
+    from { opacity: 0; translate: 1rem 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes stundz-zoom-in {
+    from { opacity: 0; scale: 0.95; }
+    to { opacity: 1; scale: 1; }
+  }
+
+  @keyframes stundz-zoom-out {
+    from { opacity: 1; scale: 1; }
+    to { opacity: 0; scale: 0.95; }
+  }
+}
+
+/* Disable these opt-in effects when the user requests reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animate-fade-in: none;
+    --animate-fade-out: none;
+    --animate-slide-in-up: none;
+    --animate-slide-in-down: none;
+    --animate-slide-in-left: none;
+    --animate-slide-in-right: none;
+    --animate-zoom-in: none;
+    --animate-zoom-out: none;
+  }
+}

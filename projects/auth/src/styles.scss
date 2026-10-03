@@ -4,6 +4,7 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use "tailwindcss";
+@use "../../shared/src/styles/animations.css";
 @use '@angular/material' as mat;
 @use "../../shared/src/styles/material-tokens.css";
 @use "../../shared/src/styles/utilities.css";
