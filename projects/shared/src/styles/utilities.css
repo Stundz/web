@@ -1,7 +1,7 @@
 /* Opt-in utilities shared by the auth and plug applications. */
 @utility hero-gradient {
   background: linear-gradient(
-    135deg,
+    180deg,
     var(--color-primary) 0%,
     var(--color-surface-tint) 100%
   );
