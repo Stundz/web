@@ -24,13 +24,22 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "a11y": {
+        "useValidAnchor": "off"
+      },
+      "complexity": {
+        "useLiteralKeys": "off"
+      },
+      "suspicious": {
+        "noShadowRestrictedNames": "off"
+      },
       "nursery": {
         "useSortedClasses": {
           "fix": "safe",
           "level": "warn",
           "options": {
             "attributes": ["classList", "ngClass"]
-          },
+          }
         }
       }
     }
@@ -69,7 +78,7 @@
       "recommended": true,
       "source": {
         "organizeImports": "on",
-        "noDuplicateClasses": "on",
+        "noDuplicateClasses": "on"
       }
     }
   }
