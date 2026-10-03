@@ -11,49 +11,49 @@
 }
 </style>
 <header
-  class="flex justify-between items-center py-8 px-6 mx-auto w-full max-w-7xl"
+  class="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-8"
 >
-  <div class="flex gap-2 items-center">
+  <div class="flex items-center gap-2">
     <span
-      class="text-2xl font-extrabold tracking-tighter font-headline text-primary"
+      class="text-primary font-headline text-2xl font-extrabold tracking-tighter"
       >Stundz</span
     >
   </div>
 </header>
 <main
-  class="flex overflow-hidden relative justify-center items-center py-12 px-4 grow"
+  class="relative flex grow items-center justify-center overflow-hidden px-4 py-12"
 >
   <!-- Abstract Background Decorative Elements -->
   <div
-    class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-container/20 blur-3xl"
+    class="bg-primary-container/20 absolute -top-24 -left-24 h-96 w-96 rounded-full blur-3xl"
   ></div>
   <div
-    class="absolute -right-24 -bottom-24 w-96 h-96 rounded-full bg-tertiary-container/20 blur-3xl"
+    class="bg-tertiary-container/20 absolute -right-24 -bottom-24 h-96 w-96 rounded-full blur-3xl"
   ></div>
   <!-- Registration Container -->
   <div
-    class="grid overflow-hidden relative z-10 w-full rounded-xl md:grid-cols-2 max-w-250 bg-surface-container-low ambient-shadow"
+    class="bg-surface-container-low ambient-shadow relative z-10 grid w-full max-w-250 overflow-hidden rounded-xl md:grid-cols-2"
   >
     <!-- Left Side: Hero/Brand Message (Asymmetrical Layout) -->
     <div
-      class="hidden overflow-hidden relative flex-col justify-between p-12 md:flex bg-primary-container/10"
+      class="bg-primary-container/10 relative hidden flex-col justify-between overflow-hidden p-12 md:flex"
     >
       <div class="relative z-10">
         <h2
-          class="mb-6 text-4xl font-extrabold tracking-tighter leading-tight font-headline text-primary"
+          class="text-primary mb-6 font-headline text-4xl leading-tight font-extrabold tracking-tighter"
         >
           Your focused <br>study space <br>awaits.
         </h2>
-        <p class="max-w-xs text-lg leading-relaxed text-on-surface-variant">
+        <p class="text-on-primary-container max-w-xs text-lg leading-relaxed">
           Join thousands of students building a better academic future in our
           quiet digital library.
         </p>
       </div>
       <div class="relative z-10 mt-12">
         <div class="flex flex-col gap-4">
-          <div class="flex gap-3 items-center">
+          <div class="flex items-center gap-3">
             <div
-              class="flex justify-center items-center w-10 h-10 rounded-full bg-surface-container-lowest text-primary"
+              class="bg-surface-container-lowest text-primary flex h-10 w-10 items-center justify-center rounded-full"
             >
               <span
                 class="icon-[material-symbols--auto-stories-outline]"
@@ -61,9 +61,9 @@
             </div>
             <span class="text-sm font-medium">Curated Study Resources</span>
           </div>
-          <div class="flex gap-3 items-center">
+          <div class="flex items-center gap-3">
             <div
-              class="flex justify-center items-center w-10 h-10 rounded-full bg-surface-container-lowest text-primary"
+              class="bg-surface-container-lowest text-primary flex h-10 w-10 items-center justify-center rounded-full"
             >
               <span class="icon-[material-symbols--group-work-outline]"></span>
             </div>
@@ -72,20 +72,20 @@
         </div>
       </div>
       <!-- Overlapping Decorative Image -->
-      <div class="absolute -right-10 -bottom-10 w-64 h-64 opacity-20">
+      <div class="absolute -right-10 -bottom-10 h-64 w-64 opacity-20">
         <img
           alt="decorative"
-          class="object-cover w-full h-full rounded-xl transform rotate-6"
+          class="h-full w-full rotate-6 transform rounded-xl object-cover"
           data-alt="abstract close-up of high-quality cream-colored paper textures with soft shadows and elegant depth"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5rHcYqo53wO9REb-n0sJNGao17QgfUImwvbbUH8QY3BkI5DEpudcqjvujqPxmN6t3xxu-j7QVR1WAozdQVpE5vtJCVvtZE-xirW1Ug2JtMplTb9bVRvEHjdZSnvV9ttKNpWrbfilEEpnOYlsYhwDTNysbs936g0bNgqxYHfoYfsKIfBpQgpQg082MnWwheD41BrZvFtPa1miJ64zbayxHH5ppuLIZqMPLCOp7rXoWonkWOrwut_DfcGaalmLkURsCytrGoquFLOg"
         >
       </div>
     </div>
     <!-- Right Side: Signup Form -->
-    <div class="p-8 md:p-12 bg-surface-container-lowest">
+    <div class="bg-surface-container-lowest p-8 md:p-12">
       <div class="mb-10 text-center md:text-left">
         <h1
-          class="mb-2 text-3xl font-bold tracking-tight font-headline text-on-surface"
+          class="text-on-surface mb-2 font-headline text-3xl font-bold tracking-tight"
         >
           Join the Community
         </h1>
@@ -131,23 +131,23 @@
         </mat-form-field>
 
         <!-- Terms Checkbox -->
-        <div class="flex gap-3 items-start py-2">
+        <div class="flex items-start gap-3 py-2">
           <input
-            class="mt-1 rounded-sm border-outline-variant text-primary focus:ring-primary"
+            class="border-outline-variant text-primary focus:ring-primary mt-1 rounded-sm"
             id="terms"
             type="checkbox"
             [formField]="form.terms"
           >
           <label
-            class="text-sm leading-relaxed text-on-surface-variant"
+            class="text-on-surface-variant text-sm leading-relaxed"
             for="terms"
           >
             I agree to the
-            <a class="font-medium hover:underline text-primary" href="#"
+            <a class="text-primary font-medium hover:underline" href="#"
               >Terms of Service</a
             >
             and
-            <a class="font-medium hover:underline text-primary" href="#"
+            <a class="text-primary font-medium hover:underline" href="#"
               >Privacy Policy</a
             >.
           </label>
@@ -159,9 +159,9 @@
           class="w-full"
           type="submit"
         >
-          <div class="flex gap-2 items-center">
+          <div class="flex items-center gap-2">
             @if (form().submitting()) {
-            <span class="text-lg animate-spin icon-[ei--spinner]"></span>
+            <span class="icon-[ei--spinner] animate-spin text-lg"></span>
             <span>Loading...</span>
             } @else {
             <span> Create account </span>
@@ -170,12 +170,11 @@
         </button>
         <!-- Login Link -->
         <div class="pt-4 text-center">
-          <p class="text-sm text-on-surface-variant">
+          <p class="text-on-surface-variant text-sm">
             Already have an account?
             <a
-              class="ml-1 font-semibold hover:underline text-primary decoration-primary/30 underline-offset-4"
+              class="text-primary decoration-primary/30 ml-1 font-semibold underline-offset-4 hover:underline"
               routerLink="/login"
-              queryParamsHandling="preserve"
               >Log in here</a
             >
           </p>
@@ -186,29 +185,29 @@
 </main>
 <!-- Footer Component -->
 <footer
-  class="flex flex-col gap-6 justify-center items-center py-8 px-4 mt-auto w-full md:flex-row"
+  class="mt-auto flex w-full flex-col items-center justify-center gap-6 px-4 py-8 md:flex-row"
 >
-  <span class="text-sm text-on-surface-variant font-label"
+  <span class="text-on-surface-variant font-label text-sm"
     >© 2024 Academic Sanctuary. All rights reserved.</span
   >
   <div class="flex gap-6">
     <a
-      class="text-sm opacity-80 transition-all hover:opacity-100 text-on-surface-variant font-label hover:text-primary"
+      class="text-on-surface-variant hover:text-primary font-label text-sm opacity-80 transition-all hover:opacity-100"
       href="#"
       >Privacy Policy</a
     >
     <a
-      class="text-sm opacity-80 transition-all hover:opacity-100 text-on-surface-variant font-label hover:text-primary"
+      class="text-on-surface-variant hover:text-primary font-label text-sm opacity-80 transition-all hover:opacity-100"
       href="#"
       >Terms of Service</a
     >
     <a
-      class="text-sm opacity-80 transition-all hover:opacity-100 text-on-surface-variant font-label hover:text-primary"
+      class="text-on-surface-variant hover:text-primary font-label text-sm opacity-80 transition-all hover:opacity-100"
       href="#"
       >Help Center</a
     >
     <a
-      class="text-sm opacity-80 transition-all hover:opacity-100 text-on-surface-variant font-label hover:text-primary"
+      class="text-on-surface-variant hover:text-primary font-label text-sm opacity-80 transition-all hover:opacity-100"
       href="#"
       >Security</a
     >

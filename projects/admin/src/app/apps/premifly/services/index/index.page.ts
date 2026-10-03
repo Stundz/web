@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { DecimalPipe } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
@@ -24,12 +25,9 @@ import {
 	RouterLink,
 } from "@angular/router";
 import { catchError, firstValueFrom, of, tap } from "rxjs";
-import {
-	type Model,
-	type Paginated,
-	PremiflyService,
-	PremiflyServiceLogo,
-} from "shared";
+import { PremiflyServiceLogo } from "shared";
+import { PremiflyService } from "shared/services";
+import { type Paginated } from "shared/types";
 
 @Component({
 	selector: "admin-index",
@@ -55,7 +53,7 @@ export class IndexPage {
 	#service = inject(PremiflyService);
 	#snackBar = inject(MatSnackBar);
 
-	services = input.required<Paginated<Model.Premifly.Service>>();
+	services = input.required<Paginated<Premifly.Service>>();
 
 	// Derived state for active tiers count
 	activeCount = computed(() => {
@@ -79,14 +77,14 @@ export class IndexPage {
 		});
 	}
 
-	editService(service: Model.Premifly.Service, event: Event) {
+	editService(service: Premifly.Service, event: Event) {
 		event.stopPropagation(); // Avoid triggering row-click navigation
 		this.#router.navigate(["..", "service", service.id, "edit"], {
 			relativeTo: this.#route,
 		});
 	}
 
-	deleteService(service: Model.Premifly.Service, event: Event) {
+	deleteService(service: Premifly.Service, event: Event) {
 		event.stopPropagation(); // Avoid triggering row-click navigation
 
 		if (this.confirmDeleteId() === service.id) {

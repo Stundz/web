@@ -1,6 +1,7 @@
+import type { Premifly } from "shared/models";
 import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import type { Model } from "../../../types/models";
+
 
 @Component({
 	selector: "stundz-premifly-service-logo",
@@ -10,5 +11,5 @@ import type { Model } from "../../../types/models";
 	styleUrl: "./service-logo.css",
 })
 export class PremiflyServiceLogo {
-	service = input.required<Model.Premifly.Service>();
+	service = input.required<Premifly.Service>();
 }

@@ -1,7 +1,10 @@
+import type { Plug } from "shared/models";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { HTTP_SKIP_ON_SERVER, Model, Paginated, toFormData } from "shared";
+import { toFormData } from "shared/utils";
+import { Paginated } from "shared/types";
+import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 import { toObservable } from "@angular/core/rxjs-interop";
 import {
 	BehaviorSubject,
@@ -27,7 +30,7 @@ export class PastQuestion {
 				),
 			);
 
-			return this._http.get<Paginated<Model.Plug.PastQuestion>>(
+			return this._http.get<Paginated<Plug.PastQuestion>>(
 				`https://api.${environment.domain}/plug/past-questions`,
 				{
 					params,
@@ -41,7 +44,7 @@ export class PastQuestion {
 		filter((publisher) => publisher != undefined),
 		distinctUntilChanged(),
 		switchMap((publisher) =>
-			this._http.get<Paginated<Model.Plug.PastQuestion>>(
+			this._http.get<Paginated<Plug.PastQuestion>>(
 				`https://api.${environment.domain}/plug/past-questions`,
 				{
 					params: {
@@ -56,6 +59,12 @@ export class PastQuestion {
 		effect(() => {
 			this._filters.next(this.filters());
 		});
+	}
+
+	getPastQuestions(params: Record<string, string | number>) {
+		return this._http.get<Paginated<Plug.PastQuestion>>(
+			`https://api.${environment.domain}/plug/past-questions`, { params },
+		);
 	}
 
 	create(payload: { course_id: string; file: File | null; year: number }) {

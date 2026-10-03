@@ -1,3 +1,4 @@
+import type { Premifly, User } from "shared/models";
 import { NgOptimizedImage } from "@angular/common";
 import { HttpClient, httpResource } from "@angular/common/http";
 import {
@@ -33,7 +34,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { type MatStepper, MatStepperModule } from "@angular/material/stepper";
 import { Meta, Title } from "@angular/platform-browser";
 import { firstValueFrom, tap } from "rxjs";
-import { type Model, PremiflyServiceLogo } from "shared";
+import { PremiflyServiceLogo } from "shared";
 import { environment } from "../../environments/environment";
 import { SubscriptionPayment } from "./common/components/subscription-payment/subscription-payment";
 
@@ -59,7 +60,7 @@ import { SubscriptionPayment } from "./common/components/subscription-payment/su
   styleUrl: "./subscribe.page.css",
 })
 export class SubscribePage {
-  user = input.required<Model.User | null>();
+  user = input.required<User | null>();
 
   #snackBar = inject(MatSnackBar);
   #document = inject(DOCUMENT);
@@ -68,7 +69,7 @@ export class SubscribePage {
   #meta = inject(Meta);
   #renderer = inject(Renderer2);
 
-  services = httpResource<Array<Model.Premifly.Service>>(
+  services = httpResource<Array<Premifly.Service>>(
     () => ({
       url: `${environment.url.api}/premifly/services`,
       params: {
@@ -187,7 +188,7 @@ export class SubscribePage {
     },
   );
 
-  service = signal<Model.Premifly.Service | undefined>(undefined);
+  service = signal<Premifly.Service | undefined>(undefined);
 
   serviceEffect = effect(() => {
     if (this.form.service_id().value()) {

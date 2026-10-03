@@ -9,7 +9,16 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "utils/src/**/*.ts",
+    "validators/src/**/*.ts",
+    "resolvers/src/**/*.ts",
+    "guards/src/**/*.ts",
+    "services/src/**/*.ts",
+    "types/src/**/*.ts",
+    "directives/src/**/*.ts",
+    "contexts/src/**/*.ts",
+    "interceptors/src/**/*.ts"
   ],
   "angularCompilerOptions": {
     "extendedDiagnostics": {

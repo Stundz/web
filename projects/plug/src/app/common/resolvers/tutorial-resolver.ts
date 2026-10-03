@@ -1,13 +1,14 @@
+import type { Plug, User } from "shared/models";
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, tap, throwError } from "rxjs";
-import type { Model, Paginated } from "shared";
+import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 import { Tutorial } from "../services/tutorial";
 
-export const tutorialsResolver: ResolveFn<Paginated<Model.Plug.Tutorial>> = (
+export const tutorialsResolver: ResolveFn<Paginated<Plug.Tutorial>> = (
 	route,
 	state,
 ) => {
@@ -17,7 +18,7 @@ export const tutorialsResolver: ResolveFn<Paginated<Model.Plug.Tutorial>> = (
 
 	if (route.data["user"]) {
 		params["institution"] = (
-			route.data["user"] as Model.User
+			route.data["user"] as User
 		)?.plug?.department?.faculty.institution_id;
 	}
 
@@ -35,12 +36,12 @@ export const tutorialsResolver: ResolveFn<Paginated<Model.Plug.Tutorial>> = (
 					to: 0,
 				},
 				links: {},
-			} as Paginated<Model.Plug.Tutorial>),
+			} as Paginated<Plug.Tutorial>),
 		),
 	);
 };
 
-export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
+export const tutorialResolver: ResolveFn<Plug.Tutorial> = (
 	route,
 	state,
 ) => {
@@ -50,7 +51,7 @@ export const tutorialResolver: ResolveFn<Model.Plug.Tutorial> = (
 	const meta = inject(Meta);
 
 	return http
-		.get<Model.Plug.Tutorial>(
+		.get<Plug.Tutorial>(
 			`https://api.${environment.domain}/plug/tutorial/${route.params["tutorial"]}`,
 		)
 		.pipe(

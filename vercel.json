@@ -1,73 +1,73 @@
 {
-	"version": 2,
-	"framework": "angular",
+  "version": 2,
+  "framework": "angular",
 
-	"installCommand": "bun install",
+  "installCommand": "bun install",
 
-	"buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bunx ng build premifly && bunx ng build admin && bunx ng build landing",
+  "buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bunx ng build premifly && bunx ng build admin && bunx ng build landing",
 
-	"functions": {
-		"api/admin.js": {
-			"includeFiles": "dist/admin/browser/**"
-		},
-		"api/plug.js": {
-			"includeFiles": "dist/plug/browser/**"
-		},
-		"api/auth.js": {
-			"includeFiles": "dist/auth/browser/**"
-		},
-		"api/premifly.js": {
-			"includeFiles": "dist/premifly/browser/**"
-		},
-		"api/index.js": {
-			"includeFiles": "dist/landing/browser/**"
-		}
-	},
+  "functions": {
+    "api/admin.js": {
+      "includeFiles": "dist/admin/browser/**"
+    },
+    "api/plug.js": {
+      "includeFiles": "dist/plug/browser/**"
+    },
+    "api/auth.js": {
+      "includeFiles": "dist/auth/browser/**"
+    },
+    "api/premifly.js": {
+      "includeFiles": "dist/premifly/browser/**"
+    },
+    "api/index.js": {
+      "includeFiles": "dist/landing/browser/**"
+    }
+  },
 
-	"rewrites": [
-		{
-			"source": "/(.*)",
-			"has": [
-				{
-					"type": "host",
-					"value": "admin.stundz.com"
-				}
-			],
-			"destination": "/api/admin.js"
-		},
-		{
-			"source": "/(.*)",
-			"has": [
-				{
-					"type": "host",
-					"value": "auth.stundz.com"
-				}
-			],
-			"destination": "/api/auth.js"
-		},
-		{
-			"source": "/(.*)",
-			"has": [
-				{
-					"type": "host",
-					"value": "premifly.stundz.com"
-				}
-			],
-			"destination": "/api/premifly.js"
-		},
-		{
-			"source": "/(.*)",
-			"has": [
-				{
-					"type": "host",
-					"value": "plug.stundz.com"
-				}
-			],
-			"destination": "/api/plug.js"
-		},
-		{
-			"source": "/(.*)",
-			"destination": "/api/index.js"
-		}
-	]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.stundz.com"
+        }
+      ],
+      "destination": "/api/admin.js"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "auth.stundz.com"
+        }
+      ],
+      "destination": "/api/auth.js"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "premifly.stundz.com"
+        }
+      ],
+      "destination": "/api/premifly.js"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "plug.stundz.com"
+        }
+      ],
+      "destination": "/api/plug.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.js"
+    }
+  ]
 }

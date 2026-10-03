@@ -1,0 +1,32 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  color: var(--mat-sys-on-surface);
+}
+
+.access-pass {
+  @include mat.card-overrides((
+    outlined-container-color: var(--mat-sys-surface-container-lowest),
+    outlined-container-shape: 8px,
+  ));
+  box-shadow: 0 20px 25px -5px color-mix(in srgb, var(--mat-sys-primary) 5%, transparent);
+}
+
+.instructor-card {
+  @include mat.card-overrides((
+    outlined-container-color: var(--mat-sys-surface-container-low),
+    outlined-outline-width: 0,
+    outlined-container-shape: 8px,
+  ));
+}
+
+.access-pass > mat-card-content,
+.instructor-card > mat-card-content {
+  padding: 0;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 4px;
+}

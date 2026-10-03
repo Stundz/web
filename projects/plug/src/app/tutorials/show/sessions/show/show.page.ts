@@ -1,9 +1,10 @@
+import type { Plug } from "shared/models";
 import { DatePipe } from "@angular/common";
 import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { differenceInDays } from "date-fns";
-import type { Model } from "shared";
+
 
 @Component({
 	selector: "plug-show-session",
@@ -13,7 +14,7 @@ import type { Model } from "shared";
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-	session = input.required<Model.Plug.Session>();
+	session = input.required<Plug.Session>();
 
 	bookable = computed(
 		() => differenceInDays(this.session().day, new Date()) > 0,

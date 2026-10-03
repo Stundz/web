@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { inject } from "@angular/core";
 import {
@@ -8,12 +9,12 @@ import {
 	withState,
 } from "@ngrx/signals";
 import { tap } from "rxjs";
-import { ENVIRONMENT, Model } from "../../types";
-import { Cookie } from "../../services";
-import { HTTP_SKIP_ON_SERVER } from "../../contexts";
+import { ENVIRONMENT } from "shared/types";
+import { Cookie } from "shared/services";
+import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 
 export interface AuthStoreState {
-	user: Model.User | null;
+	user: User | null;
 }
 
 export function withAuthStore() {
@@ -27,7 +28,7 @@ export function withAuthStore() {
 		withMethods((store) => ({
 			getUser: () =>
 				store._http$
-					.get<Model.User>(`https://api.${store._environment.domain}/user`, {
+					.get<User>(`https://api.${store._environment.domain}/user`, {
 						context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
 					})
 					.pipe(tap((user) => patchState(store, { user }))),

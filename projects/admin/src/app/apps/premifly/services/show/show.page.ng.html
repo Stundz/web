@@ -82,7 +82,7 @@
 
 		<!-- Accounts Limitation -->
 		<mat-card class="shadow-sm">
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<a routerLink="./accounts" class="flex gap-4 items-center p-6 rounded-3xl hover:bg-violet-500/5 focus-visible:outline-2 focus-visible:outline-primary" aria-label="View service accounts">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-violet-500 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20"
 				>
@@ -97,7 +97,7 @@
 						{{ service().limit !== null ? service().limit + " Accounts" : "Unlimited" }}
 					</span>
 				</div>
-			</div>
+			</a>
 		</mat-card>
 
 		<!-- Subscribers Volume -->

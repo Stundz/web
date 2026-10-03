@@ -1,3 +1,4 @@
+import type { Plug } from "shared/models";
 import { format } from "date-fns";
 import { httpResource } from "@angular/common/http";
 import { Component, effect, inject, ChangeDetectionStrategy } from "@angular/core";
@@ -17,7 +18,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
-import { Dropzone, Model } from "shared";
+import { Dropzone } from "shared/directives";
 import { environment } from "../../../environments/environment";
 import { MatSelectModule } from "@angular/material/select";
 import { Tutorial } from "../../common/services/tutorial";
@@ -64,7 +65,7 @@ export class CreatePage {
 		course_id: this._fb.control<string>("", { nonNullable: true }),
 	});
 
-	intitutions = httpResource<Array<Model.Plug.Institution>>(() => ({
+	intitutions = httpResource<Array<Plug.Institution>>(() => ({
 		url: `https://api.${environment.domain}/plug/institutions`,
 	}));
 
@@ -78,21 +79,21 @@ export class CreatePage {
 		initialValue: "",
 	});
 
-	faculties = httpResource<Array<Model.Plug.Faculty>>(() =>
+	faculties = httpResource<Array<Plug.Faculty>>(() =>
 		!!this.institution()
 			? {
 					url: `https://api.${environment.domain}/plug/institution/${this.institution()}/faculties`,
 				}
 			: undefined,
 	);
-	departments = httpResource<Array<Model.Plug.Faculty>>(() =>
+	departments = httpResource<Array<Plug.Faculty>>(() =>
 		!!this.faculty()
 			? {
 					url: `https://api.${environment.domain}/plug/faculty/${this.faculty()}/departments`,
 				}
 			: undefined,
 	);
-	courses = httpResource<Array<Model.Plug.Course>>(() =>
+	courses = httpResource<Array<Plug.Course>>(() =>
 		!!this.department()
 			? {
 					url: `https://api.${environment.domain}/plug/department/${this.department()}/courses`,

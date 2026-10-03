@@ -1,3 +1,4 @@
+import type { User as UserModel } from "shared/models";
 import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import {
@@ -8,7 +9,8 @@ import {
 	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
-import { ENVIRONMENT, Model, User } from "shared";
+import { User } from "shared/services";
+import { ENVIRONMENT } from "shared/types";
 
 @Component({
 	selector: "app-guest",
@@ -24,7 +26,7 @@ import { ENVIRONMENT, Model, User } from "shared";
 	styleUrl: "./guest.layout.scss",
 })
 export class GuestLayout {
-	user = input.required<Model.User | undefined>();
+	user = input.required<UserModel | undefined>();
 	protected userService = inject(User);
 	private _router = inject(Router);
 	protected _route = inject(ActivatedRoute);

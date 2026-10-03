@@ -1,85 +1,91 @@
-import { isPlatformServer } from "@angular/common";
+import type { Plug, User } from "shared/models";
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
-import { inject, PLATFORM_ID } from "@angular/core";
+import { inject } from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, tap, throwError } from "rxjs";
-import { ENVIRONMENT, type Model, type Paginated } from "shared";
+import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 import { PastQuestion } from "../services/past-question";
 
 export const pastQuestionsResolver: ResolveFn<
-	Paginated<Model.Plug.PastQuestion>
+  Paginated<Plug.PastQuestion>
 > = (route, state) => {
-	const pastQuestionService = inject(PastQuestion);
+  const pastQuestionService = inject(PastQuestion);
 
-	return pastQuestionService.pastQuestions$.pipe(
-		catchError(() => {
-			return of({
-				data: [],
-				meta: {
-					total: 0,
-					current_page: 0,
-					per_page: 0,
-					from: 0,
-					to: 0,
-				},
-				links: {},
-			} as Paginated<Model.Plug.PastQuestion>);
-		}),
-	);
+  const { solutions_count, institution, ...filters } = route.queryParams;
+  const user = route.pathFromRoot
+    .map((snapshot) => snapshot.data["user"] as User | undefined)
+    .find((value) => value != null);
+  const institutionId = user?.plug?.department?.faculty?.institution_id;
+  if (institutionId) filters["institution"] = institutionId;
+  return pastQuestionService.getPastQuestions(filters).pipe(
+    catchError(() => {
+      return of({
+        data: [],
+        meta: {
+          total: 0,
+          current_page: 0,
+          per_page: 0,
+          from: 0,
+          to: 0,
+        },
+        links: {},
+      } as Paginated<Plug.PastQuestion>);
+    }),
+  );
 };
 
-export const pastQuestionResolver: ResolveFn<Model.Plug.PastQuestion> = (
-	route,
-	state,
+export const pastQuestionResolver: ResolveFn<Plug.PastQuestion> = (
+  route,
+  state,
 ) => {
-	const http = inject(HttpClient);
-	const router = inject(Router);
-	const title = inject(Title);
-	const meta = inject(Meta);
+  const http = inject(HttpClient);
+  const router = inject(Router);
+  const title = inject(Title);
+  const meta = inject(Meta);
 
-	return http
-		.get<Model.Plug.PastQuestion>(
-			`https://api.${environment.domain}/plug/past-question/${route.params["past-question"]}`,
-		)
-		.pipe(
-			tap((question) => {
-				const pageTitle = `${question.course.code} - ${question.course.title}, ${question.year}`;
-				const description = `${question.course.code} - ${question.course?.title}. Past question and solutions.`;
-				title.setTitle(pageTitle);
+  return http
+    .get<Plug.PastQuestion>(
+      `https://api.${environment.domain}/plug/past-question/${route.params["past-question"]}`,
+    )
+    .pipe(
+      tap((question) => {
+        const pageTitle = `${question.course.code} - ${question.course.title}, ${question.year}`;
+        const description = `${question.course.code} - ${question.course?.title}. Past question and solutions.`;
+        title.setTitle(pageTitle);
 
-				meta.updateTag({
-					id: "og:title",
-					property: "og:title",
-					content: pageTitle,
-				});
+        meta.updateTag({
+          id: "og:title",
+          property: "og:title",
+          content: pageTitle,
+        });
 
-				meta.updateTag({
-					id: "description",
-					property: "description",
-					content: description,
-				});
-				meta.updateTag({
-					id: "og:description",
-					property: "og:description",
-					content: description,
-				});
+        meta.updateTag({
+          id: "description",
+          property: "description",
+          content: description,
+        });
+        meta.updateTag({
+          id: "og:description",
+          property: "og:description",
+          content: description,
+        });
 
-				meta.updateTag({
-					id: "og:url",
-					property: "og:url",
-					content: `https://plug.${environment.domain}${state.url}`,
-				});
-			}),
-			catchError((response: HttpErrorResponse) => {
-				if (response.status === 404) {
-					router.navigateByUrl("/past-question/**");
+        meta.updateTag({
+          id: "og:url",
+          property: "og:url",
+          content: `https://plug.${environment.domain}${state.url}`,
+        });
+      }),
+      catchError((response: HttpErrorResponse) => {
+        if (response.status === 404) {
+          router.navigateByUrl("/past-question/**");
 
-					return EMPTY;
-				}
+          return EMPTY;
+        }
 
-				return throwError(() => response);
-			}),
-		);
+        return throwError(() => response);
+      }),
+    );
 };

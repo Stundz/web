@@ -1,3 +1,4 @@
+import type { Plug } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import { Component, effect, inject, ChangeDetectionStrategy } from "@angular/core";
 import {
@@ -10,7 +11,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatStepperModule } from "@angular/material/stepper";
 import { environment } from "../../../environments/environment";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { Dropzone, Model } from "shared";
+import { Dropzone } from "shared/directives";
 import { MatIconModule } from "@angular/material/icon";
 import {
 	catchError,
@@ -66,7 +67,7 @@ export class CreatePage {
 		}),
 	});
 
-	institutions = httpResource<Array<Model.Plug.Institution>>(
+	institutions = httpResource<Array<Plug.Institution>>(
 		() => ({
 			url: `https://api.${environment.domain}/plug/institutions`,
 		}),
@@ -106,7 +107,7 @@ export class CreatePage {
 		},
 	);
 
-	faculties = httpResource<Array<Model.Plug.Faculty>>(
+	faculties = httpResource<Array<Plug.Faculty>>(
 		() =>
 			this.institution() !== undefined
 				? {
@@ -117,7 +118,7 @@ export class CreatePage {
 			defaultValue: [],
 		},
 	);
-	departments = httpResource<Array<Model.Plug.Faculty>>(
+	departments = httpResource<Array<Plug.Faculty>>(
 		() =>
 			this.faculty() !== undefined
 				? {
@@ -128,7 +129,7 @@ export class CreatePage {
 			defaultValue: [],
 		},
 	);
-	courses = httpResource<Array<Model.Plug.Course>>(
+	courses = httpResource<Array<Plug.Course>>(
 		() =>
 			this.department() !== undefined
 				? {

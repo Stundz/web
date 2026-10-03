@@ -1,7 +1,8 @@
+import type { User } from "shared/models";
 import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { RouterOutlet } from "@angular/router";
-import { Model } from "shared";
+
 import { SignupForm } from "../component/signup-form/signup-form";
 
 @Component({
@@ -12,7 +13,7 @@ import { SignupForm } from "../component/signup-form/signup-form";
 	styleUrl: "./app.layout.scss",
 })
 export class AppLayout {
-	user = input.required<Model.User>();
+	user = input.required<User>();
 
 	readonly dialog = inject(MatDialog);
 

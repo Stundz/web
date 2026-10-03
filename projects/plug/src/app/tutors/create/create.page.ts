@@ -1,3 +1,4 @@
+import type { Plug, User } from "shared/models";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { isPlatformBrowser } from "@angular/common";
 import { httpResource } from "@angular/common/http";
@@ -50,7 +51,8 @@ import {
 	tap,
 	timer,
 } from "rxjs";
-import { Dropzone, type Model, StunzValidator } from "shared";
+import { StunzValidator } from "shared/validators";
+import { Dropzone } from "shared/directives";
 import { environment } from "../../../environments/environment";
 import { Tutor } from "../../common/services/tutor";
 
@@ -74,7 +76,7 @@ import { Tutor } from "../../common/services/tutor";
 	styleUrl: "./create.page.scss",
 })
 export class CreatePage {
-	user = input.required<Model.User | undefined>();
+	user = input.required<User | undefined>();
 	private _breakpointObserver = inject(BreakpointObserver);
 	private _tutorService = inject(Tutor);
 	#fb = inject(NonNullableFormBuilder);
@@ -98,7 +100,7 @@ export class CreatePage {
 			phone: "",
 		},
 		tutoring: {
-			courses: [] as Array<Model.Plug.Course>,
+			courses: [] as Array<Plug.Course>,
 		},
 		endorsement: {
 			name: "",
@@ -192,7 +194,7 @@ export class CreatePage {
 			}),
 		}),
 		tutoring: this.#fb.group({
-			courses: this.#fb.array<Array<Model.Plug.Course>>([], {
+			courses: this.#fb.array<Array<Plug.Course>>([], {
 				validators: [Validators.required, Validators.min(1)],
 			}),
 		}),
@@ -237,7 +239,7 @@ export class CreatePage {
 		initialValue: [this.form.getRawValue()],
 	});
 
-	faculties = httpResource<Array<Model.Plug.Faculty>>(
+	faculties = httpResource<Array<Plug.Faculty>>(
 		() =>
 			this.user()?.plug?.department?.faculty?.institution_id
 				? {
@@ -256,9 +258,9 @@ export class CreatePage {
 		),
 	);
 
-	courseSearch = this.#fb.control<Model.Plug.Course | string>("");
+	courseSearch = this.#fb.control<Plug.Course | string>("");
 	tutoringFaculty = signal<string | undefined>(undefined);
-	courses = httpResource<Array<Model.Plug.Course>>(
+	courses = httpResource<Array<Plug.Course>>(
 		() =>
 			this.tutoringFaculty() !== undefined
 				? {
@@ -317,7 +319,7 @@ export class CreatePage {
 	}
 
 	addCourse(e: MatAutocompleteSelectedEvent) {
-		const course: Model.Plug.Course = e.option.value;
+		const course: Plug.Course = e.option.value;
 
 		if (this.f.tutoring.courses().value().length > 2) {
 			this.#snackBar.open("You cannot add more than 3 courses", "", {
@@ -344,7 +346,7 @@ export class CreatePage {
 		this.courseSearch.reset("");
 	}
 
-	courseDisplay = (course: Model.Plug.Course | undefined) => {
+	courseDisplay = (course: Plug.Course | undefined) => {
 		return "";
 	};
 }

@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { HttpErrorResponse } from "@angular/common/http";
 import {
 	ChangeDetectionStrategy,
@@ -22,7 +23,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
-import { type Model, PremiflyService } from "shared";
+import { PremiflyService } from "shared/services";
 
 @Component({
 	selector: "admin-create",
@@ -52,7 +53,7 @@ export class CreatePage {
 	form = form(
 		signal<
 			Pick<
-				Model.Premifly.Service,
+				Premifly.Service,
 				"name" | "price" | "icon" | "enabled" | "limit"
 			>
 		>({

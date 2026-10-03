@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { NgOptimizedImage } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
@@ -23,12 +24,9 @@ import {
 	RouterLink,
 } from "@angular/router";
 import { catchError, firstValueFrom, of, tap } from "rxjs";
-import {
-	type Model,
-	type Paginated,
-	PremiflyAccount,
-	PremiflyServiceLogo,
-} from "shared";
+import { PremiflyServiceLogo } from "shared";
+import { PremiflyAccount } from "shared/services";
+import { type Paginated } from "shared/types";
 
 @Component({
 	selector: "admin-index",
@@ -52,7 +50,7 @@ export class IndexPage {
 	#accountService = inject(PremiflyAccount);
 	#snackBar = inject(MatSnackBar);
 
-	accounts = input.required<Paginated<Model.Premifly.Account>>();
+	accounts = input.required<Paginated<Premifly.Account>>();
 
 	// Derived state for total subscriptions sum across all listed accounts
 	totalSubscriptions = computed(() => {
@@ -116,14 +114,14 @@ export class IndexPage {
 		});
 	}
 
-	editAccount(account: Model.Premifly.Account, event: Event) {
+	editAccount(account: Premifly.Account, event: Event) {
 		event.stopPropagation(); // Avoid triggering row-click navigation
 		this.#router.navigate(["..", "account", account.id, "edit"], {
 			relativeTo: this.#route,
 		});
 	}
 
-	deleteAccount(account: Model.Premifly.Account, event: Event) {
+	deleteAccount(account: Premifly.Account, event: Event) {
 		event.stopPropagation(); // Avoid triggering row-click navigation
 
 		if (this.confirmDeleteId() === account.id) {

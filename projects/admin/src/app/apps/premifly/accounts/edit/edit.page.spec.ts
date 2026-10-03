@@ -1,6 +1,7 @@
+import type { Premifly } from "shared/models";
 import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
 import { EditPage } from "./edit.page";
-import { PremiflyAccount, type Model } from "shared";
+import { PremiflyAccount } from "shared/services";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
@@ -14,7 +15,7 @@ describe("EditPage", () => {
 	let routerSpy: jasmine.SpyObj<Router>;
 	let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
-	const mockAccount: Model.Premifly.Account = {
+	const mockAccount: Premifly.Account = {
 		id: "acc-1",
 		email: "existing@example.com",
 		password: "existingpassword",

@@ -1,11 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "../../shared/src/styles/theme.css";
+@import "../../shared/src/styles/animations.css";
+@import "./theme";
 @plugin "@iconify/tailwind4";
 @source "../../shared";
-@import "./theme";
 
 @layer base {
   body {
-    @apply min-h-screen bg-background ;
+    @apply min-h-screen bg-background;
   }
 }

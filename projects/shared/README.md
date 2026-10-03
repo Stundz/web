@@ -2,6 +2,73 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
 
+## Shared styles
+
+`src/styles/theme.css` contains the Nova Mono font declaration, global font
+baseline, and one organized `@theme` block for typography and Material color
+aliases. The local font uses `font-display: swap` with a monospace fallback.
+Comments separate typography, color families, surfaces, outlines, and inverse
+colors. Apps supply their own `--mat-sys-*` palettes and keep app-specific theme
+settings and Material configuration locally.
+
+Import the shared theme after Tailwind in an app's global CSS:
+
+```css
+@import "tailwindcss";
+@import "../../shared/src/styles/theme.css";
+```
+
+For Sass entry points, use `@use "../../shared/src/styles/theme.css";`.
+The font declaration and baseline also work for the landing app without loading
+Tailwind's reset or utilities. The library packages the font in
+`dist/shared/fonts` alongside the CSS in `dist/shared/styles`.
+
+Keep each app's `@source "../../shared"` and Iconify plugin registration local.
+Use `@plugin "@iconify/tailwind4";` from each app's global stylesheet.
+Existing `icon-[set--name]` classes remain unchanged; only icons used by
+templates are emitted. Restart the dev server after changing plugin configuration.
+
+`src/styles/utilities.css` optionally supplies `hero-gradient` and the light
+`glass-panel` used by auth and plug. Premifly keeps its own dark glass panel.
+Import this file only in apps that want those utilities.
+
+The library build copies these CSS files to `dist/shared/styles`. Installed-package
+consumers can import `shared/styles/theme.css` and
+`shared/styles/utilities.css`; these files require Tailwind's build processing.
+
+## Global animations
+
+`src/styles/animations.css` provides shared Tailwind v4 utilities in admin,
+auth, plug, and premifly. Import it after Tailwind using `@import` in CSS
+or `@use` in SCSS. Package consumers can use `shared/styles/animations.css`.
+The landing app does not load Tailwind and does not import these utilities.
+
+| Classes | Effect |
+| --- | --- |
+| `animate-fade-in`, `animate-fade-out` | Fade in (200ms) or out (150ms) |
+| `animate-slide-in-up`, `animate-slide-in-down` | Enter moving up or down (300ms) |
+| `animate-slide-in-left`, `animate-slide-in-right` | Enter from the left or right (300ms) |
+| `animate-zoom-in`, `animate-zoom-out` | Fade and scale in (200ms) or out (150ms) |
+
+Animations run once and retain their final state. They are disabled automatically
+for `prefers-reduced-motion: reduce`. Built-in Tailwind animations remain available;
+use `motion-safe:animate-spin` or `motion-reduce:animate-none` for those.
+Existing component-local animation classes take precedence over shared utilities.
+
+```html
+<section class="animate-slide-in-up">Page content</section>
+
+@if (isOpen()) {
+  <aside animate.enter="animate-zoom-in" animate.leave="animate-fade-out">
+    Panel content
+  </aside>
+}
+```
+
+Use Angular's `animate.leave` for exit effects so removal waits for the animation.
+Customize timing with `[animation-duration:500ms]` and stagger with
+`[animation-delay:100ms]`; Tailwind's `duration-*` and `delay-*` control transitions.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

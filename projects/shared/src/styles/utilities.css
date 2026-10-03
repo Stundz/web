@@ -1,0 +1,13 @@
+/* Opt-in utilities shared by the auth and plug applications. */
+@utility hero-gradient {
+  background: linear-gradient(
+    180deg,
+    var(--color-primary) 0%,
+    var(--color-surface-tint) 100%
+  );
+}
+
+@utility glass-panel {
+  background: rgba(249, 249, 249, 0.8);
+  backdrop-filter: blur(20px);
+}

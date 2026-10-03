@@ -1,10 +1,12 @@
+import type { Premifly } from "shared/models";
 import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { of } from "rxjs";
 import { IndexPage } from "./index.page";
-import { PremiflyAccount, type Paginated, type Model } from "shared";
+import { PremiflyAccount } from "shared/services";
+import { type Paginated } from "shared/types";
 
 describe("IndexPage", () => {
 	let component: IndexPage;
@@ -13,7 +15,7 @@ describe("IndexPage", () => {
 	let routerSpy: jasmine.SpyObj<Router>;
 	let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
 
-	const mockAccounts: Paginated<Model.Premifly.Account> = {
+	const mockAccounts: Paginated<Premifly.Account> = {
 		data: [
 			{
 				id: "acc-1",

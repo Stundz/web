@@ -1,4 +1,4 @@
-import type { ENVIRONMENT } from "shared";
+import type { ENVIRONMENT } from "shared/types";
 
 export const environment: ENVIRONMENT = {
 	production: true,

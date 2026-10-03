@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import type { HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -19,9 +20,16 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
-import { Auth, type Model } from "shared";
-import { environment } from "../../environments/environment";
+import {
+  catchError,
+  first,
+  firstValueFrom,
+  map,
+  of,
+  tap,
+  throwError,
+} from "rxjs";
+import { Auth } from "shared/services";
 
 @Component({
   selector: "app-login",
@@ -39,7 +47,7 @@ import { environment } from "../../environments/environment";
   styleUrl: "./login.page.scss",
 })
 export class LoginPage {
-  user = input.required<Model.User | undefined>();
+  user = input.required<User | undefined>();
   #route = inject(ActivatedRoute);
   #authService = inject(Auth);
   #document = inject(DOCUMENT);

@@ -1,0 +1,89 @@
+import type { Premifly } from "shared/models";
+import type { HttpErrorResponse } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { type ResolveFn, Router } from "@angular/router";
+import { catchError, EMPTY, of, throwError } from "rxjs";
+import { PremiflyAccount } from "shared/services";
+import type { Paginated } from "shared/types";
+
+export const premiflyAccountsResolver: ResolveFn<
+	Paginated<Premifly.Account>
+> = (route, state) => {
+  const service = inject(PremiflyAccount);
+
+  service.params.set({
+    ...route.queryParams,
+    page: route.queryParams["page"] || 1,
+  });
+
+	return service.accounts$.pipe(
+		catchError(() =>
+			of({
+				data: [],
+				meta: {
+					per_page: 0,
+					total: 0,
+					current_page: 0,
+					from: 0,
+					to: 0,
+				},
+				links: {},
+			} as Paginated<Premifly.Account>),
+		),
+	);
+};
+
+export const premiflyAccountResolver: ResolveFn<Premifly.Account> = (
+	route,
+	state,
+) => {
+  const service = inject(PremiflyAccount);
+  const router = inject(Router);
+
+  return service.getAccount(route.params["account"]).pipe(
+    catchError((response: HttpErrorResponse) => {
+      if (response.status === 404) {
+        router.navigateByUrl("**", { replaceUrl: false });
+        return EMPTY;
+      }
+      return throwError(() => response);
+    }),
+  );
+};
+
+export const premiflyAccountServicesResolver: ResolveFn<
+  Paginated<Model.Premifly.Service>
+> = (route, state) => {
+  const service = inject(PremiflyAccount);
+  const router = inject(Router);
+
+  // The route parameters are inherited from the parent router node (account)
+  const accountId = route.parent?.params["account"] || route.params["account"];
+  if (!accountId) {
+    return of({
+      data: [] as Array<Model.Premifly.Service>,
+      meta: {
+        per_page: 0,
+        total: 0,
+        current_page: 0,
+        from: 0,
+        to: 0,
+      },
+    } as Paginated<Model.Premifly.Service>);
+  }
+
+  return service.getServices(accountId).pipe(
+    catchError((response: HttpErrorResponse) => {
+      return of({
+        data: [] as Array<Model.Premifly.Service>,
+        meta: {
+          per_page: 0,
+          total: 0,
+          current_page: 0,
+          from: 0,
+          to: 0,
+        },
+      } as Paginated<Model.Premifly.Service>);
+    }),
+  );
+};

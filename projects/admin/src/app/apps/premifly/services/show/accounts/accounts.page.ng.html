@@ -1,0 +1,95 @@
+<div class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10">
+  <header class="flex flex-col gap-4 justify-between mb-8 md:flex-row md:items-center">
+    <div class="flex flex-col gap-2">
+      <a routerLink=".." class="inline-flex gap-2 items-center text-sm font-medium transition-colors text-slate-500 group w-fit dark:text-slate-400 hover:text-primary">
+        <span class="text-lg transition-transform group-hover:-translate-x-1 icon-[material-symbols--arrow-back]" aria-hidden="true"></span>
+        Back to Service
+      </a>
+      <div class="flex gap-4 items-center">
+        <stundz-premifly-service-logo [service]="service()" class="rounded-2xl border size-12 border-outline/30" />
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100">{{ service().name }} Accounts</h1>
+          <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">Accounts linked to this service and their access details.</p>
+        </div>
+      </div>
+    </div>
+    <button matButton="filled" (click)="showAttach.set(!showAttach())" [attr.aria-expanded]="showAttach()" aria-controls="attach-account">
+      <span class="inline-flex gap-2 items-center"><span class="text-xl icon-[material-symbols--add-circle-outline]" aria-hidden="true"></span>Attach Account</span>
+    </button>
+  </header>
+  <section class="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-2">
+    <mat-card class="shadow-sm">
+      <div class="flex gap-4 items-center p-6 rounded-3xl">
+        <span class="flex justify-center items-center size-12 text-violet-500 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20"><span class="text-2xl icon-[material-symbols--group-outline]" aria-hidden="true"></span></span>
+        <div><p class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500">Linked Accounts</p><p class="text-2xl font-black text-slate-800 dark:text-slate-100">{{ accounts().meta.total }}</p></div>
+      </div>
+    </mat-card>
+    <mat-card class="shadow-sm">
+      <div class="flex gap-4 items-center p-6 rounded-3xl">
+        <span class="flex justify-center items-center size-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"><span class="text-2xl icon-[material-symbols--group-outline]" aria-hidden="true"></span></span>
+        <div><p class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500">Accounts Limit</p><p class="text-2xl font-black text-slate-800 dark:text-slate-100">{{ service().limit !== null ? service().limit + ' Accounts' : 'Unlimited' }}</p></div>
+      </div>
+    </mat-card>
+  </section>
+  @if (showAttach()) {
+    <form id="attach-account" [formRoot]="attachForm" class="grid gap-4 p-6 mb-8 rounded-3xl border shadow-sm border-outline-variant bg-surface-container-low dark:border-slate-800/80">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100">Attach Account</h2>
+      @if (availableAccounts.isLoading()) {
+        <p role="status">Loading accounts…</p>
+      } @else if (availableAccounts.error()) {
+        <p role="alert">Unable to load accounts.</p>
+        <button type="button" matButton="text" (click)="availableAccounts.reload()">Retry</button>
+      } @else {
+        <mat-form-field>
+          <mat-label>Account</mat-label>
+          <mat-select [formField]="attachForm.account_id">
+            @for (account of availableAccounts.value()?.data || []; track account.id) {
+              <mat-option [value]="account.id">{{ account.email }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <p class="text-sm text-slate-500">Showing up to 100 accounts. <a routerLink="/app/premifly/accounts" class="text-primary hover:underline">Browse all accounts</a></p>
+      }
+      <div class="grid gap-4 md:grid-cols-3">
+        <mat-form-field><mat-label>Password</mat-label><input matInput type="password" autocomplete="new-password" [formField]="attachForm.password"></mat-form-field>
+        <mat-form-field><mat-label>Code</mat-label><input matInput [formField]="attachForm.code"></mat-form-field>
+        <mat-form-field><mat-label>Expiration date</mat-label><input matInput type="date" [formField]="attachForm.expires_at"></mat-form-field>
+      </div>
+      @if (attachError()) { <p role="alert" class="text-error">{{ attachError() }}</p> }
+      <div class="flex gap-3 justify-end">
+        <button type="submit" matButton="filled" [disabled]="attachForm().invalid() || attachForm().submitting()">{{ attachForm().submitting() ? 'Attaching…' : 'Attach' }}</button>
+        <button type="button" matButton="text" (click)="showAttach.set(false)" [disabled]="attachForm().submitting()">Cancel</button>
+      </div>
+    </form>
+  }
+  <div class="overflow-x-auto bg-white rounded-3xl border shadow-sm border-outline-variant dark:border-outline/40 dark:bg-slate-950">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="text-xs font-bold tracking-wider uppercase border-b bg-slate-50 text-slate-500 border-slate-100 dark:bg-slate-900/50 dark:text-slate-400 dark:border-slate-800">
+          <th scope="col" class="py-5 px-6">Account email</th>
+          <th scope="col" class="py-5 px-6 text-right">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (account of accounts().data; track account.id) {
+          <tr class="border-b transition-colors border-slate-100 hover:bg-slate-50/70 dark:border-slate-900 dark:hover:bg-slate-900/40">
+            <td class="py-6 px-6 text-sm font-semibold text-slate-800 dark:text-slate-200"><span class="inline-flex gap-3 items-center"><span class="flex justify-center items-center size-10 text-violet-500 rounded-xl bg-violet-500/10"><span class="text-xl icon-[material-symbols--account-circle-outline]" aria-hidden="true"></span></span>{{ account.email }}</span></td>
+            <td class="py-6 px-6 text-sm font-semibold text-right">
+              <a [routerLink]="['/app/premifly/account', account.id]" class="text-primary hover:underline" [attr.aria-label]="'View account details for ' + account.email">View Details</a>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="2" class="p-12 text-center text-slate-500 dark:text-slate-400"><span class="block mb-3 text-4xl text-slate-300 icon-[material-symbols--group-outline]" aria-hidden="true"></span><p class="font-bold">No accounts linked to this service.</p><p class="mt-1 text-xs">Attach an account to get started.</p></td></tr>
+        }
+      </tbody>
+    </table>
+    <mat-paginator
+      [length]="accounts().meta.total"
+      [pageSize]="accounts().meta.per_page"
+      [pageIndex]="accounts().meta.current_page - 1"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      (page)="changePage($event)"
+      aria-label="Service accounts pagination"
+    />
+  </div>
+</div>

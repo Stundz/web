@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { DatePipe } from "@angular/common";
 import { HttpErrorResponse } from "@angular/common/http";
 import {
@@ -23,7 +24,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
-import { type Model, PremiflyAccount } from "shared";
+import { PremiflyAccount } from "shared/services";
 
 @Component({
 	selector: "admin-edit",
@@ -49,7 +50,7 @@ export class EditPage {
 	#snackBar = inject(MatSnackBar);
 
 	// Strongly typed signal input for resolved account
-	account = input.required<Model.Premifly.Account>();
+	account = input.required<Premifly.Account>();
 
 	// Sync resolved route data to form state
 	formState = linkedSignal(() => {

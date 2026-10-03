@@ -1,154 +1,162 @@
 <!-- TopNavBar -->
 <header
-	class="fixed top-0 z-50 w-full transition-colors duration-200 bg-surface-container-highest"
+  class="bg-surface-container-highest fixed top-0 z-50 w-full transition-colors duration-200"
 >
-	<div class="relative w-full">
-		<div
-			class="flex justify-between items-center px-8 mx-auto max-w-screen-2xl h-20"
-		>
-			<div class="flex gap-12 items-center">
-				<a
-					routerLink="/"
-					class="font-serif text-2xl font-bold tracking-tighter text-primary"
-				>
-					Plug
-				</a>
-				<nav class="hidden gap-8 md:flex">
-					<a
-						class="font-semibold transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
-						routerLink="/"
-						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
-						[routerLinkActiveOptions]="{ exact: true }"
-						>Home</a
-					>
-					<a
-						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
-						routerLink="/past-questions"
-						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
-						[class.text-primary]="questionShowLink.isActive"
-						[class.border-primary]="questionShowLink.isActive"
-						[class.pb-1]="questionShowLink.isActive"
-						[class.border-b-2]="questionShowLink.isActive"
-						>Past Exams</a
-					>
-					<a
-						routerLink="/past-question"
-						routerLinkActive
-						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
-						#questionShowLink="routerLinkActive"
-						class="hidden"
-					></a>
-					<a
-						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
-						routerLink="/tutorials"
-						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
-						[class.text-primary]="tutorialShowLink.isActive"
-						[class.border-primary]="tutorialShowLink.isActive"
-						[class.pb-1]="tutorialShowLink.isActive"
-						[class.border-b-2]="tutorialShowLink.isActive"
-						>Tutorials</a
-					>
-					<a
-						routerLink="/tutorial"
-						routerLinkActive
-						#tutorialShowLink="routerLinkActive"
-						[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
-						class="hidden"
-					></a>
-					<a
-						class="font-medium transition-colors duration-200 text-slate-600 dark:text-slate-400 hover:text-surface-tint"
-						routerLink="/projects"
-						routerLinkActive="text-primary! border-primary pb-1 border-b-2"
-						>Project Support</a
-					>
-				</nav>
-			</div>
-			<div class="flex gap-4 items-center">
-				<button
-					class="flex items-center p-2 rounded-full transition-all active:scale-95 text-on-surface-variant hover:bg-surface-container"
-				>
-					<span
-						class="icon-[material-symbols--notifications-outline]"
-						data-icon="notifications"
-						aria-hidden="true"
-						role="img"
-						aria-label="Notifications"
-					></span>
-				</button>
-				@if (user()) {
-				<button
-					class="flex gap-2 justify-center items-center rounded-full transition-all size-8 bg-surface-container hover:bg-surface-container-high"
-					[matMenuTriggerFor]="userProfileDropdown"
-				>
-					<span
-						class="text-lg icon-[material-symbols--account-circle-outline] text-primary"
-						data-icon="account_circle"
-						style="font-variation-settings: 'FILL' 1;"
-						aria-label="Scholar's Profile"
-					></span>
-				</button>
-				<mat-menu #userProfileDropdown="matMenu">
-					<a mat-menu-item [routerLink]="['/dashboard']">My Account</a>
-					<a mat-menu-item [routerLink]="['/my-sessions']"> My Sessions </a>
-				</mat-menu>
-				}
-			</div>
-		</div>
-		@if (loading()) {
-		<div class="absolute inset-x-0 bottom-0">
-			<mat-progress-bar mode="indeterminate"></mat-progress-bar>
-		</div>
-		}
-	</div>
+  <div class="relative w-full">
+    <div
+      class="mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-8"
+    >
+      <div class="flex items-center gap-12">
+        <a
+          routerLink
+          href="/"
+          class="text-primary font-serif text-2xl font-bold tracking-tighter"
+        >
+          <mat-icon svgIcon="stundz:plug" class="scale-200" />
+          <span class="sr-only">Plug</span>
+          <!-- Plug -->
+        </a>
+        <nav class="hidden gap-8 md:flex">
+          <a
+            class="hover:text-surface-tint font-semibold text-slate-600 transition-colors duration-200 dark:text-slate-400"
+            routerLink="/"
+            routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+          <a
+            class="hover:text-surface-tint font-medium text-slate-600 transition-colors duration-200 dark:text-slate-400"
+            routerLink="/past-questions"
+            routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+            [class.text-primary]="questionShowLink.isActive"
+            [class.border-primary]="questionShowLink.isActive"
+            [class.pb-1]="questionShowLink.isActive"
+            [class.border-b-2]="questionShowLink.isActive"
+            >Past Exams</a
+          >
+          <button
+            routerLink="/past-question"
+            routerLinkActive
+            [routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
+            #questionShowLink="routerLinkActive"
+            class="hidden"
+            type="button"
+          ></button>
+          <a
+            class="hover:text-surface-tint font-medium text-slate-600 transition-colors duration-200 dark:text-slate-400"
+            routerLink="/tutorials"
+            routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+            [class.text-primary]="tutorialShowLink.isActive"
+            [class.border-primary]="tutorialShowLink.isActive"
+            [class.pb-1]="tutorialShowLink.isActive"
+            [class.border-b-2]="tutorialShowLink.isActive"
+            >Tutorials</a
+          >
+          <button
+            routerLink="/tutorial"
+            routerLinkActive
+            #tutorialShowLink="routerLinkActive"
+            [routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
+            class="hidden"
+            tab-index="-1"
+            type="button"
+          ></button>
+          <a
+            class="hover:text-surface-tint font-medium text-slate-600 transition-colors duration-200 dark:text-slate-400"
+            routerLink="/projects"
+            routerLinkActive="text-primary! border-primary pb-1 border-b-2"
+            >Project Support</a
+          >
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          type="button"
+          class="text-on-surface-variant hover:bg-surface-container flex items-center rounded-full p-2 transition-all active:scale-95"
+        >
+          <span
+            class="icon-[material-symbols--notifications-outline]"
+            data-icon="notifications"
+            aria-hidden="true"
+            role="img"
+            aria-label="Notifications"
+          ></span>
+        </button>
+        @if (user()) {
+        <button
+          type="button"
+          class="bg-surface-container hover:bg-surface-container-high flex size-8 items-center justify-center gap-2 rounded-full transition-all"
+          [matMenuTriggerFor]="userProfileDropdown"
+        >
+          <span
+            class="icon-[material-symbols--account-circle-outline] text-primary text-lg"
+            data-icon="account_circle"
+            style="font-variation-settings: 'FILL' 1;"
+            aria-hidden="true"
+          ></span>
+        </button>
+        <mat-menu #userProfileDropdown="matMenu">
+          <a mat-menu-item routerLink href="/dashboard">My Account</a>
+          <a mat-menu-item routerLink href="'/my-sessions"> My Sessions </a>
+        </mat-menu>
+        }
+      </div>
+    </div>
+    @if (loading()) {
+    <div class="absolute inset-x-0 bottom-0">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    }
+  </div>
 </header>
 <main class="pt-20"><router-outlet /></main>
 <!-- Footer -->
 <footer
-	class="flex flex-col gap-6 items-center py-12 px-8 w-full bg-[#eeeeee] dark:bg-slate-900"
+  class="flex w-full flex-col items-center gap-6 bg-[#eeeeee] px-8 py-12 dark:bg-slate-900"
 >
-	<div
-		class="flex flex-col gap-12 justify-between items-start pb-12 w-full max-w-7xl border-b md:flex-row md:items-center border-outline-variant/20"
-	>
-		<div class="flex flex-col gap-4">
-			<span class="font-serif text-lg text-[#812900] dark:text-[#a93800]">
-				Academic.</span
-			>
-			<p class="max-w-xs text-sm text-on-surface-variant">
-				Forging the next generation of industry leaders through superior
-				academic support.
-			</p>
-		</div>
-		<div class="flex flex-wrap gap-8">
-			<a
-				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
-				href="#"
-				>Honor Code</a
-			>
-			<a
-				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
-				href="#"
-				>Terms of Service</a
-			>
-			<a
-				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
-				href="#"
-				>Privacy Policy</a
-			>
-			<a
-				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
-				routerLink="/contact"
-				>Contact Support</a
-			>
-			<a
-				class="text-xs underline transition-colors text-slate-500 font-label dark:text-slate-400 dark:hover:text-white hover:text-[#812900]"
-				href="#"
-				>Academic Integrity</a
-			>
-		</div>
-	</div>
-	<div class="text-center">
-		<p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-			© 2024 Plug Academic. All rights reserved. Built for The Modern Scholar.
-		</p>
-	</div>
+  <div
+    class="border-outline-variant/20 flex w-full max-w-7xl flex-col items-start justify-between gap-12 border-b pb-12 md:flex-row md:items-center"
+  >
+    <div class="flex flex-col gap-4">
+      <span class="font-serif text-lg text-[#812900] dark:text-[#a93800]">
+        Academic.</span
+      >
+      <p class="text-on-surface-variant max-w-xs text-sm">
+        Forging the next generation of industry leaders through superior
+        academic support.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-8">
+      <a
+        class="font-label text-xs text-slate-500 underline transition-colors hover:text-[#812900] dark:text-slate-400 dark:hover:text-white"
+        href="#"
+        >Honor Code</a
+      >
+      <a
+        class="font-label text-xs text-slate-500 underline transition-colors hover:text-[#812900] dark:text-slate-400 dark:hover:text-white"
+        href="#"
+        >Terms of Service</a
+      >
+      <a
+        class="font-label text-xs text-slate-500 underline transition-colors hover:text-[#812900] dark:text-slate-400 dark:hover:text-white"
+        href="#"
+        >Privacy Policy</a
+      >
+      <a
+        class="font-label text-xs text-slate-500 underline transition-colors hover:text-[#812900] dark:text-slate-400 dark:hover:text-white"
+        routerLink="/contact"
+        >Contact Support</a
+      >
+      <a
+        class="font-label text-xs text-slate-500 underline transition-colors hover:text-[#812900] dark:text-slate-400 dark:hover:text-white"
+        href="#"
+        >Academic Integrity</a
+      >
+    </div>
+  </div>
+  <div class="text-center">
+    <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
+      © 2024 Plug Academic. All rights reserved. Built for The Modern Scholar.
+    </p>
+  </div>
 </footer>

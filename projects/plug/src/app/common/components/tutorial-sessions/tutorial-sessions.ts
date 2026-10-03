@@ -1,7 +1,8 @@
+import type { Plug } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { Model, Paginated } from "shared";
+import { Paginated } from "shared/types";
 import { environment } from "../../../../environments/environment";
 import { DatePipe } from "@angular/common";
 
@@ -13,8 +14,8 @@ import { DatePipe } from "@angular/common";
 	styleUrl: "./tutorial-sessions.scss",
 })
 export class TutorialSessions {
-	tutorial = input.required<Model.Plug.Tutorial>();
-	sessions = httpResource<Paginated<Model.Plug.Session>>(
+	tutorial = input.required<Plug.Tutorial>();
+	sessions = httpResource<Paginated<Plug.Session>>(
 		() => ({
 			url: `https://api.${environment.domain}/plug/tutorial/${this.tutorial().id}/sessions`,
 		}),
