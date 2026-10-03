@@ -1,13 +1,14 @@
+import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { pendingUntilEvent } from "@angular/core/rxjs-interop";
 import { Meta, Title } from "@angular/platform-browser";
 import type { ResolveFn } from "@angular/router";
 import { catchError, of, tap } from "rxjs";
-import type { Model } from "shared";
+
 import { environment } from "../../../environments/environment";
 
-export const tutorResolver: ResolveFn<Model.Plug.Tutor | undefined> = (
+export const tutorResolver: ResolveFn<Plug.Tutor | undefined> = (
 	route,
 	state,
 ) => {
@@ -17,7 +18,7 @@ export const tutorResolver: ResolveFn<Model.Plug.Tutor | undefined> = (
 
 	return route.paramMap.has("tutor")
 		? http
-				.get<Model.Plug.Tutor>(
+				.get<Plug.Tutor>(
 					`https://api.${environment.domain}/plug/tutor/${route.paramMap.get("tutor")}`,
 				)
 				.pipe(

@@ -1,7 +1,8 @@
+import type { User as UserModel } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { BehaviorSubject, map, shareReplay, switchMap, tap } from "rxjs";
-import { ENVIRONMENT, type Model } from "../types";
+import { ENVIRONMENT } from "../types";
 import { Cookie } from "./cookie";
 
 @Injectable({
@@ -18,7 +19,7 @@ export class User {
   user$ = this._user.asObservable().pipe(
     switchMap(() =>
       this._http
-        .get<Model.User>(`https://api.${this.environment.domain}/user`)
+        .get<UserModel>(`https://api.${this.environment.domain}/user`)
         .pipe(),
     ),
     shareReplay(),

@@ -1,10 +1,11 @@
+import type { User as UserModel } from "shared/models";
 import { Component, inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
-import { Dropzone, Model, User } from "shared";
+import { Dropzone, User } from "shared";
 import { DatePipe } from "@angular/common";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -32,7 +33,7 @@ export class SettingsPage {
 	private _route = inject(ActivatedRoute);
 	private _fb = inject(FormBuilder);
 	protected user = toSignal(
-		this._route.data.pipe(map((data) => data["user"] as Model.User)),
+		this._route.data.pipe(map((data) => data["user"] as UserModel)),
 	);
 
 	form = this._fb.group({

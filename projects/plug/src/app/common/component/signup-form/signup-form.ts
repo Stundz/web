@@ -1,3 +1,4 @@
+import type { Plug } from "shared/models";
 import { HttpClient, httpResource } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -26,7 +27,7 @@ import {
   tap,
   timer,
 } from "rxjs";
-import { type Model, User } from "shared";
+import { User } from "shared";
 import { environment } from "../../../../environments/environment";
 
 @Component({
@@ -71,12 +72,12 @@ export class SignupForm {
     }),
   });
 
-  institutions = httpResource<Array<Model.Plug.Institution>>(() => ({
+  institutions = httpResource<Array<Plug.Institution>>(() => ({
     url: `https://api.${environment.domain}/plug/institutions`,
   }));
   institution = toSignal(this.form.controls.institution_id.valueChanges.pipe());
 
-  faculties = httpResource<Array<Model.Plug.Institution>>(() =>
+  faculties = httpResource<Array<Plug.Institution>>(() =>
     this.institution()
       ? {
           url: `https://api.${environment.domain}/plug/institution/${this.institution()}/faculties`,
@@ -85,7 +86,7 @@ export class SignupForm {
   );
   faculty = toSignal(this.form.controls.faculty_id.valueChanges);
 
-  departments = httpResource<Array<Model.Plug.Institution>>(() =>
+  departments = httpResource<Array<Plug.Institution>>(() =>
     this.faculty()
       ? {
           url: `https://api.${environment.domain}/plug/faculty/${this.faculty()}/departments`,
@@ -93,12 +94,12 @@ export class SignupForm {
       : undefined,
   );
 
-  programs = httpResource<Array<Model.Plug.Institution>>(() => ({
+  programs = httpResource<Array<Plug.Institution>>(() => ({
     url: `https://api.${environment.domain}/plug/programs`,
   }));
   program = toSignal(this.form.controls.program_id.valueChanges);
 
-  levels = httpResource<Array<Model.Plug.Institution>>(() =>
+  levels = httpResource<Array<Plug.Institution>>(() =>
     this.program()
       ? {
           url: `https://api.${environment.domain}/plug/program/${this.program()}/levels`,

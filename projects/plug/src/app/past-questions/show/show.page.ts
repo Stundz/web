@@ -1,3 +1,4 @@
+import type { Plug } from "shared/models";
 import { isPlatformServer } from "@angular/common";
 import { HttpContext, HttpParams, httpResource } from "@angular/common/http";
 import {
@@ -18,7 +19,7 @@ import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import type { PDFDocumentProxy } from "pdfjs-dist";
-import type { Model } from "shared";
+
 import { HTTP_SKIP_ON_SERVER } from "shared";
 import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
@@ -30,7 +31,7 @@ import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-	question = input.required<Model.Plug.PastQuestion>({
+	question = input.required<Plug.PastQuestion>({
 		alias: "past-question",
 	});
 

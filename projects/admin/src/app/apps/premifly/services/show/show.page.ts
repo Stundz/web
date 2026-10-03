@@ -1,3 +1,4 @@
+import type { Premifly, User } from "shared/models";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import {
@@ -29,7 +30,6 @@ import { ActivatedRoute, Params, Router, RouterLink } from "@angular/router";
 import { differenceInSeconds } from "date-fns";
 import { distinctUntilChanged, startWith, switchMap } from "rxjs";
 import {
-	type Model,
 	type Paginated,
 	PremiflyService,
 	PremiflyServiceLogo,
@@ -64,7 +64,7 @@ export class ShowPage {
 	#router = inject(Router);
 	#route = inject(ActivatedRoute);
 
-	service = input.required<Model.Premifly.Service>();
+	service = input.required<Premifly.Service>();
 
 	// Route QueryParams Stream mapped safely to a signal
 	#queryParams = toSignal(this.#route.queryParams, { initialValue: {} as Params });
@@ -89,7 +89,7 @@ subscribers = toSignal(
             },
             links: [],
           } as Paginated<
-            Model.User & { premifly_accounts: Array<Model.Premifly.Account> }
+            User & { premifly_accounts: Array<Premifly.Account> }
           >),
         ),
     ),

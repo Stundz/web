@@ -1,3 +1,4 @@
+import type { Premifly, User } from "shared/models";
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
@@ -24,7 +25,7 @@ import {
   RouterLinkActive,
 } from "@angular/router";
 import { addMonths, differenceInDays, set } from "date-fns";
-import type { Model, Paginated } from "shared";
+import type { Paginated } from "shared";
 import { environment } from "../../environments/environment";
 
 @Component({
@@ -44,14 +45,14 @@ import { environment } from "../../environments/environment";
   styleUrl: "./dashboard.page.css",
 })
 export class DashboardPage {
-  user = input.required<Model.User>();
+  user = input.required<User>();
 
   stats = httpResource<{ subscriptions: Record<"active" | "total", number> }>(
     () => ({
       url: `${environment.url.api}/premifly/stats`,
     }),
   );
-  subscriptions = httpResource<Paginated<Model.Premifly.Subscription>>(
+  subscriptions = httpResource<Paginated<Premifly.Subscription>>(
     () =>
       this.user()
         ? {
@@ -63,7 +64,7 @@ export class DashboardPage {
         : undefined,
     {
       defaultValue: {
-        data: [] as Array<Model.Premifly.Subscription>,
+        data: [] as Array<Premifly.Subscription>,
         meta: {
           total: 0,
           from: 0,
@@ -71,7 +72,7 @@ export class DashboardPage {
           current_page: 1,
           per_page: 15,
         },
-      } as Paginated<Model.Premifly.Subscription>,
+      } as Paginated<Premifly.Subscription>,
     },
   );
 

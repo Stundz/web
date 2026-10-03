@@ -1,8 +1,9 @@
+import type { Premifly } from "shared/models";
 import { CurrencyPipe } from "@angular/common";
 import { Component, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
-import type { Model } from "shared";
+
 
 @Component({
 	selector: "premifly-service-card",
@@ -15,5 +16,5 @@ import type { Model } from "shared";
 	},
 })
 export class ServiceCard {
-	service = input.required<Model.Premifly.Service>();
+	service = input.required<Premifly.Service>();
 }

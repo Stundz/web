@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { RouterLink } from "@angular/router";
-import type { Model } from "shared";
+import type { Plug } from "shared/models";
 
 @Component({
   selector: "plug-show",
@@ -12,5 +12,5 @@ import type { Model } from "shared";
   styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-  tutor = input.required<Model.Plug.Tutor>();
+  tutor = input.required<Plug.Tutor>();
 }

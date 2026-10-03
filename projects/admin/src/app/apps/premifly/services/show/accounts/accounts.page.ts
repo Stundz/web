@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import { FormField, FormRoot, form, required } from '@angular/forms/signals';
@@ -8,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { firstValueFrom } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { MatPaginatorModule, type PageEvent } from '@angular/material/paginator';
-import { ENVIRONMENT, PremiflyAccount, PremiflyServiceLogo, type Model, type Paginated } from 'shared';
+import { ENVIRONMENT, PremiflyAccount, PremiflyServiceLogo, type Paginated } from 'shared';
 
 @Component({
   imports: [RouterLink, MatPaginatorModule, MatButtonModule, MatCardModule, MatInputModule, MatSelectModule, PremiflyServiceLogo, FormField, FormRoot],
@@ -18,14 +19,14 @@ import { ENVIRONMENT, PremiflyAccount, PremiflyServiceLogo, type Model, type Pag
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsPage {
-  service = input.required<Model.Premifly.Service>();
-  accounts = input.required<Paginated<Model.Premifly.Account>>();
+  service = input.required<Premifly.Service>();
+  accounts = input.required<Paginated<Premifly.Account>>();
   #router = inject(Router);
   #accountService = inject(PremiflyAccount);
   #environment = inject(ENVIRONMENT);
   showAttach = signal(false);
   attachError = signal('');
-  availableAccounts = httpResource<Paginated<Model.Premifly.Account>>(() =>
+  availableAccounts = httpResource<Paginated<Premifly.Account>>(() =>
     this.showAttach() ? { url: `${this.#environment.url.api}/premifly/accounts`, params: { limit: 100 } } : undefined,
   );
   attachForm = form(signal({ account_id: '', password: '', code: '', expires_at: '' }), (fields) => {

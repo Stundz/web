@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import {
@@ -13,7 +14,7 @@ import {
   tap,
   throwError,
 } from "rxjs";
-import { ENVIRONMENT, type Model } from "../types";
+import { ENVIRONMENT } from "../types";
 
 @Injectable({
   providedIn: "root",
@@ -21,12 +22,12 @@ import { ENVIRONMENT, type Model } from "../types";
 export class Auth {
   #http = inject(HttpClient);
   #environment = inject(ENVIRONMENT);
-  #user = new BehaviorSubject<Model.User | null | undefined>(undefined);
+  #user = new BehaviorSubject<User | null | undefined>(undefined);
   user$ = this.#user.asObservable().pipe(shareReplay());
 
   getUser() {
     return this.#http
-      .get<Model.User>(`${this.#environment.url.api}/user`, {
+      .get<User>(`${this.#environment.url.api}/user`, {
         withCredentials: true,
       })
       .pipe(
@@ -43,7 +44,7 @@ export class Auth {
   }
 
   signup(
-    data: Pick<Model.User, "first_name" | "last_name" | "email"> &
+    data: Pick<User, "first_name" | "last_name" | "email"> &
       Record<"password" | "password_confirmation", string>,
   ) {
     return this.#http
@@ -51,7 +52,7 @@ export class Auth {
       .pipe(switchMap(() => this.getUser().pipe(first())));
   }
 
-  login(data: Pick<Model.User, "email"> & { password: string }) {
+  login(data: Pick<User, "email"> & { password: string }) {
     return this.#http
       .post<void>(`${this.#environment.url.api}/login`, data)
       .pipe(switchMap(() => this.getUser().pipe()));

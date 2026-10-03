@@ -1,3 +1,4 @@
+import type { Plug, User } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -27,7 +28,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { map } from "rxjs";
-import type { Model, Paginated } from "shared";
+import type { Paginated } from "shared";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -49,8 +50,8 @@ import { environment } from "../../../environments/environment";
   styleUrl: "./index.page.scss",
 })
 export class IndexPage {
-  user = input.required<Model.User>();
-  pastQuestions = input.required<Paginated<Model.Plug.PastQuestion>>();
+  user = input.required<User>();
+  pastQuestions = input.required<Paginated<Plug.PastQuestion>>();
   #route = inject(ActivatedRoute);
   #router = inject(Router);
   #params = toSignal(
@@ -65,9 +66,13 @@ export class IndexPage {
           "year",
         ];
 
-        return Object.fromEntries(
+        type Keys = (typeof safeKeys)[number];
+
+        const a = Object.fromEntries(
           Object.entries(params).filter(([key]) => safeKeys.includes(key)),
         );
+
+        return a as Record<Keys, string | null>;
       }),
     ),
     {
@@ -105,13 +110,13 @@ export class IndexPage {
         : { kind: "year", message: "Enter a valid exam year." };
     });
   });
-  institutions = httpResource<Array<Model.Plug.Institution>>(
+  institutions = httpResource<Array<Plug.Institution>>(
     () => ({
       url: `https://api.${environment.domain}/plug/institutions`,
     }),
     { defaultValue: [] },
   );
-  faculties = httpResource<Array<Model.Plug.Faculty>>(
+  faculties = httpResource<Array<Plug.Faculty>>(
     () =>
       this.form.institution().value()
         ? {
@@ -120,7 +125,7 @@ export class IndexPage {
         : undefined,
     { defaultValue: [] },
   );
-  departments = httpResource<Array<Model.Plug.Department>>(
+  departments = httpResource<Array<Plug.Department>>(
     () =>
       this.form.faculty().value()
         ? {
@@ -129,7 +134,7 @@ export class IndexPage {
         : undefined,
     { defaultValue: [] },
   );
-  courses = httpResource<Array<Model.Plug.Course>>(
+  courses = httpResource<Array<Plug.Course>>(
     () =>
       this.form.department().value()
         ? {

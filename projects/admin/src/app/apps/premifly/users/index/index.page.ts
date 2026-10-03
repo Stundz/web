@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import {
 	MatPaginatorModule,
@@ -5,7 +6,7 @@ import {
 } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { type Params, Router, RouterLink } from "@angular/router";
-import type { Model, Paginated } from "shared";
+import type { Paginated } from "shared";
 
 @Component({
 	selector: "admin-index",
@@ -16,7 +17,7 @@ import type { Model, Paginated } from "shared";
 })
 export class IndexPage {
 	#router = inject(Router);
-	users = input.required<Paginated<Model.User>>();
+	users = input.required<Paginated<User>>();
 
 	handlePaginatorEvent(event: PageEvent) {
 		const queryParams: Params = { page: event.pageIndex + 1 };

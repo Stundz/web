@@ -1,3 +1,4 @@
+import type { Plug, User } from "shared/models";
 import { DatePipe, DOCUMENT } from "@angular/common";
 import {
   ChangeDetectionStrategy,
@@ -12,7 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterLink } from "@angular/router";
 import { addMinutes } from "date-fns";
-import type { Model } from "shared";
+
 import { environment } from "../../../environments/environment";
 import { BookingForm } from "../../common/components/booking-form/booking-form";
 
@@ -30,8 +31,8 @@ import { BookingForm } from "../../common/components/booking-form/booking-form";
   styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-  tutorial = input.required<Model.Plug.Tutorial>();
-  user = input.required<Model.User | undefined>();
+  tutorial = input.required<Plug.Tutorial>();
+  user = input.required<User | undefined>();
 
   #dialog = inject(MatDialog);
   #document = inject(DOCUMENT);

@@ -1,7 +1,8 @@
+import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, shareReplay, switchMap } from "rxjs";
-import { Model, Paginated, toFormData } from "shared";
+import { Paginated, toFormData } from "shared";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -21,7 +22,7 @@ export class Tutor {
 				),
 			);
 
-			return this._http.get<Paginated<Model.Plug.Tutorial>>(
+			return this._http.get<Paginated<Plug.Tutorial>>(
 				`https://api.${environment.domain}/plug/tutors`,
 				{
 					params,
@@ -33,9 +34,9 @@ export class Tutor {
 
 	create(
 		payload: Pick<
-			Model.Plug.Tutor,
+			Plug.Tutor,
 			"first_name" | "last_name" | "phone" | "endorsement"
-		> & { courses: Array<Model.Plug.Course>; profile: File; transcript: File },
+		> & { courses: Array<Plug.Course>; profile: File; transcript: File },
 	) {
 		return this._http.post<void>(
 			`https://api.${environment.domain}/plug/tutor`,

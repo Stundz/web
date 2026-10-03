@@ -1,7 +1,8 @@
+import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { BehaviorSubject, shareReplay, startWith, switchMap, tap } from "rxjs";
-import { type Model, type Paginated, toFormData } from "shared";
+import { type Paginated, toFormData } from "shared";
 import { environment } from "../../../environments/environment";
 import { Session } from "./session";
 
@@ -21,7 +22,7 @@ export class Tutorial {
       );
 
       console.log("The params are: ", params);
-      return this.#http.get<Paginated<Model.Plug.Tutorial>>(
+      return this.#http.get<Paginated<Plug.Tutorial>>(
         `${environment.production ? "https" : "http"}://api.${environment.domain}/plug/tutorials`,
         {
           params,
@@ -33,7 +34,7 @@ export class Tutorial {
 
   create(
     payload: Pick<
-      Model.Plug.Tutorial,
+      Plug.Tutorial,
       "name" | "description" | "course_id" | "price"
     >,
   ) {
@@ -44,8 +45,8 @@ export class Tutorial {
   }
 
   addSession(
-    tutorial: Model.Plug.Tutorial["id"],
-    payload: Pick<Model.Plug.Session, "day" | "duration" | "objectives">,
+    tutorial: Plug.Tutorial["id"],
+    payload: Pick<Plug.Session, "day" | "duration" | "objectives">,
   ) {
     return this.#http.post<void>(
       `https://api.${environment.domain}/plug/tutorial/${tutorial}/session`,

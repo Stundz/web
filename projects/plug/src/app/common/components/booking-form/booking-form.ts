@@ -1,3 +1,4 @@
+import type { Plug } from "shared/models";
 import { CurrencyPipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
@@ -12,7 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { firstValueFrom, map } from "rxjs";
-import type { Model } from "../../../../../../../dist/shared/types/shared";
+
 import { environment } from "../../../../environments/environment";
 
 @Component({
@@ -25,7 +26,7 @@ import { environment } from "../../../../environments/environment";
 export class BookingForm {
 	#http = inject(HttpClient);
 
-	session = inject<Model.Plug.Session>(MAT_DIALOG_DATA);
+	session = inject<Plug.Session>(MAT_DIALOG_DATA);
 
 	form = form(
 		signal({

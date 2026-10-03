@@ -1,7 +1,8 @@
+import type { User } from "shared/models";
 import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
-import { ENVIRONMENT, Model } from "shared";
+import { ENVIRONMENT } from "shared";
 
 @Component({
 	selector: "auth-home",
@@ -11,6 +12,6 @@ import { ENVIRONMENT, Model } from "shared";
 	styleUrl: "./home.page.scss",
 })
 export class HomePage {
-	user = input.required<Model.User | undefined>();
+	user = input.required<User | undefined>();
 	environment = inject(ENVIRONMENT);
 }

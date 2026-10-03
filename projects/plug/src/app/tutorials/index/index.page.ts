@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import { NgOptimizedImage } from "@angular/common";
 import {
   ChangeDetectionStrategy,
@@ -25,7 +26,7 @@ import { MatTableModule } from "@angular/material/table";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { skip, tap } from "rxjs";
-import type { Model } from "shared";
+
 import { TutorialCard } from "../../common/components/tutorial-card/tutorial-card";
 import { Tutorial } from "../../common/services/tutorial";
 @Component({
@@ -54,7 +55,7 @@ import { Tutorial } from "../../common/services/tutorial";
   },
 })
 export class IndexPage {
-  user = input.required<Model.User>();
+  user = input.required<User>();
   #tutorialService = inject(Tutorial);
   #route = inject(ActivatedRoute);
   tutorials = toSignal(this.#tutorialService.tutorials$, { requireSync: true });

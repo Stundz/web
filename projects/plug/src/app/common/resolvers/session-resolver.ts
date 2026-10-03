@@ -1,9 +1,10 @@
+import type { Plug } from "shared/models";
 import { inject } from "@angular/core";
 import type { ResolveFn } from "@angular/router";
-import type { Model } from "shared";
+
 import { Session } from "../services/session";
 
-export const sessionResolver: ResolveFn<Model.Plug.Session> = (
+export const sessionResolver: ResolveFn<Plug.Session> = (
 	route,
 	state,
 ) => {

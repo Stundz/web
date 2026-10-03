@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import type { HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -27,7 +28,7 @@ import {
   tap,
   throwError,
 } from "rxjs";
-import { Auth, type Model } from "shared";
+import { Auth } from "shared";
 
 @Component({
   selector: "app-login",
@@ -45,7 +46,7 @@ import { Auth, type Model } from "shared";
   styleUrl: "./login.page.scss",
 })
 export class LoginPage {
-  user = input.required<Model.User | undefined>();
+  user = input.required<User | undefined>();
   #route = inject(ActivatedRoute);
   #authService = inject(Auth);
 

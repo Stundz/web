@@ -1,3 +1,4 @@
+import type { User as UserModel } from "shared/models";
 import { Component, DestroyRef, inject, input, ChangeDetectionStrategy } from "@angular/core";
 import {
 	NavigationCancel,
@@ -15,7 +16,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatBadgeModule } from "@angular/material/badge";
-import { Model, User } from "shared";
+import { User } from "shared";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { filter, map, of, switchMap, timer } from "rxjs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -39,7 +40,7 @@ import { MatButtonModule } from "@angular/material/button";
 	styleUrl: "./auth.layout.scss",
 })
 export class AuthLayout {
-	user = input.required<Model.User | undefined>();
+	user = input.required<UserModel | undefined>();
 
 	private _userService = inject(User);
 	private _router = inject(Router);

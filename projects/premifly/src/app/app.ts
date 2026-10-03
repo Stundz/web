@@ -1,3 +1,4 @@
+import type { User } from "shared/models";
 import { Component, DOCUMENT, inject, Renderer2, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -8,7 +9,7 @@ import {
   RouterOutlet,
 } from "@angular/router";
 import { map } from "rxjs";
-import type { Model } from "../../../../dist/shared/types/shared";
+
 
 @Component({
   selector: "premifly-root",
@@ -23,7 +24,7 @@ export class App {
   route = toSignal(inject(ActivatedRoute).data.pipe());
   user = toSignal(
     inject(ActivatedRoute).data.pipe(
-      map((data) => (data["user"] as Model.User) || null),
+      map((data) => (data["user"] as User) || null),
     ),
     {
       initialValue: null,

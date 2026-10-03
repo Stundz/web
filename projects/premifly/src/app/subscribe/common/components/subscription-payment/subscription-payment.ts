@@ -1,3 +1,4 @@
+import type { Premifly } from "shared/models";
 import { CurrencyPipe } from "@angular/common";
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
@@ -14,7 +15,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { catchError, firstValueFrom, map, tap, throwError } from "rxjs";
-import type { Model } from "shared";
+
 import { environment } from "../../../../../environments/environment";
 
 @Component({
@@ -36,7 +37,7 @@ export class SubscriptionPayment {
 	#http = inject(HttpClient);
 	#snackBar = inject(MatSnackBar);
 	data = inject<{
-		service: Model.Premifly.Service;
+		service: Premifly.Service;
 		duration: number;
 		phone: string;
 		device_type: string;

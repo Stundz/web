@@ -1,9 +1,10 @@
+import type { User } from "shared/models";
 import { inject } from "@angular/core";
 import type { ResolveFn } from "@angular/router";
 import { PremiflyUser } from "../../services";
-import type { Model, Paginated } from "../../types";
+import type { Paginated } from "../../types";
 
-export const premiflyUsersResolver: ResolveFn<Paginated<Model.User>> = (
+export const premiflyUsersResolver: ResolveFn<Paginated<User>> = (
 	route,
 	state,
 ) => {

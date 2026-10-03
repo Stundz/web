@@ -1,10 +1,11 @@
+import type { Premifly, User } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import { Component, DOCUMENT, inject, input, Renderer2 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
 import { RouterLink } from "@angular/router";
-import type { Model } from "shared";
+
 import { environment } from "../../environments/environment";
 
 @Component({
@@ -18,8 +19,8 @@ export class HomePage {
   #meta = inject(Meta);
   #renderer = inject(Renderer2);
   #title = inject(Title);
-  user = input.required<Model.User | null>();
-  services = httpResource<Array<Model.Premifly.Service>>(
+  user = input.required<User | null>();
+  services = httpResource<Array<Premifly.Service>>(
     () => `${environment.url.api}/premifly/services`,
     {
       defaultValue: [],
