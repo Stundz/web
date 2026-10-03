@@ -31,8 +31,8 @@
         <h2 class="text-on-surface mb-8 font-headline text-2xl font-bold">
           Refine Search
         </h2>
-        <div class="flex flex-col gap-4">
-          <mat-form-field class="w-full">
+        <div class="flex flex-col space-y-6 *:block">
+          <mat-form-field class="mb-8 w-full">
             <mat-label>Search</mat-label>
             <mat-icon matPrefix>
               <span
@@ -47,37 +47,36 @@
               placeholder="Type a course, department, faculty, etc..."
             >
           </mat-form-field>
-          <div>
-            <mat-form-field class="w-full">
-              <mat-label>Institution</mat-label>
-              <mat-select
-                [formField]="form.institution"
-                (selectionChange)="form.faculty().value.set('')"
+          <mat-form-field class="w-full">
+            <mat-label>Institution</mat-label>
+            <mat-select
+              [formField]="form.institution"
+              (selectionChange)="form.faculty().value.set('')"
+            >
+              @for (item of institutions.value(); track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+              }
+            </mat-select>
+            <mat-hint>
+              @if (institutions.isLoading()) {
+              <span
+                role="status"
+                class="text-on-surface-variant flex items-center gap-2 text-xs"
               >
-                @for (item of institutions.value(); track item.id) {
-                <mat-option [value]="item.id">{{ item.name }}</mat-option>
-                }
-              </mat-select>
-              <mat-hint>Fixed to your department’s institution.</mat-hint>
-            </mat-form-field>
-            @if (institutions.isLoading()) {
-            <div
-              role="status"
-              class="text-on-surface-variant flex items-center gap-2 text-xs"
-            >
-              <mat-spinner [diameter]="16" aria-hidden="true" />
-              Loading institutions…
-            </div>
-            } @if (institutions.error()) {
-            <button
-              matButton="text"
-              type="button"
-              (click)="institutions.reload()"
-            >
-              Unable to load institutions. Retry
-            </button>
-            }
-          </div>
+                <mat-spinner [diameter]="16" aria-hidden="true" />
+                Loading institutions…
+              </span>
+              } @if (institutions.error()) {
+              <button
+                matButton="text"
+                type="button"
+                (click)="institutions.reload()"
+              >
+                Unable to load institutions. Retry
+              </button>
+              } @else { Fixed to your department’s institution. }
+            </mat-hint>
+          </mat-form-field>
           <div>
             <mat-form-field class="w-full">
               <mat-label>Faculty</mat-label>
@@ -233,6 +232,7 @@
               law examinations ever administered at the Master's level.
             </p>
             <button
+              type="button"
               class="bg-on-primary text-primary hover:bg-primary-fixed w-fit rounded-full px-8 py-3 font-bold transition-colors"
             >
               Explore Archive
@@ -320,11 +320,13 @@
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
         <button
+          type="button"
           class="bg-primary text-on-primary shadow-primary/20 rounded-full px-10 py-4 font-bold shadow-xl transition-transform hover:scale-[1.02]"
         >
           Upload Resource
         </button>
         <button
+          type="button"
           class="bg-surface-container-lowest text-primary rounded-full px-10 py-4 font-bold transition-colors hover:bg-white"
         >
           Learn More
