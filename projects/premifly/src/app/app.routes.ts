@@ -1,5 +1,6 @@
 import type { Routes } from "@angular/router";
-import { authGuard, userResolver } from "shared";
+import { userResolver } from "shared";
+import { authGuard } from "shared/guards";
 
 export const routes: Routes = [
   {
