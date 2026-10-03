@@ -2,7 +2,7 @@ import type { Plug } from "shared/models";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { effect, inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { toFormData } from "shared";
+import { toFormData } from "shared/utils";
 import { Paginated } from "shared/types";
 import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 import { toObservable } from "@angular/core/rxjs-interop";

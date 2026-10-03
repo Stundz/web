@@ -10,6 +10,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "utils/src/**/*.ts",
     "validators/src/**/*.ts",
     "resolvers/src/**/*.ts",
     "guards/src/**/*.ts",

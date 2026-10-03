@@ -2,7 +2,7 @@ import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, shareReplay, switchMap } from "rxjs";
-import { toFormData } from "shared";
+import { toFormData } from "shared/utils";
 import { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 
