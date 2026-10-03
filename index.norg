@@ -1,0 +1,117 @@
+@document.meta
+title: Stundz Project Notebook
+description: Brainstorming, tasks, roadmaps, features, and decisions across the workspace.
+created: 2026-10-01
+updated: 2026-10-01T10:24:53+0100
+@end
+
+* Inbox
+  Capture rough ideas here before assigning them to a project.
+  Ideas are proposals until explicitly accepted.
+
+  - Idea:
+  - Problem or opportunity:
+  - Project:
+  - Next step:
+
+* Current focus
+  - Plug: past-question discovery and academic resource filtering.
+  - Admin: Premifly service accounts management.
+
+* Projects
+** Plug
+*** Brainstorming
+    - Explore how students discover relevant past papers and solutions.
+    - Consider whether faculty, department, and course selections should follow profile defaults.
+*** Feature backlog
+    Proposed features; priorities and scope are still open.
+    - ( ) Improve the past-question empty state with useful next steps.
+    - ( ) Explore sharing and saving filtered searches.
+*** Tasks
+    - ( ) Verify cascading filters and pagination against the live backend.
+    - ( ) Check behavior when a user has no department institution.
+    - ( ) Review sidebar usability on mobile and with keyboard navigation.
+*** Roadmap
+    Sequence to discuss; no dates or delivery commitments yet.
+    - Now: validate the past-question filtering experience.
+    - Next: prioritize improvements based on observed issues.
+    - Later: assess saved searches and other discovery features.
+*** Completed
+    - (x) Add institution, faculty, department, course, and exam-year filtering.
+    - (x) Use Angular Material controls in the filter sidebar.
+    - (x) Fix the institution selection to the user's department institution.
+    - (x) Connect tutor profile and session booking links.
+
+** Admin
+*** Brainstorming
+    - Explore improvements to managing accounts attached to Premifly services.
+*** Feature backlog
+    - ( ) Discuss whether service accounts need additional search or status filters.
+*** Tasks
+    - ( ) Verify account attachment and table refresh against the live backend.
+*** Roadmap
+    - Now: validate service account management.
+    - Next: prioritize follow-up changes after validation.
+*** Completed
+    - (x) Link the service Accounts Limit card to its accounts page.
+    - (x) Add the service accounts route and backend-backed table.
+    - (x) Add account attachment and match the service detail page styling.
+
+** Premifly
+*** Brainstorming
+    Add product ideas and subscription-flow observations here.
+*** Feature backlog
+    No priorities selected yet.
+*** Tasks
+    Add actionable work here.
+*** Roadmap
+    To be discussed.
+
+** Auth and Landing
+    Record authentication and public-site ideas here as they arise.
+
+** Shared
+    Record shared models, components, and API integration work here.
+
+* Decisions
+** 2026-10-01: Notebook location
+   Use the root index.norg as the workspace brainstorming and planning notebook.
+** Past-question institution scope
+   The institution filter uses user()?.plug?.department?.faculty?.institution_id.
+   Solution count is excluded from the filter sidebar.
+
+* Open questions
+  - What is the next product priority after validating the current work?
+  - Which proposed features should move from brainstorming to the backlog?
+
+* Working conventions
+  - Capture ideas in Inbox, then move them under the relevant project.
+  - Keep brainstorming separate from accepted tasks and delivery commitments.
+  - Describe features through the user problem and expected outcome.
+  - Make tasks concrete enough to verify; use unchecked and checked task markers.
+  - Keep roadmap dates unset until agreed.
+  - Record decisions with their date and reason.
+  - Move finished work to Completed and keep useful validation notes.
+
+* Templates
+** Feature proposal
+   - Name:
+   - Project:
+   - User problem:
+   - Expected outcome:
+   - Scope:
+   - Acceptance criteria:
+   - Dependencies:
+   - Priority: undecided
+** Task
+   - ( ) Action and expected result
+   - Project:
+   - Validation:
+   - Owner:
+   - Target date: unset
+** Decision
+   - Date:
+   - Decision:
+   - Reason:
+   - Alternatives considered:
+   - Follow-up:
