@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn, HttpRequest, HttpHandler, HttpEvent, HttpXsrfTokenExtractor, HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { stundzInterceptor } from './stundz-interceptor';
-import { ENVIRONMENT } from '../types';
+import { ENVIRONMENT } from 'shared';
 import { of } from 'rxjs';
 
 describe('stundzInterceptor', () => {

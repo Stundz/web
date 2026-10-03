@@ -18,13 +18,12 @@ import {
   withViewTransitions,
 } from "@angular/router";
 import { firstValueFrom } from "rxjs";
+import { Auth, ENVIRONMENT } from "shared";
 import {
-  Auth,
   csrfInterceptor,
-  ENVIRONMENT,
   ssrInterceptor,
   stundzInterceptor,
-} from "shared";
+} from "shared/interceptors";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
 
