@@ -4,7 +4,7 @@ import {
   premiflyServiceResolver,
   premiflyServiceSubscribersResolver,
   premiflyServicesResolver,
-} from "shared";
+} from "shared/resolvers";
 import { PremiflyService } from "shared/services";
 
 export const routes: Routes = [

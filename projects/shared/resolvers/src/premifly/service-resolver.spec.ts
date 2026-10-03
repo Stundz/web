@@ -4,7 +4,7 @@ import { ResolveFn } from '@angular/router';
 import { serviceResolver } from './service-resolver';
 
 describe('serviceResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => serviceResolver(...resolverParameters));
 
   beforeEach(() => {

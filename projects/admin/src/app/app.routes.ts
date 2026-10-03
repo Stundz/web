@@ -1,5 +1,5 @@
 import type { Routes } from "@angular/router";
-import { userResolver } from "shared";
+import { userResolver } from "shared/resolvers";
 
 export const routes: Routes = [
 	{
