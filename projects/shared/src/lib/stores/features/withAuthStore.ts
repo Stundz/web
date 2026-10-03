@@ -11,7 +11,7 @@ import {
 import { tap } from "rxjs";
 import { ENVIRONMENT } from "../../types";
 import { Cookie } from "../../services";
-import { HTTP_SKIP_ON_SERVER } from "../../contexts";
+import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 
 export interface AuthStoreState {
 	user: User | null;

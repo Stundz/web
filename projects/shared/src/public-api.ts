@@ -3,7 +3,6 @@
  */
 
 export * from "./lib/components";
-export * from "./lib/contexts";
 export * from "./lib/directives";
 export * from "./lib/guards";
 export * from "./lib/resolvers";

@@ -20,7 +20,7 @@ import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 
-import { HTTP_SKIP_ON_SERVER } from "shared";
+import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 @Component({

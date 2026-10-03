@@ -10,6 +10,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "contexts/src/**/*.ts",
     "interceptors/src/**/*.ts"
   ],
   "angularCompilerOptions": {
