@@ -3,6 +3,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { type CanActivateFn, RedirectCommand, Router } from "@angular/router";
 import { map, of, switchMap, take } from "rxjs";
 import { Auth } from "shared/services";
+import { AUTH_GUARD_REDIRECT_PATH } from "shared/tokens";
 
 export const authGuard: CanActivateFn = (route, state) => {
   const snackBar = inject(MatSnackBar);
