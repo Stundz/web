@@ -11,7 +11,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatStepperModule } from "@angular/material/stepper";
 import { environment } from "../../../environments/environment";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { Dropzone } from "shared";
+import { Dropzone } from "shared/directives";
 import { MatIconModule } from "@angular/material/icon";
 import {
 	catchError,
