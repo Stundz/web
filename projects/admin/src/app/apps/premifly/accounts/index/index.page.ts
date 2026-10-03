@@ -24,7 +24,8 @@ import {
 	RouterLink,
 } from "@angular/router";
 import { catchError, firstValueFrom, of, tap } from "rxjs";
-import { PremiflyAccount, PremiflyServiceLogo } from "shared";
+import { PremiflyServiceLogo } from "shared";
+import { PremiflyAccount } from "shared/services";
 import { type Paginated } from "shared/types";
 
 @Component({

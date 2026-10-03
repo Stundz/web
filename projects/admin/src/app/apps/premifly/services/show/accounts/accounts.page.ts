@@ -9,7 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { firstValueFrom } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { MatPaginatorModule, type PageEvent } from '@angular/material/paginator';
-import { PremiflyAccount, PremiflyServiceLogo } from 'shared';
+import { PremiflyServiceLogo } from 'shared';
+import { PremiflyAccount } from 'shared/services';
 import { ENVIRONMENT, type Paginated } from 'shared/types';
 
 @Component({

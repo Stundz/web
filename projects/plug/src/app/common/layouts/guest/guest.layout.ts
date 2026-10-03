@@ -9,7 +9,7 @@ import {
 	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
-import { User } from "shared";
+import { User } from "shared/services";
 import { ENVIRONMENT } from "shared/types";
 
 @Component({

@@ -16,7 +16,7 @@ import {
 } from "@angular/platform-browser";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { Auth } from "shared";
+import { Auth } from "shared/services";
 import { ENVIRONMENT } from "shared/types";
 import {
   csrfInterceptor,

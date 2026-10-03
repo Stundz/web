@@ -24,7 +24,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
-import { PremiflyAccount } from "shared";
+import { PremiflyAccount } from "shared/services";
 
 @Component({
 	selector: "admin-edit",

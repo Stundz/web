@@ -3,7 +3,7 @@ import type { HttpErrorResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, throwError } from "rxjs";
-import { PremiflyAccount } from "../../services";
+import { PremiflyAccount } from "shared/services";
 import type { Paginated } from "shared/types";
 
 export const premiflyAccountsResolver: ResolveFn<

@@ -10,6 +10,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "services/src/**/*.ts",
     "types/src/**/*.ts",
     "directives/src/**/*.ts",
     "contexts/src/**/*.ts",

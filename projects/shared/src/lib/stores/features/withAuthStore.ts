@@ -10,7 +10,7 @@ import {
 } from "@ngrx/signals";
 import { tap } from "rxjs";
 import { ENVIRONMENT } from "shared/types";
-import { Cookie } from "../../services";
+import { Cookie } from "shared/services";
 import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
 
 export interface AuthStoreState {

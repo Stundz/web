@@ -16,7 +16,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatBadgeModule } from "@angular/material/badge";
-import { User } from "shared";
+import { User } from "shared/services";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { filter, map, of, switchMap, timer } from "rxjs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";

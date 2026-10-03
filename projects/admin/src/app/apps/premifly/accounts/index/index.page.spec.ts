@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { of } from "rxjs";
 import { IndexPage } from "./index.page";
-import { PremiflyAccount } from "shared";
+import { PremiflyAccount } from "shared/services";
 import { type Paginated } from "shared/types";
 
 describe("IndexPage", () => {

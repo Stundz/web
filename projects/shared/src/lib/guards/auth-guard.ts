@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import type { CanActivateFn } from "@angular/router";
 import { map, of, switchMap, take } from "rxjs";
-import { Auth } from "../services";
+import { Auth } from "shared/services";
 
 export const authGuard: CanActivateFn = (route, state) => {
   const snackBar = inject(MatSnackBar);

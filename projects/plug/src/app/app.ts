@@ -25,7 +25,7 @@ import {
   RouterOutlet,
 } from "@angular/router";
 import { filter, map, of, switchMap, timer } from "rxjs";
-import { Auth } from "shared";
+import { Auth } from "shared/services";
 import { environment } from "../environments/environment";
 
 @Component({

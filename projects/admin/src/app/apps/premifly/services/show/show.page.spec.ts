@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute, Router } from "@angular/router";
 import { of } from "rxjs";
-import { PremiflyService } from "shared";
+import { PremiflyService } from "shared/services";
 import { ShowPage } from "./show.page";
 
 describe("ShowPage", () => {

@@ -28,7 +28,7 @@ import {
   tap,
   throwError,
 } from "rxjs";
-import { Auth } from "shared";
+import { Auth } from "shared/services";
 
 @Component({
   selector: "app-login",

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { of } from "rxjs";
-import { PremiflyService } from "shared";
+import { PremiflyService } from "shared/services";
 import { EditPage } from "./edit.page";
 
 describe("EditPage", () => {

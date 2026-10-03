@@ -1,11 +1,11 @@
 import { inject } from "@angular/core";
 import type { ActivatedRouteSnapshot, Routes } from "@angular/router";
 import {
-	PremiflyService,
-	premiflyServiceResolver,
-	premiflyServiceSubscribersResolver,
-	premiflyServicesResolver,
+  premiflyServiceResolver,
+  premiflyServiceSubscribersResolver,
+  premiflyServicesResolver,
 } from "shared";
+import { PremiflyService } from "shared/services";
 
 export const routes: Routes = [
 	{

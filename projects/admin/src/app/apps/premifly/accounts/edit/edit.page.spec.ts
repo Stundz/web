@@ -1,7 +1,7 @@
 import type { Premifly } from "shared/models";
 import { ComponentFixture, TestBed, fakeAsync, tick } from "@angular/core/testing";
 import { EditPage } from "./edit.page";
-import { PremiflyAccount } from "shared";
+import { PremiflyAccount } from "shared/services";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";

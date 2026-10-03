@@ -5,7 +5,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
-import { User } from "shared";
+import { User } from "shared/services";
 import { Dropzone } from "shared/directives";
 import { DatePipe } from "@angular/common";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";

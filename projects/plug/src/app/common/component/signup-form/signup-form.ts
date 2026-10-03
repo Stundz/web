@@ -27,7 +27,7 @@ import {
   tap,
   timer,
 } from "rxjs";
-import { User } from "shared";
+import { User } from "shared/services";
 import { environment } from "../../../../environments/environment";
 
 @Component({

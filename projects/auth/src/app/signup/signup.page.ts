@@ -18,7 +18,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { firstValueFrom, map, tap } from "rxjs";
-import { Auth, User } from "shared";
+import { Auth, User } from "shared/services";
 import { environment } from "../../environments/environment";
 
 @Component({
