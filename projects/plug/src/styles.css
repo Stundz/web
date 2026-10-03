@@ -12,6 +12,11 @@
 @plugin "@iconify/tailwind4";
 
 @layer base {
+  @font-face {
+    font-family: "Nova Mono";
+    src: url("../../shared/src/fonts/NovaMono-Regular.ttf") format("Truetype");
+  }
+
   html,
   body {
     height: 100%;
@@ -44,6 +49,8 @@
 }
 
 @theme {
+  --font-nova-mono: "Nova Mono";
+  --default-font-family: var(--font-nova-mono);
   --color-error-container: var(--mat-sys-error-container);
   --color-inverse-surface: var(--mat-sys-inverse-surface);
   --color-surface-container-low: var(--mat-sys-surface-container-low);
