@@ -51,7 +51,7 @@ import {
 	tap,
 	timer,
 } from "rxjs";
-import { StunzValidator } from "shared";
+import { StunzValidator } from "shared/validators";
 import { Dropzone } from "shared/directives";
 import { environment } from "../../../environments/environment";
 import { Tutor } from "../../common/services/tutor";
