@@ -39,7 +39,7 @@ Tailwind's reset or utilities. The library packages the font in
 
 Keep each app's `@source "../../shared"` and Iconify plugin registration local.
 Use `@plugin "@iconify/tailwind4";` from each app's global stylesheet.
-Existing `icon-[set--name]` classes remain unchanged; only icons used by
+Existing Iconify utility classes remain unchanged; only icons used by
 templates are emitted. Restart the dev server after changing plugin configuration.
 
 `src/styles/utilities.css` optionally supplies `hero-gradient` and the light

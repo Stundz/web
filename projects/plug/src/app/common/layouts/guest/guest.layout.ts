@@ -4,9 +4,6 @@ import { MatButtonModule } from "@angular/material/button";
 import {
 	ActivatedRoute,
 	Router,
-	RouterLink,
-	RouterLinkActive,
-	RouterLinkWithHref,
 	RouterOutlet,
 } from "@angular/router";
 import { User } from "shared/services";
@@ -15,11 +12,8 @@ import { ENVIRONMENT } from "shared/types";
 @Component({
 	selector: "app-guest",
 	imports: [
-		RouterLink,
-		RouterLinkActive,
 		RouterOutlet,
 		MatButtonModule,
-		RouterLinkWithHref,
 	],
 	templateUrl: "./guest.layout.ng.html",
 	changeDetection: ChangeDetectionStrategy.Eager,
