@@ -2,6 +2,7 @@ import type { HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   inject,
   input,
   signal,
@@ -21,6 +22,7 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
 import type { User } from "shared/models";
 import { Auth } from "shared/services";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-login",
@@ -40,7 +42,10 @@ import { Auth } from "shared/services";
 export class LoginPage {
   user = input.required<User | undefined>();
   #route = inject(ActivatedRoute);
+  #document = inject(DOCUMENT);
   #authService = inject(Auth);
+
+  googleUrl = `https://oauth.${environment.domain}/auth/google?callback=${this.#document.location.href}`;
 
   form = form(
     signal({
