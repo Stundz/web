@@ -61,7 +61,7 @@ export const premiflyAccountServicesResolver: ResolveFn<
   const accountId = route.parent?.params["account"] || route.params["account"];
   if (!accountId) {
     return of({
-      data: [] as Array<Model.Premifly.Service>,
+      data: [] as Array<Premifly.Service>,
       meta: {
         per_page: 0,
         total: 0,
@@ -69,13 +69,13 @@ export const premiflyAccountServicesResolver: ResolveFn<
         from: 0,
         to: 0,
       },
-    } as Paginated<Model.Premifly.Service>);
+    } as Paginated<Premifly.Service>);
   }
 
   return service.getServices(accountId).pipe(
     catchError((response: HttpErrorResponse) => {
       return of({
-        data: [] as Array<Model.Premifly.Service>,
+        data: [] as Array<Premifly.Service>,
         meta: {
           per_page: 0,
           total: 0,
@@ -83,7 +83,7 @@ export const premiflyAccountServicesResolver: ResolveFn<
           from: 0,
           to: 0,
         },
-      } as Paginated<Model.Premifly.Service>);
+      } as Paginated<Premifly.Service>);
     }),
   );
 };
