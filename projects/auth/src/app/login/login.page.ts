@@ -1,4 +1,3 @@
-import type { User } from "shared/models";
 import type { HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -19,15 +18,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import {
-  catchError,
-  first,
-  firstValueFrom,
-  map,
-  of,
-  tap,
-  throwError,
-} from "rxjs";
+import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
+import type { User } from "shared/models";
 import { Auth } from "shared/services";
 
 @Component({
