@@ -1,9 +1,7 @@
-import type { User } from "shared/models";
 import type { HttpErrorResponse } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
   Component,
-  DOCUMENT,
   inject,
   input,
   signal,
@@ -20,15 +18,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import {
-  catchError,
-  first,
-  firstValueFrom,
-  map,
-  of,
-  tap,
-  throwError,
-} from "rxjs";
+import { catchError, firstValueFrom, map, of, tap, throwError } from "rxjs";
+import type { User } from "shared/models";
 import { Auth } from "shared/services";
 
 @Component({
@@ -50,10 +41,6 @@ export class LoginPage {
   user = input.required<User | undefined>();
   #route = inject(ActivatedRoute);
   #authService = inject(Auth);
-  #document = inject(DOCUMENT);
-
-  callback = this.#route.snapshot.queryParams["callback"];
-  googleUrl = `${this.#document.location.protocol}//oauth.${environment.domain}/auth/google/redirect?redirect=${this.#document.location.href}`;
 
   form = form(
     signal({
@@ -73,7 +60,11 @@ export class LoginPage {
             this.#authService.login(tree().value()).pipe(
               tap({
                 next: () => {
-                  window.location.href = this.callback ? this.callback : "";
+                  window.location.href = this.#route.snapshot.queryParams[
+                    "callback"
+                  ]
+                    ? this.#route.snapshot.queryParams["callback"]
+                    : "";
                 },
               }),
               map(() => undefined),
