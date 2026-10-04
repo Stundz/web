@@ -1,0 +1,5 @@
+@custom-variant supports-animation-timeline-view {
+  @supports (animation-timeline: view()) {
+    @slot;
+  }
+}

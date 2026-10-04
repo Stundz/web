@@ -50,15 +50,27 @@ The library build copies these CSS files to `dist/shared/styles`. Installed-pack
 consumers can import `shared/styles/theme.css` and
 `shared/styles/utilities.css`; these files require Tailwind's build processing.
 
+`src/styles/variants.css` supplies shared Tailwind custom variants. Import it
+after the shared utilities in Tailwind apps using
+`@import "../../shared/src/styles/variants.css";` in CSS or
+`@use "../../shared/src/styles/variants.css";` in SCSS. Package consumers can
+import `shared/styles/variants.css`.
+The `supports-animation-timeline-view:` variant applies utilities only when
+the browser supports `animation-timeline: view()`, for example
+`supports-animation-timeline-view:animation-timeline-view`.
+
 ## Global animations
 
-`src/styles/animations.css` provides shared Tailwind v4 utilities in admin,
-auth, plug, and premifly. Import it after Tailwind using `@import` in CSS
-or `@use` in SCSS. Package consumers can use `shared/styles/animations.css`.
-The landing app does not load Tailwind and does not import these utilities.
+`src/styles/theme.css` pairs shared Tailwind v4 animation properties with their
+keyframes. Import it after Tailwind using `@import` in CSS or `@use` in SCSS.
+Animation control utilities live in `src/styles/utilities.css`; import it after
+the theme. Package consumers can use `shared/styles/theme.css` and
+`shared/styles/utilities.css`.
+The landing app does not load Tailwind, so it does not generate these utilities.
 
 | Classes | Effect |
 | --- | --- |
+| `animate-appear` | Fade in (200ms) |
 | `animate-fade-in`, `animate-fade-out` | Fade in (200ms) or out (150ms) |
 | `animate-slide-in-up`, `animate-slide-in-down` | Enter moving up or down (300ms) |
 | `animate-slide-in-left`, `animate-slide-in-right` | Enter from the left or right (300ms) |
@@ -80,8 +92,35 @@ Existing component-local animation classes take precedence over shared utilities
 ```
 
 Use Angular's `animate.leave` for exit effects so removal waits for the animation.
-Customize timing with `[animation-duration:500ms]` and stagger with
-`[animation-delay:100ms]`; Tailwind's `duration-*` and `delay-*` control transitions.
+Animation controls are provided by the shared `utilities.css`:
+
+| Utilities | Values / examples |
+| --- | --- |
+| `animation-duration-*` | `500` (ms), `auto`, `[1.5s]` |
+| `animation-delay-*`, `-animation-delay-*` | `100` (ms), `[0.2s]` |
+| `animation-timeline-*` | `auto`, `none`, `scroll`, `view`, `[scroll(root_block)]`, `[--page-scroll]` |
+| `animation-ease-*` | `linear`, `in`, `out`, `in-out`, `ease`, `step-start`, `[steps(4,end)]` |
+| `animation-iteration-*` | `1`, `3`, `infinite`, `[2.5]` |
+| `animation-direction-*` | `normal`, `reverse`, `alternate`, `alternate-reverse` |
+| `animation-fill-*` | `none`, `forwards`, `backwards`, `both` |
+| `animation-paused`, `animation-running` | Playback state |
+| `animation-range-*` | `normal`, `[entry_0%_cover_50%]` |
+| `animation-range-start-*`, `animation-range-end-*` | `normal`, `[entry_10%]`, `[90%]` |
+
+Use responsive and state variants as usual. Tailwind's `duration-*` and `delay-*`
+control transitions; the utilities above control animations.
+
+```html
+<div class="animate-fade-in animation-duration-500 animation-delay-100 hover:animation-paused">
+  Timed entrance
+</div>
+<div class="animate-appear animation-timeline-view animation-duration-auto animation-ease-linear animation-range-[entry_0%_cover_50%]">
+  Scroll-driven entrance
+</div>
+```
+
+Scroll-driven effects require browser support for CSS animation timelines.
+Reduced-motion preferences still disable the shared animation presets.
 
 ## Code scaffolding
 

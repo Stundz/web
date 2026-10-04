@@ -51,7 +51,7 @@
             <mat-label>Institution</mat-label>
             <mat-select
               [formField]="form.institution"
-              (selectionChange)="form.faculty().value.set('')"
+              (selectionChange)="form().value.update(value => ({ ...value, faculty: '', department: '', course: '' }))"
             >
               @for (item of institutions.value(); track item.id) {
               <mat-option [value]="item.id">{{ item.name }}</mat-option>
@@ -74,7 +74,8 @@
               >
                 Unable to load institutions. Retry
               </button>
-              } @else { Fixed to your department’s institution. }
+              } @else { @if (!!user()) { Fixed to your department’s institution.
+              } }
             </mat-hint>
           </mat-form-field>
           <div>
@@ -82,7 +83,7 @@
               <mat-label>Faculty</mat-label>
               <mat-select
                 [formField]="form.faculty"
-                (selectionChange)="form.department().value.set('')"
+                (selectionChange)="form().value.update(value => ({ ...value, department: '', course: '' }))"
               >
                 <mat-option value="">All faculties</mat-option>
                 @for (item of faculties.value(); track item.id) {
@@ -115,7 +116,7 @@
               <mat-label>Department</mat-label>
               <mat-select
                 [formField]="form.department"
-                (selectionChange)="form.course().value.set('')"
+                (selectionChange)="form().value.update(value => ({ ...value, course: '' }))"
               >
                 <mat-option value="">All departments</mat-option>
                 @for (item of departments.value(); track item.id) {

@@ -1,4 +1,4 @@
-/* Opt-in utilities shared by the auth and plug applications. */
+/* Opt-in utilities shared by Tailwind applications. */
 @utility hero-gradient {
   background: linear-gradient(
     180deg,
@@ -8,6 +8,95 @@
 }
 
 @utility glass-panel {
-  background: rgba(249, 249, 249, 0.8);
+  background: --alpha(var(--color-primary) / 70%);
   backdrop-filter: blur(20px);
+  color: var(--color-on-primary);
+}
+
+/* Animation controls. Bare duration/delay values are milliseconds. */
+@utility animation-duration-* {
+  animation-duration: calc(--value(integer) * 1ms);
+  animation-duration: --value("auto", [*]);
+}
+
+@utility animation-delay-* {
+  animation-delay: calc(--value(integer) * 1ms);
+  animation-delay: --value([*]);
+}
+
+@utility -animation-delay-* {
+  animation-delay: calc(--value(integer) * -1ms);
+  animation-delay: calc(--value([*]) * -1);
+}
+
+@utility animation-timeline-auto {
+  animation-timeline: auto;
+}
+
+@utility animation-timeline-none {
+  animation-timeline: none;
+}
+
+@utility animation-timeline-scroll {
+  animation-timeline: scroll();
+}
+
+@utility animation-timeline-view {
+  animation-timeline: view();
+}
+
+@utility animation-timeline-* {
+  animation-timeline: --value([*]);
+}
+
+@utility animation-ease-* {
+  animation-timing-function: --value(
+    --ease-*,
+    "linear",
+    "ease",
+    "ease-in",
+    "ease-out",
+    "ease-in-out",
+    "step-start",
+    "step-end",
+    [*]
+  );
+}
+
+@utility animation-iteration-* {
+  animation-iteration-count: --value(number, "infinite", [*]);
+}
+
+@utility animation-direction-* {
+  animation-direction: --value(
+    "normal",
+    "reverse",
+    "alternate",
+    "alternate-reverse",
+    [*]
+  );
+}
+
+@utility animation-fill-* {
+  animation-fill-mode: --value("none", "forwards", "backwards", "both", [*]);
+}
+
+@utility animation-paused {
+  animation-play-state: paused;
+}
+
+@utility animation-running {
+  animation-play-state: running;
+}
+
+@utility animation-range-* {
+  animation-range: --value("normal", [*]);
+}
+
+@utility animation-range-start-* {
+  animation-range-start: --value("normal", [*]);
+}
+
+@utility animation-range-end-* {
+  animation-range-end: --value("normal", [*]);
 }
