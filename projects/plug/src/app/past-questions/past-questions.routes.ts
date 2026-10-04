@@ -1,7 +1,6 @@
 import { inject } from "@angular/core";
 import { rxResource, toSignal } from "@angular/core/rxjs-interop";
 import type { Routes } from "@angular/router";
-import { tap } from "rxjs";
 import type { Plug } from "shared/models";
 import { Auth } from "shared/services";
 import type { Paginated } from "shared/types/shared-types";
