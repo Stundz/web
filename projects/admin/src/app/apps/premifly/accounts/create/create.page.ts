@@ -1,4 +1,3 @@
-import { DatePipe } from "@angular/common";
 import { HttpErrorResponse } from "@angular/common/http";
 import {
 	ChangeDetectionStrategy,
@@ -31,7 +30,6 @@ import { PremiflyAccount } from "shared/services";
 	imports: [
 		RouterLink,
 		ReactiveFormsModule,
-		DatePipe,
 		MatIconModule,
 		MatButtonModule,
 		MatInputModule,

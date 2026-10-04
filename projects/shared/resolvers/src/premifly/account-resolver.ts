@@ -1,13 +1,13 @@
-import type { Premifly } from "shared/models";
 import type { HttpErrorResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { type ResolveFn, Router } from "@angular/router";
 import { catchError, EMPTY, of, throwError } from "rxjs";
+import type { Premifly } from "shared/models";
 import { PremiflyAccount } from "shared/services";
 import type { Paginated } from "shared/types";
 
 export const premiflyAccountsResolver: ResolveFn<
-	Paginated<Premifly.Account>
+  Paginated<Premifly.Account>
 > = (route, state) => {
   const service = inject(PremiflyAccount);
 
@@ -16,26 +16,26 @@ export const premiflyAccountsResolver: ResolveFn<
     page: route.queryParams["page"] || 1,
   });
 
-	return service.accounts$.pipe(
-		catchError(() =>
-			of({
-				data: [],
-				meta: {
-					per_page: 0,
-					total: 0,
-					current_page: 0,
-					from: 0,
-					to: 0,
-				},
-				links: {},
-			} as Paginated<Premifly.Account>),
-		),
-	);
+  return service.accounts$.pipe(
+    catchError(() =>
+      of({
+        data: [],
+        meta: {
+          per_page: 0,
+          total: 0,
+          current_page: 0,
+          from: 0,
+          to: 0,
+        },
+        links: {},
+      } as Paginated<Premifly.Account>),
+    ),
+  );
 };
 
 export const premiflyAccountResolver: ResolveFn<Premifly.Account> = (
-	route,
-	state,
+  route,
+  state,
 ) => {
   const service = inject(PremiflyAccount);
   const router = inject(Router);
@@ -52,7 +52,7 @@ export const premiflyAccountResolver: ResolveFn<Premifly.Account> = (
 };
 
 export const premiflyAccountServicesResolver: ResolveFn<
-  Paginated<Model.Premifly.Service>
+  Paginated<Premifly.Service>
 > = (route, state) => {
   const service = inject(PremiflyAccount);
   const router = inject(Router);

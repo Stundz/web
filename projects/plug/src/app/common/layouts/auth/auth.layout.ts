@@ -8,7 +8,6 @@ import {
 	ResolveEnd,
 	ResolveStart,
 	Router,
-	RouterLink,
 	RouterOutlet,
 } from "@angular/router";
 import { MatRippleModule } from "@angular/material/core";
@@ -25,7 +24,6 @@ import { MatButtonModule } from "@angular/material/button";
 @Component({
 	selector: "plug-auth-layout",
 	imports: [
-		RouterLink,
 		RouterOutlet,
 		MatButtonModule,
 		MatRippleModule,

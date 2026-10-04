@@ -18,7 +18,6 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { catchError, filter, map, startWith, switchMap, timer } from "rxjs";
-import { Dropzone } from "shared/directives";
 import { environment } from "../../../environments/environment";
 import { MatSelectModule } from "@angular/material/select";
 import { Tutorial } from "../../common/services/tutorial";
@@ -37,7 +36,6 @@ import { MatTimepickerModule } from "@angular/material/timepicker";
 		ReactiveFormsModule,
 		MatSelectModule,
 		MatTimepickerModule,
-		Dropzone,
 	],
 	templateUrl: "./create.page.ng.html",
 	styleUrl: "./create.page.scss",

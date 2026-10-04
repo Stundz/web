@@ -5,6 +5,7 @@
   "installCommand": "bun install",
 
   "buildCommand": "bunx ng build shared && bunx ng build plug && bunx ng build auth && bunx ng build premifly && bunx ng build admin && bunx ng build landing",
+  "bunVersion": "1.4.x",
 
   "functions": {
     "api/admin.js": {
