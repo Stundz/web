@@ -1,4 +1,3 @@
-import type { Plug, User } from "shared/models";
 import { httpResource } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
@@ -28,6 +27,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { map } from "rxjs";
+import type { Plug, User } from "shared/models";
 import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 
@@ -52,33 +52,9 @@ import { environment } from "../../../environments/environment";
 export class IndexPage {
   user = input.required<User>();
   pastQuestions = input.required<Paginated<Plug.PastQuestion>>();
+
   #route = inject(ActivatedRoute);
   #router = inject(Router);
-  #params = toSignal(
-    this.#route.queryParams.pipe(
-      map((params) => {
-        const safeKeys = [
-          "q",
-          "institution",
-          "faculty",
-          "department",
-          "course",
-          "year",
-        ];
-
-        type Keys = (typeof safeKeys)[number];
-
-        const a = Object.fromEntries(
-          Object.entries(params).filter(([key]) => safeKeys.includes(key)),
-        );
-
-        return a as Record<Keys, string | null>;
-      }),
-    ),
-    {
-      initialValue: this.#route.snapshot.queryParams,
-    },
-  );
   currentYear = new Date().getFullYear();
   #filters = linkedSignal(() => ({
     q: this.#route.snapshot.queryParams["q"] || "",
@@ -90,7 +66,7 @@ export class IndexPage {
   }));
   form = form(this.#filters, (fields) => {
     debounce(fields.q, 600);
-    disabled(fields.institution);
+    disabled(fields.institution, { when: () => !!this.user() });
     disabled(fields.faculty, {
       when: ({ valueOf }) => !valueOf(fields.institution),
     });
@@ -148,7 +124,7 @@ export class IndexPage {
     const values = Object.fromEntries(
       Object.entries({
         q: this.form.q().value()?.trim(),
-        // institution: this.form.institution().value(),
+        institution: this.form.institution().value(),
         faculty: this.form.faculty().value(),
         department: this.form.department().value(),
         course: this.form.course().value(),
@@ -170,9 +146,5 @@ export class IndexPage {
       queryParamsHandling: "merge",
       queryParams: { page: event.pageIndex + 1, limit: event.pageSize },
     });
-  }
-
-  handleSelection() {
-    console.log("Handling selection change");
   }
 }
