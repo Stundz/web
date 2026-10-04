@@ -40,13 +40,50 @@ export const premiflyAccountResolver: ResolveFn<Premifly.Account> = (
 	const service = inject(PremiflyAccount);
 	const router = inject(Router);
 
-	return service.getAccount(route.params["account"]).pipe(
-		catchError((response: HttpErrorResponse) => {
-			if (response.status === 404) {
-				router.navigateByUrl("**", { replaceUrl: false });
-				return EMPTY;
-			}
-			return throwError(() => response);
-		}),
-	);
+  return service.getAccount(route.params["account"]).pipe(
+    catchError((response: HttpErrorResponse) => {
+      if (response.status === 404) {
+        router.navigateByUrl("**", { replaceUrl: false });
+        return EMPTY;
+      }
+      return throwError(() => response);
+    }),
+  );
+};
+
+export const premiflyAccountServicesResolver: ResolveFn<
+  Paginated<Premifly.Service>
+> = (route, state) => {
+  const service = inject(PremiflyAccount);
+  const router = inject(Router);
+
+  // The route parameters are inherited from the parent router node (account)
+  const accountId = route.parent?.params["account"] || route.params["account"];
+  if (!accountId) {
+    return of({
+      data: [] as Array<Premifly.Service>,
+      meta: {
+        per_page: 0,
+        total: 0,
+        current_page: 0,
+        from: 0,
+        to: 0,
+      },
+    } as Paginated<Premifly.Service>);
+  }
+
+  return service.getServices(accountId).pipe(
+    catchError((response: HttpErrorResponse) => {
+      return of({
+        data: [] as Array<Premifly.Service>,
+        meta: {
+          per_page: 0,
+          total: 0,
+          current_page: 0,
+          from: 0,
+          to: 0,
+        },
+      } as Paginated<Premifly.Service>);
+    }),
+  );
 };
