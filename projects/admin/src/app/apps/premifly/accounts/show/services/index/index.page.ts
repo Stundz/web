@@ -31,18 +31,15 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { isAfter } from "date-fns";
 import { catchError, firstValueFrom, map, tap, throwError } from "rxjs";
-import {
-  type Model,
-  type Paginated,
-  PremiflyAccount,
-  PremiflyServiceLogo,
-} from "shared";
+import { PremiflyServiceLogo } from "shared";
+import type { Premifly } from "shared/models";
+import { PremiflyAccount } from "shared/services";
+import type { Paginated } from "shared/types/shared-types";
 import { environment } from "../../../../../../../environments/environment";
 
 @Component({
   selector: "admin-index",
   imports: [
-    RouterLink,
     CurrencyPipe,
     ReactiveFormsModule,
     MatTableModule,
@@ -70,8 +67,8 @@ export class IndexPage {
   #snackBar = inject(MatSnackBar);
   #dialog = inject(MatDialog);
 
-  services = input.required<Paginated<Model.Premifly.Service>>();
-  allServices = httpResource<Array<Model.Premifly.Service>>(() => ({
+  services = input.required<Paginated<Premifly.Service>>();
+  allServices = httpResource<Array<Premifly.Service>>(() => ({
     url: `${environment.url.api}/premifly/services`,
   }));
 
@@ -101,7 +98,7 @@ export class IndexPage {
     service_id: "",
     code: "",
     password: "",
-    expires_at: new Date() as Date,
+    expires_at: new Date().toUTCString(),
   });
   form = form(
     this.formModel,
@@ -141,7 +138,7 @@ export class IndexPage {
                     service_id: "",
                     code: "",
                     password: "",
-                    expires_at: new Date() as Date,
+                    expires_at: new Date().toUTCString(),
                   });
                   this.closeDialog();
                   // Re-trigger resolver to reload data on screen
