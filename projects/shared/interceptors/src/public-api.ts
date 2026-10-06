@@ -1,3 +1,3 @@
-export * from "./csrf-interceptor";
-export * from "./ssr-interceptor";
+export * from "./browser-interceptor";
+export * from "./server-interceptor";
 export * from "./stundz-interceptor";
