@@ -59,6 +59,9 @@ export namespace Model {
       students_count: number;
 
       tutorial?: Tutorial;
+
+      /** Indicates whether currenlty authenticated user has booked this session */
+      booked?: boolean;
     }
 
     export interface Tutorial extends Model {
@@ -72,9 +75,15 @@ export namespace Model {
       price: number;
 
       course?: Plug.Course;
+
       tutor?: Plug.Tutor;
+
+      /** Past sessions which arent bookable anymore */
       sessions?: Array<Plug.Session>;
+
+      /** The current bookable session */
       session?: Plug.Session;
+
       level?: Plug.Level;
     }
 

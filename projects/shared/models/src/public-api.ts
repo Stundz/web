@@ -73,6 +73,9 @@ export namespace Plug {
     students_count: number;
 
     tutorial?: Tutorial;
+
+    /** Indicates whether currenlty authenticated user has booked this session */
+    booked?: boolean;
   }
 
   export interface Tutorial extends Model {
