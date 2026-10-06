@@ -1,19 +1,17 @@
-import type { User } from "shared/models";
+import { isPlatformBrowser } from "@angular/common";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, PLATFORM_ID } from "@angular/core";
 import {
   BehaviorSubject,
   catchError,
-  EMPTY,
   first,
-  ignoreElements,
-  map,
   of,
   shareReplay,
   switchMap,
   tap,
   throwError,
 } from "rxjs";
+import type { User } from "shared/models";
 import { ENVIRONMENT } from "shared/types";
 
 @Injectable({
@@ -26,21 +24,17 @@ export class Auth {
   user$ = this.#user.asObservable().pipe(shareReplay());
 
   getUser() {
-    return this.#http
-      .get<User>(`${this.#environment.url.api}/user`, {
-        withCredentials: true,
-      })
-      .pipe(
-        catchError((error) => {
-          if (error instanceof HttpErrorResponse && error.status === 401) {
-            return of(null);
-          }
+    return this.#http.get<User>(`${this.#environment.url.api}/user`).pipe(
+      catchError((error) => {
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+          return of(null);
+        }
 
-          return throwError(() => error);
-        }),
-        tap((user) => this.#user.next(user)),
-        shareReplay(),
-      );
+        return throwError(() => error);
+      }),
+      tap((user) => this.#user.next(user)),
+      shareReplay(),
+    );
   }
 
   signup(
