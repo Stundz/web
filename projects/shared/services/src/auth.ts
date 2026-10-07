@@ -1,6 +1,5 @@
-import { isPlatformBrowser } from "@angular/common";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable, inject, PLATFORM_ID } from "@angular/core";
+import { inject, Service } from "@angular/core";
 import {
   BehaviorSubject,
   catchError,
@@ -14,9 +13,7 @@ import {
 import type { User } from "shared/models";
 import { ENVIRONMENT } from "shared/types";
 
-@Injectable({
-  providedIn: "root",
-})
+@Service()
 export class Auth {
   #http = inject(HttpClient);
   #environment = inject(ENVIRONMENT);
