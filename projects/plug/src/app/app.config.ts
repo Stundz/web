@@ -19,7 +19,7 @@ import {
   withRouterResources,
   withViewTransitions,
 } from "@angular/router";
-import { catchError, firstValueFrom, tap, throwError } from "rxjs";
+import { catchError, firstValueFrom, of } from "rxjs";
 import {
   browserInterceptor,
   serverInterceptor,
@@ -66,11 +66,8 @@ export const appConfig: ApplicationConfig = {
 
       return await firstValueFrom(
         authService.getUser().pipe(
-          tap(() => console.log("Getting the user")),
-          catchError((error) => {
-            console.log("Error caught while getting user");
-
-            return throwError(() => error);
+          catchError(() => {
+            return of(null);
           }),
         ),
       );
