@@ -1,0 +1,82 @@
+<main class="solutions-page">
+  <nav aria-label="Breadcrumb" class="breadcrumbs">
+    <a routerLink="/past-questions">Past questions</a>
+    <span aria-hidden="true" class="icon-[material-symbols--chevron-right]"></span>
+    <a routerLink="..">{{ question().course.code }} · {{ question().year }}</a>
+    <span aria-hidden="true" class="icon-[material-symbols--chevron-right]"></span>
+    <span aria-current="page">Solutions</span>
+  </nav>
+
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">UNDERSTAND THE ANSWER</p>
+      <h1>A little clarity.<br />A lot more confidence.</h1>
+      <p class="intro">Explore solutions for {{ question().course.code }} and build your understanding, one question at a time.</p>
+    </div>
+    <a matButton="filled" routerLink="create">
+      <span aria-hidden="true" class="icon-[material-symbols--add-rounded]"></span>
+      Add a solution
+    </a>
+  </header>
+
+  <div class="content-grid">
+    <section aria-labelledby="solutions-title">
+      <div class="paper-summary">
+        <div class="paper-icon"><span aria-hidden="true" class="icon-[material-symbols--description-outline]"></span></div>
+        <div class="paper-info">
+          <p class="eyebrow">THE PAST QUESTION</p>
+          <h2>{{ question().course.code }} · {{ question().year }}</h2>
+          <p>{{ question().course.title }}</p>
+          <p class="institution">{{ question().institution.name }}</p>
+        </div>
+        <a matButton="outlined" routerLink="..">View paper</a>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="solutions-title">Available solutions <span class="count">{{ question().solutions_count }}</span></h2>
+      </div>
+      <p class="preview-note">Design preview · Example solution cards are shown below.</p>
+
+      <div class="solution-list">
+        @for (example of examples; track example.title; let first = $first) {
+          <article class="solution-card">
+            <div class="solution-icon" [class.alternate]="!first">
+              <span aria-hidden="true" [class]="example.icon"></span>
+            </div>
+            <div class="solution-content">
+              <span class="solution-type">{{ example.type }}</span>
+              <h3>{{ example.title }}</h3>
+              <p>{{ example.description }}</p>
+              <div class="details">
+                @for (detail of example.details; track detail) {
+                  <span><span aria-hidden="true" class="icon-[material-symbols--check-rounded]"></span>{{ detail }}</span>
+                }
+              </div>
+            </div>
+            <span class="example-label">Example</span>
+          </article>
+        }
+      </div>
+      <div class="study-note">
+        <span aria-hidden="true" class="icon-[material-symbols--lightbulb-outline]"></span>
+        <p>Try the paper first. Then use a solution to check your approach and revisit the steps you found tricky.</p>
+      </div>
+    </section>
+
+    <aside class="sidebar" aria-label="Study support">
+      <section class="contribute-card">
+        <span aria-hidden="true" class="feature-icon icon-[material-symbols--edit-note-rounded]"></span>
+        <p class="eyebrow">SHARE WHAT YOU KNOW</p>
+        <h2>Your explanation could make it click.</h2>
+        <p>Help another student understand this paper by contributing your own solution.</p>
+        <a matButton="filled" routerLink="create">Contribute a solution</a>
+      </section>
+      <section class="tutor-card">
+        <span aria-hidden="true" class="feature-icon icon-[material-symbols--school-outline]"></span>
+        <h2>Want to work through it together?</h2>
+        <p>Find a tutor for {{ question().course.code }} and get support with the concepts behind the questions.</p>
+        <a matButton="outlined" routerLink="/tutorials" [queryParams]="{ course: question().course.code }">Find a tutor</a>
+      </section>
+    </aside>
+  </div>
+</main>
