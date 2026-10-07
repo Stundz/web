@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 
 import { browserInterceptor } from "./browser-interceptor";
 
-describe("csrfInterceptor", () => {
+describe("browserInterceptor", () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() => browserInterceptor(req, next));
 
