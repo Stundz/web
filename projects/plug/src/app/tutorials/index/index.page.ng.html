@@ -1,9 +1,3 @@
-<style>
-.glass-effect {
-  background: rgba(249, 249, 249, 0.8);
-  backdrop-filter: blur(20px);
-}
-</style>
 <main class="mx-auto max-w-screen-2xl px-8 pt-32 pb-24">
   <!-- Hero Section -->
   <section class="mb-20">
@@ -25,9 +19,7 @@
           Direct access to elite senior tutors specializing in advanced
           academics and professional project delivery.
         </p>
-        <a matButton="filled" routerLink href="/tutors/apply">
-          Become a Tutor
-        </a>
+        <a matButton="filled" routerLink="/tutors/apply"> Become a Tutor </a>
       </div>
     </div>
   </section>
@@ -117,22 +109,172 @@
       <h2 class="text-on-surface font-headline text-4xl font-bold">
         Senior Tutor Directory
       </h2>
-      <!-- (change)="handleDaySelection($event)" -->
       <mat-chip-listbox
-        aria-label="Tutorial Days"
-        [formField]="tutorialFilters.filters.day"
+        aria-label="Tutorial days"
+        [formField]="tutorialFilters.day"
       >
-        <mat-chip-option selected value="">All</mat-chip-option>
-        <mat-chip-option>Today</mat-chip-option>
-        <mat-chip-option>tomorrow</mat-chip-option>
+        <mat-chip-option value="">All days</mat-chip-option>
+        <mat-chip-option [value]="today">Today</mat-chip-option>
+        <mat-chip-option [value]="tomorrow">Tomorrow</mat-chip-option>
       </mat-chip-listbox>
-      <mat-form-field class="basis-full">
-        <input
-          matInput
-          [formField]="tutorialFilters.q"
-          placeholder="Search a course, tutor, etc.."
-        >
-      </mat-form-field>
+    </div>
+    <div class="bg-surface-container-low mb-8 rounded-xl p-6">
+      <h3 class="mb-6 font-headline text-2xl font-bold">Refine Search</h3>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <mat-form-field class="w-full">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            type="search"
+            [formField]="tutorialFilters.q"
+            placeholder="Search a tutorial, course, or tutor"
+          >
+        </mat-form-field>
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Institution</mat-label>
+            <mat-select
+              [formField]="tutorialFilters.institution"
+              (selectionChange)="filters.update(value => ({ ...value, faculty: '', department: '', course: '' }))"
+            >
+              <mat-option value="">All institutions</mat-option>
+              @for (item of institutions.hasValue() ? institutions.value() : [];
+              track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+              }
+            </mat-select>
+            @if (tutorialFilters.institution().disabled()) {
+            <mat-hint>Fixed to your department’s institution.</mat-hint> }
+          </mat-form-field>
+          @if (institutions.isLoading()) {
+          <div
+            role="status"
+            class="text-on-surface-variant flex items-center gap-2 text-xs"
+          >
+            <mat-spinner [diameter]="16" aria-hidden="true" />
+            Loading institutions…
+          </div>
+          } @if (institutions.error()) {
+          <button
+            matButton="text"
+            type="button"
+            (click)="institutions.reload()"
+          >
+            Unable to load institutions. Retry
+          </button>
+          }
+        </div>
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Faculty</mat-label>
+            <mat-select
+              [formField]="tutorialFilters.faculty"
+              (selectionChange)="filters.update(value => ({ ...value, department: '', course: '' }))"
+            >
+              <mat-option value="">All faculties</mat-option>
+              @for (item of faculties.hasValue() ? faculties.value() : []; track
+              item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+              }
+            </mat-select>
+            @if (!tutorialFilters.institution().value()) {
+            <mat-hint>Select an institution first.</mat-hint> }
+          </mat-form-field>
+          @if (faculties.isLoading()) {
+          <div
+            role="status"
+            class="text-on-surface-variant flex items-center gap-2 text-xs"
+          >
+            <mat-spinner [diameter]="16" aria-hidden="true" />
+            Loading faculties…
+          </div>
+          } @if (faculties.error()) {
+          <button matButton="text" type="button" (click)="faculties.reload()">
+            Unable to load faculties. Retry
+          </button>
+          }
+        </div>
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Department</mat-label>
+            <mat-select
+              [formField]="tutorialFilters.department"
+              (selectionChange)="filters.update(value => ({ ...value, course: '' }))"
+            >
+              <mat-option value="">All departments</mat-option>
+              @for (item of departments.hasValue() ? departments.value() : [];
+              track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+              }
+            </mat-select>
+            @if (!tutorialFilters.faculty().value()) {
+            <mat-hint>Select a faculty first.</mat-hint> }
+          </mat-form-field>
+          @if (departments.isLoading()) {
+          <div
+            role="status"
+            class="text-on-surface-variant flex items-center gap-2 text-xs"
+          >
+            <mat-spinner [diameter]="16" aria-hidden="true" />
+            Loading departments…
+          </div>
+          } @if (departments.error()) {
+          <button matButton="text" type="button" (click)="departments.reload()">
+            Unable to load departments. Retry
+          </button>
+          }
+        </div>
+        <div>
+          <mat-form-field class="w-full">
+            <mat-label>Course</mat-label>
+            <mat-select [formField]="tutorialFilters.course">
+              <mat-option value="">All courses</mat-option>
+              @for (item of courses.hasValue() ? courses.value() : []; track
+              item.id) {
+              <mat-option [value]="item.code"
+                >{{ item.code }}
+                — {{ item.title }}</mat-option
+              >
+              }
+            </mat-select>
+            @if (!tutorialFilters.department().value()) {
+            <mat-hint>Select a department first.</mat-hint> }
+          </mat-form-field>
+          @if (courses.isLoading()) {
+          <div
+            role="status"
+            class="text-on-surface-variant flex items-center gap-2 text-xs"
+          >
+            <mat-spinner [diameter]="16" aria-hidden="true" />
+            Loading courses…
+          </div>
+          } @if (courses.error()) {
+          <button matButton="text" type="button" (click)="courses.reload()">
+            Unable to load courses. Retry
+          </button>
+          }
+        </div>
+        <mat-form-field class="w-full">
+          <mat-label>Session day</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dayPicker"
+            placeholder="MM/DD/YYYY"
+            [value]="selectedDay()"
+            (dateChange)="setDay($event.value)"
+          >
+          <mat-datepicker-toggle matIconSuffix [for]="dayPicker" />
+          <mat-datepicker #dayPicker />
+        </mat-form-field>
+      </div>
+      <button
+        matButton="outlined"
+        type="button"
+        class="mt-6"
+        (click)="resetFilters()"
+      >
+        Reset All Filters
+      </button>
     </div>
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
       @for (tutorial of tutorials()?.data || []; track tutorial.id) { <!-- Tutor Card 1 -->
@@ -151,6 +293,7 @@
       [pageIndex]="(tutorials().meta.current_page || 1) - 1"
       [length]="tutorials().meta.total"
       [pageSize]="tutorials().meta.per_page"
+      [pageSizeOptions]="[5, 10, 15, 20]"
       (page)="handlePaginatorEvent($event)"
     />
   </section>

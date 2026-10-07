@@ -1,246 +1,178 @@
-<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-  <div
-    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
-  >
-    <div class="p-3 rounded-full bg-(--mat-sys-secondary)/80 text-(--mat-sys-on-secondary)">
-      <span
-        class="icon-[material-symbols--book-outline-rounded]"
-        role="img"
+<main class="dashboard">
+  <header class="welcome">
+    <div>
+      <p class="eyebrow">YOUR STUDY SPACE</p>
+      <h1>Welcome back, {{ user().first_name || 'there' }}.</h1>
+      <p>Your tutorials and study resources, in one place.</p>
+    </div>
+    <span class="today"
+      ><span
         aria-hidden="true"
-      ></span>
-    </div>
-    <div class="ml-4">
-      <p class="text-sm">Enrolled Courses</p>
-      <p class="text-2xl font-bold">5</p>
-    </div>
-  </div>
-  <div
-    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
-  >
-    <div
-      class="p-3 text-green-600 bg-green-100 rounded-full dark:text-green-300 dark:bg-green-900/40"
+        class="icon-[material-symbols--calendar-today-outline]"
+      ></span>{{ today | date:'EEEE, MMM d' }}</span
     >
+  </header>
+
+  <section class="shortcuts" aria-label="Quick access">
+    @for (shortcut of shortcuts; track shortcut.route) {
+    <a class="shortcut" [routerLink]="shortcut.route">
       <span
-        class="icon-[material-symbols--event-available-outline-sharp]"
-        role="img"
+        class="shortcut-icon"
         aria-hidden="true"
+        [class]="'shortcut-icon ' + shortcut.icon"
       ></span>
-    </div>
-    <div class="ml-4">
-      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-        Upcoming Sessions
-      </p>
-      <p class="text-2xl font-bold">2</p>
-    </div>
-  </div>
-  <div
-    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
-  >
-    <div
-      class="p-3 text-yellow-600 bg-yellow-100 rounded-full dark:text-yellow-400 dark:bg-yellow-900/40"
+      <div>
+        <h2>{{ shortcut.title }}</h2>
+        <p>{{ shortcut.description }}</p>
+      </div>
+      <span
+        aria-hidden="true"
+        class="shortcut-arrow icon-[material-symbols--arrow-forward]"
+      ></span>
+    </a>
+    }
+  </section>
+
+  <div class="dashboard-grid">
+    <mat-card
+      appearance="outlined"
+      class="panel"
+      aria-labelledby="sessions-title"
+      [attr.aria-busy]="sessions.isLoading()"
     >
-      <span
-        class="icon-[material-symbols--history-edu-outline-rounded]"
-        role="img"
-        aria-hidden="true"
-      ></span>
-    </div>
-    <div class="ml-4">
-      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-        Sessions as Tutor
-      </p>
-      <p class="text-2xl font-bold">8</p>
-    </div>
-  </div>
-  <div
-    class="flex items-center p-6 rounded-lg shadow-md bg-(--mat-sys-secondary-container)/20 text-(--mat-sys-on-secondary-container)"
-  >
-    <div class="p-3 text-red-600 bg-red-100 rounded-full dark:text-red-400 dark:bg-red-900/40">
-      <span
-        class="icon-[material-symbols--quiz-outline-rounded]"
-        role="img"
-        aria-hidden="true"
-      ></span>
-    </div>
-    <div class="ml-4">
-      <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Saved Questions</p>
-      <p class="text-2xl font-bold">12</p>
-    </div>
-  </div>
-</div>
-<div class="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-3">
-  <div class="p-6 rounded-lg shadow-md lg:col-span-2 bg-card-light dark:bg-card-dark">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-semibold">My Tutorial Sessions</h3>
-      <a class="text-sm font-medium hover:underline text-primary" routerLink="/activities"
-        >View All</a
-      >
-    </div>
-    <div class="space-y-4">
-      <div
-        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
-      >
-        <div class="p-3 mr-4 rounded-full bg-primary-lighter dark:bg-primary/20">
+      <div class="section-heading">
+        <div><h2 id="sessions-title">Upcoming sessions</h2></div>
+        <a matButton="text" routerLink="/tutorials"
+          >Browse tutorials
           <span
-            class="icon-[material-symbols--calendar-month-outline-rounded] text-(--mat-sys-primary)"
-            role="img"
             aria-hidden="true"
-          ></span>
-        </div>
-        <div class="flex-1">
-          <p class="font-semibold">Data Structures &amp; Algorithms</p>
-          <p class="text-sm text-(--mat-sys-secondary)">with Jane Doe (Tutor)</p>
-        </div>
-        <div class="text-right">
-          <p class="font-medium">Today, 4:00 PM</p>
-          <span
-            class="py-1 px-2 text-xs text-green-800 bg-green-100 rounded-full dark:text-green-200 dark:bg-green-900"
-            >Upcoming</span
-          >
-        </div>
+            class="icon-[material-symbols--arrow-forward]"
+          ></span></a
+        >
       </div>
-      <div
-        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
-      >
-        <div class="p-3 mr-4 rounded-full bg-primary-lighter dark:bg-primary/20">
-          <span
-            class="icon-[material-symbols--calendar-month-outline-rounded] text-(--mat-sys-primary)"
-            role="img"
-            aria-hidden="true"
-          ></span>
-        </div>
-        <div class="flex-1">
-          <p class="font-semibold">Advanced Calculus II</p>
-          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-            with John Smith (Tutor)
-          </p>
-        </div>
-        <div class="text-right">
-          <p class="font-medium">Tomorrow, 11:00 AM</p>
-          <span
-            class="py-1 px-2 text-xs text-green-800 bg-green-100 rounded-full dark:text-green-200 dark:bg-green-900"
-            >Upcoming</span
-          >
-        </div>
+      @if (sessions.isLoading()) {
+      <div class="state" role="status">
+        <mat-spinner [diameter]="28" aria-label="Loading sessions" />
+        <p>Loading sessions…</p>
       </div>
-      <div
-        class="flex items-center p-3 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
-      >
-        <div class="p-3 mr-4 rounded-full bg-(--mat-sys-tertiary)">
-          <span
-            class="icon-[material-symbols--history-edu-outline-rounded] text-(--mat-sys-on-tertiary)"
-            role="img"
-            aria-hidden="true"
-          ></span>
-        </div>
-        <div class="flex-1">
-          <p class="font-semibold">Introduction to Python</p>
-          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-            with Emily White (Tutee)
-          </p>
-        </div>
-        <div class="text-right">
-          <p class="font-medium">Yesterday, 2:00 PM</p>
-          <span
-            class="py-1 px-2 text-xs text-gray-800 bg-gray-200 rounded-full dark:text-gray-200 dark:bg-gray-600"
-            >Completed</span
-          >
-        </div>
+      } @else if (sessions.error()) {
+      <div class="state" role="status">
+        <span
+          class="state-icon icon-[material-symbols--cloud-off-outline]"
+          aria-hidden="true"
+        ></span>
+        <h3>Sessions couldn’t load</h3>
+        <p>Give it another try to see what’s coming up.</p>
+        <button matButton="outlined" (click)="sessions.reload()">
+          Try again
+        </button>
       </div>
-    </div>
-  </div>
-  <div class="p-6 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
-    <h3 class="mb-4 text-lg font-semibold">Quick Access</h3>
-    <div class="space-y-3">
+      } @else { @for (session of upcomingSessions(); track session.id) {
       <a
-        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
-        routerLink="/tutorials"
+        class="session-row"
+        [routerLink]="['/tutorial', session.tutorial_id, 'session', session.id]"
       >
-        <span
-          class="icon-[material-symbols--add-circle-outline-rounded]"
-          role="img"
-          aria-hidden="true"
-        ></span>
-        <span class="font-medium text-primary">Book a new Session</span>
-      </a>
-      <a
-        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
-        routerLink="/past-questions"
-      >
-        <span class="icon-[material-symbols--search]" role="img" aria-hidden="true"></span>
-        <span class="font-medium">Find Past Papers</span>
-      </a>
-      <a
-        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
-        routerLink="/past-questions/new"
-      >
-        <span
-          class="icon-[material-symbols--upload-file-outline-sharp]"
-          role="img"
-          aria-hidden="true"
-        ></span>
-        <span class="font-medium">Upload a Resource</span>
-      </a>
-      <a
-        class="flex gap-3 items-center p-3 rounded-lg transition-colors hover:bg-(--mat-sys-primary)/10"
-        href="#"
-      >
-        <span
-          class="icon-[material-symbols--group-outline-sharp]"
-          role="img"
-          aria-hidden="true"
-        ></span>
-        <span class="font-medium">My Project Groups</span>
-      </a>
-    </div>
-  </div>
-</div>
-<div class="p-6 mt-8 rounded-lg shadow-md bg-card-light dark:bg-card-dark">
-  <h3 class="mb-4 text-lg font-semibold">Recent Activity</h3>
-  <ul class="divide-y divide-divider-light dark:divide-divider-dark">
-    <li class="flex justify-between items-center py-3">
-      <div class="flex gap-3 items-center">
-        <span
-          class="text-green-500 icon-[material-symbols--check-circle-outline-rounded]"
-          role="img"
-          aria-hidden="true"
-        ></span>
-        <div>
+        <div class="date-tile">
+          <span>{{ session.day | date:'MMM' }}</span
+          ><strong>{{ session.day | date:'dd' }}</strong>
+        </div>
+        <div class="row-copy">
+          <span class="row-kicker">{{
+            session.tutorial?.course?.code || 'Tutorial session'
+          }}</span>
+          <h3>{{ session.tutorial?.name || 'Study session' }}</h3>
           <p>
-            You completed a session for
-            <span class="font-semibold">Advanced Calculus II</span>.
+            {{ session.day | date:'shortTime' }} · {{ session.duration }} min
+            @if (session.venue) { · {{ session.venue }} }
           </p>
-          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">2 hours ago</p>
         </div>
-      </div>
-      <button class="text-sm font-medium hover:underline text-primary">View Details</button>
-    </li>
-    <li class="flex justify-between items-center py-3">
-      <div class="flex gap-3 items-center">
         <span
-          class="text-blue-500 icon-[mdi--file-download-outline]"
-          role="img"
+          aria-hidden="true"
+          class="icon-[material-symbols--chevron-right]"
+        ></span>
+      </a>
+      } @empty {
+      <div class="state">
+        <span
+          class="state-icon icon-[material-symbols--event-available-outline]"
           aria-hidden="true"
         ></span>
-        <div>
-          <p>
-            You downloaded the past paper for
-            <span class="font-semibold">PHYS101 Midterm</span>.
-          </p>
-          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">1 day ago</p>
-        </div>
+        <h3>No upcoming sessions</h3>
+        <p>Find a tutorial that fits your schedule.</p>
+        <a matButton="outlined" routerLink="/tutorials">Find a session</a>
       </div>
-      <button class="text-sm font-medium hover:underline text-primary">Download Again</button>
-    </li>
-    <li class="flex justify-between items-center py-3">
-      <div class="flex items-center">
-        <span class="mr-3 material-symbols-outlined text-accent">star</span>
-        <div>
-          <p>You received a new 5-star review from a tutee.</p>
-          <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">3 days ago</p>
-        </div>
+      } }
+    </mat-card>
+
+    <mat-card
+      appearance="outlined"
+      class="panel papers-panel"
+      aria-labelledby="papers-title"
+      [attr.aria-busy]="pastQuestions.isLoading()"
+    >
+      <div class="section-heading">
+        <div><h2 id="papers-title">Explore past papers</h2></div>
+        <a matButton="text" routerLink="/past-questions"
+          >View all papers
+          <span
+            aria-hidden="true"
+            class="icon-[material-symbols--arrow-forward]"
+          ></span></a
+        >
       </div>
-      <button class="text-sm font-medium hover:underline text-primary">View Review</button>
-    </li>
-  </ul>
-</div>
+      @if (pastQuestions.isLoading()) {
+      <div class="state" role="status">
+        <mat-spinner [diameter]="28" aria-label="Loading past papers" />
+        <p>Loading past papers…</p>
+      </div>
+      } @else if (pastQuestions.error()) {
+      <div class="state" role="status">
+        <h3>Past papers couldn’t load</h3>
+        <p>Try again to explore the archive.</p>
+        <button matButton="outlined" (click)="pastQuestions.reload()">
+          Try again
+        </button>
+      </div>
+      } @else {
+      <div class="paper-grid">
+        @for (paper of pastQuestions.value().data; track paper.id) {
+        <mat-card appearance="outlined" class="paper-card"
+          ><a
+            class="paper-card-link"
+            [routerLink]="['/past-question', paper.id]"
+          >
+            <div class="paper-top">
+              <span
+                aria-hidden="true"
+                class="paper-icon icon-[material-symbols--description-outline]"
+              ></span><span class="year">{{ paper.year }}</span>
+            </div>
+            <span class="row-kicker">{{ paper.course.code }}</span>
+            <h3>{{ paper.course.title }}</h3>
+            <p>{{ paper.institution?.name }}</p>
+            <div class="paper-footer">
+              <span>{{ paper.solutions_count }} solutions</span
+              ><span class="paper-link"
+                >View paper
+                <span
+                  aria-hidden="true"
+                  class="icon-[material-symbols--arrow-forward]"
+                ></span></span
+              >
+            </div>
+          </a></mat-card
+        >
+        } @empty {
+        <div class="state">
+          <h3>Help build the archive</h3>
+          <p>Have a past paper? Share it with your fellow students.</p>
+          <a matButton="outlined" routerLink="/past-questions/new"
+            >Upload a paper</a
+          >
+        </div>
+        }
+      </div>
+      }
+    </mat-card>
+  </div>
+</main>

@@ -1,18 +1,16 @@
-import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
-import { Injectable, inject } from "@angular/core";
+import { inject, Service } from "@angular/core";
+import type { Plug } from "shared/models";
 
 import { environment } from "../../../environments/environment";
 
-@Injectable({
-	providedIn: "root",
-})
+@Service()
 export class Session {
-	#http = inject(HttpClient);
+  #http = inject(HttpClient);
 
-	getSession(id: string) {
-		return this.#http.get<Plug.Session>(
-			`${environment.url.api}/plug/session/${id}`,
-		);
-	}
+  getSession(id: string) {
+    return this.#http.get<Plug.Session>(
+      `${environment.url.api}/plug/session/${id}`,
+    );
+  }
 }

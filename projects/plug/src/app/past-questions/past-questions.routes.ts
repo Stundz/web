@@ -71,6 +71,11 @@ export const routes: Routes = [
         pathMatch: "full",
         loadComponent: () => import("./show/show.page").then((m) => m.ShowPage),
       },
+      {
+        path: "",
+        loadChildren: () =>
+          import("./show/solutions/solutions.routes").then((m) => m.routes),
+      },
     ],
   },
 ];
