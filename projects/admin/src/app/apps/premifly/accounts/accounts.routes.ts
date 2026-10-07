@@ -33,6 +33,7 @@ export const routes: Routes = [
 				children: [
 					{
 						path: "",
+						pathMatch: "full",
 						loadComponent: () =>
 							import("./show/show.page").then((m) => m.ShowPage),
 					},
@@ -40,6 +41,11 @@ export const routes: Routes = [
 						path: "edit",
 						loadComponent: () =>
 							import("./edit/edit.page").then((m) => m.EditPage),
+					},
+					{
+						path: "",
+						loadChildren: () =>
+							import("./show/services/services.routes").then((m) => m.routes),
 					},
 				],
 			},

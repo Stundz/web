@@ -1,0 +1,33 @@
+<main class="service-page">
+  <a matButton="text" routerLink="../../services"><span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>Account services</a>
+  <header class="page-heading">
+    <div><p class="context">{{ account().email }}</p><h1>{{ service().name }}</h1><p>Service details and account credentials.</p></div>
+    <a matButton="filled" routerLink="edit">Edit credentials</a>
+  </header>
+  <div class="detail-grid">
+    <mat-card appearance="outlined">
+      <mat-card-header><mat-card-title>Service overview</mat-card-title></mat-card-header>
+      <mat-card-content>
+        <dl>
+          <div><dt>Status</dt><dd><span class="status" [class.inactive]="!service().enabled">{{ service().enabled ? 'Enabled' : 'Disabled' }}</span></dd></div>
+          <div><dt>Price</dt><dd>{{ service().price | currency:'XAF':'code':'1.0-0' }}</dd></div>
+          <div><dt>Account limit</dt><dd>{{ service().limit ?? 'Unlimited' }}</dd></div>
+          <div><dt>Expires</dt><dd>{{ service().credentials?.expires_at ? (service().credentials?.expires_at | date:'mediumDate') : 'No expiry' }}</dd></div>
+        </dl>
+      </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined">
+      <mat-card-header><mat-card-title>Account credentials</mat-card-title></mat-card-header>
+      <mat-card-content>
+        <dl>
+          <div><dt>Email</dt><dd>{{ account().email }}</dd></div>
+          <div><dt>Code</dt><dd class="credential">{{ service().credentials?.code || 'Not set' }}</dd></div>
+          <div><dt>Password</dt><dd class="credential">{{ service().credentials?.password ? (revealPassword() ? service().credentials?.password : '••••••••') : 'Not set' }}</dd></div>
+        </dl>
+        @if (service().credentials?.password) {
+          <button matButton="text" type="button" [attr.aria-pressed]="revealPassword()" (click)="revealPassword.set(!revealPassword())">{{ revealPassword() ? 'Hide password' : 'Show password' }}</button>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</main>
