@@ -1,1 +1,16 @@
-<p>edit works!</p>
+<main class="service-page edit-page">
+  <a matButton="text" routerLink=".."><span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>Service details</a>
+  <header class="page-heading"><div><p class="context">{{ account().email }}</p><h1>Edit {{ service().name }}</h1><p>Manage the credentials attached to this account.</p></div></header>
+  <mat-card appearance="outlined">
+    <mat-card-header><mat-card-title>Credentials</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <form class="credential-form" (submit)="$event.preventDefault()">
+        <mat-form-field appearance="outline"><mat-label>Code</mat-label><input matInput [formField]="credentials.code" autocomplete="off" placeholder="Account access code" /></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Password</mat-label><input matInput [formField]="credentials.password" [type]="revealPassword() ? 'text' : 'password'" autocomplete="new-password" /><button matIconButton matSuffix type="button" [attr.aria-label]="revealPassword() ? 'Hide password' : 'Show password'" [attr.aria-pressed]="revealPassword()" (click)="revealPassword.set(!revealPassword())"><span aria-hidden="true" [class]="revealPassword() ? 'icon-[material-symbols--visibility-off-outline]' : 'icon-[material-symbols--visibility-outline]'"></span></button></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>Expiry date</mat-label><input matInput type="date" [formField]="credentials.expires_at" /><mat-hint>Leave empty for no expiry.</mat-hint></mat-form-field>
+        <p class="save-note" role="status">Saving will be available once the account-service update endpoint is configured.</p>
+        <div class="form-actions"><button matButton="filled" type="submit" disabled>Save changes</button><a matButton="text" routerLink="..">Cancel</a></div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>

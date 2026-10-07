@@ -1,5 +1,8 @@
-import type { Routes } from "@angular/router";
-import { premiflyAccountServicesResolver } from "shared";
+import type { ActivatedRouteSnapshot, Routes } from "@angular/router";
+import { inject } from "@angular/core";
+import { map } from "rxjs";
+import { premiflyAccountServicesResolver } from "shared/resolvers";
+import { PremiflyAccount } from "shared/services";
 
 export const routes: Routes = [
   {
@@ -23,7 +26,20 @@ export const routes: Routes = [
       {
         path: ":service",
         resolve: {
-          // service: premiflyAccountResolver,
+          service: (route: ActivatedRouteSnapshot) => {
+            const accountId = route.pathFromRoot
+              .map((snapshot) => snapshot.params["account"])
+              .find(Boolean);
+            return inject(PremiflyAccount).getServices(accountId).pipe(
+              map((services) => {
+                const service = services.data.find(
+                  (item) => item.id === route.params["service"],
+                );
+                if (!service) throw new Error("Account service not found");
+                return service;
+              }),
+            );
+          },
         },
         children: [
           {
