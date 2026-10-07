@@ -1,4 +1,4 @@
-@let tutor = tutorial().tutor;
+@let tutor = tutorial().tutor; @let session = tutorial().session;
 <main class="bg-surface text-on-surface pt-24 pb-20">
   <!-- Hero Section: Editorial Header -->
   <header class="mx-auto mb-16 max-w-screen-2xl px-8">
@@ -58,7 +58,7 @@
           >
         </div>
       </div>
-      @if (tutorial().session) {
+      @if (session) {
       <div class="flex justify-end lg:col-span-4">
         <mat-card
           appearance="outlined"
@@ -83,19 +83,31 @@
               >
             </h2>
             <ul class="mb-8 space-y-4 text-sm">
-              @for (objective of tutorial().session?.objectives || []; track
-              objective) {
+              @for (objective of session?.objectives || []; track objective) {
               <li class="flex items-center gap-3">
                 <span
                   class="icon-[material-symbols--check-circle-outline] text-primary shrink-0 text-lg"
                 ></span>
                 {{ objective }}
               </li>
-              } @empty { @if (tutorial().session) { This session has no
-              specified objectives } }
+              } @empty { <span> This session has no specified objectives </span>
+              }
             </ul>
-            @if (user()) {
-            <button matButton="filled" class="w-full" (click)="book()">
+            @if (session.students_count >= 100) {
+            <span class="w-full"
+              >Session full. Please search for another session</span
+            >
+
+            } @if (session.booked) {
+            <span class="w-full"> You have already booked this tutorial </span>
+
+            } @else if (user()) {
+            <button
+              type="button"
+              matButton="filled"
+              class="w-full"
+              (click)="book()"
+            >
               Book This Tutorial
             </button>
             <p class="text-on-surface-variant mt-4 text-center text-xs">
@@ -170,6 +182,7 @@
       <!-- Session Schedule: Asymmetric Timeline -->
       <div>
         <h3 class="mb-10 text-3xl font-bold">Recent Academic Schedule</h3>
+        <a routerLink="./sessions">View all</a>
         <div class="relative space-y-12">
           <!-- Vertical line for timeline -->
           <div
@@ -308,13 +321,11 @@
               <a
                 matIconButton
                 [href]="'mailto:' + tutor?.user?.email"
-                aria-label="Email the instructor"
                 matTooltip="Email the instructor"
               >
                 <span
-                  class="icon-[material-symbols--mail-outline]"
+                  class="icon-[material-symbols--mail-outline] not:sr-only"
                   role="img"
-                  aria-hidden="true"
                   >mail</span
                 >
               </a>
@@ -351,7 +362,15 @@
           >
             Capacity
           </p>
-          <p class="text-sm font-medium">12 Seats Left</p>
+          <p class="text-sm font-medium">
+            {{ 100 - tutorial()!.session!.students_count }}
+            <span [ngPlural]="100 - tutorial()!.session!.students_count">
+              <ng-template ngPluralCase="=0">Seats</ng-template>
+              <ng-template ngPluralCase="1">Seat</ng-template>
+              <ng-template ngPluralCase="other">Seats</ng-template>
+            </span>
+            Left
+          </p>
         </div>
         <div class="bg-surface-container rounded-lg p-6">
           <span

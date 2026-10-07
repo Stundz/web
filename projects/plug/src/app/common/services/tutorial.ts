@@ -1,9 +1,9 @@
-import type { Plug } from "shared/models";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { BehaviorSubject, shareReplay, startWith, switchMap, tap } from "rxjs";
+import type { Plug } from "shared/models";
+import type { Paginated } from "shared/types";
 import { toFormData } from "shared/utils";
-import { type Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
 import { Session } from "./session";
 
@@ -57,5 +57,16 @@ export class Tutorial {
 
   getSession(id: string) {
     return this.#sessionService.getSession(id);
+  }
+
+  /**
+   *
+   * @param tutorial string The tutorialId for which the sessions should belong to
+   * @returns
+   */
+  getSessions(tutorial: string) {
+    return this.#http.get(
+      `https://api.${environment.domain}/plug/tutorial/${tutorial}/sessions`,
+    );
   }
 }

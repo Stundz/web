@@ -1,5 +1,4 @@
-import type { Plug, User } from "shared/models";
-import { DatePipe, DOCUMENT } from "@angular/common";
+import { DatePipe, DOCUMENT, NgPlural, NgPluralCase } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,6 +12,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterLink } from "@angular/router";
 import { addMinutes } from "date-fns";
+import type { Plug, User } from "shared/models";
 
 import { environment } from "../../../environments/environment";
 import { BookingForm } from "../../common/components/booking-form/booking-form";
@@ -25,6 +25,8 @@ import { BookingForm } from "../../common/components/booking-form/booking-form";
     MatTooltipModule,
     RouterLink,
     DatePipe,
+    NgPlural,
+    NgPluralCase,
   ],
   templateUrl: "./show.page.ng.html",
   changeDetection: ChangeDetectionStrategy.Eager,
