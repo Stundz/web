@@ -19,8 +19,12 @@ import {
   withRouterResources,
   withViewTransitions,
 } from "@angular/router";
-import { firstValueFrom } from "rxjs";
-import { csrfInterceptor, stundzInterceptor } from "shared/interceptors";
+import { catchError, firstValueFrom, tap, throwError } from "rxjs";
+import {
+  browserInterceptor,
+  serverInterceptor,
+  stundzInterceptor,
+} from "shared/interceptors";
 import { Auth } from "shared/services";
 import { ENVIRONMENT } from "shared/types";
 import { environment } from "../environments/environment";
@@ -43,15 +47,33 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(
       withEventReplay(),
       withHttpTransferCacheOptions({
+        filter: (req) =>
+          new RegExp(`^https?://api.${environment.domain}`).test(req.url),
         includeRequestsWithCredentials: true,
         includeNonCacheableRequests: true,
+        includeRequestsWithAuthHeaders: true,
       }),
     ),
-    provideHttpClient(withInterceptors([stundzInterceptor, csrfInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        stundzInterceptor,
+        serverInterceptor,
+        browserInterceptor,
+      ]),
+    ),
     provideAppInitializer(async () => {
       const authService = inject(Auth);
 
-      return await firstValueFrom(authService.getUser());
+      return await firstValueFrom(
+        authService.getUser().pipe(
+          tap(() => console.log("Getting the user")),
+          catchError((error) => {
+            console.log("Error caught while getting user");
+
+            return throwError(() => error);
+          }),
+        ),
+      );
     }),
     {
       provide: ENVIRONMENT,
