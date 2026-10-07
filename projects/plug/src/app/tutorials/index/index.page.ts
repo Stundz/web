@@ -1,19 +1,21 @@
-import type { User } from "shared/models";
 import { NgOptimizedImage } from "@angular/common";
+import { httpResource } from "@angular/common/http";
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   input,
-  signal,
+  linkedSignal,
 } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { ReactiveFormsModule } from "@angular/forms";
-import { debounce, FormField, form } from "@angular/forms/signals";
+import { debounce, disabled, FormField, form } from "@angular/forms/signals";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
+import { provideNativeDateAdapter } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -21,12 +23,15 @@ import {
   MatPaginatorModule,
   type PageEvent,
 } from "@angular/material/paginator";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
-import { MatTableModule } from "@angular/material/table";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { addDays, format, isValid, parseISO } from "date-fns";
 import { skip, tap } from "rxjs";
+import type { Plug, User } from "shared/models";
 
+import { environment } from "../../../environments/environment";
 import { TutorialCard } from "../../common/components/tutorial-card/tutorial-card";
 import { Tutorial } from "../../common/services/tutorial";
 @Component({
@@ -35,18 +40,19 @@ import { Tutorial } from "../../common/services/tutorial";
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatTableModule,
+    MatProgressSpinnerModule,
     RouterLink,
     MatButtonModule,
-    ReactiveFormsModule,
     MatPaginatorModule,
     MatCardModule,
     MatSelectModule,
     NgOptimizedImage,
     TutorialCard,
     MatChipsModule,
+    MatDatepickerModule,
     FormField,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: "./index.page.ng.html",
   styleUrl: "./index.page.scss",
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -63,63 +69,129 @@ export class IndexPage {
   #meta = inject(Meta);
   #title = inject(Title);
 
-  filters = signal({
-    q: this.#route.snapshot.queryParamMap.get("q") || "",
-    filters: {
-      page: (this.#route.snapshot.queryParamMap.get("page") || "") as
-        | string
-        | number,
-      limit: this.#route.snapshot.queryParamMap.get("limit") || "",
-      day: this.#route.snapshot.queryParamMap.get("day") || "",
+  #queryParams = toSignal(this.#route.queryParams, { requireSync: true });
+  today = format(new Date(), "yyyy-MM-dd");
+  tomorrow = format(addDays(new Date(), 1), "yyyy-MM-dd");
+  filters = linkedSignal(() => {
+    const params = this.#queryParams();
+    return {
+      q: String(params["q"] || ""),
       institution: String(
-        this.#route.snapshot.queryParamMap.get("institution") || "",
+        this.user()?.plug?.department?.faculty?.institution_id ||
+          params["institution"] ||
+          "",
       ),
-      faculty: (this.#route.snapshot.queryParams["faculty"] as string) || null,
-      department:
-        (this.#route.snapshot.queryParams["department"] as string) || null,
-      course: (this.#route.snapshot.queryParams["course"] as string) || null,
-      semester:
-        (this.#route.snapshot.queryParams["semester"] as string) || null,
-    },
+      faculty: String(params["faculty"] || ""),
+      department: String(params["department"] || ""),
+      course: String(params["course"] || ""),
+      day: String(params["day"] || ""),
+    };
   });
-  tutorialFilters = form(this.filters, (root) => {
-    debounce(root.q, 800);
-  });
-
-  queryEffect = effect(() => {
-    this.#router.navigate(["."], {
-      relativeTo: this.#route,
-      replaceUrl: true,
-      queryParams: Object.fromEntries(
-        Object.entries({
-          q: this.tutorialFilters.q().value(),
-          page: 1,
-        }).filter(([_, value]) => Boolean(value)),
-      ),
-      queryParamsHandling: "replace",
+  tutorialFilters = form(this.filters, (fields) => {
+    debounce(fields.q, 600);
+    disabled(fields.institution, {
+      when: () => !!this.user()?.plug?.department?.faculty?.institution_id,
     });
-    console.log("Query changed");
+    disabled(fields.faculty, {
+      when: ({ valueOf }) => !valueOf(fields.institution),
+    });
+    disabled(fields.department, {
+      when: ({ valueOf }) => !valueOf(fields.faculty),
+    });
+    disabled(fields.course, {
+      when: ({ valueOf }) => !valueOf(fields.department),
+    });
+  });
+  selectedDay = computed(() => {
+    const day = this.tutorialFilters.day().value();
+    const date = day ? parseISO(day) : null;
+    return date && isValid(date) ? date : null;
   });
 
+  setDay(date: Date | null) {
+    this.tutorialFilters
+      .day()
+      .value.set(date && isValid(date) ? format(date, "yyyy-MM-dd") : "");
+  }
+
+  institutions = httpResource<Plug.Institution[]>(
+    () => `https://api.${environment.domain}/plug/institutions`,
+    { defaultValue: [] },
+  );
+  faculties = httpResource<Plug.Faculty[]>(
+    () =>
+      this.tutorialFilters.institution().value()
+        ? `https://api.${environment.domain}/plug/institution/${this.tutorialFilters.institution().value()}/faculties`
+        : undefined,
+    { defaultValue: [] },
+  );
+  departments = httpResource<Plug.Department[]>(
+    () =>
+      this.tutorialFilters.faculty().value()
+        ? `https://api.${environment.domain}/plug/faculty/${this.tutorialFilters.faculty().value()}/departments`
+        : undefined,
+    { defaultValue: [] },
+  );
+  courses = httpResource<Plug.Course[]>(
+    () =>
+      this.tutorialFilters.department().value()
+        ? `https://api.${environment.domain}/plug/department/${this.tutorialFilters.department().value()}/courses`
+        : undefined,
+    { defaultValue: [] },
+  );
+
+  #initialNavigation = true;
   paramsEffect = effect(() => {
-    this.#router.navigate(["."], {
+    const values = {
+      q: this.tutorialFilters.q().value().trim(),
+      institution: this.tutorialFilters.institution().value(),
+      faculty: this.tutorialFilters.faculty().value(),
+      department: this.tutorialFilters.department().value(),
+      course: this.tutorialFilters.course().value(),
+      day: this.tutorialFilters.day().value(),
+    };
+    const params = this.#route.snapshot.queryParams;
+    const initialNavigation = this.#initialNavigation;
+    this.#initialNavigation = false;
+    if (
+      Object.entries(values).every(
+        ([key, value]) => value === String(params[key] || ""),
+      )
+    )
+      return;
+
+    this.#router.navigate([], {
       relativeTo: this.#route,
       replaceUrl: true,
-      queryParams: Object.fromEntries(
-        Object.entries({
-          q: this.tutorialFilters.q().value(),
-          ...this.tutorialFilters.filters().value(),
-        }).filter(([_, value]) => Boolean(value)),
-      ),
-      queryParamsHandling: "replace",
+      queryParams: {
+        ...Object.fromEntries(
+          Object.entries(values).map(([key, value]) => [key, value || null]),
+        ),
+        page: initialNavigation ? params["page"] || null : null,
+        semester: null,
+      },
+      queryParamsHandling: "merge",
     });
   });
+
+  resetFilters() {
+    this.tutorialFilters().reset({
+      q: "",
+      institution: String(
+        this.user()?.plug?.department?.faculty?.institution_id || "",
+      ),
+      faculty: "",
+      department: "",
+      course: "",
+      day: "",
+    });
+  }
 
   constructor() {
     this.#route.queryParams
       .pipe(
         takeUntilDestroyed(),
-        skip(2),
+        skip(1),
         tap((params) => this.#tutorialService.filters.next(params)),
       )
       .subscribe();
@@ -150,6 +222,10 @@ export class IndexPage {
   }
 
   handlePaginatorEvent(event: PageEvent) {
-    this.tutorialFilters.filters.page().value.set(event.pageIndex + 1);
+    this.#router.navigate([], {
+      relativeTo: this.#route,
+      queryParamsHandling: "merge",
+      queryParams: { page: event.pageIndex + 1, limit: event.pageSize },
+    });
   }
 }
