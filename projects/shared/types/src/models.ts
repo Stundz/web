@@ -16,6 +16,7 @@ export namespace Model {
         | "created_at"
         | "updated_at"
       > {
+      department_id: Plug.Department["id"];
       /**
        * The tutorial classes owned by the current user
        */
@@ -132,6 +133,7 @@ export namespace Model {
     }
 
     export interface Department extends Model {
+      faculty_id: Plug.Faculty["id"];
       name: string;
       faculty: Faculty;
     }

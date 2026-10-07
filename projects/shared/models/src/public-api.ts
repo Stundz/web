@@ -72,6 +72,9 @@ export namespace Plug {
     /** The number of students in a given session */
     students_count: number;
 
+    /** The number of bookings in a given session. Usually thesame value as {students_count} */
+    bookings_count: number;
+
     tutorial?: Tutorial;
 
     /** Indicates whether currenlty authenticated user has booked this session */
@@ -141,6 +144,7 @@ export namespace Plug {
 
   export interface Department extends Model {
     name: string;
+    faculty_id: Faculty["id"];
     faculty: Faculty;
   }
 
