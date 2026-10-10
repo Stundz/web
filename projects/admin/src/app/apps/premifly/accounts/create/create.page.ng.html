@@ -1,11 +1,11 @@
 <div
-  class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+  class="management-page bg-surface animate-fade-in"
 >
   <!-- Back Button & Breadcrumbs -->
   <header class="flex flex-col gap-2 mb-8">
     <a
       routerLink="/app/premifly/accounts"
-      class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
+      class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-on-surface-variant group w-fit dark:hover:text-primary hover:text-primary"
     >
       <span
         class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
@@ -13,11 +13,11 @@
       <span>Back to Accounts</span>
     </a>
     <h1
-      class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+      class="text-3xl font-extrabold tracking-tight text-on-surface font-headline"
     >
       Create New Account
     </h1>
-    <p class="text-sm text-slate-500 dark:text-slate-400">
+    <p class="text-sm text-on-surface-variant">
       Register a fresh email credential set ready for premium subscription
       bindings.
     </p>
@@ -29,7 +29,7 @@
     <section class="flex flex-col gap-6 lg:col-span-5">
       <mat-card class="bg-transparent border-0 shadow-none!">
         <div
-          class="flex overflow-hidden relative flex-col justify-between p-8 bg-white rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50 dark:bg-slate-950"
+          class="flex overflow-hidden relative flex-col justify-between p-8 bg-surface-container-lowest rounded-2xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-80 group dark:border-outline/50"
         >
           <!-- Card Background Accent -->
           <div
@@ -43,12 +43,12 @@
           <div class="flex relative z-10 justify-between items-start">
             <div class="flex flex-col gap-1">
               <span
-                class="text-xs font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500"
+                class="text-xs font-semibold tracking-widest uppercase text-on-surface-variant"
               >
                 PREMIFLY PARTNER ACCOUNT
               </span>
               <h2
-                class="text-2xl font-bold tracking-tight transition-colors duration-200 wrap-break-word text-slate-800 max-w-62.5 dark:text-slate-100"
+                class="text-2xl font-bold tracking-tight transition-colors duration-200 wrap-break-word text-on-surface max-w-62.5"
               >
                 {{ form.email().value() || 'new-account@email.com' }}
               </h2>
@@ -76,7 +76,7 @@
               </span>
             </div>
             <span
-              class="italic font-bold tracking-wide uppercase text-[10px] text-slate-400 dark:text-slate-500"
+              class="italic font-bold tracking-wide uppercase text-[10px] text-on-surface-variant"
             >
               Live preview
             </span>
@@ -92,10 +92,10 @@
           class="mt-0.5 text-2xl icon-[material-symbols--info-outline] text-primary shrink-0"
         ></span>
         <div class="flex flex-col gap-1">
-          <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
+          <h3 class="text-sm font-bold text-on-surface">
             Account Registration Core
           </h3>
-          <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+          <p class="text-xs leading-relaxed text-on-surface-variant">
             Provide a unique email address, a strong password, and an access
             code/token. This account serves as the authentication node for
             premium subscription services. An optional expiration date can be
@@ -108,7 +108,7 @@
     <!-- Right Side: Creation Form Card (7 cols) -->
     <main class="lg:col-span-7">
       <div
-        class="p-8 bg-white rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50 dark:bg-slate-950"
+        class="p-8 bg-surface-container-lowest rounded-2xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50"
       >
         <form [formRoot]="form" class="flex flex-col gap-6">
           <!-- Email Field -->
@@ -124,7 +124,7 @@
               >
               <mat-icon matSuffix>
                 <span
-                  class="mr-2 text-xl icon-[material-symbols--mail-outline] text-slate-400"
+                  class="mr-2 text-xl icon-[material-symbols--mail-outline] text-on-surface-variant"
                 ></span>
               </mat-icon>
               @for (error of form.email().errors(); track error.kind) {
@@ -158,7 +158,7 @@
 
             <a
               routerLink="/app/premifly/accounts"
-              class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
+              class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:hover:text-white hover:text-slate-900"
             >
               Cancel
             </a>

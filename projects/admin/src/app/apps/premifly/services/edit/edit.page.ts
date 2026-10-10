@@ -41,7 +41,7 @@ import { PremiflyService } from "shared/services";
 		FormRoot,
 	],
 	templateUrl: "./edit.page.ng.html",
-	styleUrl: "./edit.page.css",
+	styleUrls: ['../../../management.page.css', './edit.page.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditPage {

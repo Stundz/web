@@ -1,12 +1,13 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'admin-plug',
-  imports: [],
+  imports: [RouterLink, MatButtonModule, MatCardModule],
   templateUrl: './plug.page.ng.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './plug.page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['../apps.page.css', './plug.page.css'],
 })
-export class PlugPage {
-
-}
+export class PlugPage {}

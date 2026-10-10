@@ -27,7 +27,7 @@ import type { Premifly } from "shared/models";
     MatSnackBarModule,
   ],
   templateUrl: "./show.page.ng.html",
-  styleUrl: "./show.page.css",
+  styleUrls: ['../../../management.page.css', './show.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowPage {

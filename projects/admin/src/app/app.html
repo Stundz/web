@@ -1,168 +1,19 @@
-@if (isLoading()) {
-<mat-progress-bar
-	mode="indeterminate"
-	class="fixed top-0 left-0 right-0 z-100 h-0.75!"
-></mat-progress-bar>
-}
-<nav
-	class="flex fixed top-0 left-0 z-50 flex-col items-center py-2 w-20 h-screen border-r bg-surface-container-low border-outline-variant dark:bg-surface-container dark:border-outline"
->
-	<!-- Brand/Logo Area -->
-	<div
-		class="flex flex-col gap-2 items-center px-2 mt-4 mb-8 w-full text-center"
-	>
-		<div
-			class="flex justify-center items-center w-12 h-12 text-lg font-black rounded-full shadow-sm bg-primary text-on-primary font-headline-sm"
-		>
-			<span class="icon-[material-symbols--hub-outline]"></span>
-		</div>
-	</div>
-	<!-- Navigation Links -->
-	<div class="flex flex-col gap-4 px-2 w-full">
-		<a
-			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
-			routerLink="/"
-			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
-			[routerLinkActiveOptions]="{ paths: 'exact' }"
-		>
-			<span
-				class="p-1 rounded-full icon-[material-symbols--dashboard-outline] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
-				role="img"
-				aria-hidden="true"
-				data-weight="fill"
-			></span>
-			<span class="w-full text-center font-label-sm text-label-sm truncate"
-				>Overview</span
-			>
-		</a>
-		<a
-			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
-			routerLink="/apps"
-			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
-			[class.bg-primary-container]="appLink.isActive"
-			[class.text-on-primary-container!]="appLink.isActive"
-		>
-			<span
-				class="p-1 rounded-full icon-[mingcute--appstore-line] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
-				role="img"
-				aria-hidden="true"
-				data-weight="fill"
-			></span>
-			<span class="w-full text-center font-label-sm text-label-sm truncate">
-				Apps
-			</span>
-		</a>
-		<a
-			class="hidden"
-			routerLink="/app"
-			routerLinkActive
-			#appLink="routerLinkActive"
-			[routerLinkActiveOptions]="{ paths: 'subset', fragment: 'ignored' }"
-		></a>
-		<a
-			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
-			routerLink="/users"
-			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
-		>
-			<span
-				class="p-1 rounded-full icon-[material-symbols--group-outline] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
-				role="img"
-				aria-hidden="true"
-			></span>
-			<span class="w-full text-center font-label-sm text-label-sm truncate"
-				>Users</span
-			>
-		</a>
-		<a
-			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
-			routerLink="/payments"
-			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
-		>
-			<span
-				class="p-1 rounded-full icon-[material-symbols--payments-outline] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
-				>payments</span
-			>
-			<span class="w-full text-center font-label-sm text-label-sm truncate"
-				>Revenue</span
-			>
-		</a>
-		<a
-			class="flex flex-col gap-1 justify-center items-center py-3 px-2 rounded-xl transition-all duration-200 scale-95 active:scale-90 group text-on-surface-variant dark:text-surface-variant hover:text-on-surface"
-			routerLink="/settings"
-			[routerLinkActive]="['bg-primary-container', 'text-on-primary-container!']"
-		>
-			<span
-				class="p-1 rounded-full icon-[material-symbols--settings-outline] text-[28px] dark:group-hover:bg-inverse-surface group-hover:bg-surface-container-highest"
-				>settings</span
-			>
-			<span class="w-full text-center font-label-sm text-label-sm truncate"
-				>Settings</span
-			>
-		</a>
-	</div>
-	<!-- Spacer -->
-	<div class="grow"></div>
-	<!-- FAB / CTA -->
-	<button
-		aria-label="Add User"
-		class="flex justify-center items-center mb-4 w-12 h-12 rounded-full shadow-md transition-all hover:shadow-lg bg-primary text-on-primary group hover:bg-surface-tint"
-	>
-		<span
-			class="transition-transform group-hover:scale-110 icon-[material-symbols--add] text-[24px]"
-		></span>
-	</button>
-</nav>
-<!-- Main Content Area Wrapper -->
-<div class="flex-1 flex flex-col ml-20 w-[calc(100%-(--spacing(20)))]">
-	<!-- TopAppBar -->
-	<header
-		class="flex sticky top-0 z-40 justify-between items-center px-6 w-full h-16 border-b bg-surface border-outline-variant dark:bg-surface-dim dark:border-outline"
-	>
-		<!-- Title / Search -->
-		<div class="flex gap-6 items-center w-full max-w-2xl">
-			<h1
-				class="flex gap-2 justify-center items-center text-lg text-primary shrink-0 dark:text-primary-fixed"
-			>
-				<span class="icon-[material-symbols--hub-outline]"></span>
-				Admin
-			</h1>
-			<div class="hidden relative w-full md:block">
-				<span
-					class="absolute left-3 top-1/2 -translate-y-1/2 icon-[material-symbols--search] text-on-surface-variant"
-					>search</span
-				>
-				<input
-					class="pr-4 pl-10 w-full h-10 rounded-full border transition-all outline-none focus:ring-1 bg-surface-container-low border-outline-variant text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary focus:ring-primary"
-					placeholder="Search overview..."
-					type="text"
-				>
-			</div>
-		</div>
-		<!-- Actions -->
-		<div class="flex gap-4 items-center ml-4 shrink-0">
-			<button
-				aria-label="notifications"
-				class="relative p-2 rounded-full transition-colors text-on-surface-variant dark:text-on-surface-variant dark:hover:bg-inverse-surface hover:bg-surface-container-highest"
-			>
-				<span class="icon-[material-symbols--notifications-outline]"
-					>notifications</span
-				>
-				<span
-					class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full border-2 bg-error border-surface"
-				></span>
-			</button>
-			<button
-				aria-label="account_circle"
-				class="p-2 rounded-full transition-colors text-on-surface-variant dark:text-on-surface-variant dark:hover:bg-inverse-surface hover:bg-surface-container-highest"
-			>
-				<img
-					alt="Administrator profile"
-					class="object-cover w-8 h-8 rounded-full"
-					data-alt="A close up portrait of a professional corporate administrator. Bright, clear, white light mode lighting. Soft modern corporate office background."
-					src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-IDxMJtkPQ2kjK31t9ofB_zt_8XfVHJV236wTb-UV-1c6Lazucq8saGHlKNwyJDL-FV_lhsA-ijF1MurgAGnObANeJb-CGAr2FxdSgX5aDcYfIgwl-wU82YXmo4G2RzWkmJT0_kYn1KeoRek9_JJHmxV_mrEt8drvPXrGZE3N3ddUJOvedskwLbD-vGN4PCNO_7Ronl6NUVFJg2T69kSdyNCA5-JRxzfZQav_RwSZGfPcWu-2hcB0-KudM1hJqqX376rjhngSxRKs"
-				>
-			</button>
-		</div>
-	</header>
-	<router-outlet />
-</div>
+@if (isLoading()) { <mat-progress-bar mode="indeterminate" class="route-progress" aria-label="Loading page" /> }
+<mat-sidenav-container class="admin-shell">
+  <mat-sidenav #navigation [mode]="compact() ? 'over' : 'side'" [opened]="!compact() || drawerOpen()" (closedStart)="drawerOpen.set(false)" class="sidebar">
+    <a class="brand" routerLink="/"><span class="brand-icon icon-[material-symbols--hub-outline]" aria-hidden="true"></span><span>stundz<span class="brand-caption">ADMIN WORKSPACE</span></span></a>
+    <p class="nav-heading">WORKSPACE</p>
+    <mat-nav-list aria-label="Admin navigation">
+      @for (link of links; track link.route) { <a mat-list-item [routerLink]="link.route" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page" (click)="drawerOpen.set(false)"><span matListItemIcon aria-hidden="true" [class]="link.icon"></span><span matListItemTitle>{{ link.label }}</span></a> }
+    </mat-nav-list>
+    <div class="sidebar-footer"><span class="admin-avatar" aria-hidden="true">SA</span><div><strong>Stundz Admin</strong><span>Workspace management</span></div></div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="topbar">
+      @if (compact()) { <button matIconButton aria-label="Open navigation" (click)="drawerOpen.set(true)"><span aria-hidden="true" class="icon-[material-symbols--menu]"></span></button> }
+      <span class="toolbar-title">Administration</span><span class="toolbar-spacer"></span>
+      <a matButton="outlined" routerLink="/app/premifly/accounts/create"><span aria-hidden="true" class="icon-[material-symbols--add]"></span>New account</a>
+    </mat-toolbar>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

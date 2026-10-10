@@ -1,3 +1,4 @@
+import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlugPage } from './plug.page';
@@ -8,7 +9,8 @@ describe('PlugPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlugPage]
+      imports: [PlugPage],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 

@@ -40,7 +40,7 @@ import { PremiflyService } from "shared/services";
 		FormRoot,
 	],
 	templateUrl: "./create.page.ng.html",
-	styleUrl: "./create.page.css",
+	styleUrls: ['../../../management.page.css', './create.page.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePage {

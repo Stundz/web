@@ -1,9 +1,9 @@
-<div class="min-h-screen animate-fade-in p-6 md:p-10">
+<div class="management-page animate-fade-in">
   <!-- Back Button & Breadcrumbs -->
   <header class="mb-8 flex flex-col gap-2">
     <a
       routerLink="/app/premifly/services"
-      class="group dark:hover:text-primary hover:text-primary inline-flex w-fit items-center gap-2 text-sm font-medium text-slate-500 transition-colors duration-200 dark:text-slate-400"
+      class="group dark:hover:text-primary hover:text-primary inline-flex w-fit items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors duration-200"
     >
       <span
         class="icon-[material-symbols--arrow-back] text-lg transition-transform duration-200 group-hover:-translate-x-1"
@@ -11,11 +11,11 @@
       <span>Back to Services</span>
     </a>
     <h1
-      class="font-headline text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100"
+      class="font-headline text-3xl font-extrabold tracking-tight text-on-surface"
     >
       Create New Service
     </h1>
-    <p class="text-sm text-slate-500 dark:text-slate-400">
+    <p class="text-sm text-on-surface-variant">
       Deploy a brand new subscription tier for your Premifly services.
     </p>
   </header>
@@ -26,7 +26,7 @@
     <section class="flex flex-col gap-6 lg:col-span-5">
       <mat-card>
         <div
-          class="glass-card-preview border-outline-variant group dark:border-outline/50 relative flex min-h-87.5 flex-col justify-between overflow-hidden rounded-3xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl"
+          class="glass-card-preview border-outline-variant group dark:border-outline/50 relative flex min-h-87.5 flex-col justify-between overflow-hidden rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl"
         >
           <!-- Card Background Accent -->
           <div
@@ -40,12 +40,12 @@
           <div class="relative z-10 flex items-start justify-between">
             <div class="flex flex-col gap-1">
               <span
-                class="text-xs font-semibold tracking-widest text-slate-400 uppercase dark:text-slate-500"
+                class="text-xs font-semibold tracking-widest text-on-surface-variant uppercase"
               >
                 PREMIFLY PARTNER
               </span>
               <h2
-                class="max-w-62.5 text-2xl font-bold tracking-tight wrap-break-word text-slate-800 capitalize transition-colors duration-200 dark:text-slate-100"
+                class="max-w-62.5 text-2xl font-bold tracking-tight wrap-break-word text-on-surface capitalize transition-colors duration-200"
               >
                 {{ form.name().value() || 'New Service Name' }}
               </h2>
@@ -60,7 +60,7 @@
             </span>
             } @else {
             <span
-              class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500 shadow-sm dark:border-slate-700/50 dark:bg-slate-800/50 dark:text-slate-400"
+              class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-semibold text-on-surface-variant shadow-sm dark:border-slate-700/50 dark:bg-slate-800/50"
             >
               <span class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
               Inactive
@@ -70,16 +70,16 @@
 
           <!-- Stats & Meta Info Area -->
           <div class="relative z-10 my-8 flex flex-col gap-1">
-            <div class="text-xs font-medium text-slate-400 dark:text-slate-500">
+            <div class="text-xs font-medium text-on-surface-variant">
               Monthly Charge
             </div>
             <div class="flex items-baseline gap-1">
               <span
-                class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+                class="text-4xl font-extrabold tracking-tight text-on-surface dark:text-white"
               >
                 XAF {{ form.price().value() || '0' }}
               </span>
-              <span class="text-sm text-slate-400 dark:text-slate-500"
+              <span class="text-sm text-on-surface-variant"
                 >/mo</span
               >
             </div>
@@ -94,7 +94,7 @@
                 class="icon-[material-symbols--group-outline] text-primary text-xl"
               ></span>
               <span
-                class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                class="text-sm font-semibold text-on-surface"
               >
                 @if (form.limit().value() !== null && form.limit().value() !==
                 undefined) { Up to
@@ -103,7 +103,7 @@
               </span>
             </div>
             <span
-              class="text-xs font-medium text-slate-400 italic dark:text-slate-500"
+              class="text-xs font-medium text-on-surface-variant italic"
             >
               Live preview
             </span>
@@ -119,10 +119,10 @@
           class="icon-[material-symbols--info-outline] text-primary mt-0.5 shrink-0 text-2xl"
         ></span>
         <div class="flex flex-col gap-1">
-          <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
+          <h3 class="text-sm font-bold text-on-surface">
             Premium Tier Parameters
           </h3>
-          <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+          <p class="text-xs leading-relaxed text-on-surface-variant">
             Enter a compelling name and set an attractive pricing structure.
             Enabling the service immediately makes it available for subscription
             purchases. Specifying a limit controls how many user accounts can be
@@ -136,7 +136,7 @@
     <main class="lg:col-span-7">
       <mat-card>
         <div
-          class="border-outline-variant dark:border-outline/50 rounded-3xl border p-8 shadow-md md:p-10"
+          class="border-outline-variant dark:border-outline/50 rounded-2xl border p-8 shadow-md md:p-10"
         >
           <form [formRoot]="form" class="flex flex-col gap-6">
             <!-- Name Field -->
@@ -150,7 +150,7 @@
               >
               <mat-icon matSuffix>
                 <span
-                  class="icon-[material-symbols--abc] mr-2 text-xl text-slate-400"
+                  class="icon-[material-symbols--abc] mr-2 text-xl text-on-surface-variant"
                 ></span>
               </mat-icon>
               @for (error of form.name().errors(); track error.kind) {
@@ -180,7 +180,7 @@
                 <mat-label>Monthly Price</mat-label>
                 <mat-icon matPrefix>
                   <span
-                    class="size-full font-semibold text-slate-500 dark:text-slate-400"
+                    class="size-full font-semibold text-on-surface-variant"
                     >XAF</span
                   >
                 </mat-icon>
@@ -193,7 +193,7 @@
                 >
                 <mat-icon matSuffix>
                   <span
-                    class="icon-[material-symbols--payments-outline] text-xl text-slate-400"
+                    class="icon-[material-symbols--payments-outline] text-xl text-on-surface-variant"
                   ></span>
                 </mat-icon>
                 @for (error of form.price().errors(); track error.kind) {
@@ -215,12 +215,12 @@
                 >
                 <span
                   matSuffix
-                  class="icon-[material-symbols--group-outline] mr-2 text-xl text-slate-400"
+                  class="icon-[material-symbols--group-outline] mr-2 text-xl text-on-surface-variant"
                 ></span>
                 @for (error of form.limit().errors(); track error.kind) {
                 <mat-error>{{ error.message }}</mat-error>
                 }
-                <mat-hint class="text-xs text-slate-400 dark:text-slate-500">
+                <mat-hint class="text-xs text-on-surface-variant">
                   Restrict subscription accounts. Unrestricted is default.
                 </mat-hint>
               </mat-form-field>
@@ -232,11 +232,11 @@
             >
               <div class="flex flex-col gap-0.5">
                 <span
-                  class="text-sm font-bold text-slate-800 dark:text-slate-200"
+                  class="text-sm font-bold text-on-surface"
                 >
                   Enable Service Immediately
                 </span>
-                <span class="text-xs text-slate-400 dark:text-slate-500">
+                <span class="text-xs text-on-surface-variant">
                   Toggle whether users can immediately view and purchase this
                   service.
                 </span>
@@ -272,7 +272,7 @@
 
               <a
                 routerLink="/app/premifly/services"
-                class="rounded-2xl px-6 py-3 text-center font-semibold text-slate-600 transition-colors duration-200 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                class="rounded-2xl px-6 py-3 text-center font-semibold text-slate-600 transition-colors duration-200 hover:text-slate-900 dark:hover:text-white"
               >
                 Cancel
               </a>

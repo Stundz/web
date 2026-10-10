@@ -41,7 +41,7 @@ import { type Paginated } from "shared/types";
 		PremiflyServiceLogo,
 	],
 	templateUrl: "./index.page.ng.html",
-	styleUrl: "./index.page.css",
+	styleUrls: ['../../../management.page.css', './index.page.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IndexPage {

@@ -13,7 +13,7 @@ import type { Paginated } from "shared/types";
 	imports: [RouterLink, MatTableModule, MatPaginatorModule],
 	templateUrl: "./index.page.ng.html",
 	changeDetection: ChangeDetectionStrategy.Eager,
-	styleUrl: "./index.page.css",
+	styleUrls: ["../../../apps.page.css", "./index.page.css"],
 })
 export class IndexPage {
 	#router = inject(Router);
