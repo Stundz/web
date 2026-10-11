@@ -1,71 +1,72 @@
 import { isPlatformServer } from "@angular/common";
 import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	type ElementRef,
-	effect,
-	inject,
-	input,
-	PLATFORM_ID,
-	signal,
-	untracked,
-	viewChild,
+  ChangeDetectionStrategy,
+  Component,
+  type ElementRef,
+  effect,
+  inject,
+  input,
+  PLATFORM_ID,
+  untracked,
+  viewChild,
 } from "@angular/core";
 import type { PDFDocumentProxy } from "pdfjs-dist";
+import type { User } from "shared/models";
 
 @Component({
-	selector: "plug-pdf-viewer",
-	imports: [],
-	templateUrl: "./pdf-viewer.ng.html",
-	styleUrl: "./pdf-viewer.css",
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		ngSkipHydration: "true",
-	},
+  selector: "plug-pdf-viewer",
+  imports: [],
+  templateUrl: "./pdf-viewer.ng.html",
+  styleUrl: "./pdf-viewer.css",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    ngSkipHydration: "true",
+  },
 })
 export class PdfViewer {
-	doc = input.required<PDFDocumentProxy>();
-	page = input(1);
-	zoom = input(0.8);
+  doc = input.required<PDFDocumentProxy>();
+  page = input(1);
+  zoom = input(0.8);
 
-	#platformId = inject(PLATFORM_ID);
+  user = input.required<User>;
 
-	canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>("pdf");
+  #platformId = inject(PLATFORM_ID);
 
-	blobEffect = effect(() => {
-		if (isPlatformServer(this.#platformId)) return;
+  canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>("pdf");
 
-		if (!this.doc()) return;
+  blobEffect = effect(() => {
+    if (isPlatformServer(this.#platformId)) return;
 
-		this.renderPdf();
-	});
+    if (!this.doc()) return;
 
-	private async renderPdf(): Promise<void> {
-		const canvas = untracked(this.canvasRef).nativeElement;
+    this.renderPdf();
+  });
 
-		try {
-			// Fetch the first page (To render multiple pages, you'd loop through pdfDocument.numPages)
-			const page = await this.doc().getPage(this.page());
+  private async renderPdf(): Promise<void> {
+    const canvas = untracked(this.canvasRef).nativeElement;
 
-			// Calculate the viewport.
-			// A scale of 1.5 or 2.0 improves text clarity on high-DPI (Retina) screens.
-			const viewport = page.getViewport({ scale: this.zoom() });
+    try {
+      // Fetch the first page (To render multiple pages, you'd loop through pdfDocument.numPages)
+      const page = await this.doc().getPage(this.page());
 
-			// Prepare the canvas dimensions to match the PDF page
-			const context = canvas.getContext("2d");
-			if (!context) return;
+      // Calculate the viewport.
+      // A scale of 1.5 or 2.0 improves text clarity on high-DPI (Retina) screens.
+      const viewport = page.getViewport({ scale: this.zoom() });
 
-			canvas.height = viewport.height;
-			canvas.width = viewport.width;
+      // Prepare the canvas dimensions to match the PDF page
+      const context = canvas.getContext("2d");
+      if (!context) return;
 
-			await page.render({
-				canvasContext: context,
-				viewport: viewport,
-				canvas,
-			}).promise;
-		} catch (error) {
-			console.error("Error rendering PDF with PDF.js:", error);
-		}
-	}
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      await page.render({
+        canvasContext: context,
+        viewport: viewport,
+        canvas,
+      }).promise;
+    } catch (error) {
+      console.error("Error rendering PDF with PDF.js:", error);
+    }
+  }
 }
