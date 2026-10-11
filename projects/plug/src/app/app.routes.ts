@@ -18,7 +18,7 @@ export const routes: Routes = [
           {
             path: "",
             pathMatch: "full",
-            title: "Plug, Where your academic success resides",
+            title: "Plug: Past Questions, Tutorials & Earn While You Study",
             loadComponent: () =>
               import("./home/home.page").then((m) => m.HomePage),
           },

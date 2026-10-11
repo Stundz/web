@@ -24,7 +24,7 @@ import {
   RouterLinkWithHref,
   RouterOutlet,
 } from "@angular/router";
-import { filter, map, of, switchMap, timer } from "rxjs";
+import { filter, map, of, startWith, switchMap, timer } from "rxjs";
 import { Auth } from "shared/services";
 import { environment } from "../environments/environment";
 
@@ -46,6 +46,8 @@ export class App {
   #registry = inject(MatIconRegistry);
   #sanitizer = inject(DomSanitizer);
   #meta = inject(Meta);
+  #description =
+    "Ace your exams with past questions and course tutorials in one place. Study smarter, boost your grades, and earn money while you learn.";
   #renderer = inject(Renderer2);
   #document = inject(DOCUMENT);
 
@@ -89,7 +91,23 @@ export class App {
         return `https://plug.${environment.domain}${urlTree.toString().replace(/\/$/, "")}`;
       }),
     ),
+    {
+      initialValue: "",
+    },
   );
+
+  #canonicalEffect = effect(() => {
+    this.#meta.updateTag({
+      id: "og:url",
+      property: "og:url",
+      content: this.cannonical(),
+    });
+    this.#meta.updateTag({
+      id: "twitter:site",
+      property: "twitter:site",
+      content: this.cannonical(),
+    });
+  });
 
   constructor() {
     this.#registry.addSvgIconLiteralInNamespace(
@@ -160,14 +178,15 @@ export class App {
         this.#renderer.appendChild(this.#document.head, link);
       }
     });
+  }
 
+  ngOnInit() {
     this.#meta.addTags(
       [
         {
           id: "description",
           name: "description",
-          content:
-            "A platform that helps students better thier grades and overcome academic challenges",
+          content: this.#description,
         },
         {
           id: "keywords",
@@ -178,8 +197,7 @@ export class App {
         {
           id: "og:description",
           property: "og:description",
-          content:
-            "A platform that helps students better thier grades and overcome academic challenges",
+          content: this.#description,
         },
         {
           id: "og:image",
@@ -208,6 +226,16 @@ export class App {
           id: "og:type",
           property: "og:type",
           content: "website",
+        },
+        {
+          id: "twitter:site",
+          property: "twitter:site",
+          content: "Stundz",
+        },
+        {
+          id: "twitter:card",
+          property: "twitter:card",
+          content: "Summary_card_large",
         },
       ],
       false,
