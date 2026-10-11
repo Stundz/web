@@ -19,11 +19,11 @@ export const routes: Routes = [
         resources: ({ queryParams }) => {
           const pastQuestionService = inject(PastQuestion);
           const user = toSignal(inject(Auth).user$);
+          console.log("resourcing");
 
           return {
             pastQuestions: rxResource({
               params: () => {
-                console.log("Paraming", queryParams());
                 const query = { ...queryParams() };
                 if (user()?.plug?.department?.faculty?.institution_id) {
                   query["institution_id"] =
@@ -48,7 +48,6 @@ export const routes: Routes = [
             }),
           };
         },
-        runGuardsAndResolvers: "paramsOrQueryParamsChange",
         loadComponent: () =>
           import("./index/index.page").then((m) => m.IndexPage),
       },
