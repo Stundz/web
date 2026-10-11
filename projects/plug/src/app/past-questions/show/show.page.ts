@@ -1,17 +1,17 @@
-import type { Plug } from "shared/models";
 import { isPlatformServer } from "@angular/common";
 import { HttpContext, HttpParams, httpResource } from "@angular/common/http";
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   type ElementRef,
   effect,
   inject,
   input,
+  linkedSignal,
   PLATFORM_ID,
   signal,
   viewChild,
-  ChangeDetectionStrategy
 } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -19,113 +19,139 @@ import { MatCardModule } from "@angular/material/card";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import type { PDFDocumentProxy } from "pdfjs-dist";
-
 import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
+import type { Plug, User } from "shared/models";
 import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 @Component({
-	selector: "plug-show-past-question",
-	imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
-	templateUrl: "./show.page.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
-	styleUrl: "./show.page.scss",
+  selector: "plug-show-past-question",
+  imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
+  templateUrl: "./show.page.ng.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: "./show.page.scss",
 })
 export class ShowPage {
-	question = input.required<Plug.PastQuestion>({
-		alias: "past-question",
-	});
+  question = input.required<Plug.PastQuestion>({
+    alias: "past-question",
+  });
+  user = input.required<User>();
 
-	#platformId = inject(PLATFORM_ID);
-	#meta = inject(Meta);
-	#title = inject(Title);
-	queryParams = toSignal(inject(ActivatedRoute).queryParams, {
-		requireSync: true,
-	});
-	pdfContainer = viewChild.required<ElementRef<HTMLDivElement>>("pdfContainer");
+  #platformId = inject(PLATFORM_ID);
+  #meta = inject(Meta);
+  #title = inject(Title);
+  #description = linkedSignal(
+    () =>
+      `${this.question().course.code} ${this.question().year} past question for ${this.question().course.title}. Practice real exam questions, study smarter, and boost y`,
+  );
+  queryParams = toSignal(inject(ActivatedRoute).queryParams, {
+    requireSync: true,
+  });
+  pdfContainer = viewChild.required<ElementRef<HTMLDivElement>>("pdfContainer");
 
-	blob = httpResource.blob(
-		() => ({
-			url: `https://api.${environment.domain}/pdf`,
-			params: new HttpParams({ fromObject: this.queryParams() }),
-			context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
-		}),
-		{},
-	);
+  blob = httpResource.blob(
+    () =>
+      this.user()
+        ? {
+            url: `https://api.${environment.domain}/pdf`,
+            params: new HttpParams({ fromObject: this.queryParams() }),
+            context: new HttpContext().set(HTTP_SKIP_ON_SERVER, true),
+          }
+        : undefined,
+    {},
+  );
 
-	doc = signal<PDFDocumentProxy | null>(null);
-	page = signal(1);
-	zoom = signal(1.5);
-	isFullscreen = signal(false);
-	pages = computed(() => this.doc()?.numPages || 0);
+  doc = signal<PDFDocumentProxy | null>(null);
+  page = signal(1);
+  zoom = signal(1.5);
+  isFullscreen = signal(false);
+  pages = computed(() => this.doc()?.numPages || 0);
 
-	blobEffect = effect(() => {
-		if (isPlatformServer(this.#platformId)) return;
+  ngOnInit() {
+    this.#meta.updateTag({
+      id: "description",
+      name: "description",
+      content: this.#description(),
+    });
+    this.#meta.updateTag({
+      id: "og:description",
+      property: "og:description",
+      content: this.#description(),
+    });
+    this.#meta.updateTag({
+      id: "twitter:description",
+      property: "twitter:description",
+      content: this.#description(),
+    });
+  }
 
-		if (!this.blob.hasValue()) return;
+  blobEffect = effect(() => {
+    if (isPlatformServer(this.#platformId)) return;
 
-		const currentBlob = this.blob.value();
+    if (!this.blob.hasValue()) return;
 
-		if (!(currentBlob instanceof Blob) || currentBlob.size === 0) return;
+    const currentBlob = this.blob.value();
 
-		this.prepareDocument(currentBlob);
-	});
+    if (!(currentBlob instanceof Blob) || currentBlob.size === 0) return;
 
-	private async prepareDocument(blob: Blob) {
-		const { getDocument, GlobalWorkerOptions } = await import("pdfjs-dist");
+    this.prepareDocument(currentBlob);
+  });
 
-		// This file is configured using angular.json assets
-		GlobalWorkerOptions.workerSrc = `/pdfjs-dist/pdf.worker.min.mjs`;
+  private async prepareDocument(blob: Blob) {
+    const { getDocument, GlobalWorkerOptions } = await import("pdfjs-dist");
 
-		this.doc.set(await getDocument(await blob.arrayBuffer()).promise);
-	}
+    // This file is configured using angular.json assets
+    GlobalWorkerOptions.workerSrc = `/pdfjs-dist/pdf.worker.min.mjs`;
 
-	firstPage() {
-		this.page.set(1);
-	}
+    this.doc.set(await getDocument(await blob.arrayBuffer()).promise);
+  }
 
-	next() {
-		if (this.page() < this.pages()) {
-			this.page.update((value) => ++value);
-		}
-	}
+  firstPage() {
+    this.page.set(1);
+  }
 
-	previous() {
-		if (this.page() > 1) {
-			this.page.update((value) => --value);
-		}
-	}
+  next() {
+    if (this.page() < this.pages()) {
+      this.page.update((value) => ++value);
+    }
+  }
 
-	lastPage() {
-		this.page.set(this.pages());
-	}
+  previous() {
+    if (this.page() > 1) {
+      this.page.update((value) => --value);
+    }
+  }
 
-	zoomIn() {
-		this.zoom.update((value) => value + 1 * 1.25);
-	}
+  lastPage() {
+    this.page.set(this.pages());
+  }
 
-	zoomOut() {
-		this.zoom.update((value) => value - 1 * 0.75);
-	}
+  zoomIn() {
+    this.zoom.update((value) => value + 1 * 1.25);
+  }
 
-	async toggleFullscreen() {
-		if (isPlatformServer(this.#platformId)) return;
+  zoomOut() {
+    this.zoom.update((value) => value - 1 * 0.75);
+  }
 
-		const el = this.pdfContainer().nativeElement;
-		console.log("Attemptin fullscreen toggle for ", el);
-		try {
-			if (!document.fullscreenElement) {
-				// Enter fullscreen
-				await el.requestFullscreen().then(() => this.isFullscreen.set(true));
-			} else {
-				// Exit fullscreen
-				if (document.exitFullscreen) {
-					await document
-						.exitFullscreen()
-						.then(() => this.isFullscreen.set(false));
-				}
-			}
-		} catch (err: any) {
-			console.error(`Error attempting to toggle fullscreen: ${err.message}`);
-		}
-	}
+  async toggleFullscreen() {
+    if (isPlatformServer(this.#platformId)) return;
+
+    const el = this.pdfContainer().nativeElement;
+    console.log("Attemptin fullscreen toggle for ", el);
+    try {
+      if (!document.fullscreenElement) {
+        // Enter fullscreen
+        await el.requestFullscreen().then(() => this.isFullscreen.set(true));
+      } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+          await document
+            .exitFullscreen()
+            .then(() => this.isFullscreen.set(false));
+        }
+      }
+    } catch (err: any) {
+      console.error(`Error attempting to toggle fullscreen: ${err.message}`);
+    }
+  }
 }

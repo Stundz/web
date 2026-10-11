@@ -1,335 +1,356 @@
-<main class="py-12 px-8 mx-auto max-w-screen-2xl">
-	<!-- Breadcrumbs -->
-	<nav
-		class="flex gap-2 items-center mb-10 font-medium text-label-md text-on-surface-variant"
-	>
-		<a class="transition-colors hover:text-primary" routerLink="/home">Home</a>
-		<span class="text-sm icon-[material-symbols--chevron-right]"></span>
-		<a class="transition-colors hover:text-primary" routerLink="/past-questions"
-			>Past Exams</a
-		>
-		<span
-			class="text-sm icon-[material-symbols--chevron-right] material-symbols-outlined"
-		></span>
-		<span class="font-semibold text-primary"
-			>{{ question().course.code }}
-			- {{ question().year }}</span
-		>
-	</nav>
-	<div class="grid grid-cols-1 gap-12 items-start lg:grid-cols-12">
-		<!-- Main Content Area: PDF Viewer -->
-		<div class="space-y-8 lg:col-span-8">
-			<div
-				class="flex overflow-hidden relative flex-col rounded-lg bg-surface-container-low min-h-212.5"
-				#pdfContainer
-			>
-				<!-- PDF Controls Toolbar -->
-				<div
-					class="flex z-10 justify-between items-center py-3 px-6 bg-surface-container-high"
-				>
-					<div class="flex gap-4 items-center">
-						<button
-							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
-							(click)="zoomOut()"
-						>
-							<span
-								class="icon-[material-symbols--zoom-out]"
-								role="img"
-								aria-hidden="true"
-							></span>
-						</button>
-						<span class="text-sm font-medium">100%</span>
-						<button
-							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
-							click="zoomIn()"
-						>
-							<span
-								class="icon-[material-symbols--zoom-in]"
-								role="img"
-								aria-hidden="true"
-							></span>
-						</button>
-					</div>
-					<div class="flex gap-3 items-center">
-						@if (pages() > 0) {
-						<div class="flex gap-1 items-center">
-							<button
-								(click)="firstPage()"
-								title="First page"
-								[disabled]="page() == 1"
-								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
-							>
-								<span
-									class="icon-[material-symbols--keyboard-double-arrow-left-rounded]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</button>
-							<button
-								(click)="previous()"
-								title="Previous"
-								[disabled]="page() < 2"
-								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
-							>
-								<span
-									class="cursor-pointer icon-[material-symbols--chevron-left]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</button>
-							<span class="mx-2 text-sm text-on-surface-variant"
-								>Page {{page()}} of {{pages()}}</span
-							>
-							<button
-								(click)="next()"
-								title="Next"
-								[disabled]="page() >= pages()"
-								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
-							>
-								<span
-									class="cursor-pointer icon-[material-symbols--chevron-right]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</button>
-							<button
-								(click)="lastPage()"
-								title="Last page"
-								[disabled]="page() >= pages()"
-								class="flex justify-center items-center cursor-pointer disabled:text-gray-400 disabled:cursor-default"
-							>
-								<span
-									class="cursor-pointer icon-[material-symbols--keyboard-double-arrow-right-rounded]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</button>
-						</div>
-						} @else { <div
-							class="w-20 h-5 bg-gray-300 rounded animate-pulse"
-						></div>
-						}
-					</div>
-					<div class="flex gap-2 items-center">
-						<button
-							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
-							(click)="toggleFullscreen()"
-						>
-							<span
-								class="icon-[material-symbols--fullscreen]"
-								role="img"
-								aria-hidden="true"
-							></span>
-						</button>
-						<button
-							class="p-2 rounded-full transition-colors hover:bg-surface-container-highest"
-						>
-							<span class="icon-[material-symbols--print-outline]">print</span>
-						</button>
-					</div>
-				</div>
-				<!-- Paper Canvas -->
-				@if (doc() !== null) { @defer(on timer(1000ms)) {
-				<plug-pdf-viewer
-					[class.w-full]="!isFullscreen()"
-					[class.*:size-full]="!isFullscreen()"
-					[doc]="doc()!"
-					[zoom]="zoom()"
-					[page]="page()"
-				/>
-				} @loading (after 500ms; minimum 1s) {
-				<div class="w-full bg-gray-300 animate-pulse aspect-[1/1.414]"></div>
-				} @placeholder {
-				<div class="w-full bg-gray-300 animate-pulse aspect-[1/1.414]"></div>
-				} }
-			</div>
-		</div>
-		<!-- Sidebar: Details & Actions -->
-		<aside class="space-y-8 lg:col-span-4">
-			<!-- Header Card -->
-			<div class="p-8 rounded-lg shadow-sm bg-surface-container-lowest">
-				<div class="mb-6">
-					<span
-						class="inline-block py-1 px-3 mb-4 text-xs font-bold rounded-full bg-tertiary-fixed text-on-tertiary-fixed"
-						>EXAM PAPER</span
-					>
-					<h1
-						class="mb-2 text-4xl font-extrabold leading-tight font-headline text-on-surface line-clamp-2"
-					>
-						{{ question().course.title }}
-					</h1>
-					<div class="flex gap-3 items-center text-on-surface-variant">
-						<span class="font-bold text-primary">YTC115</span>
-						<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
-						<span class="font-medium">Class of {{ question().year - 1 }}</span>
-					</div>
-				</div>
-				<div
-					class="grid grid-cols-3 gap-4 py-6 my-6 border-y border-surface-container"
-				>
-					<div class="text-center">
-						<p
-							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
-						>
-							Year
-						</p>
-						<p class="font-bold">{{ question().year }}</p>
-					</div>
-					<div class="text-center border-x border-surface-container">
-						<p
-							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
-						>
-							Solutions
-						</p>
-						<p class="font-bold">{{ question().solutions_count }} Available</p>
-					</div>
-					<div class="text-center">
-						<p
-							class="mb-1 text-xs tracking-widest uppercase font-label text-on-surface-variant"
-						>
-							Pages
-						</p>
-						<p class="font-bold">{{ pages() }}</p>
-					</div>
-				</div>
-				<div class="space-y-4">
-					<button
-						class="flex gap-2 justify-center items-center py-4 w-full font-bold text-white rounded-full transition-all bg-primary-container hover:scale-[0.98]"
-					>
-						<span
-							class="icon-[material-symbols--download]"
-							role="img"
-							aria-hidden="true"
-						></span>
-						Download PDF
-					</button>
-					<div class="grid grid-cols-2 gap-4">
-						<button
-							class="flex gap-2 justify-center items-center py-3 font-semibold rounded-full border transition-colors border-outline-variant/30 hover:bg-surface-container-low"
-						>
-							<span
-								class="icon-[material-symbols--bookmark-outline]"
-								role="img"
-								aria-hidden="true"
-							></span>
-							Save
-						</button>
-						<button
-							class="flex gap-2 justify-center items-center py-3 font-semibold rounded-full border transition-colors border-outline-variant/30 hover:bg-surface-container-low"
-						>
-							<span
-								class="icon-[material-symbols--share-outline]"
-								role="img"
-								aria-hidden="true"
-							></span>
-							Share
-						</button>
-					</div>
-				</div>
-			</div>
-			<!-- Available Solutions Section -->
-			<div class="space-y-6">
-				<div class="flex justify-between items-center">
-					<h2 class="text-xl font-bold font-headline">Available Solutions</h2>
-					<a routerLink="solutions" class="text-xs font-bold underline cursor-pointer text-primary"
-						>View All</a
-					>
-				</div>
-				<div class="space-y-4">
-					<!-- Solution Card 1 -->
-					<div
-						class="overflow-hidden relative p-5 rounded-lg transition-shadow cursor-pointer hover:shadow-md group bg-surface-container-lowest"
-					>
-						<div class="absolute top-0 right-0 p-3">
-							<span
-								class="opacity-0 transition-opacity group-hover:opacity-100 icon-[material-symbols--arrow-forward] text-primary-container"
-								role="img"
-								aria-hidden="true"
-							></span>
-						</div>
-						<div class="flex gap-4 items-start">
-							<div class="p-2 rounded-lg bg-secondary-container text-primary">
-								<span
-									class="icon-[material-symbols--verified-outline]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</div>
-							<div>
-								<h4 class="mb-1 text-sm font-bold">
-									Comprehensive Annotated Key
-								</h4>
-								<p class="mb-3 text-xs text-on-surface-variant">
-									By Prof. Aristhostes • Updated 2 days ago
-								</p>
-								<div class="flex gap-3 items-center">
-									<span class="text-sm font-bold text-primary">$4.99</span>
-									<span
-										class="py-0.5 px-2 tracking-tighter uppercase rounded-full text-[10px] bg-surface-container text-on-surface-variant"
-										>Verified</span
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Solution Card 2 -->
-					<div
-						class="overflow-hidden relative p-5 rounded-lg transition-shadow cursor-pointer hover:shadow-md group bg-surface-container-lowest"
-					>
-						<div class="absolute top-0 right-0 p-3">
-							<span
-								class="opacity-0 transition-opacity group-hover:opacity-100 icon-[material-symbols--arrow-forward] text-primary-container"
-								role="img"
-								aria-hidden="true"
-							></span>
-						</div>
-						<div class="flex gap-4 items-start">
-							<div class="p-2 rounded-lg bg-tertiary-fixed text-tertiary">
-								<span
-									class="icon-[material-symbols--psychology-outline]"
-									role="img"
-									aria-hidden="true"
-								></span>
-							</div>
-							<div>
-								<h4 class="mb-1 text-sm font-bold">
-									Step-by-Step Logic Breakdown
-								</h4>
-								<p class="mb-3 text-xs text-on-surface-variant">
-									By Atelier Tutors • Student Favorite
-								</p>
-								<div class="flex gap-3 items-center">
-									<span class="text-sm font-bold text-primary"
-										>Free for Premium</span
-									>
-									<span
-										class="py-0.5 px-2 tracking-tighter uppercase rounded-full text-[10px] bg-surface-container text-on-surface-variant"
-										>Guide</span
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<mat-card>
-					<mat-card-content>
-						<h3 class="mb-2 text-lg font-bold font-headline">
-							Need help with {{ question().course.code }}?
-						</h3>
-						<p class="mb-6 text-sm opacity-90">
-							Our top-rated tutors are ready to help you master these concepts
-							before your exam.
-						</p>
-						<a
-							[queryParams]="{course: question().course.code}"
-							[routerLink]="['/tutorials']"
-							matButton="filled"
-							class="w-full"
-							>Find a tutor</a
-						>
-					</mat-card-content>
-				</mat-card>
-			</div>
-		</aside>
-	</div>
+<main class="mx-auto max-w-screen-2xl px-4 py-12 md:px-8">
+  <!-- Breadcrumbs -->
+  <nav
+    class="text-label-md text-on-surface-variant mb-10 flex items-center gap-2 font-medium"
+  >
+    <a class="hover:text-primary transition-colors" routerLink="/">Home</a>
+    <span class="icon-[material-symbols--chevron-right] text-sm"></span>
+    <a class="hover:text-primary transition-colors" routerLink="/past-questions"
+      >Past Exams</a
+    >
+    <span
+      class="icon-[material-symbols--chevron-right] material-symbols-outlined text-sm"
+    ></span>
+    <span class="text-primary font-semibold"
+      >{{ question().course.code }}
+      - {{ question().year }}</span
+    >
+  </nav>
+  @if (!!user()) { }
+  <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
+    <div class="space-y-8 lg:col-span-8">
+      <div
+        class="bg-surface-container-low relative flex min-h-212.5 flex-col overflow-hidden rounded-lg"
+        #pdfContainer
+      >
+        <!-- PDF Controls Toolbar -->
+        <div
+          class="bg-surface-container-high z-10 flex items-center justify-between px-6 py-3"
+        >
+          <div class="flex items-center gap-4">
+            <button
+              type="button"
+              class="hover:bg-surface-container-highest rounded-full p-2 transition-colors"
+              (click)="zoomOut()"
+            >
+              <span
+                class="icon-[material-symbols--zoom-out]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            </button>
+            <span class="text-sm font-medium">100%</span>
+            <button
+              type="button"
+              class="hover:bg-surface-container-highest rounded-full p-2 transition-colors"
+              click="zoomIn()"
+            >
+              <span
+                class="icon-[material-symbols--zoom-in]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            </button>
+          </div>
+          <div class="flex items-center gap-3">
+            @if (pages() > 0) {
+            <div class="flex items-center gap-1">
+              <button
+                type="button"
+                (click)="firstPage()"
+                title="First page"
+                [disabled]="page() == 1"
+                class="flex cursor-pointer items-center justify-center disabled:cursor-default disabled:text-gray-400"
+              >
+                <span
+                  class="icon-[material-symbols--keyboard-double-arrow-left-rounded]"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <button
+                type="button"
+                (click)="previous()"
+                title="Previous"
+                [disabled]="page() < 2"
+                class="flex cursor-pointer items-center justify-center disabled:cursor-default disabled:text-gray-400"
+              >
+                <span
+                  class="icon-[material-symbols--chevron-left] cursor-pointer"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <span class="text-on-surface-variant mx-2 text-sm"
+                >Page {{ page() }} of {{ pages() }}</span
+              >
+              <button
+                type="button"
+                (click)="next()"
+                title="Next"
+                [disabled]="page() >= pages()"
+                class="flex cursor-pointer items-center justify-center disabled:cursor-default disabled:text-gray-400"
+              >
+                <span
+                  class="icon-[material-symbols--chevron-right] cursor-pointer"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <button
+                type="button"
+                (click)="lastPage()"
+                title="Last page"
+                [disabled]="page() >= pages()"
+                class="flex cursor-pointer items-center justify-center disabled:cursor-default disabled:text-gray-400"
+              >
+                <span
+                  class="icon-[material-symbols--keyboard-double-arrow-right-rounded] cursor-pointer"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            </div>
+            } @else {
+            <div class="h-5 w-20 animate-pulse rounded bg-gray-300"></div>
+            }
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              class="hover:bg-surface-container-highest rounded-full p-2 transition-colors"
+              (click)="toggleFullscreen()"
+            >
+              <span
+                class="icon-[material-symbols--fullscreen]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            </button>
+            <button
+              type="button"
+              class="hover:bg-surface-container-highest rounded-full p-2 transition-colors"
+            >
+              <span class="icon-[material-symbols--print-outline]">print</span>
+            </button>
+          </div>
+        </div>
+        @if (user()) {
+
+        <!-- Paper Canvas -->
+        @if (doc() !== null) { @defer(on timer(1000ms)) {
+        <plug-pdf-viewer
+          [class.w-full]="!isFullscreen()"
+          [class.*:size-full]="!isFullscreen()"
+          [doc]="doc()!"
+          [zoom]="zoom()"
+          [page]="page()"
+        />
+        } @loading (after 500ms; minimum 1s) {
+        <div class="aspect-[1/1.414] w-full animate-pulse bg-gray-300"></div>
+        } @placeholder {
+        <div class="aspect-[1/1.414] w-full animate-pulse bg-gray-300"></div>
+        } } } @else {
+        <div
+          class="flex size-full grow items-center justify-center px-2 text-center text-lg md:text-2xl"
+        >
+          You have to log in to view this past question
+        </div>
+        }
+      </div>
+    </div>
+    <!-- Main Content Area: PDF Viewer -->
+    <!-- Sidebar: Details & Actions -->
+    <aside class="space-y-8 lg:col-span-4">
+      <!-- Header Card -->
+      <div class="bg-surface-container-lowest rounded-lg p-8 shadow-sm">
+        <div class="mb-6">
+          <span
+            class="bg-tertiary-fixed text-on-tertiary-fixed mb-4 inline-block rounded-full px-3 py-1 text-xs font-bold"
+            >EXAM PAPER</span
+          >
+          <h1
+            class="text-on-surface line-clamp-2 mb-2 font-headline text-4xl leading-tight font-extrabold"
+          >
+            {{ question().course.title }}
+          </h1>
+          <div class="text-on-surface-variant flex items-center gap-3">
+            <span class="text-primary font-bold">YTC115</span>
+            <span class="bg-outline-variant h-1 w-1 rounded-full"></span>
+            <span class="font-medium">Class of {{ question().year - 1 }}</span>
+          </div>
+        </div>
+        <div
+          class="border-surface-container my-6 grid grid-cols-3 gap-4 border-y py-6"
+        >
+          <div class="text-center">
+            <p
+              class="text-on-surface-variant mb-1 font-label text-xs tracking-widest uppercase"
+            >
+              Year
+            </p>
+            <p class="font-bold">{{ question().year }}</p>
+          </div>
+          <div class="border-surface-container border-x text-center">
+            <p
+              class="text-on-surface-variant mb-1 font-label text-xs tracking-widest uppercase"
+            >
+              Solutions
+            </p>
+            <p class="font-bold">{{ question().solutions_count }} Available</p>
+          </div>
+          <div class="text-center">
+            <p
+              class="text-on-surface-variant mb-1 font-label text-xs tracking-widest uppercase"
+            >
+              Pages
+            </p>
+            <p class="font-bold">{{ pages() }}</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <button
+            type="button"
+            class="bg-primary-container flex w-full items-center justify-center gap-2 rounded-full py-4 font-bold text-white transition-all hover:scale-[0.98]"
+          >
+            <span
+              class="icon-[material-symbols--download]"
+              role="img"
+              aria-hidden="true"
+            ></span>
+            Download PDF
+          </button>
+          <div class="grid grid-cols-2 gap-4">
+            <button
+              type="button"
+              class="border-outline-variant/30 hover:bg-surface-container-low flex items-center justify-center gap-2 rounded-full border py-3 font-semibold transition-colors"
+            >
+              <span
+                class="icon-[material-symbols--bookmark-outline]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              Save
+            </button>
+            <button
+              type="button"
+              class="border-outline-variant/30 hover:bg-surface-container-low flex items-center justify-center gap-2 rounded-full border py-3 font-semibold transition-colors"
+            >
+              <span
+                class="icon-[material-symbols--share-outline]"
+                role="img"
+                aria-hidden="true"
+              ></span>
+              Share
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Available Solutions Section -->
+      <div class="space-y-6">
+        <div class="flex items-center justify-between">
+          <h2 class="font-headline text-xl font-bold">Available Solutions</h2>
+          <a
+            routerLink="solutions"
+            class="text-primary cursor-pointer text-xs font-bold underline"
+            >View All</a
+          >
+        </div>
+        <div class="space-y-4">
+          <!-- Solution Card 1 -->
+          <div
+            class="group bg-surface-container-lowest relative cursor-pointer overflow-hidden rounded-lg p-5 transition-shadow hover:shadow-md"
+          >
+            <div class="absolute top-0 right-0 p-3">
+              <span
+                class="icon-[material-symbols--arrow-forward] text-primary-container opacity-0 transition-opacity group-hover:opacity-100"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-secondary-container text-primary rounded-lg p-2">
+                <span
+                  class="icon-[material-symbols--verified-outline]"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </div>
+              <div>
+                <h4 class="mb-1 text-sm font-bold">
+                  Comprehensive Annotated Key
+                </h4>
+                <p class="text-on-surface-variant mb-3 text-xs">
+                  By Prof. Aristhostes • Updated 2 days ago
+                </p>
+                <div class="flex items-center gap-3">
+                  <span class="text-primary text-sm font-bold">$4.99</span>
+                  <span
+                    class="bg-surface-container text-on-surface-variant rounded-full px-2 py-0.5 text-[10px] tracking-tighter uppercase"
+                    >Verified</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Solution Card 2 -->
+          <div
+            class="group bg-surface-container-lowest relative cursor-pointer overflow-hidden rounded-lg p-5 transition-shadow hover:shadow-md"
+          >
+            <div class="absolute top-0 right-0 p-3">
+              <span
+                class="icon-[material-symbols--arrow-forward] text-primary-container opacity-0 transition-opacity group-hover:opacity-100"
+                role="img"
+                aria-hidden="true"
+              ></span>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-tertiary-fixed text-tertiary rounded-lg p-2">
+                <span
+                  class="icon-[material-symbols--psychology-outline]"
+                  role="img"
+                  aria-hidden="true"
+                ></span>
+              </div>
+              <div>
+                <h4 class="mb-1 text-sm font-bold">
+                  Step-by-Step Logic Breakdown
+                </h4>
+                <p class="text-on-surface-variant mb-3 text-xs">
+                  By Atelier Tutors • Student Favorite
+                </p>
+                <div class="flex items-center gap-3">
+                  <span class="text-primary text-sm font-bold"
+                    >Free for Premium</span
+                  >
+                  <span
+                    class="bg-surface-container text-on-surface-variant rounded-full px-2 py-0.5 text-[10px] tracking-tighter uppercase"
+                    >Guide</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-card>
+          <mat-card-content>
+            <h3 class="mb-2 font-headline text-lg font-bold">
+              Need help with {{ question().course.code }}?
+            </h3>
+            <p class="mb-6 text-sm opacity-90">
+              Our top-rated tutors are ready to help you master these concepts
+              before your exam.
+            </p>
+            <a
+              [queryParams]="{course: question().course.code}"
+              [routerLink]="['/tutorials']"
+              matButton="filled"
+              class="w-full"
+              >Find a tutor</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </aside>
+  </div>
 </main>
