@@ -1,13 +1,5 @@
 import { httpResource } from "@angular/common/http";
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  input,
-  linkedSignal,
-} from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { Component, effect, inject, input, linkedSignal } from "@angular/core";
 import {
   debounce,
   disabled,
@@ -25,8 +17,8 @@ import {
 } from "@angular/material/paginator";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
+import { Meta } from "@angular/platform-browser";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { map } from "rxjs";
 import type { Plug, User } from "shared/models";
 import type { Paginated } from "shared/types";
 import { environment } from "../../../environments/environment";
@@ -46,7 +38,6 @@ import { environment } from "../../../environments/environment";
     MatInputModule,
   ],
   templateUrl: "./index.page.ng.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: "./index.page.scss",
 })
 export class IndexPage {
@@ -55,6 +46,8 @@ export class IndexPage {
 
   #route = inject(ActivatedRoute);
   #router = inject(Router);
+  #meta = inject(Meta);
+
   currentYear = new Date().getFullYear();
   #filters = linkedSignal(() => ({
     q: this.#route.snapshot.queryParams["q"] || "",
@@ -145,6 +138,15 @@ export class IndexPage {
       relativeTo: this.#route,
       queryParamsHandling: "merge",
       queryParams: { page: event.pageIndex + 1, limit: event.pageSize },
+    });
+  }
+
+  ngOnInit() {
+    this.#meta.updateTag({
+      id: "description",
+      name: "description",
+      content:
+        "Browse past questions for every course in one place. Find your course, practice with real exam questions, and get ready to ace your exams.",
     });
   }
 }
