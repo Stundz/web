@@ -21,7 +21,9 @@ describe('HomePage', () => {
   });
 
   it('filters activity by search text', async () => {
-    const search = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    const search = fixture.nativeElement.querySelector(
+      'input[placeholder="Name, service, or status"]',
+    ) as HTMLInputElement;
     search.value = 'Amara';
     search.dispatchEvent(new Event('input'));
     await fixture.whenStable();
@@ -31,7 +33,9 @@ describe('HomePage', () => {
   });
 
   it('shows an empty state when no activity matches', async () => {
-    const search = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+    const search = fixture.nativeElement.querySelector(
+      'input[placeholder="Name, service, or status"]',
+    ) as HTMLInputElement;
     search.value = 'unmatched-record';
     search.dispatchEvent(new Event('input'));
     await fixture.whenStable();

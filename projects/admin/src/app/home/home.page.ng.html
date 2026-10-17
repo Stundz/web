@@ -1,16 +1,246 @@
 <main class="overview">
-  <header class="page-header">
-    <div><div class="eyebrow">WORKSPACE OVERVIEW <mat-chip>Demo data</mat-chip></div><h1>A clear view of your business.</h1><p>Members, revenue, and the things that need your attention.</p></div>
-    <div class="header-actions"><mat-form-field appearance="outline" subscriptSizing="dynamic"><mat-label>Period</mat-label><mat-select [value]="period()" (selectionChange)="period.set($event.value)"><mat-option [value]="7">Last 7 days</mat-option><mat-option [value]="30">Last 30 days</mat-option><mat-option [value]="90">Last 90 days</mat-option></mat-select></mat-form-field><button matButton="filled" (click)="exportReport()"><span aria-hidden="true" class="icon-[material-symbols--download]"></span>Export CSV</button></div>
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        Workspace overview
+        <mat-chip class="demo-chip" disableRipple>Demo data</mat-chip>
+      </p>
+      <h1>A clear view of your business.</h1>
+      <p>Members, revenue, and the things that need your attention.</p>
+    </div>
+    <div class="hero-actions">
+      <mat-button-toggle-group
+        [value]="period()"
+        (change)="setPeriod($event.value)"
+        hideSingleSelectionIndicator
+        aria-label="Reporting period"
+      >
+        <mat-button-toggle [value]="7">7 days</mat-button-toggle>
+        <mat-button-toggle [value]="30">30 days</mat-button-toggle>
+        <mat-button-toggle [value]="90">90 days</mat-button-toggle>
+      </mat-button-toggle-group>
+      <button matButton="filled" type="button" (click)="exportReport()">
+        <mat-icon aria-hidden="true"><span class="icon-[material-symbols--download] size-full"></span></mat-icon>
+        Export CSV
+      </button>
+    </div>
   </header>
-  <div class="filter-line"><mat-chip-listbox aria-label="Filter by app" [value]="app()" (change)="app.set($event.value || 'All apps')"><mat-chip-option value="All apps">All apps</mat-chip-option><mat-chip-option value="Premifly">Premifly</mat-chip-option><mat-chip-option value="Plug">Plug</mat-chip-option></mat-chip-listbox><span>Illustrative figures · Last {{ period() }} days</span></div>
-  <section class="metrics" aria-label="Key metrics">
-    @for (metric of metrics(); track metric.label) { <mat-card appearance="outlined" class="metric-card"><mat-card-content><div class="metric-top"><span>{{ metric.label }}</span><span aria-hidden="true" [class]="metric.icon"></span></div><strong>{{ metric.value }}</strong><p><span class="positive">{{ metric.change }}</span> vs previous period</p></mat-card-content></mat-card> }
-  </section>
-  <div class="main-grid">
-    <mat-card appearance="outlined" class="revenue-card"><mat-card-header><mat-card-title>Revenue overview</mat-card-title><mat-card-subtitle>Demo revenue by app, in XAF</mat-card-subtitle></mat-card-header><mat-card-content><div class="revenue-total">{{ revenue() | currency:'XAF':'code':'1.0-0' }}<span class="positive">+9.6%</span></div><div class="legend"><span class="legend-premifly">Premifly</span><span class="legend-plug">Plug</span></div><div class="chart" role="img" [attr.aria-label]="'Demo revenue for the last ' + period() + ' days: ' + revenue() + ' XAF'"><div class="chart-grid"></div>@for (point of trend(); track point.label) { <div class="chart-column"><div class="bars">@if (app() !== 'Plug') { <div class="bar premifly-bar" [style.height.%]="point.premifly / (900000 * multiplier()) * 100" [matTooltip]="'Premifly: ' + (point.premifly | currency:'XAF':'code':'1.0-0')"></div> } @if (app() !== 'Premifly') { <div class="bar plug-bar" [style.height.%]="point.plug / (900000 * multiplier()) * 100" [matTooltip]="'Plug: ' + (point.plug | currency:'XAF':'code':'1.0-0')"></div> }</div><span>{{ point.label }}</span><span class="chart-value">{{ (app() === 'Plug' ? point.plug : app() === 'Premifly' ? point.premifly : point.premifly + point.plug) / 1000 | number:'1.0-0' }}k</span></div> }</div></mat-card-content></mat-card>
-    <mat-card appearance="outlined" class="attention-card"><mat-card-header><mat-card-title>Needs attention</mat-card-title><mat-card-subtitle>Demo operations queue</mat-card-subtitle></mat-card-header><mat-card-content>@for (task of tasks; track task.title) { <div class="task"><span aria-hidden="true" [class]="'task-icon ' + task.icon"></span><div><h3>{{ task.title }}</h3><p>{{ task.detail }}</p><a matButton="text" [routerLink]="task.route">{{ task.label }}<span aria-hidden="true" class="icon-[material-symbols--arrow-forward]"></span></a></div></div> }</mat-card-content></mat-card>
+
+  <div class="filter-line">
+    <mat-chip-listbox
+      aria-label="Filter by app"
+      [value]="app()"
+      (change)="app.set($event.value || 'All apps')"
+      hideSingleSelectionIndicator
+    >
+      <mat-chip-option value="All apps">All apps</mat-chip-option>
+      <mat-chip-option value="Premifly">Premifly</mat-chip-option>
+      <mat-chip-option value="Plug">Plug</mat-chip-option>
+    </mat-chip-listbox>
+    <span>Illustrative figures · Last {{ period() }} days</span>
   </div>
-  <section class="app-grid" aria-label="Application performance">@for (application of selectedApps(); track application.name) { <mat-card appearance="outlined"><mat-card-content><div class="app-heading"><span aria-hidden="true" [class]="'app-icon ' + application.icon"></span><div><h2>{{ application.name }}</h2><p>{{ application.description }}</p></div><a matIconButton [routerLink]="application.route" [attr.aria-label]="'Open ' + application.name"><span aria-hidden="true" class="icon-[material-symbols--arrow-outward]"></span></a></div><div class="app-stats"><div><span>Active members</span><strong>{{ application.members | number }}</strong></div><div><span>Period revenue</span><strong>{{ application.revenue * multiplier() | currency:'XAF':'code':'1.0-0' }}</strong></div><span class="positive">{{ application.growth }}</span></div><div class="capacity-label"><span>{{ application.capacityLabel }}</span><strong>{{ application.capacity }}%</strong></div><mat-progress-bar mode="determinate" [value]="application.capacity" [attr.aria-label]="application.capacityLabel" /></mat-card-content></mat-card> }</section>
-  <mat-card appearance="outlined" class="activity-card"><mat-card-header><div><mat-card-title>Recent activity</mat-card-title><mat-card-subtitle>{{ filteredRows().length }} demo records</mat-card-subtitle></div><mat-form-field appearance="outline" subscriptSizing="dynamic"><mat-label>Search activity</mat-label><input matInput [value]="query()" (input)="query.set($any($event.target).value)" placeholder="Name, service, or status" /><span matSuffix aria-hidden="true" class="icon-[material-symbols--search]"></span></mat-form-field></mat-card-header><mat-card-content><div class="table-scroll"><table mat-table [dataSource]="filteredRows()"><ng-container matColumnDef="customer"><th mat-header-cell *matHeaderCellDef>Member</th><td mat-cell *matCellDef="let row"><div class="customer"><span class="avatar">{{ row.initials }}</span><div><strong>{{ row.name }}</strong><span>{{ row.email }}</span></div></div></td></ng-container><ng-container matColumnDef="app"><th mat-header-cell *matHeaderCellDef>App</th><td mat-cell *matCellDef="let row">{{ row.app }}</td></ng-container><ng-container matColumnDef="activity"><th mat-header-cell *matHeaderCellDef>Activity</th><td mat-cell *matCellDef="let row">{{ row.activity }}</td></ng-container><ng-container matColumnDef="amount"><th mat-header-cell *matHeaderCellDef>Amount</th><td mat-cell *matCellDef="let row">{{ row.amount | currency:'XAF':'code':'1.0-0' }}</td></ng-container><ng-container matColumnDef="status"><th mat-header-cell *matHeaderCellDef>Status</th><td mat-cell *matCellDef="let row"><span class="status" [class.pending]="row.status === 'Pending'" [class.failed]="row.status === 'Failed'">{{ row.status }}</span></td></ng-container><tr mat-header-row *matHeaderRowDef="columns"></tr><tr mat-row *matRowDef="let row; columns: columns"></tr><tr *matNoDataRow><td colspan="5" class="empty">No activity matches your filters.</td></tr></table></div></mat-card-content></mat-card>
+
+  <section class="metrics" aria-label="Key metrics">
+    @for (metric of metrics(); track metric.label) {
+      <mat-card appearance="outlined" class="metric-card">
+        <mat-card-content>
+          <div class="metric-top">
+            <span class="icon-well" aria-hidden="true">
+              <mat-icon><span class="size-full {{ metric.icon }}"></span></mat-icon>
+            </span>
+            <mat-chip class="delta" disableRipple>{{ metric.change }}</mat-chip>
+          </div>
+          <p class="metric-label">{{ metric.label }}</p>
+          <strong>{{ metric.value }}</strong>
+          <p>vs previous period</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </section>
+
+  <div class="workspace">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Revenue overview</mat-card-title>
+        <mat-card-subtitle>Demo revenue by app, in XAF</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="revenue-total">
+          <span>{{ revenue() | currency: 'XAF' : 'XAF\u00a0' : '1.0-0' }}</span>
+          <mat-chip class="delta" disableRipple>+9.6%</mat-chip>
+        </div>
+        <div class="legend">
+          @if (app() !== 'Plug') {
+            <span class="swatch">Premifly</span>
+          }
+          @if (app() !== 'Premifly') {
+            <span class="swatch plug">Plug</span>
+          }
+        </div>
+        <div class="trend" role="img" [attr.aria-label]="revenueLabel()">
+          @for (point of trend(); track point.label) {
+            <div class="trend-row">
+              <span class="trend-label">{{ point.label }}</span>
+              <div class="trend-bars">
+                @if (app() !== 'Plug') {
+                  <mat-progress-bar
+                    class="premifly-bar"
+                    mode="determinate"
+                    [value]="point.premiflyShare"
+                    [matTooltip]="'Premifly: ' + (point.premifly | currency: 'XAF' : 'XAF\u00a0' : '1.0-0')"
+                    [attr.aria-label]="'Premifly ' + point.label"
+                  />
+                }
+                @if (app() !== 'Premifly') {
+                  <mat-progress-bar
+                    class="plug-bar"
+                    mode="determinate"
+                    [value]="point.plugShare"
+                    [matTooltip]="'Plug: ' + (point.plug | currency: 'XAF' : 'XAF\u00a0' : '1.0-0')"
+                    [attr.aria-label]="'Plug ' + point.label"
+                  />
+                }
+              </div>
+              <span class="trend-amount">{{ point.total / 1000 | number: '1.0-0' }}k</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="attention-card">
+      <mat-card-header>
+        <mat-card-title>Needs attention</mat-card-title>
+        <mat-card-subtitle>Demo operations queue</mat-card-subtitle>
+      </mat-card-header>
+      <mat-nav-list aria-label="Operations that need attention">
+        @for (task of tasks; track task.title) {
+          <a mat-list-item [routerLink]="task.route">
+            <span matListItemIcon class="icon-well" aria-hidden="true">
+              <mat-icon><span class="size-full {{ task.icon }}"></span></mat-icon>
+            </span>
+            <span matListItemTitle>{{ task.title }}</span>
+            <span matListItemLine>{{ task.detail }}</span>
+          </a>
+        }
+      </mat-nav-list>
+    </mat-card>
+  </div>
+
+  <section class="app-grid" aria-label="Application performance">
+    @for (application of selectedApps(); track application.name) {
+      <mat-card appearance="outlined" class="app-card">
+        <mat-card-content>
+          <div class="app-heading">
+            <span class="icon-well" [class.tertiary]="application.name === 'Plug'" aria-hidden="true">
+              <mat-icon><span class="size-full {{ application.icon }}"></span></mat-icon>
+            </span>
+            <div>
+              <h2>{{ application.name }}</h2>
+              <p>{{ application.description }}</p>
+            </div>
+          </div>
+          <div class="app-stats">
+            <div>
+              <span>Active members</span>
+              <strong>{{ application.members | number }}</strong>
+            </div>
+            <div>
+              <span>Period revenue</span>
+              <strong>{{ application.revenue * multiplier() | currency: 'XAF' : 'XAF\u00a0' : '1.0-0' }}</strong>
+            </div>
+            <mat-chip class="delta" disableRipple>{{ application.growth }}</mat-chip>
+          </div>
+          <div class="capacity-label">
+            <span>{{ application.capacityLabel }}</span>
+            <strong>{{ application.capacity }}%</strong>
+          </div>
+          <mat-progress-bar
+            mode="determinate"
+            [value]="application.capacity"
+            [attr.aria-label]="application.capacityLabel"
+          />
+          <mat-divider />
+          <div class="app-footer">
+            <span>Open the workspace</span>
+            <a matButton="text" [routerLink]="application.route">
+              Open {{ application.name }}
+              <mat-icon aria-hidden="true" iconPositionEnd><span class="icon-[material-symbols--arrow-forward] size-full"></span></mat-icon>
+            </a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </section>
+
+  @let rows = filteredRows();
+  <mat-card appearance="outlined" class="activity-card">
+    <mat-card-header class="activity-toolbar">
+      <div class="activity-heading">
+        <mat-card-title>Recent activity</mat-card-title>
+        <mat-card-subtitle>{{ rows.length }} demo records</mat-card-subtitle>
+      </div>
+      <mat-form-field subscriptSizing="dynamic" class="search-field">
+        <mat-label>Search activity</mat-label>
+        <mat-icon matPrefix aria-hidden="true"><span class="icon-[material-symbols--search] size-full"></span></mat-icon>
+        <input
+          matInput
+          [value]="query()"
+          (input)="query.set($any($event.target).value)"
+          placeholder="Name, service, or status"
+        />
+      </mat-form-field>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-scroll">
+        <table mat-table [dataSource]="rows">
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>Member</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="customer">
+                <span class="avatar" aria-hidden="true">{{ row.initials }}</span>
+                <div>
+                  <strong>{{ row.name }}</strong>
+                  <span>{{ row.email }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="app">
+            <th mat-header-cell *matHeaderCellDef>App</th>
+            <td mat-cell *matCellDef="let row">{{ row.app }}</td>
+          </ng-container>
+          <ng-container matColumnDef="activity">
+            <th mat-header-cell *matHeaderCellDef>Activity</th>
+            <td mat-cell *matCellDef="let row">{{ row.activity }}</td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let row">{{ row.amount | currency: 'XAF' : 'XAF\u00a0' : '1.0-0' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-chip
+                class="status"
+                disableRipple
+                [class.pending]="row.status === 'Pending'"
+                [class.failed]="row.status === 'Failed'"
+              >
+                {{ row.status }}
+              </mat-chip>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+          <tr *matNoDataRow>
+            <td colspan="5" class="empty">
+              <mat-icon aria-hidden="true"><span class="icon-[material-symbols--search-off] size-full"></span></mat-icon>
+              No activity matches your filters.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </main>
