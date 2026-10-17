@@ -24,7 +24,16 @@ import {
   RouterLinkWithHref,
   RouterOutlet,
 } from "@angular/router";
-import { filter, map, of, startWith, switchMap, timer } from "rxjs";
+import {
+  filter,
+  firstValueFrom,
+  map,
+  of,
+  startWith,
+  switchMap,
+  tap,
+  timer,
+} from "rxjs";
 import { Auth } from "shared/services";
 import { environment } from "../environments/environment";
 
@@ -239,6 +248,14 @@ export class App {
         },
       ],
       false,
+    );
+  }
+
+  logout() {
+    return firstValueFrom(
+      this.#authService
+        .logout()
+        .pipe(tap(() => this.#router.navigateByUrl("/"))),
     );
   }
 }

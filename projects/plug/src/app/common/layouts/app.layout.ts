@@ -24,7 +24,7 @@ export class AppLayout {
   readonly dialog = inject(MatDialog);
 
   #userEffect = effect(() => {
-    if (this.user() && !this.user()?.plug) {
+    if (this.user() && !this.user().plug) {
       this.dialog
         .open(SignupForm, {
           disableClose: true,
