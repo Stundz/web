@@ -1,14 +1,7 @@
-import { HttpClient, HttpContext } from "@angular/common/http";
-import { effect, Injectable, inject, Service, signal } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { effect, inject, Service, signal } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
-import {
-  BehaviorSubject,
-  distinctUntilChanged,
-  filter,
-  startWith,
-  switchMap,
-} from "rxjs";
-import { HTTP_SKIP_ON_SERVER } from "shared/contexts";
+import { BehaviorSubject, distinctUntilChanged, filter, switchMap } from "rxjs";
 import type { Plug } from "shared/models";
 import type { Paginated } from "shared/types";
 import { toFormData } from "shared/utils";
@@ -16,13 +9,14 @@ import { environment } from "../../../environments/environment";
 
 @Service()
 export class PastQuestion {
-  private _http = inject(HttpClient);
-  readonly filters = signal<Record<string, any>>({});
+  #http = inject(HttpClient);
+
+  readonly filters = signal<Record<string, string | number | boolean>>({});
   publisher = signal<string | undefined>(undefined);
 
-  private _filters = new BehaviorSubject<Record<string, any>>({});
+  #filters = new BehaviorSubject<Record<string, string | number | boolean>>({});
 
-  pastQuestions$ = this._filters.asObservable().pipe(
+  pastQuestions$ = this.#filters.asObservable().pipe(
     switchMap((filters) => {
       const params = Object.fromEntries(
         Object.entries(filters).filter(([key, value]) =>
@@ -30,7 +24,7 @@ export class PastQuestion {
         ),
       );
 
-      return this._http.get<Paginated<Plug.PastQuestion>>(
+      return this.#http.get<Paginated<Plug.PastQuestion>>(
         `https://api.${environment.domain}/plug/past-questions`,
         {
           params,
@@ -44,7 +38,7 @@ export class PastQuestion {
     filter((publisher) => publisher != undefined),
     distinctUntilChanged(),
     switchMap((publisher) =>
-      this._http.get<Paginated<Plug.PastQuestion>>(
+      this.#http.get<Paginated<Plug.PastQuestion>>(
         `https://api.${environment.domain}/plug/past-questions`,
         {
           params: {
@@ -57,19 +51,26 @@ export class PastQuestion {
 
   constructor() {
     effect(() => {
-      this._filters.next(this.filters());
+      this.#filters.next(this.filters());
     });
   }
 
   getPastQuestions(params: Record<string, string | number>) {
-    return this._http.get<Paginated<Plug.PastQuestion>>(
+    return this.#http.get<Paginated<Plug.PastQuestion>>(
       `https://api.${environment.domain}/plug/past-questions`,
       { params },
     );
   }
 
+  getPastQuestion(id: string, params: Record<string, string | number> = {}) {
+    return this.#http.get<Paginated<Plug.PastQuestion>>(
+      `https://api.${environment.domain}/plug/past-question/${id}`,
+      { params },
+    );
+  }
+
   create(payload: { course_id: string; file: File | null; year: number }) {
-    return this._http.post<void>(
+    return this.#http.post<void>(
       `https://api.${environment.domain}/plug/past-question`,
       toFormData(payload),
     );
