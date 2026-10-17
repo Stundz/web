@@ -44,12 +44,6 @@ export class App {
   protected readonly links = [
     { label: 'Overview', route: '/', icon: 'icon-[material-symbols--dashboard-outline]' },
     { label: 'Applications', route: '/apps', icon: 'icon-[material-symbols--apps]' },
-    { label: 'Premifly', route: '/app/premifly', icon: 'icon-[material-symbols--workspace-premium-outline]' },
-    { label: 'Plug', route: '/app/plug', icon: 'icon-[material-symbols--school-outline]' },
-    { label: 'Members', route: '/app/premifly/users', icon: 'icon-[material-symbols--group-outline]' },
-    { label: 'Accounts', route: '/app/premifly/accounts', icon: 'icon-[material-symbols--manage-accounts-outline]' },
-    { label: 'Subscriptions', route: '/app/premifly/subscriptions', icon: 'icon-[material-symbols--receipt-long-outline]' },
-    { label: 'Services', route: '/app/premifly/services', icon: 'icon-[material-symbols--tune]' },
   ];
 
 	isLoading = toSignal(
