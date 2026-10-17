@@ -1,0 +1,91 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Plug overview
+  </a>
+  <header class="page-header">
+    <div>
+      <div class="eyebrow">PLUG / TUTORIALS</div>
+      <h1>Classes.</h1>
+      <p>Every tutorial, including classes from earlier academic years.</p>
+    </div>
+  </header>
+
+  <mat-form-field class="search">
+    <mat-label>Search</mat-label>
+    <input matInput type="search" [formControl]="search" placeholder="Class, course, or tutor" />
+  </mat-form-field>
+
+  @if (tutorials.error() && !tutorials.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>Tutorials are unavailable</h2>
+        <p>The list could not be loaded.</p>
+        <button matButton="text" type="button" (click)="tutorials.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!tutorials.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading tutorials…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading tutorials" />
+      </mat-card-content>
+    </mat-card>
+  } @else if (tutorials.value().data.length === 0) {
+    <mat-card appearance="outlined">
+      <mat-card-content class="empty-state">
+        <h2>No tutorials in this view</h2>
+        <p>Try a different search.</p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <section class="records" aria-label="Tutorials" [attr.aria-busy]="tutorials.isLoading()">
+      @if (tutorials.isLoading()) {
+        <mat-progress-bar mode="indeterminate" aria-label="Refreshing tutorials" />
+      }
+      <div class="table-scroll">
+        <mat-table [dataSource]="tutorials.value().data">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Tutorial</mat-header-cell>
+            <mat-cell *matCellDef="let tutorial">
+              <a class="record-link" [routerLink]="['/app/plug/tutorial', tutorial.id]">{{ tutorial.name }}</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="course">
+            <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
+            <mat-cell *matCellDef="let tutorial">
+              <div>{{ tutorial.course?.code || 'Course unavailable' }}</div>
+              <div class="muted">{{ tutorial.course?.title }}</div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="tutor">
+            <mat-header-cell *matHeaderCellDef>Tutor</mat-header-cell>
+            <mat-cell *matCellDef="let tutorial">{{ tutorName(tutorial) }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+            <mat-cell *matCellDef="let tutorial">{{ tutorial.price | currency: 'XAF' : 'XAF ' : '1.0-0' }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="session">
+            <mat-header-cell *matHeaderCellDef>Next session</mat-header-cell>
+            <mat-cell *matCellDef="let tutorial">
+              {{ tutorial.session?.day || 'None scheduled' }}
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columns"></mat-row>
+        </mat-table>
+      </div>
+      <mat-paginator
+        [pageSizeOptions]="[15, 30, 60]"
+        [pageIndex]="tutorials.value().meta.current_page - 1"
+        [pageSize]="tutorials.value().meta.per_page"
+        [length]="tutorials.value().meta.total"
+        (page)="changePage($event)"
+        showFirstLastButtons
+        aria-label="Tutorial pages"
+      />
+    </section>
+  }
+</main>

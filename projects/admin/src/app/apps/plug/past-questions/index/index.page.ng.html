@@ -1,0 +1,108 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Plug overview
+  </a>
+  <header class="page-header">
+    <div>
+      <div class="eyebrow">PLUG / PAST QUESTIONS</div>
+      <h1>Exam papers.</h1>
+      <p>Upload a paper, then approve or reject it. Pending papers stay out of the student library until you approve them.</p>
+    </div>
+    <a matButton="filled" routerLink="upload">
+      <span aria-hidden="true" class="icon-[material-symbols--upload]"></span>
+      Upload paper
+    </a>
+  </header>
+
+  <mat-form-field class="search">
+    <mat-label>Search</mat-label>
+    <input matInput type="search" [formControl]="search" placeholder="Course, department, faculty, or year" />
+  </mat-form-field>
+
+  <div class="filters" role="group" aria-label="Paper status">
+    @for (option of statuses; track option.value) {
+      <button type="button" matButton="outlined" [class.is-selected]="status() === option.value" [attr.aria-pressed]="status() === option.value" (click)="setStatus(option.value)">
+        {{ option.label }}
+      </button>
+    }
+  </div>
+
+  @if (papers.error() && !papers.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>Past questions are unavailable</h2>
+        <p>The list could not be loaded.</p>
+        <button matButton="text" type="button" (click)="papers.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!papers.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading past questions…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading past questions" />
+      </mat-card-content>
+    </mat-card>
+  } @else if (papers.value().data.length === 0) {
+    <mat-card appearance="outlined">
+      <mat-card-content class="empty-state">
+        <h2>No papers in this view</h2>
+        <p>Try another status or search, or upload a PDF to start a review.</p>
+        <a matButton="filled" routerLink="upload">Upload paper</a>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <section class="records" aria-label="Past questions" [attr.aria-busy]="papers.isLoading()">
+      @if (papers.isLoading()) {
+        <mat-progress-bar mode="indeterminate" aria-label="Refreshing past questions" />
+      }
+      <div class="table-scroll">
+        <mat-table [dataSource]="papers.value().data">
+          <ng-container matColumnDef="paper">
+            <mat-header-cell *matHeaderCellDef>Paper</mat-header-cell>
+            <mat-cell *matCellDef="let paper">
+              <a class="record-link" [routerLink]="['/app/plug/past-question', paper.id]">
+                {{ paper.course?.code || 'Paper' }}
+              </a>
+              <div class="muted">{{ paper.course?.title || 'Course unavailable' }}</div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="year">
+            <mat-header-cell *matHeaderCellDef>Year</mat-header-cell>
+            <mat-cell *matCellDef="let paper">{{ paper.year }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="place">
+            <mat-header-cell *matHeaderCellDef>Place</mat-header-cell>
+            <mat-cell *matCellDef="let paper">{{ place(paper.course) }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *matCellDef="let paper">
+              <span class="status-pill" [class.pending]="paper.status === 'PENDING'" [class.approved]="paper.status === 'APPROVED'" [class.rejected]="paper.status === 'REJECTED'">{{ statusLabel(paper.status) }}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="solutions">
+            <mat-header-cell *matHeaderCellDef>Solutions</mat-header-cell>
+            <mat-cell *matCellDef="let paper">{{ paper.solutions_count ?? 0 }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="publisher">
+            <mat-header-cell *matHeaderCellDef>Uploaded by</mat-header-cell>
+            <mat-cell *matCellDef="let paper">{{ publisher(paper.publisher) }}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columns"></mat-row>
+        </mat-table>
+      </div>
+      <mat-paginator
+        [pageSizeOptions]="[12, 24, 48]"
+        [pageIndex]="papers.value().meta.current_page - 1"
+        [pageSize]="papers.value().meta.per_page"
+        [length]="papers.value().meta.total"
+        (page)="changePage($event)"
+        showFirstLastButtons
+        aria-label="Past question pages"
+      />
+    </section>
+  }
+</main>

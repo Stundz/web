@@ -17,8 +17,7 @@ export const routes: Routes = [
 			},
 			{
 				path: "plug",
-				title: "Plug | Stundz Admin",
-				loadComponent: () => import("./plug/plug.page").then((m) => m.PlugPage),
+				loadChildren: () => import("./plug/plug.routes").then((m) => m.routes),
 			},
 		],
 	},

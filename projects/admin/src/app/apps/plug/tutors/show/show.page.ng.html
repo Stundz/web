@@ -1,0 +1,106 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug/tutors">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Tutors
+  </a>
+
+  @if (tutor.error() && !tutor.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>This application could not be opened</h2>
+        <p>It may have been removed, or the server did not respond.</p>
+        <button matButton="text" type="button" (click)="tutor.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!tutor.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading application…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading application" />
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">PLUG / TUTOR</div>
+        <h1>{{ name(tutor.value()) }}</h1>
+        <p>{{ tutor.value().phone }}</p>
+      </div>
+      <span class="status-pill" [class.pending]="standing() === 'pending'" [class.approved]="standing() === 'approved'" [class.inactive]="standing() === 'inactive'">
+        {{ standingText(standing()) }}
+      </span>
+    </header>
+    @if (tutor.isLoading()) {
+      <mat-progress-bar mode="indeterminate" aria-label="Refreshing application" />
+    }
+    <div class="detail-grid">
+      <div class="stack-cards">
+        <mat-card appearance="outlined">
+          <mat-card-content>
+            <h2>Application</h2>
+            <dl>
+              <dt>Endorsed by</dt>
+              <dd>
+                {{ tutor.value().endorsement?.name || 'No lecturer name' }}
+                <div class="muted">{{ tutor.value().endorsement?.email || 'No lecturer email' }}</div>
+              </dd>
+              <dt>Applied</dt>
+              <dd>{{ tutor.value().created_at | date: 'medium' }}</dd>
+              <dt>Active until</dt>
+              <dd>{{ tutor.value().valid_until ? (tutor.value().valid_until | date: 'medium') : 'Not approved' }}</dd>
+              @if (tutor.value().user?.department; as department) {
+                <dt>Department</dt>
+                <dd>
+                  {{ department.name }}
+                  <div class="muted">
+                    {{ department.faculty?.institution?.name }}
+                    @if (department.faculty?.name) { · {{ department.faculty.name }} }
+                  </div>
+                </dd>
+              }
+              @if (tutor.value().user?.level; as level) {
+                <dt>Level</dt>
+                <dd>{{ level.name }}@if (level.program) { · {{ level.program.name }} }</dd>
+              }
+            </dl>
+          </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined">
+          <mat-card-content>
+            <h2>Courses</h2>
+            @if (tutor.value().courses?.length) {
+              <ul class="stack">
+                @for (course of tutor.value().courses; track course.id) {
+                  <li>{{ course.code }} · {{ course.title }}</li>
+                }
+              </ul>
+            } @else {
+              <p>No courses are attached to this application.</p>
+            }
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2>Decision</h2>
+          <p>Approval lasts one year from today. Rejection ends access immediately. Returning an application to review clears the approval date.</p>
+          <div class="actions" role="group" aria-label="Tutor decision">
+            <button matButton="filled" type="button" (click)="choose('approve')" [disabled]="saving()">
+              {{ confirming() === 'approve' ? 'Confirm one-year approval' : (standing() === 'approved' ? 'Extend approval by one year' : 'Approve for one year') }}
+            </button>
+            <button matButton="outlined" type="button" (click)="choose('reject')" [disabled]="saving() || standing() === 'inactive'">
+              {{ confirming() === 'reject' ? 'Confirm rejection' : 'Reject' }}
+            </button>
+            <button matButton="text" type="button" (click)="choose('pending')" [disabled]="saving() || standing() === 'pending'">
+              {{ confirming() === 'pending' ? 'Confirm return to review' : 'Return to review' }}
+            </button>
+          </div>
+          @if (confirming()) {
+            <p class="confirm-note" role="status">Click the same button again to save this decision.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</main>

@@ -1,0 +1,3 @@
+:host { display: block; }
+.stack-cards { display: flex; flex-direction: column; gap: 24px; }
+mat-progress-bar { display: block; margin-bottom: 16px; }

@@ -1,3 +1,19 @@
-:host {
-  display: block;
+:host { display: block; }
+.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.metric-link { color: inherit; text-decoration: none; }
+.metric-link mat-card { height: 100%; }
+.metric-link:hover mat-card { border-color: var(--mat-sys-primary); }
+.metric-top { display: flex; justify-content: space-between; gap: 12px; color: var(--mat-sys-on-surface-variant); font-size: 12px; }
+.metric-top > span:last-child { font-size: 24px; color: var(--mat-sys-primary); }
+.metrics strong { display: block; font-size: 32px; letter-spacing: -.04em; margin: 20px 0 8px; }
+.metrics p { font-size: 12px; }
+.management { margin-top: 32px; }
+.section-heading { margin-bottom: 20px; }
+.section-heading h2 { font-size: 18px; }
+.tool-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.tool-heading { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+.tool-heading .app-icon { flex-shrink: 0; width: 48px; height: 48px; font-size: 24px; }
+.tool-heading h2 { font-size: 17px; }
+@media (max-width: 1000px) {
+  .metrics, .tool-grid { grid-template-columns: 1fr; }
 }

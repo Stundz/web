@@ -13,6 +13,6 @@ import { RouterLink } from '@angular/router';
 export class IndexPage {
   readonly apps = [
     { name: 'Premifly', icon: 'icon-[material-symbols--workspace-premium-outline]', url: '/app/premifly', description: 'Manage premium access, shared accounts, and the services your members subscribe to.', features: ['Users', 'Accounts', 'Services', 'Subscriptions'], available: true },
-    { name: 'Plug', icon: 'icon-[material-symbols--school-outline]', url: '/app/plug', description: 'Your workspace for tutorials, tutors, and learning resources.', features: ['Tutorials', 'Tutors', 'Learning resources'], available: false },
+    { name: 'Plug', icon: 'icon-[material-symbols--school-outline]', url: '/app/plug', description: 'Review past questions, tutor applications, and tutorials.', features: ['Past questions', 'Tutors', 'Tutorials'], available: true },
   ];
 }
