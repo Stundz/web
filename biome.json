@@ -25,7 +25,10 @@
     "enabled": true,
     "rules": {
       "a11y": {
-        "useValidAnchor": "off"
+        "useValidAnchor": "off",
+        "useAltText": {
+          "level": "error"
+        }
       },
       "complexity": {
         "useLiteralKeys": "off"
