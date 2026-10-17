@@ -253,19 +253,16 @@
             class="bg-primary/5 absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full transition-transform duration-700 group-hover:scale-150"
           ></div>
           <div class="relative mb-6 flex items-start justify-between">
-            <span
-              class="text-primary bg-primary-fixed rounded-full px-3 py-1 font-label text-xs font-bold tracking-widest uppercase"
-              >{{
-                question.course.code
-              }}</span
-            >
+            <mat-chip highlighted>
+              {{ question.course.code }}
+            </mat-chip>
             <span class="text-on-surface-variant text-sm font-medium"
               >{{ question.year }}
               • Fall</span
             >
           </div>
           <h4
-            class="text-on-surface mb-4 font-headline text-2xl leading-tight font-bold"
+            class="text-on-surface line-clamp-1 mb-4 font-headline text-2xl leading-tight font-bold"
           >
             {{ question.course.title }}
           </h4>
