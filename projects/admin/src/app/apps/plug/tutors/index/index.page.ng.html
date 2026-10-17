@@ -1,0 +1,101 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Plug overview
+  </a>
+  <header class="page-header">
+    <div>
+      <div class="eyebrow">PLUG / TUTORS</div>
+      <h1>Tutor applications.</h1>
+      <p>Pending applications have no approval date. Approving keeps a tutor active for one year. Rejecting ends that approval.</p>
+    </div>
+  </header>
+
+  <mat-form-field class="search">
+    <mat-label>Search</mat-label>
+    <input matInput type="search" [formControl]="search" placeholder="Name or phone" />
+  </mat-form-field>
+
+  <div class="filters" role="group" aria-label="Application standing">
+    @for (option of filters; track option.value) {
+      <button type="button" matButton="outlined" [class.is-selected]="status() === option.value" [attr.aria-pressed]="status() === option.value" (click)="setStatus(option.value)">
+        {{ option.label }}
+      </button>
+    }
+  </div>
+
+  @if (tutors.error() && !tutors.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>Tutors are unavailable</h2>
+        <p>The list could not be loaded.</p>
+        <button matButton="text" type="button" (click)="tutors.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!tutors.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading tutors…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading tutors" />
+      </mat-card-content>
+    </mat-card>
+  } @else if (tutors.value().data.length === 0) {
+    <mat-card appearance="outlined">
+      <mat-card-content class="empty-state">
+        <h2>No tutors in this view</h2>
+        <p>Try another standing or search.</p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <section class="records" aria-label="Tutors" [attr.aria-busy]="tutors.isLoading()">
+      @if (tutors.isLoading()) {
+        <mat-progress-bar mode="indeterminate" aria-label="Refreshing tutors" />
+      }
+      <div class="table-scroll">
+        <mat-table [dataSource]="tutors.value().data">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Tutor</mat-header-cell>
+            <mat-cell *matCellDef="let tutor">
+              <a class="record-link" [routerLink]="['/app/plug/tutor', tutor.id]">{{ name(tutor) }}</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+            <mat-cell *matCellDef="let tutor">{{ tutor.phone }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="endorsement">
+            <mat-header-cell *matHeaderCellDef>Endorsement</mat-header-cell>
+            <mat-cell *matCellDef="let tutor">
+              <div>{{ tutor.endorsement?.name || 'No lecturer name' }}</div>
+              <div class="muted">{{ tutor.endorsement?.email || 'No lecturer email' }}</div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="standing">
+            <mat-header-cell *matHeaderCellDef>Standing</mat-header-cell>
+            <mat-cell *matCellDef="let tutor">
+              <span class="status-pill" [class.pending]="standing(tutor.valid_until) === 'pending'" [class.approved]="standing(tutor.valid_until) === 'approved'" [class.inactive]="standing(tutor.valid_until) === 'inactive'">
+                {{ standingText(standing(tutor.valid_until)) }}
+              </span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="applied">
+            <mat-header-cell *matHeaderCellDef>Applied</mat-header-cell>
+            <mat-cell *matCellDef="let tutor">{{ tutor.created_at | date: 'mediumDate' }}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columns"></mat-row>
+        </mat-table>
+      </div>
+      <mat-paginator
+        [pageSizeOptions]="[15, 30, 60]"
+        [pageIndex]="tutors.value().meta.current_page - 1"
+        [pageSize]="tutors.value().meta.per_page"
+        [length]="tutors.value().meta.total"
+        (page)="changePage($event)"
+        showFirstLastButtons
+        aria-label="Tutor pages"
+      />
+    </section>
+  }
+</main>

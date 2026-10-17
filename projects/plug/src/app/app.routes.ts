@@ -1,4 +1,5 @@
 import type { Routes } from "@angular/router";
+import { authGuard, guestGuard } from "shared/guards";
 import { userResolver } from "shared/resolvers";
 
 export const routes: Routes = [
@@ -18,7 +19,7 @@ export const routes: Routes = [
           {
             path: "",
             pathMatch: "full",
-            title: "Plug, Where your academic success resides",
+            title: "Plug: Past Questions, Tutorials & Earn While You Study",
             loadComponent: () =>
               import("./home/home.page").then((m) => m.HomePage),
           },
@@ -29,6 +30,7 @@ export const routes: Routes = [
               import("./about/about.page").then((m) => m.AboutPage),
           },
           {
+            canActivate: [guestGuard],
             path: "contact",
             title: "Get in touch with plug for more assistance",
             loadComponent: () =>
@@ -49,11 +51,13 @@ export const routes: Routes = [
         children: [
           {
             path: "dashboard",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./dashboard/dashboard.page").then((m) => m.DashboardPage),
           },
           {
             path: "my-sessions",
+            canActivate: [authGuard],
             loadComponent: () =>
               import("./my-sessions/my-sessions.page").then(
                 (m) => m.MySessionsPage,

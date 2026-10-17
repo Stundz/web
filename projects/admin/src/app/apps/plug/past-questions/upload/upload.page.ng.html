@@ -1,0 +1,123 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug/past-questions">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Past questions
+  </a>
+  <header class="page-header">
+    <div>
+      <div class="eyebrow">PLUG / PAST QUESTIONS</div>
+      <h1>Upload a paper.</h1>
+      <p>PDF only. New papers start as pending until someone approves or rejects them.</p>
+    </div>
+  </header>
+
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field>
+          <mat-label>Institution</mat-label>
+          <mat-select formControlName="institution_id">
+            @for (institution of institutions.value(); track institution.id) {
+              <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
+            }
+          </mat-select>
+          @if (institutions.isLoading()) {
+            <mat-hint>Loading institutions…</mat-hint>
+          } @else if (institutions.error()) {
+            <mat-hint>Institutions could not be loaded.</mat-hint>
+          }
+          <mat-error>Choose an institution</mat-error>
+        </mat-form-field>
+        @if (institutions.error()) {
+          <button matButton="text" type="button" (click)="institutions.reload()">Try loading institutions again</button>
+        }
+
+        <mat-form-field>
+          <mat-label>Faculty</mat-label>
+          <mat-select formControlName="faculty_id">
+            @for (faculty of faculties.value(); track faculty.id) {
+              <mat-option [value]="faculty.id">{{ faculty.name }}</mat-option>
+            }
+          </mat-select>
+          @if (!institutionId()) {
+            <mat-hint>Choose an institution first</mat-hint>
+          } @else if (faculties.isLoading()) {
+            <mat-hint>Loading faculties…</mat-hint>
+          }
+          <mat-error>Choose a faculty</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="department_id">
+            @for (department of departments.value(); track department.id) {
+              <mat-option [value]="department.id">{{ department.name }}</mat-option>
+            }
+          </mat-select>
+          @if (!facultyId()) {
+            <mat-hint>Choose a faculty first</mat-hint>
+          } @else if (departments.isLoading()) {
+            <mat-hint>Loading departments…</mat-hint>
+          }
+          <mat-error>Choose a department</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Course</mat-label>
+          <mat-select formControlName="course_id">
+            @for (course of courses.value(); track course.id) {
+              <mat-option [value]="course.id">{{ course.code }} · {{ course.title }}</mat-option>
+            }
+          </mat-select>
+          @if (!departmentId()) {
+            <mat-hint>Choose a department first</mat-hint>
+          } @else if (courses.isLoading()) {
+            <mat-hint>Loading courses…</mat-hint>
+          }
+          <mat-error>Choose a course</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Exam year</mat-label>
+          <input matInput type="number" formControlName="year" [min]="2000" [max]="maxYear" />
+          <mat-error>Enter a year from 2000 to {{ maxYear }}</mat-error>
+        </mat-form-field>
+
+        <div>
+          <button
+            class="upload-target"
+            type="button"
+            stundzDropzone
+            acceptedFiles="application/pdf,.pdf"
+            [multiple]="false"
+            (change)="attach($event)"
+          >
+            <span aria-hidden="true" class="icon-[material-symbols--picture-as-pdf-outline]"></span>
+            @if (form.controls.file.value; as file) {
+              <span>{{ file.name }}</span>
+            } @else {
+              <span>Drop a PDF here, or browse</span>
+            }
+          </button>
+          @if (form.controls.file.touched && form.controls.file.invalid) {
+            <p class="confirm-note" role="alert">A PDF file is required.</p>
+          }
+          @if (form.controls.file.value) {
+            <button matButton="text" type="button" (click)="clearFile()">Remove file</button>
+          }
+        </div>
+
+        @if (failure()) {
+          <p role="alert">{{ failure() }}</p>
+        }
+
+        <div class="actions">
+          <button matButton="filled" type="submit" [disabled]="saving()">
+            {{ saving() ? 'Uploading…' : 'Upload for review' }}
+          </button>
+          <a matButton="outlined" routerLink="/app/plug/past-questions">Cancel</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>

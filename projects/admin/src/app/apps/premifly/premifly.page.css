@@ -1,25 +1,20 @@
-:host {
-	display: block;
-}
-
-.grid-container {
-	margin: 20px;
-}
-
-.dashboard-card {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	right: 15px;
-	bottom: 15px;
-}
-
-.more-button {
-	position: absolute;
-	top: 5px;
-	right: 10px;
-}
-
-.dashboard-card-content {
-	text-align: center;
-}
+.metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.metric-link { color:inherit; text-decoration:none; }
+.metric-link mat-card { height:100%; transition:border-color .15s; }
+.metric-link:hover mat-card { border-color:var(--mat-sys-primary); }
+.metric-top { display:flex; justify-content:space-between; gap:12px; color:var(--mat-sys-on-surface-variant); font-size:12px; }
+.metric-top > span:last-child { font-size:24px; color:var(--mat-sys-primary); }
+.metrics strong { display:block; font-size:32px; letter-spacing:-.04em; margin:20px 0 16px; }
+.trend { display:flex; flex-wrap:wrap; gap:6px; color:var(--mat-sys-primary); font-weight:600; font-size:11px; }
+.trend.negative { color:var(--mat-sys-error); }
+.comparison { font-weight:400; color:var(--mat-sys-on-surface-variant); }
+.metrics p { font-size:10px; margin-top:8px; }
+.management { margin-top:32px; }
+.section-heading { margin-bottom:20px; }
+.section-heading h2 { font-size:18px; }
+.tool-heading { display:flex; gap:16px; align-items:center; margin-bottom:24px; }
+.tool-heading .app-icon { flex-shrink:0; width:48px; height:48px; font-size:24px; }
+.tool-heading h2 { font-size:17px; }
+.loading-card mat-progress-bar { margin-top:16px; }
+@media(max-width:1100px) { .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:420px) { .metrics { grid-template-columns:1fr; } }

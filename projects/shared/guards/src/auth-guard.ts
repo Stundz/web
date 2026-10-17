@@ -13,10 +13,8 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(Auth);
 
   return authService.user$.pipe(
-    take(1),
     // Take the current state emission
     switchMap((user) => {
-      console.log({ user });
       // If user state is already in memory, use it
       if (user !== null && user !== undefined) {
         return of(true);

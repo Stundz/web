@@ -1,0 +1,82 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug/tutorials">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Tutorials
+  </a>
+
+  @if (tutorial.error() && !tutorial.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>This tutorial could not be opened</h2>
+        <p>It may have been removed, or the server did not respond.</p>
+        <button matButton="text" type="button" (click)="tutorial.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!tutorial.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading tutorial…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading tutorial" />
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">PLUG / TUTORIAL</div>
+        <h1>{{ tutorial.value().name }}</h1>
+        <p>{{ tutorial.value().course?.code }} · {{ tutorial.value().course?.title }}</p>
+      </div>
+      <span class="badge">{{ tutorial.value().price | currency: 'XAF' : 'XAF ' : '1.0-0' }}</span>
+    </header>
+    <div class="detail-grid">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2>About this class</h2>
+          <p class="description">{{ tutorial.value().description }}</p>
+          <dl>
+            <dt>Tutor</dt>
+            <dd>
+              @if (tutorial.value().tutor) {
+                <a class="record-link" [routerLink]="['/app/plug/tutor', tutorial.value().tutor!.id]">
+                  {{ tutorName(tutorial.value().tutor) }}
+                </a>
+              } @else {
+                Unknown tutor
+              }
+            </dd>
+            <dt>Place</dt>
+            <dd>{{ place(tutorial.value().course) }}</dd>
+            <dt>Created</dt>
+            <dd>{{ tutorial.value().created_at | date: 'medium' }}</dd>
+          </dl>
+        </mat-card-content>
+      </mat-card>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2>Sessions</h2>
+          @if (tutorial.value().session) {
+            <p>Next session: {{ tutorial.value().session?.day | date: 'medium' }}</p>
+          }
+          @if (tutorial.value().sessions?.length) {
+            <ul class="stack">
+              @for (session of tutorial.value().sessions; track session.id) {
+                <li>
+                  <strong>{{ session.day | date: 'mediumDate' }}</strong>
+                  <div class="muted">
+                    {{ session.time || 'Time unset' }}
+                    @if (session.venue) { · {{ session.venue }} }
+                    · {{ session.duration }} min
+                    · {{ session.students_count || 0 }} students
+                  </div>
+                </li>
+              }
+            </ul>
+          } @else if (!tutorial.value().session) {
+            <p>No sessions are recorded for this class.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</main>

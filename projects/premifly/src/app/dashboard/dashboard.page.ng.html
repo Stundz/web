@@ -24,15 +24,15 @@
 </style>
 <!-- Sidebar Shell -->
 <aside
-  class="hidden fixed top-0 bottom-0 left-0 z-40 flex-col w-64 h-full border-r md:flex bg-surface-container border-outline-variant/10"
+  class="bg-surface-container border-outline-variant/10 fixed top-0 bottom-0 left-0 z-40 hidden h-full w-64 flex-col border-r md:flex"
 >
-  <div class="py-8 px-6">
-    <h1 class="font-bold text-title-lg font-title-lg text-primary">Premifly</h1>
+  <div class="px-6 py-8">
+    <h1 class="text-title-lg text-primary font-title-lg font-bold">Premifly</h1>
   </div>
-  <nav class="flex-1 mt-4 space-y-1">
+  <nav class="mt-4 flex-1 space-y-1">
     <!-- Active State: Dashboard -->
     <a
-      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      class="text-on-surface-variant text-label-md hover:bg-surface-container-high mx-2 flex items-center gap-3 rounded-full px-4 py-3 font-label-md transition-all"
       routerLink="/dashboard"
       [routerLinkActive]="['bg-primary-container!', 'text-on-primary-container!', 'active:opacity-80']"
     >
@@ -44,7 +44,7 @@
       <span>Dashboard</span>
     </a>
     <a
-      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      class="text-on-surface-variant text-label-md hover:bg-surface-container-high mx-2 flex items-center gap-3 rounded-full px-4 py-3 font-label-md transition-all"
       href="#"
     >
       <span
@@ -55,7 +55,7 @@
       <span>Subscriptions</span>
     </a>
     <a
-      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      class="text-on-surface-variant text-label-md hover:bg-surface-container-high mx-2 flex items-center gap-3 rounded-full px-4 py-3 font-label-md transition-all"
       href="#"
     >
       <span
@@ -67,7 +67,7 @@
       <span>History</span>
     </a>
     <a
-      class="flex gap-3 items-center py-3 px-4 mx-2 rounded-full transition-all text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high"
+      class="text-on-surface-variant text-label-md hover:bg-surface-container-high mx-2 flex items-center gap-3 rounded-full px-4 py-3 font-label-md transition-all"
       href="#"
     >
       <span
@@ -78,103 +78,106 @@
       <span>Settings</span>
     </a>
   </nav>
-  <div class="p-4 mx-4 mb-8 rounded-xl bg-surface-container-highest">
-    <div class="flex gap-3 items-center mb-3">
+  <div class="bg-surface-container-highest mx-4 mb-8 rounded-xl p-4">
+    <div class="mb-3 flex items-center gap-3">
       <div
-        class="flex overflow-hidden justify-center items-center w-10 h-10 rounded-full bg-primary-container"
+        class="bg-primary-container flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
       >
         <img
           alt="User Profile"
-          class="object-cover w-full h-full"
+          class="h-full w-full object-cover"
           data-alt="A sophisticated close-up portrait of a professional modern user icon, rendered in a high-fidelity 3D aesthetic. The color palette features deep obsidian blacks and glowing primary reds, reflecting a premium dark-mode subscription service brand. Soft cinematic lighting highlights the smooth surfaces and clean circular silhouette. The mood is elite and exclusive."
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpX-xk-cDoCELOeIKdeUcxCUVvXAbvP7SxEme7WnIdja403rgPkAgv5Az0hTsJdOc4uyjYI_lJK6GWZcxaUe23ZzNNbnUiVnT-bMVHtUJ81KEJ92aM3FGw17aPDYTD5rgr4DUXfEQsWGbaDSVJp2QihnzawOzZHGFP4wO9PmOx3ESs4FBHq6JqOUsol2-MJ5K5OX239IIWKYmIOwYiysDGAqgl_dUHAQoFXzFnwD4ZYiZWZ4e8Rd4VrDCwrjYQPKTw8N_eYtpmjRwF"
         >
       </div>
       <div>
-        <p class="font-label-lg text-label-lg text-on-surface">
+        <p class="text-label-lg text-on-surface font-label-lg">
           Premium Member
         </p>
-        <p class="font-bold tracking-wider uppercase text-[10px] text-primary">
+        <p class="text-primary text-[10px] font-bold tracking-wider uppercase">
           Elite Status
         </p>
       </div>
     </div>
     <button
-      class="py-2 w-full rounded-lg transition-all active:scale-95 bg-primary text-on-primary font-label-md text-label-md hover:brightness-110"
+      type="button"
+      class="bg-primary text-on-primary text-label-md w-full rounded-lg py-2 font-label-md transition-all hover:brightness-110 active:scale-95"
     >
       Upgrade Now
     </button>
   </div>
 </aside>
 <!-- Main Content Area -->
-<main class="relative min-h-screen md:ml-64 red-glow">
+<main class="red-glow relative min-h-screen md:ml-64">
   <!-- Header -->
   <header
-    class="flex justify-between items-center py-6 mx-auto w-full max-w-7xl px-gutter"
+    class="px-gutter mx-auto flex w-full max-w-7xl items-center justify-between py-6"
   >
     <div>
-      <h2 class="font-headline-lg text-headline-lg text-on-surface">
+      <h2 class="text-headline-lg text-on-surface font-headline-lg">
         Welcome back, {{ user()?.first_name }}
       </h2>
-      <p class="font-body-md text-body-md text-on-surface-variant">
+      <p class="text-body-md text-on-surface-variant font-body-md">
         Here's your subscription overview for {{ date | date : 'MMMM yyy' }}.
       </p>
     </div>
-    <div class="flex gap-4 items-center">
+    <div class="flex items-center gap-4">
       <button
-        class="flex justify-center items-center w-12 h-12 rounded-full transition-colors bg-surface-container text-on-surface hover:bg-surface-container-high"
+        type="button"
+        class="bg-surface-container text-on-surface hover:bg-surface-container-high flex h-12 w-12 items-center justify-center rounded-full transition-colors"
       >
         <span class="icon-[material-symbols--notifications-outline]"
           >notifications</span
         >
       </button>
       <button
-        class="flex justify-center items-center w-12 h-12 rounded-full transition-colors md:hidden bg-surface-container text-on-surface hover:bg-surface-container-high"
+        type="button"
+        class="bg-surface-container text-on-surface hover:bg-surface-container-high flex h-12 w-12 items-center justify-center rounded-full transition-colors md:hidden"
       >
         <span class="icon-[material-symbols--menu]">menu</span>
       </button>
     </div>
   </header>
-  <div class="pb-12 mx-auto max-w-7xl px-gutter">
+  <div class="px-gutter mx-auto max-w-7xl pb-12">
     <!-- Summary Grid -->
     <section
-      class="grid grid-cols-1 gap-6 mb-10 md:grid-cols-3 *:hover:-translate-y-0.5"
+      class="mb-10 grid grid-cols-1 gap-6 *:hover:-translate-y-0.5 md:grid-cols-3"
     >
       <mat-card>
         <mat-card-content>
-          <div class="flex justify-between items-center mb-4">
+          <div class="mb-4 flex items-center justify-between">
             <span
-              class="text-3xl icon-[material-symbols--star-outline] text-primary"
+              class="icon-[material-symbols--star-outline] text-primary text-3xl"
               role="img"
               [ariaHidden]="true"
             ></span>
           </div>
-          <p class="font-label-lg text-label-lg text-on-surface-variant">
+          <p class="text-label-lg text-on-surface-variant font-label-lg">
             Active Subscriptions
           </p>
-          <h3 class="mt-1 font-display-lg text-display-lg text-on-surface">
+          <h3 class="text-display-lg text-on-surface mt-1 font-display-lg">
             {{ stats.value()?.subscriptions?.active }}
           </h3>
         </mat-card-content>
       </mat-card>
       <mat-card>
         <mat-card-content>
-          <div class="flex justify-between items-center mb-4">
+          <div class="mb-4 flex items-center justify-between">
             <span
-              class="text-3xl icon-[material-symbols--savings-outline] text-primary"
+              class="icon-[material-symbols--savings-outline] text-primary text-3xl"
               >savings</span
             >
             <span
-              class="py-1 px-2 font-bold rounded bg-primary/10 text-primary text-[10px]"
+              class="bg-primary/10 text-primary rounded px-2 py-1 text-[10px] font-bold"
               >ELITE SAVER</span
             >
           </div>
-          <p class="font-label-lg text-label-lg text-on-surface-variant">
+          <p class="text-label-lg text-on-surface-variant font-label-lg">
             Total Monthly Savings
           </p>
-          <h3 class="mt-1 font-display-lg text-display-lg text-on-surface">
+          <h3 class="text-display-lg text-on-surface mt-1 font-display-lg">
             $142<span
-              class="text-title-lg font-title-lg text-on-surface-variant"
+              class="text-title-lg text-on-surface-variant font-title-lg"
               >.50</span
             >
           </h3>
@@ -191,17 +194,17 @@
             >
           </div>
           <div>
-            <p class="font-label-lg text-label-lg text-on-primary-container/80">
+            <p class="text-label-lg text-on-primary-container/80 font-label-lg">
               Next Billing Cycle
             </p>
             <h3
-              class="mt-1 font-headline-lg text-headline-lg text-on-primary-container"
+              class="text-headline-lg text-on-primary-container mt-1 font-headline-lg"
             >
               {{ nextBilling | date }}
             </h3>
           </div>
           <!-- <div class="mt-4"> -->
-          <!--   <p class="mb-2 font-body-md text-body-md text-on-primary-container"> -->
+          <!--   <p class="text-body-md text-on-primary-container mb-2 font-body-md"> -->
           <!--     Upcoming: $28.99 -->
           <!--   </p> -->
           <!--   <button matButton="filled">Manage Payment</button> -->
@@ -215,23 +218,23 @@
       <section class="lg:col-span-2">
         <mat-card>
           <mat-card-content>
-            <div class="flex justify-between items-center mb-6">
-              <h4 class="font-title-lg text-title-lg text-on-surface">
+            <div class="mb-6 flex items-center justify-between">
+              <h4 class="text-title-lg text-on-surface font-title-lg">
                 Recent Subscriptions
               </h4>
             </div>
             <div class="overflow-x-auto">
               <table
-                class="w-full text-left  bg-transparent!"
+                class="w-full bg-transparent! text-left"
                 mat-table
                 [dataSource]="subscriptions.value()?.data || []"
               >
                 <ng-container matColumnDef="service">
                   <th mat-header-cell *matHeaderCellDef>Service</th>
                   <td mat-cell *matCellDef="let subscription">
-                    <div class="flex gap-2 items-center">
+                    <div class="flex items-center gap-2">
                       <div
-                        class="overflow-hidden relative p-px rounded-2xl size-10 bg-primary-container/5"
+                        class="bg-primary-container/5 relative size-10 overflow-hidden rounded-2xl p-px"
                       >
                         <img
                           [src]="subscription.service.icon"
@@ -264,7 +267,9 @@
                 <ng-container matColumnDef="price">
                   <th mat-header-cell *matHeaderCellDef>Price</th>
                   <td mat-cell *matCellDef="let subscription">
-                    {{ $safeNavigationMigration(subscription.service?.price) | currency }}
+                    {{
+                      $safeNavigationMigration(subscription.service?.price) | currency
+                    }}
                   </td>
                 </ng-container>
 
@@ -275,7 +280,7 @@
                 <tr
                   mat-row
                   *matRowDef="let row; columns: ['service', 'expiry', 'status', 'price'];"
-                  class="odd:bg-primary-container/2! odd:hover:bg-primary-container/10! transition duration-300 even:hover:bg-secondary/3! "
+                  class="odd:bg-primary-container/2! odd:hover:bg-primary-container/10! even:hover:bg-secondary/3! transition duration-300"
                 ></tr>
               </table>
               <mat-paginator
@@ -293,13 +298,13 @@
       </section>
       <!-- Past History Section -->
       <!-- <section class="lg:col-span-1"> -->
-      <!--   <div class="p-6 h-full rounded-3xl bg-surface-container"> -->
-      <!--     <div class="flex justify-between items-center mb-6"> -->
-      <!--       <h4 class="font-title-lg text-title-lg text-on-surface"> -->
+      <!--   <div class="bg-surface-container h-full rounded-3xl p-6"> -->
+      <!--     <div class="mb-6 flex items-center justify-between"> -->
+      <!--       <h4 class="text-title-lg text-on-surface font-title-lg"> -->
       <!--         Recent Activity -->
       <!--       </h4> -->
       <!--       <button -->
-      <!--         class="transition-colors text-on-surface-variant font-label-md text-label-md hover:text-primary" -->
+      <!--         class="text-on-surface-variant text-label-md hover:text-primary font-label-md transition-colors" -->
       <!--       > -->
       <!--         <span class="icon-[material-symbols--filter-list]" -->
       <!--           >filter_list</span -->
@@ -307,60 +312,60 @@
       <!--       </button> -->
       <!--     </div> -->
       <!--     <div class="space-y-6"> -->
-      <!--       <div class="flex gap-4 items-start"> -->
+      <!--       <div class="flex items-start gap-4"> -->
       <!--         <div -->
-      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--           class="bg-surface-container-highest flex h-10 w-10 shrink-0 items-center justify-center rounded-full" -->
       <!--         > -->
       <!--           <span -->
-      <!--             class="text-xl icon-[material-symbols--receipt-long-outline] text-on-surface-variant" -->
+      <!--             class="icon-[material-symbols--receipt-long-outline] text-on-surface-variant text-xl" -->
       <!--             >receipt_long</span -->
       <!--           > -->
       <!--         </div> -->
       <!--         <div class="flex-1"> -->
-      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--           <p class="text-label-lg text-on-surface font-label-lg"> -->
       <!--             Invoice Paid: Cinestream -->
       <!--           </p> -->
-      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--           <p class="text-body-md text-on-surface-variant font-body-md"> -->
       <!--             Yesterday, 14:20 PM -->
       <!--           </p> -->
       <!--         </div> -->
-      <!--         <span class="font-bold text-primary text-label-lg">-$19.99</span> -->
+      <!--         <span class="text-primary text-label-lg font-bold">-$19.99</span> -->
       <!--       </div> -->
-      <!--       <div class="flex gap-4 items-start"> -->
+      <!--       <div class="flex items-start gap-4"> -->
       <!--         <div -->
-      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--           class="bg-surface-container-highest flex h-10 w-10 shrink-0 items-center justify-center rounded-full" -->
       <!--         > -->
       <!--           <span -->
-      <!--             class="text-xl icon-[material-symbols--add-circle-outline] text-on-surface-variant" -->
+      <!--             class="icon-[material-symbols--add-circle-outline] text-on-surface-variant text-xl" -->
       <!--             >add_circle</span -->
       <!--           > -->
       <!--         </div> -->
       <!--         <div class="flex-1"> -->
-      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--           <p class="text-label-lg text-on-surface font-label-lg"> -->
       <!--             New Subscription: Vitality -->
       <!--           </p> -->
-      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--           <p class="text-body-md text-on-surface-variant font-body-md"> -->
       <!--             June 12, 2024 -->
       <!--           </p> -->
       <!--         </div> -->
-      <!--         <span class="font-bold text-on-surface-variant text-label-lg" -->
+      <!--         <span class="text-on-surface-variant text-label-lg font-bold" -->
       <!--           >+$2.00 Cashback</span -->
       <!--         > -->
       <!--       </div> -->
-      <!--       <div class="flex gap-4 items-start"> -->
+      <!--       <div class="flex items-start gap-4"> -->
       <!--         <div -->
-      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--           class="bg-surface-container-highest flex h-10 w-10 shrink-0 items-center justify-center rounded-full" -->
       <!--         > -->
       <!--           <span -->
-      <!--             class="text-xl icon-[material-symbols--pause-circle-outline] text-on-surface-variant" -->
+      <!--             class="icon-[material-symbols--pause-circle-outline] text-on-surface-variant text-xl" -->
       <!--             >pause_circle</span -->
       <!--           > -->
       <!--         </div> -->
       <!--         <div class="flex-1"> -->
-      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--           <p class="text-label-lg text-on-surface font-label-lg"> -->
       <!--             Paused Nexus Gaming -->
       <!--           </p> -->
-      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--           <p class="text-body-md text-on-surface-variant font-body-md"> -->
       <!--             June 10, 2024 -->
       <!--           </p> -->
       <!--         </div> -->
@@ -369,40 +374,40 @@
       <!--           >more_horiz</span -->
       <!--         > -->
       <!--       </div> -->
-      <!--       <div class="flex gap-4 items-start"> -->
+      <!--       <div class="flex items-start gap-4"> -->
       <!--         <div -->
-      <!--           class="flex justify-center items-center w-10 h-10 rounded-full shrink-0 bg-surface-container-highest" -->
+      <!--           class="bg-surface-container-highest flex h-10 w-10 shrink-0 items-center justify-center rounded-full" -->
       <!--         > -->
       <!--           <span -->
-      <!--             class="text-xl icon-[material-symbols--savings-outline] text-on-surface-variant" -->
+      <!--             class="icon-[material-symbols--savings-outline] text-on-surface-variant text-xl" -->
       <!--             >savings</span -->
       <!--           > -->
       <!--         </div> -->
       <!--         <div class="flex-1"> -->
-      <!--           <p class="font-label-lg text-label-lg text-on-surface"> -->
+      <!--           <p class="text-label-lg text-on-surface font-label-lg"> -->
       <!--             Monthly Savings Reached -->
       <!--           </p> -->
-      <!--           <p class="font-body-md text-body-md text-on-surface-variant"> -->
+      <!--           <p class="text-body-md text-on-surface-variant font-body-md"> -->
       <!--             June 01, 2024 -->
       <!--           </p> -->
       <!--         </div> -->
-      <!--         <span class="font-bold text-primary text-label-lg">+$142.50</span> -->
+      <!--         <span class="text-primary text-label-lg font-bold">+$142.50</span> -->
       <!--       </div> -->
       <!--     </div> -->
-      <!--     <div class="pt-6 mt-8 border-t border-outline-variant/10"> -->
+      <!--     <div class="border-outline-variant/10 mt-8 border-t pt-6"> -->
       <!--       <div -->
-      <!--         class="flex justify-between items-center p-4 rounded-2xl transition-all cursor-pointer bg-surface-container-highest group hover:bg-surface-bright" -->
+      <!--         class="bg-surface-container-highest group hover:bg-surface-bright flex cursor-pointer items-center justify-between rounded-2xl p-4 transition-all" -->
       <!--       > -->
-      <!--         <div class="flex gap-3 items-center"> -->
+      <!--         <div class="flex items-center gap-3"> -->
       <!--           <span class="icon-[material-symbols--download] text-primary" -->
       <!--             >download</span -->
       <!--           > -->
-      <!--           <span class="font-label-md text-label-md text-on-surface" -->
+      <!--           <span class="text-label-md text-on-surface font-label-md" -->
       <!--             >Download Annual Report</span -->
       <!--           > -->
       <!--         </div> -->
       <!--         <span -->
-      <!--           class="transition-transform group-hover:translate-x-1 icon-[material-symbols--chevron-right]" -->
+      <!--           class="icon-[material-symbols--chevron-right] transition-transform group-hover:translate-x-1" -->
       <!--           >chevron_right</span -->
       <!--         > -->
       <!--       </div> -->
@@ -413,37 +418,37 @@
   </div>
   <!-- Footer Shell Integration -->
   <footer
-    class="mt-12 border-t bg-surface-container-low border-outline-variant/5"
+    class="bg-surface-container-low border-outline-variant/5 mt-12 border-t"
   >
     <div
-      class="flex flex-col justify-between items-center py-12 mx-auto w-full max-w-7xl md:flex-row px-gutter"
+      class="px-gutter mx-auto flex w-full max-w-7xl flex-col items-center justify-between py-12 md:flex-row"
     >
       <div class="mb-6 md:mb-0">
-        <h5 class="font-bold text-title-lg font-title-lg text-primary">
+        <h5 class="text-title-lg text-primary font-title-lg font-bold">
           Premifly
         </h5>
-        <p class="mt-2 font-body-md text-body-md text-on-surface-variant">
+        <p class="text-body-md text-on-surface-variant mt-2 font-body-md">
           © 2024 Premifly Elite Subscriptions
         </p>
       </div>
       <div class="flex gap-8">
         <a
-          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          class="text-on-surface-variant text-body-md hover:text-primary font-body-md underline transition-all duration-200"
           href="#"
           >Privacy Policy</a
         >
         <a
-          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          class="text-on-surface-variant text-body-md hover:text-primary font-body-md underline transition-all duration-200"
           href="#"
           >Terms of Service</a
         >
         <a
-          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          class="text-on-surface-variant text-body-md hover:text-primary font-body-md underline transition-all duration-200"
           href="#"
           >Support</a
         >
         <a
-          class="underline transition-all duration-200 text-on-surface-variant font-body-md text-body-md hover:text-primary"
+          class="text-on-surface-variant text-body-md hover:text-primary font-body-md underline transition-all duration-200"
           href="#"
           >Contact</a
         >
@@ -453,10 +458,10 @@
 </main>
 <!-- Mobile Navigation Shell -->
 <nav
-  class="flex fixed right-0 bottom-0 left-0 z-50 justify-around items-center py-3 px-4 border-t md:hidden bg-surface-container border-outline-variant/10"
+  class="bg-surface-container border-outline-variant/10 fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t px-4 py-3 md:hidden"
 >
   <a
-    class="flex flex-col gap-1 items-center text-primary"
+    class="text-primary flex flex-col items-center gap-1"
     routerLink="/dashboard"
   >
     <span
@@ -466,17 +471,17 @@
     >
     <span class="font-label-md text-[10px]">Dashboard</span>
   </a>
-  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+  <a class="text-on-surface-variant flex flex-col items-center gap-1" href="#">
     <span class="icon-[material-symbols--subscriptions-outline]"
       >subscriptions</span
     >
     <span class="font-label-md text-[10px]">Subs</span>
   </a>
-  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+  <a class="text-on-surface-variant flex flex-col items-center gap-1" href="#">
     <span class="icon-[material-symbols--history]">history</span>
     <span class="font-label-md text-[10px]">History</span>
   </a>
-  <a class="flex flex-col gap-1 items-center text-on-surface-variant" href="#">
+  <a class="text-on-surface-variant flex flex-col items-center gap-1" href="#">
     <span class="icon-[material-symbols--settings-outline]">settings</span>
     <span class="font-label-md text-[10px]">Settings</span>
   </a>

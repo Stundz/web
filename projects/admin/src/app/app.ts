@@ -1,3 +1,7 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
@@ -22,6 +26,7 @@ import { filter, map } from "rxjs";
 	selector: "admin-root",
 	imports: [
 		MatButtonModule,
+        MatSidenavModule, MatToolbarModule, MatListModule,
 		RouterLink,
 		RouterLinkActive,
 		RouterOutlet,
@@ -34,6 +39,12 @@ import { filter, map } from "rxjs";
 export class App {
 	#router = inject(Router);
 	protected readonly title = signal("admin");
+  protected readonly drawerOpen = signal(false);
+  protected readonly compact = toSignal(inject(BreakpointObserver).observe('(max-width: 900px)').pipe(map(result => result.matches)), { initialValue: false });
+  protected readonly links = [
+    { label: 'Overview', route: '/', icon: 'icon-[material-symbols--dashboard-outline]' },
+    { label: 'Applications', route: '/apps', icon: 'icon-[material-symbols--apps]' },
+  ];
 
 	isLoading = toSignal(
 		this.#router.events.pipe(

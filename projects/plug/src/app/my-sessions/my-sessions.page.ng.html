@@ -1,368 +1,375 @@
 <head>
-	<style>
-	.glass-panel {
-		background: rgba(250, 248, 255, 0.8);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-	}
-	.bg-gradient-primary {
-		background: linear-gradient(135deg, #00327d 0%, #0047ab 100%);
-	}
-	</style>
+  <style>
+  .glass-panel {
+    background: rgba(250, 248, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #00327d 0%, #0047ab 100%);
+  }
+  </style>
 </head>
 <!-- Main Content -->
-<main class="container flex-grow py-12 px-4 mx-auto max-w-7xl md:px-8">
-	<!-- Header Section -->
-	<div
-		class="flex flex-col gap-6 justify-between mb-12 md:flex-row md:items-end"
-	>
-		<div>
-			<h1
-				class="mb-2 text-4xl font-bold tracking-tight md:text-5xl font-headline text-on-surface"
-			>
-				My Sessions
-			</h1>
-			<p
-				class="max-w-2xl text-lg leading-relaxed font-body text-on-surface-variant"
-			>
-				Manage your upcoming tutorials, review past discussions, and access
-				recorded material.
-			</p>
-		</div>
-		<!-- Tabs -->
-		<div
-			class="flex self-start p-1 rounded-full shadow-sm md:self-auto bg-surface-container-high"
-		>
-			<button
-				class="py-2 px-6 text-sm font-semibold rounded-full shadow-sm transition-all bg-surface-container-lowest text-primary font-label"
-			>
-				Upcoming
-			</button>
-			<button
-				class="py-2 px-6 text-sm font-medium rounded-full transition-all text-on-surface-variant font-label hover:text-on-surface"
-			>
-				Past
-			</button>
-			<button
-				class="py-2 px-6 text-sm font-medium rounded-full transition-all text-on-surface-variant font-label hover:text-on-surface"
-			>
-				Recorded
-			</button>
-		</div>
-	</div>
-	<!-- Sessions Grid -->
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
-		<!-- Left Column: Upcoming (Main Focus) -->
-		<div class="space-y-6 lg:col-span-8">
-			<!-- Live Session Card -->
-			<article
-				class="overflow-hidden relative p-6 border bg-surface-container-lowest rounded-DEFAULT shadow-[0_8px_32px_rgba(86,66,59,0.04)] border-outline-variant/15 group"
-			>
-				<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
-				<div class="flex flex-col gap-6 justify-between md:flex-row">
-					<div class="flex-grow">
-						<div class="flex gap-3 items-center mb-3">
-							<span
-								class="flex gap-1 items-center py-1 px-3 text-xs font-bold tracking-wider uppercase rounded-full bg-error-container text-on-error-container font-label"
-							>
-								<span
-									class="w-2 h-2 rounded-full animate-pulse bg-error"
-								></span>
-								Live Now
-							</span>
-							<span class="text-sm text-on-surface-variant font-label"
-								>Advanced Calculus</span
-							>
-						</div>
-						<h2 class="mb-2 text-2xl font-bold font-headline text-on-surface">
-							Integration Techniques &amp; Applications
-						</h2>
-						<div
-							class="flex gap-4 items-center mt-4 text-sm text-on-surface-variant font-body"
-						>
-							<div class="flex gap-2 items-center">
-								<img
-									alt="Dr. Eleanor Vance"
-									class="object-cover w-8 h-8 rounded-full border-2 border-surface"
-									data-alt="Portrait of an academic professor in a library setting, warm lighting"
-									src="https://lh3.googleusercontent.com/aida-public/AB6AXuCENvc7m7Dr8S5fcIzfS03FnDKJlmrDHt41p_IaYj7veCXBVBwvModkyqz9l3GXoBhdUhaBP1rjv3ByRJIPESJYK6oXAdUEee1r6Lw0Yl9FIkVmjGfZfm8j5dg912eGizMvW6dnSyQT1F8-3M3bMCIbpPPaSj9yr0bY4a3omWHjzjxa3TWRf91-tiNc6gvIv4vRDHUo9bg9s6QX6J_JinBvbqAVkPiRxIMR1dQ1VXEUaTeHG6TTYNVFdjZ7FGsj_R4UOBDkrFYpNYE"
-								>
-								<span class="font-medium text-on-surface"
-									>Dr. Eleanor Vance</span
-								>
-							</div>
-							<div class="flex gap-1 items-center">
-								<span
-									class="icon-[material-symbols--schedule-outline] text-[18px]"
-								></span>
-								<span>Started 10 mins ago</span>
-							</div>
-						</div>
-					</div>
-					<div class="flex flex-col justify-center shrink-0">
-						<button
-							class="flex gap-2 justify-center items-center py-3 px-8 text-sm font-semibold rounded-full shadow-md transition-all hover:shadow-lg bg-gradient-primary text-on-primary font-label"
-						>
-							Join Session
-							<span class="material-symbols-outlined text-[18px]"
-								>videocam</span
-							>
-						</button>
-					</div>
-				</div>
-			</article>
-			<!-- Upcoming Session Card -->
-			<article
-				class="p-6 border bg-surface-container-lowest rounded-DEFAULT shadow-[0_8px_32px_rgba(86,66,59,0.04)] border-outline-variant/15"
-			>
-				<div class="flex flex-col gap-6 justify-between md:flex-row">
-					<div class="flex-grow">
-						<div class="flex gap-3 items-center mb-3">
-							<span
-								class="py-1 px-3 text-xs font-bold tracking-wider uppercase rounded-full bg-surface-container-highest text-on-surface font-label"
-								>Starts in 2h</span
-							>
-							<span class="text-sm text-on-surface-variant font-label"
-								>European History</span
-							>
-						</div>
-						<h2 class="mb-2 text-xl font-bold font-headline text-on-surface">
-							The Enlightenment &amp; Its Consequences
-						</h2>
-						<div
-							class="flex gap-4 items-center mt-4 text-sm text-on-surface-variant font-body"
-						>
-							<div class="flex gap-2 items-center">
-								<div
-									class="flex justify-center items-center w-8 h-8 text-xs font-bold rounded-full bg-secondary-container text-on-secondary-container"
-								>
-									JP
-								</div>
-								<span class="font-medium text-on-surface"
-									>Prof. Julian Pierce</span
-								>
-							</div>
-							<div class="flex gap-1 items-center">
-								<span
-									class="icon-[material-symbols--calendar-today-outline] text-[18px]"
-								></span>
-								<span>Today, 2:00 PM - 3:30 PM</span>
-							</div>
-						</div>
-					</div>
-					<div class="flex flex-col justify-center shrink-0">
-						<button
-							class="py-3 px-8 text-sm font-semibold rounded-full transition-all bg-surface-container text-on-surface font-label hover:bg-surface-container-high"
-						>
-							Prepare
-						</button>
-					</div>
-				</div>
-			</article>
-			<!-- Another Upcoming -->
-			<article
-				class="p-6 border bg-surface-container-lowest rounded-DEFAULT shadow-[0_8px_32px_rgba(86,66,59,0.04)] border-outline-variant/15"
-			>
-				<div class="flex flex-col gap-6 justify-between md:flex-row">
-					<div class="flex-grow">
-						<div class="flex gap-3 items-center mb-3">
-							<span
-								class="py-1 px-3 text-xs font-bold tracking-wider uppercase rounded-full bg-surface-container-highest text-on-surface font-label"
-								>Tomorrow</span
-							>
-							<span class="text-sm text-on-surface-variant font-label"
-								>Organic Chemistry</span
-							>
-						</div>
-						<h2 class="mb-2 text-xl font-bold font-headline text-on-surface">
-							Molecular Structures &amp; Bonding
-						</h2>
-						<div
-							class="flex gap-4 items-center mt-4 text-sm text-on-surface-variant font-body"
-						>
-							<div class="flex gap-2 items-center">
-								<img
-									alt="Dr. Sarah Chen"
-									class="object-cover w-8 h-8 rounded-full border-2 border-surface"
-									data-alt="Portrait of a female scientist in a laboratory, bright natural light"
-									src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkw2_mq4IfWqyC0DoOD5MpARFOMNTp_7HwSKwxvnpkMM0ktYnvzsEJWyTGCEzuuR2UUH9ze4POCRiXA3blOT1kflcfzJdgzj3x_KLzn3BgF7x1gj7ex_CdzsKLdAWdr_2wI05QSDcHAyeEJeR3joAywyyPRnyGJF_YE_a2AtWTIff0FN90OQIBep8XX2j2oWUKge-7AsD2Qrwa7RCdjhxKzhg0NsFKsOdUbTVZNjQChacl_eLaJCuDXyqz1-g8F8tgv8kfwrq4UDM"
-								>
-								<span class="font-medium text-on-surface">Dr. Sarah Chen</span>
-							</div>
-							<div class="flex gap-1 items-center">
-								<span
-									class="icon-[material-symbols--calendar-today-outline] text-[18px]"
-								></span>
-								<span>Oct 25, 10:00 AM - 11:00 AM</span>
-							</div>
-						</div>
-					</div>
-					<div class="flex flex-col justify-center shrink-0">
-						<button
-							class="py-3 px-8 text-sm font-semibold rounded-full transition-all bg-surface-container text-on-surface font-label hover:bg-surface-container-high"
-						>
-							Prepare
-						</button>
-					</div>
-				</div>
-			</article>
-		</div>
-		<!-- Right Column: Quick Actions / Summary (Bento Style) -->
-		<div class="space-y-6 lg:col-span-4">
-			<!-- Stats Card -->
-			<div
-				class="flex flex-col justify-between p-6 bg-surface-container-low rounded-DEFAULT"
-			>
-				<h3 class="mb-4 text-lg font-bold font-headline text-on-surface">
-					This Week
-				</h3>
-				<div class="grid grid-cols-2 gap-4">
-					<div
-						class="p-4 text-center rounded-lg shadow-sm bg-surface-container-lowest"
-					>
-						<div class="mb-1 text-3xl font-bold font-headline text-primary">
-							4
-						</div>
-						<div
-							class="text-xs tracking-wide uppercase font-label text-on-surface-variant"
-						>
-							Sessions
-						</div>
-					</div>
-					<div
-						class="p-4 text-center rounded-lg shadow-sm bg-surface-container-lowest"
-					>
-						<div class="mb-1 text-3xl font-bold font-headline text-secondary">
-							6h
-						</div>
-						<div
-							class="text-xs tracking-wide uppercase font-label text-on-surface-variant"
-						>
-							Learning
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Recent Past Session (Mini) -->
-			<div
-				class="p-5 border bg-surface-container-lowest rounded-DEFAULT shadow-[0_4px_16px_rgba(86,66,59,0.02)] border-outline-variant/15"
-			>
-				<h3
-					class="flex justify-between items-center mb-3 text-xs font-bold tracking-wide uppercase font-label text-on-surface-variant"
-				>
-					Recent Past Session
-					<a
-						class="lowercase normal-case hover:underline text-primary text-[11px]"
-						href="#"
-						>View all</a
-					>
-				</h3>
-				<h4 class="mb-1 font-bold font-headline text-md text-on-surface">
-					Literary Theory Seminar
-				</h4>
-				<p class="mb-4 text-xs font-body text-on-surface-variant">
-					Completed yesterday
-				</p>
-				<div class="flex gap-2 items-center">
-					<button
-						class="flex-1 py-2 px-4 text-xs font-semibold rounded-full transition-all bg-surface-container text-on-surface font-label hover:bg-surface-container-high"
-					>
-						Review Notes
-					</button>
-					<button
-						aria-label="Report Session"
-						class="relative p-2 rounded-full transition-colors text-outline group hover:text-error hover:bg-error-container"
-					>
-						<span class="material-symbols-outlined text-[18px]">flag</span>
-						<span
-							class="absolute left-1/2 bottom-full py-1 px-2 mb-2 whitespace-nowrap rounded opacity-0 transition-opacity -translate-x-1/2 pointer-events-none group-hover:opacity-100 bg-inverse-surface text-inverse-on-surface text-[10px]"
-							>Report</span
-						>
-					</button>
-				</div>
-			</div>
-			<!-- Need Help Card -->
-			<div
-				class="overflow-hidden relative p-6 bg-tertiary-fixed rounded-DEFAULT text-on-tertiary-fixed"
-			>
-				<div class="absolute -right-4 -bottom-4 opacity-10">
-					<span class="material-symbols-outlined text-[100px]"
-						>help_center</span
-					>
-				</div>
-				<h3 class="relative z-10 mb-2 text-lg font-bold font-headline">
-					Need Assistance?
-				</h3>
-				<p class="relative z-10 mb-4 text-sm opacity-90 font-body">
-					Having technical issues or need to reschedule a session?
-				</p>
-				<button
-					class="relative z-10 py-2 px-6 text-sm font-semibold rounded-full transition-all hover:bg-opacity-90 bg-on-tertiary-fixed text-tertiary-fixed font-label"
-				>
-					Contact Support
-				</button>
-			</div>
-		</div>
-	</div>
+<main class="container mx-auto max-w-7xl grow px-4 py-12 md:px-8">
+  <!-- Header Section -->
+  <div
+    class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"
+  >
+    <div>
+      <h1
+        class="text-on-surface mb-2 font-headline text-4xl font-bold tracking-tight md:text-5xl"
+      >
+        My Sessions
+      </h1>
+      <p
+        class="text-on-surface-variant max-w-2xl font-body text-lg leading-relaxed"
+      >
+        Manage your upcoming tutorials, review past discussions, and access
+        recorded material.
+      </p>
+    </div>
+    <!-- Tabs -->
+    <div
+      class="bg-surface-container-high flex self-start rounded-full p-1 shadow-sm md:self-auto"
+    >
+      <button
+        type="button"
+        class="bg-surface-container-lowest text-primary rounded-full px-6 py-2 font-label text-sm font-semibold shadow-sm transition-all"
+      >
+        Upcoming
+      </button>
+      <button
+        type="button"
+        class="text-on-surface-variant hover:text-on-surface rounded-full px-6 py-2 font-label text-sm font-medium transition-all"
+      >
+        Past
+      </button>
+      <button
+        type="button"
+        class="text-on-surface-variant hover:text-on-surface rounded-full px-6 py-2 font-label text-sm font-medium transition-all"
+      >
+        Recorded
+      </button>
+    </div>
+  </div>
+  <!-- Sessions Grid -->
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+    <!-- Left Column: Upcoming (Main Focus) -->
+    <div class="space-y-6 lg:col-span-8">
+      <!-- Live Session Card -->
+      <article
+        class="bg-surface-container-lowest rounded-DEFAULT border-outline-variant/15 group relative overflow-hidden border p-6 shadow-[0_8px_32px_rgba(86,66,59,0.04)]"
+      >
+        <div class="bg-error absolute top-0 left-0 h-full w-1"></div>
+        <div class="flex flex-col justify-between gap-6 md:flex-row">
+          <div class="grow">
+            <div class="mb-3 flex items-center gap-3">
+              <span
+                class="bg-error-container text-on-error-container flex items-center gap-1 rounded-full px-3 py-1 font-label text-xs font-bold tracking-wider uppercase"
+              >
+                <span
+                  class="bg-error h-2 w-2 animate-pulse rounded-full"
+                ></span>
+                Live Now
+              </span>
+              <span class="text-on-surface-variant font-label text-sm"
+                >Advanced Calculus</span
+              >
+            </div>
+            <h2 class="text-on-surface mb-2 font-headline text-2xl font-bold">
+              Integration Techniques &amp; Applications
+            </h2>
+            <div
+              class="text-on-surface-variant mt-4 flex items-center gap-4 font-body text-sm"
+            >
+              <div class="flex items-center gap-2">
+                <img
+                  alt="Dr. Eleanor Vance"
+                  class="border-surface h-8 w-8 rounded-full border-2 object-cover"
+                  data-alt="Portrait of an academic professor in a library setting, warm lighting"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCENvc7m7Dr8S5fcIzfS03FnDKJlmrDHt41p_IaYj7veCXBVBwvModkyqz9l3GXoBhdUhaBP1rjv3ByRJIPESJYK6oXAdUEee1r6Lw0Yl9FIkVmjGfZfm8j5dg912eGizMvW6dnSyQT1F8-3M3bMCIbpPPaSj9yr0bY4a3omWHjzjxa3TWRf91-tiNc6gvIv4vRDHUo9bg9s6QX6J_JinBvbqAVkPiRxIMR1dQ1VXEUaTeHG6TTYNVFdjZ7FGsj_R4UOBDkrFYpNYE"
+                >
+                <span class="text-on-surface font-medium"
+                  >Dr. Eleanor Vance</span
+                >
+              </div>
+              <div class="flex items-center gap-1">
+                <span
+                  class="icon-[material-symbols--schedule-outline] text-[18px]"
+                ></span>
+                <span>Started 10 mins ago</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex shrink-0 flex-col justify-center">
+            <button
+              type="button"
+              class="bg-gradient-primary text-on-primary flex items-center justify-center gap-2 rounded-full px-8 py-3 font-label text-sm font-semibold shadow-md transition-all hover:shadow-lg"
+            >
+              Join Session
+              <span class="material-symbols-outlined text-[18px]"
+                >videocam</span
+              >
+            </button>
+          </div>
+        </div>
+      </article>
+      <!-- Upcoming Session Card -->
+      <article
+        class="bg-surface-container-lowest rounded-DEFAULT border-outline-variant/15 border p-6 shadow-[0_8px_32px_rgba(86,66,59,0.04)]"
+      >
+        <div class="flex flex-col justify-between gap-6 md:flex-row">
+          <div class="grow">
+            <div class="mb-3 flex items-center gap-3">
+              <span
+                class="bg-surface-container-highest text-on-surface rounded-full px-3 py-1 font-label text-xs font-bold tracking-wider uppercase"
+                >Starts in 2h</span
+              >
+              <span class="text-on-surface-variant font-label text-sm"
+                >European History</span
+              >
+            </div>
+            <h2 class="text-on-surface mb-2 font-headline text-xl font-bold">
+              The Enlightenment &amp; Its Consequences
+            </h2>
+            <div
+              class="text-on-surface-variant mt-4 flex items-center gap-4 font-body text-sm"
+            >
+              <div class="flex items-center gap-2">
+                <div
+                  class="bg-secondary-container text-on-secondary-container flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold"
+                >
+                  JP
+                </div>
+                <span class="text-on-surface font-medium"
+                  >Prof. Julian Pierce</span
+                >
+              </div>
+              <div class="flex items-center gap-1">
+                <span
+                  class="icon-[material-symbols--calendar-today-outline] text-[18px]"
+                ></span>
+                <span>Today, 2:00 PM - 3:30 PM</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex shrink-0 flex-col justify-center">
+            <button
+              type="button"
+              class="bg-surface-container text-on-surface hover:bg-surface-container-high rounded-full px-8 py-3 font-label text-sm font-semibold transition-all"
+            >
+              Prepare
+            </button>
+          </div>
+        </div>
+      </article>
+      <!-- Another Upcoming -->
+      <article
+        class="bg-surface-container-lowest rounded-DEFAULT border-outline-variant/15 border p-6 shadow-[0_8px_32px_rgba(86,66,59,0.04)]"
+      >
+        <div class="flex flex-col justify-between gap-6 md:flex-row">
+          <div class="grow">
+            <div class="mb-3 flex items-center gap-3">
+              <span
+                class="bg-surface-container-highest text-on-surface rounded-full px-3 py-1 font-label text-xs font-bold tracking-wider uppercase"
+                >Tomorrow</span
+              >
+              <span class="text-on-surface-variant font-label text-sm"
+                >Organic Chemistry</span
+              >
+            </div>
+            <h2 class="text-on-surface mb-2 font-headline text-xl font-bold">
+              Molecular Structures &amp; Bonding
+            </h2>
+            <div
+              class="text-on-surface-variant mt-4 flex items-center gap-4 font-body text-sm"
+            >
+              <div class="flex items-center gap-2">
+                <img
+                  alt="Dr. Sarah Chen"
+                  class="border-surface h-8 w-8 rounded-full border-2 object-cover"
+                  data-alt="Portrait of a female scientist in a laboratory, bright natural light"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkw2_mq4IfWqyC0DoOD5MpARFOMNTp_7HwSKwxvnpkMM0ktYnvzsEJWyTGCEzuuR2UUH9ze4POCRiXA3blOT1kflcfzJdgzj3x_KLzn3BgF7x1gj7ex_CdzsKLdAWdr_2wI05QSDcHAyeEJeR3joAywyyPRnyGJF_YE_a2AtWTIff0FN90OQIBep8XX2j2oWUKge-7AsD2Qrwa7RCdjhxKzhg0NsFKsOdUbTVZNjQChacl_eLaJCuDXyqz1-g8F8tgv8kfwrq4UDM"
+                >
+                <span class="text-on-surface font-medium">Dr. Sarah Chen</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span
+                  class="icon-[material-symbols--calendar-today-outline] text-[18px]"
+                ></span>
+                <span>Oct 25, 10:00 AM - 11:00 AM</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex shrink-0 flex-col justify-center">
+            <button
+              type="button"
+              class="bg-surface-container text-on-surface hover:bg-surface-container-high rounded-full px-8 py-3 font-label text-sm font-semibold transition-all"
+            >
+              Prepare
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!-- Right Column: Quick Actions / Summary (Bento Style) -->
+    <div class="space-y-6 lg:col-span-4">
+      <!-- Stats Card -->
+      <div
+        class="bg-surface-container-low rounded-DEFAULT flex flex-col justify-between p-6"
+      >
+        <h3 class="text-on-surface mb-4 font-headline text-lg font-bold">
+          This Week
+        </h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div
+            class="bg-surface-container-lowest rounded-lg p-4 text-center shadow-sm"
+          >
+            <div class="text-primary mb-1 font-headline text-3xl font-bold">
+              4
+            </div>
+            <div
+              class="text-on-surface-variant font-label text-xs tracking-wide uppercase"
+            >
+              Sessions
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-lowest rounded-lg p-4 text-center shadow-sm"
+          >
+            <div class="text-secondary mb-1 font-headline text-3xl font-bold">
+              6h
+            </div>
+            <div
+              class="text-on-surface-variant font-label text-xs tracking-wide uppercase"
+            >
+              Learning
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Recent Past Session (Mini) -->
+      <div
+        class="bg-surface-container-lowest rounded-DEFAULT border-outline-variant/15 border p-5 shadow-[0_4px_16px_rgba(86,66,59,0.02)]"
+      >
+        <h3
+          class="text-on-surface-variant mb-3 flex items-center justify-between font-label text-xs font-bold tracking-wide uppercase"
+        >
+          Recent Past Session
+          <a class="text-primary text-[11px] lowercase hover:underline" href="#"
+            >View all</a
+          >
+        </h3>
+        <h4 class="text-on-surface mb-1 font-headline text-md font-bold">
+          Literary Theory Seminar
+        </h4>
+        <p class="text-on-surface-variant mb-4 font-body text-xs">
+          Completed yesterday
+        </p>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="bg-surface-container text-on-surface hover:bg-surface-container-high flex-1 rounded-full px-4 py-2 font-label text-xs font-semibold transition-all"
+          >
+            Review Notes
+          </button>
+          <button
+            type="button"
+            aria-label="Report Session"
+            class="text-outline group hover:text-error hover:bg-error-container relative rounded-full p-2 transition-colors"
+          >
+            <span class="material-symbols-outlined text-[18px]">flag</span>
+            <span
+              class="bg-inverse-surface text-inverse-on-surface pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded px-2 py-1 text-[10px] whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100"
+              >Report</span
+            >
+          </button>
+        </div>
+      </div>
+      <!-- Need Help Card -->
+      <div
+        class="bg-tertiary-fixed rounded-DEFAULT text-on-tertiary-fixed relative overflow-hidden p-6"
+      >
+        <div class="absolute -right-4 -bottom-4 opacity-10">
+          <span class="material-symbols-outlined text-[100px]"
+            >help_center</span
+          >
+        </div>
+        <h3 class="relative z-10 mb-2 font-headline text-lg font-bold">
+          Need Assistance?
+        </h3>
+        <p class="relative z-10 mb-4 font-body text-sm opacity-90">
+          Having technical issues or need to reschedule a session?
+        </p>
+        <button
+          type="button"
+          class="bg-on-tertiary-fixed text-tertiary-fixed relative z-10 rounded-full px-6 py-2 font-label text-sm font-semibold transition-all hover:bg-opacity-90"
+        >
+          Contact Support
+        </button>
+      </div>
+    </div>
+  </div>
 </main>
 <!-- BottomNavBar (Mobile) -->
 <nav
-	class="flex fixed bottom-0 left-0 z-50 justify-around items-center py-3 px-4 w-full border-t-0 md:hidden bg-[#f9f9f9]/80 backdrop-blur-lg pb-safe shadow-[0_-8px_32px_rgba(86,66,59,0.06)] dark:bg-[#1a1c1c]/80"
+  class="pb-safe fixed bottom-0 left-0 z-50 flex w-full items-center justify-around border-t-0 bg-[#f9f9f9]/80 px-4 py-3 shadow-[0_-8px_32px_rgba(86,66,59,0.06)] backdrop-blur-lg md:hidden dark:bg-[#1a1c1c]/80"
 >
-	<a
-		class="flex flex-col justify-center items-center py-2 px-6 transition-all duration-200 active:scale-90 text-[#58423a] dark:text-[#a8a09d] dark:hover:text-[#4d82d6] hover:text-[#0047AB]"
-		href="#"
-	>
-		<span
-			class="material-symbols-outlined"
-			style="font-variation-settings: 'FILL' 0;"
-			>dashboard</span
-		>
-		<span
-			class="mt-1 font-sans font-medium tracking-wider uppercase text-[11px]"
-			>Dashboard</span
-		>
-	</a>
-	<a
-		class="flex flex-col justify-center items-center py-2 px-6 text-white rounded-full duration-200 active:scale-90 bg-[#0047AB]"
-		href="#"
-	>
-		<span
-			class="material-symbols-outlined"
-			style="font-variation-settings: 'FILL' 1;"
-			>event_upcoming</span
-		>
-		<span
-			class="mt-1 font-sans font-medium tracking-wider text-white uppercase text-[11px]"
-			>Sessions</span
-		>
-	</a>
-	<a
-		class="flex flex-col justify-center items-center py-2 px-6 transition-all duration-200 active:scale-90 text-[#58423a] dark:text-[#a8a09d] dark:hover:text-[#4d82d6] hover:text-[#0047AB]"
-		href="#"
-	>
-		<span
-			class="material-symbols-outlined"
-			style="font-variation-settings: 'FILL' 0;"
-			>video_library</span
-		>
-		<span
-			class="mt-1 font-sans font-medium tracking-wider uppercase text-[11px]"
-			>Library</span
-		>
-	</a>
-	<a
-		class="flex flex-col justify-center items-center py-2 px-6 transition-all duration-200 active:scale-90 text-[#58423a] dark:text-[#a8a09d] dark:hover:text-[#4d82d6] hover:text-[#0047AB]"
-		href="#"
-	>
-		<span
-			class="material-symbols-outlined"
-			style="font-variation-settings: 'FILL' 0;"
-			>flag</span
-		>
-		<span
-			class="mt-1 font-sans font-medium tracking-wider uppercase text-[11px]"
-			>Report</span
-		>
-	</a>
+  <a
+    class="flex flex-col items-center justify-center px-6 py-2 text-[#58423a] transition-all duration-200 hover:text-[#0047AB] active:scale-90 dark:text-[#a8a09d] dark:hover:text-[#4d82d6]"
+    href="#"
+  >
+    <span
+      class="material-symbols-outlined"
+      style="font-variation-settings: 'FILL' 0;"
+      >dashboard</span
+    >
+    <span
+      class="mt-1 font-sans text-[11px] font-medium tracking-wider uppercase"
+      >Dashboard</span
+    >
+  </a>
+  <a
+    class="flex flex-col items-center justify-center rounded-full bg-[#0047AB] px-6 py-2 text-white duration-200 active:scale-90"
+    href="#"
+  >
+    <span
+      class="material-symbols-outlined"
+      style="font-variation-settings: 'FILL' 1;"
+      >event_upcoming</span
+    >
+    <span
+      class="mt-1 font-sans text-[11px] font-medium tracking-wider text-white uppercase"
+      >Sessions</span
+    >
+  </a>
+  <a
+    class="flex flex-col items-center justify-center px-6 py-2 text-[#58423a] transition-all duration-200 hover:text-[#0047AB] active:scale-90 dark:text-[#a8a09d] dark:hover:text-[#4d82d6]"
+    href="#"
+  >
+    <span
+      class="material-symbols-outlined"
+      style="font-variation-settings: 'FILL' 0;"
+      >video_library</span
+    >
+    <span
+      class="mt-1 font-sans text-[11px] font-medium tracking-wider uppercase"
+      >Library</span
+    >
+  </a>
+  <a
+    class="flex flex-col items-center justify-center px-6 py-2 text-[#58423a] transition-all duration-200 hover:text-[#0047AB] active:scale-90 dark:text-[#a8a09d] dark:hover:text-[#4d82d6]"
+    href="#"
+  >
+    <span
+      class="material-symbols-outlined"
+      style="font-variation-settings: 'FILL' 0;"
+      >flag</span
+    >
+    <span
+      class="mt-1 font-sans text-[11px] font-medium tracking-wider uppercase"
+      >Report</span
+    >
+  </a>
 </nav>

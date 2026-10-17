@@ -1,22 +1,10 @@
-<mat-table [dataSource]="users().data">
-	<ng-container matColumnDef="icon">
-		<mat-header-cell *matHeaderCellDef></mat-header-cell>
-		<mat-cell *matCellDef="let service">
-			<span
-				[class.icon-[logos--claude-icon]]="service.slug === 'claude'"
-				[class.icon-[logos--openai-icon]]="service.slug === 'chatgpt'"
-				[class.icon-[vscode-icons--file-type-gemini]]="service.slug === 'gemini'"
-				[class.icon-[ri--grok-ai-fill]]="service.slug === 'grok'"
-				[class.icon-[logos--netflix-icon]]="service.slug === 'netflix'"
-				[class.icon-[cbi--prime-video]]="service.slug === 'prime-video'"
-				[class.text-blue-400!]="service.slug === 'prime-video'"
-				class="text-[25px]"
-			></span>
-		</mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="first_name">
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/premifly"><span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>Premifly overview</a>
+  <header class="page-header"><div><div class="eyebrow">PREMIFLY / USERS</div><h1>Your members.</h1><p>Browse the people using Premifly and their contact details.</p></div><span class="badge">{{ users().meta.total }} users</span></header>
+  <section class="members-table" aria-label="Premifly users"><div class="table-scroll"><mat-table [dataSource]="users().data">
+<ng-container matColumnDef="first_name">
 		<mat-header-cell *matHeaderCellDef>First name</mat-header-cell>
-		<mat-cell *matCellDef="let user">{{user.first_name}}</mat-cell>
+		<mat-cell *matCellDef="let user"><a class="member-link" [routerLink]="['..', 'user', user.id]">{{ user.first_name || 'View member' }}</a></mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="last_name">
@@ -39,15 +27,16 @@
 	></mat-header-row>
 	<mat-row
 		*matRowDef="let row; columns: ['first_name', 'last_name', 'contact'];"
-		class="cursor-pointer"
-		[routerLink]="['service', row.id]"
 	></mat-row>
-</mat-table>
+<div *matNoDataRow class="empty-members">No users to display.</div>
+</mat-table></div>
 <mat-paginator
-	[pageSizeOptions]="[users().meta.per_page, 5, 10, 20].sort()"
+	[pageSizeOptions]="[5, 10, 20]"
 	[pageIndex]="users().meta.current_page - 1"
 	[pageSize]="users().meta.per_page"
 	[length]="users().meta.total"
 	(page)="handlePaginatorEvent($event)"
 	showFirstLastButtons
 />
+
+</section></main>

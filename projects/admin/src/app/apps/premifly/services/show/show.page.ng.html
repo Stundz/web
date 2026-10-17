@@ -1,5 +1,5 @@
 <div
-	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+	class="management-page bg-surface animate-fade-in"
 >
 	<!-- Back Button & Header Action -->
 	<header
@@ -8,7 +8,7 @@
 		<div class="flex flex-col gap-2">
 			<a
 				[routerLink]="['../../services']"
-				class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
+				class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-on-surface-variant group w-fit dark:hover:text-primary hover:text-primary"
 			>
 				<span
 					class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
@@ -22,7 +22,7 @@
 				/>
 				<div class="flex flex-col">
 					<h1
-						class="flex gap-2.5 items-center text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+						class="flex gap-2.5 items-center text-3xl font-extrabold tracking-tight text-on-surface font-headline"
 					>
 						{{ service().name }}
 						@if (service().enabled) {
@@ -32,12 +32,12 @@
 						>
 						} @else {
 						<span
-							class="inline-flex py-0.5 px-2 font-black tracking-wider uppercase rounded border text-[10px] bg-slate-500/10 text-slate-500 border-slate-500/20"
+							class="inline-flex py-0.5 px-2 font-black tracking-wider uppercase rounded border text-[10px] bg-slate-500/10 text-on-surface-variant border-slate-500/20"
 							>Disabled</span
 						>
 						}
 					</h1>
-					<p class="text-xs text-slate-400 dark:text-slate-500">
+					<p class="text-xs text-on-surface-variant">
 						Subscription specifications and detailed subscriber list logs.
 					</p>
 				</div>
@@ -60,7 +60,7 @@
 	<section class="grid grid-cols-1 gap-6 mb-8 min-[850px]:grid-cols-3">
 		<!-- Monthly Price -->
 		<mat-card class="shadow-sm">
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<div class="flex gap-4 items-center p-6 rounded-2xl">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
 				>
@@ -70,10 +70,10 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>Monthly Price</span
 					>
-					<span class="text-2xl font-black text-slate-800 dark:text-slate-100"
+					<span class="text-2xl font-black text-on-surface"
 						>XAF {{ service().price | number : "1.0-2" }}</span
 					>
 				</div>
@@ -82,7 +82,7 @@
 
 		<!-- Accounts Limitation -->
 		<mat-card class="shadow-sm">
-			<a routerLink="./accounts" class="flex gap-4 items-center p-6 rounded-3xl hover:bg-violet-500/5 focus-visible:outline-2 focus-visible:outline-primary" aria-label="View service accounts">
+			<a routerLink="./accounts" class="flex gap-4 items-center p-6 rounded-2xl hover:bg-violet-500/5 focus-visible:outline-2 focus-visible:outline-primary" aria-label="View service accounts">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-violet-500 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20"
 				>
@@ -90,10 +90,10 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>Accounts Limit</span
 					>
-					<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					<span class="text-2xl font-black text-on-surface">
 						{{ service().limit !== null ? service().limit + " Accounts" : "Unlimited" }}
 					</span>
 				</div>
@@ -102,7 +102,7 @@
 
 		<!-- Subscribers Volume -->
 		<mat-card class="shadow-sm">
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<div class="flex gap-4 items-center p-6 rounded-2xl">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-pink-500 rounded-2xl bg-pink-500/10 dark:bg-pink-500/20"
 				>
@@ -112,10 +112,10 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>Total Subscribers</span
 					>
-					<span class="text-2xl font-black text-slate-800 dark:text-slate-100"
+					<span class="text-2xl font-black text-on-surface"
 						>{{
 					subscribers()?.meta?.total || 0
 				}}</span
@@ -126,7 +126,7 @@
 	</section>
 
 	<!-- Advanced Query & Filter Controls Panel -->
-	<section class="flex flex-col gap-6 items-stretch mb-8 rounded-3xl shadow-sm">
+	<section class="flex flex-col gap-6 items-stretch mb-8 rounded-2xl shadow-sm">
 		<div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
       <mat-form-field class="grow">
           <span
@@ -144,10 +144,10 @@
 				[class.text-primary]="isFiltersExpanded()"
 				[class.border-primary/20]="isFiltersExpanded()"
 				[class.bg-slate-50]="!isFiltersExpanded()"
-				[class.text-slate-700]="!isFiltersExpanded()"
+				[class.text-on-surface]="!isFiltersExpanded()"
 				[class.border-slate-200]="!isFiltersExpanded()"
 				[class.dark:bg-slate-900]="!isFiltersExpanded()"
-				[class.dark:text-slate-300]="!isFiltersExpanded()"
+				[class.]="!isFiltersExpanded()"
 				[class.dark:border-slate-800]="!isFiltersExpanded()"
 			>
 				<span
@@ -225,12 +225,12 @@
 							</div>
 							<div class="flex flex-col">
 								<span
-									class="font-bold capitalize text-slate-800 dark:text-slate-200"
+									class="font-bold capitalize text-on-surface"
 								>
 									{{ user.first_name }} {{ user.last_name }}
 								</span>
 								<span
-									class="font-medium text-[11px] text-slate-400 dark:text-slate-500"
+									class="font-medium text-[11px] text-on-surface-variant"
 								>
 									ID: {{ user.id }}
 								</span>
@@ -243,11 +243,11 @@
 					<th mat-header-cell *matHeaderCellDef>Contact</th>
 					<td mat-cell *matCellDef="let user">
 						<div class="flex flex-col gap-0.5">
-							<span class="font-semibold text-slate-700 dark:text-slate-300">
+							<span class="font-semibold text-on-surface">
 								{{ user.email }}
 							</span>
 							<span
-								class="text-xs font-medium text-slate-400 dark:text-slate-500"
+								class="text-xs font-medium text-on-surface-variant"
 							>
 								{{ user.phone || 'No phone number' }}
 							</span>
@@ -264,11 +264,11 @@
 							@for (account of user.premifly_accounts; track
 							account.subscription.id) {
 							<div
-								class="flex flex-col gap-1.5 p-3 rounded-2xl border border-slate-100 bg-slate-50/50 dark:border-slate-800/40 dark:bg-slate-900/30"
+								class="flex flex-col gap-1.5 p-3 rounded-2xl border border-slate-100 bg-surface dark:border-slate-800/40 dark:bg-slate-900/30"
 							>
 								<div class="flex gap-2 justify-between items-center">
 									<span
-										class="text-xs font-bold text-slate-700 truncate max-w-44 dark:text-slate-300"
+										class="text-xs font-bold text-on-surface truncate max-w-44"
 										>{{ account.email }}</span
 									>
 									@if (account.subscription.expires_at === null) {
@@ -294,17 +294,17 @@
 								</div>
 
 								<div
-									class="grid grid-cols-2 gap-y-1 gap-x-2 mt-1 font-medium text-[11px] text-slate-400 dark:text-slate-500"
+									class="grid grid-cols-2 gap-y-1 gap-x-2 mt-1 font-medium text-[11px] text-on-surface-variant"
 								>
 									<div class="flex gap-1 items-center">
 										<span
-											class="text-slate-400 icon-[material-symbols--phone-iphone]"
+											class="text-on-surface-variant icon-[material-symbols--phone-iphone]"
 										></span>
 										<span>{{ account.subscription.device_type ?? 'N/A' }}</span>
 									</div>
 									<div class="flex gap-1 justify-end items-center">
 										<span
-											class="text-slate-400 icon-[material-symbols--calendar-today-outline]"
+											class="text-on-surface-variant icon-[material-symbols--calendar-today-outline]"
 										></span>
 										<span
 											>Sub:
@@ -313,10 +313,10 @@
 									</div>
 									@if (account.subscription.expires_at) {
 									<div
-										class="flex col-span-2 gap-1 items-center mt-0.5 text-slate-400"
+										class="flex col-span-2 gap-1 items-center mt-0.5 text-on-surface-variant"
 									>
 										<span
-											class="text-slate-400 icon-[material-symbols--timer-outline]"
+											class="text-on-surface-variant icon-[material-symbols--timer-outline]"
 										></span>
 										<span
 											>Expires:
@@ -328,7 +328,7 @@
 							</div>
 							} @empty {
 							<span
-								class="text-xs italic font-medium text-slate-400 dark:text-slate-500"
+								class="text-xs italic font-medium text-on-surface-variant"
 								>No linked accounts found.</span
 							>
 							}
@@ -348,7 +348,7 @@
 
 				<tr class="mat-row" *matNoDataRow>
 					<td
-						class="p-6 italic text-center mat-cell text-slate-400"
+						class="p-6 italic text-center mat-cell text-on-surface-variant"
 						colspan="3"
 					>
 						No Subscribers for the moment

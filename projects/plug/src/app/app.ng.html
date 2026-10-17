@@ -97,7 +97,10 @@
         </button>
         <mat-menu #userProfileDropdown="matMenu">
           <a mat-menu-item routerLink="/dashboard">My Account</a>
+          @if (user()?.plug?.tutor) {
           <a mat-menu-item routerLink="/my-sessions"> My Sessions </a>
+          }
+          <button mat-menu-item type="button" (click)="logout()">Logout</button>
         </mat-menu>
         }
       </div>

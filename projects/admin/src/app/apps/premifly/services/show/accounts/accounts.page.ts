@@ -16,7 +16,7 @@ import { ENVIRONMENT, type Paginated } from 'shared/types';
 @Component({
   imports: [RouterLink, MatPaginatorModule, MatButtonModule, MatCardModule, MatInputModule, MatSelectModule, PremiflyServiceLogo, FormField, FormRoot],
   selector: 'admin-accounts',
-  styleUrl: './accounts.page.css',
+  styleUrls: ['../../../../management.page.css', './accounts.page.css'],
   templateUrl: './accounts.page.ng.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

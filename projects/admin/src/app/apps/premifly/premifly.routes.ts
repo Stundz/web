@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: "",
     pathMatch: "full",
     loadComponent: () => import("./premifly.page").then((m) => m.PremiflyPage),
-    title: "Unlock Premium for less",
+    title: "Premifly | Stundz Admin",
   },
   {
     path: "",

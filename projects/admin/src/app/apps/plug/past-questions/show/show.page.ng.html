@@ -1,0 +1,80 @@
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/app/plug/past-questions">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    Past questions
+  </a>
+
+  @if (paper.error() && !paper.hasValue()) {
+    <div class="notice" role="alert">
+      <span aria-hidden="true" class="icon-[material-symbols--cloud-off-outline]"></span>
+      <div>
+        <h2>This paper could not be opened</h2>
+        <p>It may have been removed, or the server did not respond.</p>
+        <button matButton="text" type="button" (click)="paper.reload()">Try again</button>
+      </div>
+    </div>
+  } @else if (!paper.hasValue()) {
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <p role="status">Loading paper…</p>
+        <mat-progress-bar mode="indeterminate" aria-label="Loading paper" />
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">PLUG / PAST QUESTION</div>
+        <h1>{{ paper.value().course?.code || 'Past question' }} · {{ paper.value().year }}</h1>
+        <p>{{ paper.value().course?.title || 'Course details are unavailable.' }}</p>
+      </div>
+      <span class="status-pill" [class.pending]="paper.value().status === 'PENDING'" [class.approved]="paper.value().status === 'APPROVED'" [class.rejected]="paper.value().status === 'REJECTED'">
+        {{ statusLabel(paper.value().status) }}
+      </span>
+    </header>
+    @if (paper.isLoading()) {
+      <mat-progress-bar mode="indeterminate" aria-label="Refreshing paper" />
+    }
+    <div class="detail-grid">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2>Paper details</h2>
+          <dl>
+            <dt>Place</dt>
+            <dd>{{ place(paper.value().course) }}</dd>
+            <dt>Solutions</dt>
+            <dd>{{ paper.value().solutions_count ?? 0 }}</dd>
+            <dt>Uploaded by</dt>
+            <dd>
+              {{ publisher(paper.value().publisher) }}
+              @if (paper.value().publisher?.email) {
+                <div class="muted">{{ paper.value().publisher?.email }}</div>
+              }
+            </dd>
+            <dt>Added</dt>
+            <dd>{{ paper.value().created_at | date: 'medium' }}</dd>
+          </dl>
+        </mat-card-content>
+      </mat-card>
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <h2>Decision</h2>
+          <p>Approving publishes the paper. Rejecting keeps it out of the student library. You can return it to pending.</p>
+          <div class="actions" role="group" aria-label="Past question decision">
+            <button matButton="filled" type="button" (click)="choose('APPROVED')" [disabled]="saving() || paper.value().status === 'APPROVED'">
+              {{ confirming() === 'APPROVED' ? 'Confirm approval' : 'Approve' }}
+            </button>
+            <button matButton="outlined" type="button" (click)="choose('REJECTED')" [disabled]="saving() || paper.value().status === 'REJECTED'">
+              {{ confirming() === 'REJECTED' ? 'Confirm rejection' : 'Reject' }}
+            </button>
+            <button matButton="text" type="button" (click)="choose('PENDING')" [disabled]="saving() || paper.value().status === 'PENDING'">
+              {{ confirming() === 'PENDING' ? 'Confirm return to review' : 'Return to review' }}
+            </button>
+          </div>
+          @if (confirming()) {
+            <p class="confirm-note" role="status">Click the same button again to save this decision.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</main>

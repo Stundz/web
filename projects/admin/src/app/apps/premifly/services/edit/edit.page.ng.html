@@ -1,11 +1,11 @@
 <div
-	class="p-6 min-h-screen md:p-10 bg-slate-50/50 animate-fade-in dark:bg-slate-900/10"
+	class="management-page bg-surface animate-fade-in"
 >
 	<!-- Back Button & Breadcrumbs -->
 	<header class="flex flex-col gap-2 mb-8">
 		<a
 			[routerLink]="['/app/premifly/service', service().id]"
-			class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-slate-500 group w-fit dark:text-slate-400 dark:hover:text-primary hover:text-primary"
+			class="inline-flex gap-2 items-center text-sm font-medium transition-colors duration-200 text-on-surface-variant group w-fit dark:hover:text-primary hover:text-primary"
 		>
 			<span
 				class="text-lg transition-transform duration-200 group-hover:-translate-x-1 icon-[material-symbols--arrow-back]"
@@ -13,11 +13,11 @@
 			<span>Back to Service Details</span>
 		</a>
 		<h1
-			class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+			class="text-3xl font-extrabold tracking-tight text-on-surface font-headline"
 		>
 			Edit Service: {{ service().name }}
 		</h1>
-		<p class="text-sm text-slate-500 dark:text-slate-400">
+		<p class="text-sm text-on-surface-variant">
 			Update the settings and pricing tier for this Premifly service.
 		</p>
 	</header>
@@ -28,7 +28,7 @@
 		<section class="flex flex-col gap-6 lg:col-span-5">
 			<mat-card>
 				<div
-					class="flex overflow-hidden relative flex-col justify-between p-8 rounded-3xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-87.5 group dark:border-outline/50"
+					class="flex overflow-hidden relative flex-col justify-between p-8 rounded-2xl border shadow-lg transition-all duration-300 hover:shadow-xl glass-card-preview border-outline-variant min-h-87.5 group dark:border-outline/50"
 				>
 					<!-- Card Background Accent -->
 					<div
@@ -42,12 +42,12 @@
 					<div class="flex relative z-10 justify-between items-start">
 						<div class="flex flex-col gap-1">
 							<span
-								class="text-xs font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500"
+								class="text-xs font-semibold tracking-widest uppercase text-on-surface-variant"
 							>
 								PREMIFLY PARTNER
 							</span>
 							<h2
-								class="text-2xl font-bold tracking-tight capitalize transition-colors duration-200 wrap-break-word text-slate-800 max-w-62.5 dark:text-slate-100"
+								class="text-2xl font-bold tracking-tight capitalize transition-colors duration-200 wrap-break-word text-on-surface max-w-62.5"
 							>
 								{{ form.name().value() || 'Service Name' }}
 							</h2>
@@ -62,7 +62,7 @@
 						</span>
 						} @else {
 						<span
-							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold rounded-full border shadow-sm text-slate-500 bg-slate-100 border-slate-200 dark:text-slate-400 dark:bg-slate-800/50 dark:border-slate-700/50"
+							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold rounded-full border shadow-sm text-on-surface-variant bg-slate-100 border-slate-200 dark:bg-slate-800/50 dark:border-slate-700/50"
 						>
 							<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
 							Inactive
@@ -72,16 +72,16 @@
 
 					<!-- Stats & Meta Info Area -->
 					<div class="flex relative z-10 flex-col gap-1 my-8">
-						<div class="text-xs font-medium text-slate-400 dark:text-slate-500">
+						<div class="text-xs font-medium text-on-surface-variant">
 							Monthly Charge
 						</div>
 						<div class="flex gap-1 items-baseline">
 							<span
-								class="text-4xl font-extrabold tracking-tight dark:text-white text-slate-900"
+								class="text-4xl font-extrabold tracking-tight dark:text-white text-on-surface"
 							>
 								XAF {{ form.price().value() || '0' }}
 							</span>
-							<span class="text-sm text-slate-400 dark:text-slate-500"
+							<span class="text-sm text-on-surface-variant"
 								>/mo</span
 							>
 						</div>
@@ -96,7 +96,7 @@
 								class="text-xl icon-[material-symbols--group-outline] text-primary"
 							></span>
 							<span
-								class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+								class="text-sm font-semibold text-on-surface"
 							>
 								@if (form.limit().value() !== null && form.limit().value() !==
 								undefined && form.limit().value() !== null) { Up to
@@ -105,7 +105,7 @@
 							</span>
 						</div>
 						<span
-							class="text-xs italic font-medium text-slate-400 dark:text-slate-500"
+							class="text-xs italic font-medium text-on-surface-variant"
 						>
 							Changes preview
 						</span>
@@ -121,10 +121,10 @@
 					class="mt-0.5 text-2xl icon-[material-symbols--info-outline] text-primary shrink-0"
 				></span>
 				<div class="flex flex-col gap-1">
-					<h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">
+					<h3 class="text-sm font-bold text-on-surface">
 						Updating Service Parameters
 					</h3>
-					<p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+					<p class="text-xs leading-relaxed text-on-surface-variant">
 						Editing parameters will automatically modify user subscription
 						details for all new purchases. Existing subscriptions remain active
 						at their initial purchase rates until their next billing or
@@ -137,7 +137,7 @@
 		<!-- Right Side: Creation Form Card (7 cols) -->
 		<main class="lg:col-span-7">
 			<div
-				class="p-8 bg-white rounded-3xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50 dark:bg-slate-950"
+				class="p-8 bg-surface-container-lowest rounded-2xl border shadow-md md:p-10 border-outline-variant dark:border-outline/50"
 			>
 				<form [formRoot]="form" class="flex flex-col gap-6">
 					<!-- Name Field -->
@@ -152,7 +152,7 @@
 							>
 							<mat-icon matSuffix>
 								<span
-									class="mr-2 text-xl icon-[material-symbols--abc] text-slate-400"
+									class="mr-2 text-xl icon-[material-symbols--abc] text-on-surface-variant"
 								></span>
 							</mat-icon>
 							@for (error of form.name().errors(); track error.kind) {
@@ -167,7 +167,7 @@
 							<mat-label>Monthly Price</mat-label>
 							<span
 								matPrefix
-								class="font-semibold pe-1 ps-1 text-slate-500 dark:text-slate-400"
+								class="font-semibold pe-1 ps-1 text-on-surface-variant"
 								>XAF</span
 							>
 							<input
@@ -179,7 +179,7 @@
 							>
 							<mat-icon matSuffix>
 								<span
-									class="text-xl icon-[material-symbols--payments-outline] text-slate-400"
+									class="text-xl icon-[material-symbols--payments-outline] text-on-surface-variant"
 								></span>
 							</mat-icon>
 							@for (error of form.price().errors(); track error.kind) {
@@ -201,12 +201,12 @@
 							>
 							<span
 								matSuffix
-								class="mr-2 text-xl icon-[material-symbols--group-outline] text-slate-400"
+								class="mr-2 text-xl icon-[material-symbols--group-outline] text-on-surface-variant"
 							></span>
 							@for (error of form.limit().errors(); track error.kind) {
 							<mat-error>{{ error.message }}</mat-error>
 							}
-							<mat-hint class="text-xs text-slate-400 dark:text-slate-500">
+							<mat-hint class="text-xs text-on-surface-variant">
 								Restrict subscription accounts. Unrestricted is default.
 							</mat-hint>
 						</mat-form-field>
@@ -218,11 +218,11 @@
 					>
 						<div class="flex flex-col gap-0.5">
 							<span
-								class="text-sm font-bold text-slate-800 dark:text-slate-200"
+								class="text-sm font-bold text-on-surface"
 							>
 								Keep Service Enabled
 							</span>
-							<span class="text-xs text-slate-400 dark:text-slate-500">
+							<span class="text-xs text-on-surface-variant">
 								Toggle whether users can immediately view and purchase this
 								service.
 							</span>
@@ -258,7 +258,7 @@
 
 						<a
 							[routerLink]="['/app/premifly/service', service().id]"
-							class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:text-slate-400 dark:hover:text-white hover:text-slate-900"
+							class="py-3 px-6 font-semibold text-center rounded-2xl transition-colors duration-200 text-slate-600 dark:hover:text-white hover:text-slate-900"
 						>
 							Cancel
 						</a>

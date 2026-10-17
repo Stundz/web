@@ -1,15 +1,16 @@
-<div class="p-6 min-h-screen md:p-10 animate-fade-in bg-surface-container">
+<div class="management-page animate-fade-in bg-surface">
+  <a class="breadcrumb" routerLink="/app/premifly"><span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>Premifly overview</a>
 	<!-- Modern Header Block -->
 	<header
 		class="flex flex-col gap-4 justify-between mb-8 md:flex-row md:items-center"
 	>
 		<div class="flex flex-col gap-1">
 			<h1
-				class="text-3xl font-extrabold tracking-tight text-slate-900 font-headline dark:text-slate-100"
+				class="text-3xl font-extrabold tracking-tight text-on-surface font-headline"
 			>
 				Premifly Services
 			</h1>
-			<p class="text-sm text-slate-500 dark:text-slate-400">
+			<p class="text-sm text-on-surface-variant">
 				Manage and configure premium subscription tiers, pricing, and access
 				parameters.
 			</p>
@@ -30,7 +31,7 @@
 	<section class="grid grid-cols-1 gap-6 mb-8 sm:grid-cols-3">
 		<!-- Card 1: Total Services -->
 		<mat-card>
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<div class="flex gap-4 items-center p-6 rounded-2xl">
 				<div
 					class="flex justify-center items-center w-12 h-12 rounded-2xl bg-primary/10 text-primary dark:bg-primary/20"
 				>
@@ -38,10 +39,10 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>Total Services</span
 					>
-					<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					<span class="text-2xl font-black text-on-surface">
 						{{ services().meta.total }}
 					</span>
 				</div>
@@ -50,7 +51,7 @@
 
 		<!-- Card 2: Active Services -->
 		<mat-card>
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<div class="flex gap-4 items-center p-6 rounded-2xl">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-emerald-500 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20"
 				>
@@ -60,10 +61,10 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>Active This Page</span
 					>
-					<span class="text-2xl font-black text-slate-800 dark:text-slate-100">
+					<span class="text-2xl font-black text-on-surface">
 						{{ activeCount() }}
 					</span>
 				</div>
@@ -72,7 +73,7 @@
 
 		<!-- Card 3: Network Status -->
 		<mat-card>
-			<div class="flex gap-4 items-center p-6 rounded-3xl">
+			<div class="flex gap-4 items-center p-6 rounded-2xl">
 				<div
 					class="flex justify-center items-center w-12 h-12 text-indigo-500 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20"
 				>
@@ -80,7 +81,7 @@
 				</div>
 				<div class="flex flex-col">
 					<span
-						class="text-xs font-semibold tracking-wider uppercase text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold tracking-wider uppercase text-on-surface-variant"
 						>System Network</span
 					>
 					<span
@@ -98,7 +99,7 @@
 
 	<!-- Main Table Card Container -->
 	<main
-		class="overflow-hidden rounded-3xl border shadow-sm border-outline-variant"
+		class="overflow-hidden rounded-2xl border shadow-sm border-outline-variant"
 	>
 		<div class="overflow-x-auto w-full">
 			<mat-table [dataSource]="services().data || []" class="w-full">
@@ -122,11 +123,11 @@
 					<mat-cell *matCellDef="let service">
 						<div class="flex flex-col gap-0.5">
 							<span
-								class="font-bold capitalize text-slate-800 dark:text-slate-200"
+								class="font-bold capitalize text-on-surface"
 							>
 								{{ service.name }}
 							</span>
-							<span class="text-xs text-slate-400 dark:text-slate-500">
+							<span class="text-xs text-on-surface-variant">
 								Slug: /{{ service.slug }}
 							</span>
 						</div>
@@ -137,7 +138,7 @@
 				<ng-container matColumnDef="price">
 					<mat-header-cell *matHeaderCellDef>Monthly Price</mat-header-cell>
 					<mat-cell *matCellDef="let service">
-						<span class="font-semibold text-slate-700 dark:text-slate-300">
+						<span class="font-semibold text-on-surface">
 							XAF {{ service.price | number : "1.0-2" }}
 						</span>
 					</mat-cell>
@@ -159,7 +160,7 @@
 						</span>
 						} @else {
 						<span
-							class="inline-flex gap-1.5 items-center py-1 px-2.5 text-xs font-semibold rounded-full border text-slate-500 bg-slate-50 border-slate-100 dark:text-slate-400 dark:bg-slate-900/40 dark:border-slate-800/80"
+							class="inline-flex gap-1.5 items-center py-1 px-2.5 text-xs font-semibold rounded-full border text-on-surface-variant bg-slate-50 border-slate-100 dark:bg-slate-900/40 dark:border-slate-800/80"
 						>
 							<span
 								class="text-sm icon-[material-symbols--all-inclusive]"
@@ -183,7 +184,7 @@
 						</span>
 						} @else {
 						<span
-							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold rounded-full border text-slate-500 bg-slate-100 border-slate-200 dark:text-slate-400 dark:bg-slate-800/50 dark:border-slate-700/50"
+							class="inline-flex gap-1.5 items-center py-1 px-3 text-xs font-semibold rounded-full border text-on-surface-variant bg-slate-100 border-slate-200 dark:bg-slate-800/50 dark:border-slate-700/50"
 						>
 							<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
 							Disabled
@@ -206,7 +207,7 @@
 							mat-icon-button
 							matTooltip="Edit Service Tiers"
 							(click)="editService(service, $event)"
-							class="inline-flex justify-center items-center w-9 h-9 rounded-full transition-colors duration-150 text-slate-500 bg-slate-50 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:bg-slate-800 hover:text-primary hover:bg-slate-100"
+							class="inline-flex justify-center items-center w-9 h-9 rounded-full transition-colors duration-150 text-on-surface-variant bg-slate-50 dark:bg-slate-900/50 dark:hover:bg-slate-800 hover:text-primary hover:bg-slate-100"
 						>
 							<span class="text-lg icon-[material-symbols--edit-outline]"></span>
 						</button>

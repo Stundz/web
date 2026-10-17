@@ -1,27 +1,18 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { MatCardModule } from "@angular/material/card";
-import { RouterLink } from "@angular/router";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { RouterLink } from '@angular/router';
 
 @Component({
-	selector: "admin-index",
-	imports: [RouterLink, MatCardModule],
-	templateUrl: "./index.page.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
-	styleUrl: "./index.page.css",
+  selector: 'admin-index',
+  imports: [RouterLink, MatButtonModule, MatCardModule],
+  templateUrl: './index.page.ng.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['../apps.page.css', './index.page.css'],
 })
 export class IndexPage {
-	apps = [
-		{
-			name: "Plug",
-			icon: "icon-[material-symbols--school-outline]",
-			url: "/app/plug",
-			description: "",
-		},
-		{
-			name: "premifly",
-			icon: "",
-			url: "/app/premifly",
-			description: "",
-		},
-	];
+  readonly apps = [
+    { name: 'Premifly', icon: 'icon-[material-symbols--workspace-premium-outline]', url: '/app/premifly', description: 'Manage premium access, shared accounts, and the services your members subscribe to.', features: ['Users', 'Accounts', 'Services', 'Subscriptions'], available: true },
+    { name: 'Plug', icon: 'icon-[material-symbols--school-outline]', url: '/app/plug', description: 'Review past questions, tutor applications, and tutorials.', features: ['Past questions', 'Tutors', 'Tutorials'], available: true },
+  ];
 }

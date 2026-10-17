@@ -1,1 +1,85 @@
-<p>plug works!</p>
+<main class="apps-page">
+  <a class="breadcrumb" routerLink="/apps">
+    <span aria-hidden="true" class="icon-[material-symbols--arrow-back]"></span>
+    All applications
+  </a>
+  <header class="page-header">
+    <div>
+      <div class="eyebrow">PLUG WORKSPACE</div>
+      <h1>Learning operations, in one place.</h1>
+      <p>Review past questions, tutor applications, and tutorials.</p>
+    </div>
+    <button matButton="outlined" type="button" (click)="refresh()" [disabled]="pendingPapers.isLoading() && pendingTutors.isLoading() && tutorials.isLoading()">
+      <span aria-hidden="true" class="icon-[material-symbols--refresh]"></span>
+      Refresh
+    </button>
+  </header>
+
+  <section class="metrics" aria-label="Plug queues">
+    <a class="metric-link" routerLink="past-questions" [queryParams]="{ status: 'PENDING' }">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <div class="metric-top">
+            <span>Pending papers</span>
+            <span aria-hidden="true" class="icon-[material-symbols--rate-review-outline]"></span>
+          </div>
+          <strong>{{ count(pendingPapers) }}</strong>
+          <p>Waiting for approval or rejection</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+    <a class="metric-link" routerLink="tutors" [queryParams]="{ status: 'pending' }">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <div class="metric-top">
+            <span>Tutor applications</span>
+            <span aria-hidden="true" class="icon-[material-symbols--person-search-outline]"></span>
+          </div>
+          <strong>{{ count(pendingTutors) }}</strong>
+          <p>Applications still under review</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+    <a class="metric-link" routerLink="tutorials">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <div class="metric-top">
+            <span>Tutorials</span>
+            <span aria-hidden="true" class="icon-[material-symbols--school-outline]"></span>
+          </div>
+          <strong>{{ count(tutorials) }}</strong>
+          <p>Classes across every academic year</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </section>
+
+  <section class="management">
+    <div class="section-heading">
+      <h2>Workspace tools</h2>
+      <p>Choose a queue to review.</p>
+    </div>
+    <div class="tool-grid">
+      @for (section of sections; track section.key) {
+        <mat-card appearance="outlined">
+          <mat-card-content>
+            <div class="tool-heading">
+              <span aria-hidden="true" [class]="'app-icon ' + section.icon"></span>
+              <div>
+                <h2>{{ section.label }}</h2>
+                <p>{{ section.description }}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span>Plug management</span>
+              <a matButton="text" [routerLink]="section.key">
+                {{ section.action }}
+                <span aria-hidden="true" class="icon-[material-symbols--arrow-forward]"></span>
+              </a>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </section>
+</main>
