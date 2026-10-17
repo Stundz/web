@@ -1,12 +1,14 @@
 @if (isLoading()) { <mat-progress-bar mode="indeterminate" class="route-progress" aria-label="Loading page" /> }
 <mat-sidenav-container class="admin-shell">
   <mat-sidenav #navigation [mode]="compact() ? 'over' : 'side'" [opened]="!compact() || drawerOpen()" (closedStart)="drawerOpen.set(false)" class="sidebar">
-    <a class="brand" routerLink="/"><span class="brand-icon icon-[material-symbols--hub-outline]" aria-hidden="true"></span><span>stundz<span class="brand-caption">ADMIN WORKSPACE</span></span></a>
-    <p class="nav-heading">WORKSPACE</p>
-    <mat-nav-list aria-label="Admin navigation">
-      @for (link of links; track link.route) { <a mat-list-item [routerLink]="link.route" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page" (click)="drawerOpen.set(false)"><span matListItemIcon aria-hidden="true" [class]="link.icon"></span><span matListItemTitle>{{ link.label }}</span></a> }
-    </mat-nav-list>
-    <div class="sidebar-footer"><span class="admin-avatar" aria-hidden="true">SA</span><div><strong>Stundz Admin</strong><span>Workspace management</span></div></div>
+    <div class="sidebar-body">
+      <a class="brand" routerLink="/"><span class="brand-icon icon-[material-symbols--hub-outline]" aria-hidden="true"></span><span>stundz<span class="brand-caption">ADMIN WORKSPACE</span></span></a>
+      <p class="nav-heading">WORKSPACE</p>
+      <mat-nav-list aria-label="Admin navigation">
+        @for (link of links; track link.route) { <a mat-list-item [routerLink]="link.route" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page" (click)="drawerOpen.set(false)"><span matListItemIcon aria-hidden="true" [class]="link.icon"></span><span matListItemTitle>{{ link.label }}</span></a> }
+      </mat-nav-list>
+      <div class="sidebar-footer"><span class="admin-avatar" aria-hidden="true">SA</span><div><strong>Stundz Admin</strong><span>Workspace management</span></div></div>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="topbar">
