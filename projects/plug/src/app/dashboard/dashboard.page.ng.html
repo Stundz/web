@@ -1,11 +1,24 @@
-<main class="dashboard">
-  <header class="welcome">
+<main
+  class="mx-auto max-w-7xl px-8 pt-10 pb-16 text-on-surface max-[480px]:px-4 max-[480px]:pt-6 max-[480px]:pb-10 [&_a]:text-inherit [&_a]:no-underline [&_a]:focus-visible:outline-2 [&_a]:focus-visible:outline-solid [&_a]:focus-visible:outline-primary [&_a]:focus-visible:outline-offset-4 [&_button]:focus-visible:outline-2 [&_button]:focus-visible:outline-solid [&_button]:focus-visible:outline-primary [&_button]:focus-visible:outline-offset-4"
+>
+  <header
+    class="mb-8 flex items-center justify-between gap-5 max-[760px]:flex-col max-[760px]:items-start"
+  >
     <div>
-      <p class="eyebrow">YOUR STUDY SPACE</p>
-      <h1>Welcome back, {{ user().first_name || 'there' }}.</h1>
-      <p>Your tutorials and study resources, in one place.</p>
+      <p class="mb-2.5 text-[10px] font-bold tracking-[0.14em] text-primary">
+        YOUR STUDY SPACE
+      </p>
+      <h1
+        class="m-0 text-[clamp(28px,3vw,38px)] leading-[1.2] tracking-[-0.035em]"
+      >
+        Welcome back, {{ user().first_name || 'there' }}.
+      </h1>
+      <p class="mt-3 text-sm text-on-surface-variant">
+        Your tutorials and study resources, in one place.
+      </p>
     </div>
-    <span class="today"
+    <span
+      class="flex items-center gap-2 text-xs whitespace-nowrap text-on-surface-variant"
       ><span
         aria-hidden="true"
         class="icon-[material-symbols--calendar-today-outline]"
@@ -13,36 +26,52 @@
     >
   </header>
 
-  <section class="shortcuts" aria-label="Quick access">
+  <section
+    class="mt-6 mb-9 grid grid-cols-3 gap-4 max-[900px]:grid-cols-1"
+    aria-label="Quick access"
+  >
     @for (shortcut of shortcuts; track shortcut.route) {
-    <a class="shortcut" [routerLink]="shortcut.route">
+    <a
+      class="flex items-center gap-3.5 rounded-[18px] border border-outline-variant px-[18px] py-[22px] transition-colors duration-200 hover:bg-surface-container-low"
+      [routerLink]="shortcut.route"
+    >
       <span
-        class="shortcut-icon"
         aria-hidden="true"
-        [class]="'shortcut-icon ' + shortcut.icon"
+        [class]="'shrink-0 text-[26px] text-primary ' + shortcut.icon"
       ></span>
       <div>
-        <h2>{{ shortcut.title }}</h2>
-        <p>{{ shortcut.description }}</p>
+        <h2 class="mb-1.5 text-sm">{{ shortcut.title }}</h2>
+        <p class="text-[11px] leading-[1.6] text-on-surface-variant">
+          {{ shortcut.description }}
+        </p>
       </div>
       <span
         aria-hidden="true"
-        class="shortcut-arrow icon-[material-symbols--arrow-forward]"
+        class="ml-auto shrink-0 text-primary icon-[material-symbols--arrow-forward]"
       ></span>
     </a>
     }
   </section>
 
-  <div class="dashboard-grid">
+  <div class="grid grid-cols-1 items-stretch gap-6">
     <mat-card
       appearance="outlined"
-      class="panel"
+      class="rounded-3xl border border-outline-variant bg-surface-container-lowest p-7 max-[480px]:p-5"
       aria-labelledby="sessions-title"
       [attr.aria-busy]="sessions.isLoading()"
     >
-      <div class="section-heading">
-        <div><h2 id="sessions-title">Upcoming sessions</h2></div>
-        <a matButton="text" routerLink="/tutorials"
+      <div
+        class="mb-6 flex items-center justify-between gap-4 max-[480px]:flex-col max-[480px]:items-start"
+      >
+        <div>
+          <h2 id="sessions-title" class="m-0 text-[22px] tracking-[-0.02em]">
+            Upcoming sessions
+          </h2>
+        </div>
+        <a
+          matButton="text"
+          routerLink="/tutorials"
+          class="flex items-center gap-1.5 text-[11px] font-semibold text-primary!"
           >Browse tutorials
           <span
             aria-hidden="true"
@@ -51,37 +80,55 @@
         >
       </div>
       @if (sessions.isLoading()) {
-      <div class="state" role="status">
+      <div
+        class="flex flex-col items-center px-4 py-7 text-center"
+        role="status"
+      >
         <mat-spinner [diameter]="28" aria-label="Loading sessions" />
-        <p>Loading sessions…</p>
+        <p
+          class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+        >
+          Loading sessions…
+        </p>
       </div>
       } @else if (sessions.error()) {
-      <div class="state" role="status">
+      <div
+        class="flex flex-col items-center px-4 py-7 text-center"
+        role="status"
+      >
         <span
-          class="state-icon icon-[material-symbols--cloud-off-outline]"
+          class="mb-4 text-[32px] text-primary icon-[material-symbols--cloud-off-outline]"
           aria-hidden="true"
         ></span>
-        <h3>Sessions couldn’t load</h3>
-        <p>Give it another try to see what’s coming up.</p>
+        <h3 class="text-[17px]">Sessions couldn’t load</h3>
+        <p
+          class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+        >
+          Give it another try to see what’s coming up.
+        </p>
         <button matButton="outlined" (click)="sessions.reload()">
           Try again
         </button>
       </div>
       } @else { @for (session of upcomingSessions(); track session.id) {
       <a
-        class="session-row"
+        class="flex items-center gap-4 rounded-lg border-t border-outline-variant px-2 py-4 hover:bg-surface-container-low"
         [routerLink]="['/tutorial', session.tutorial_id, 'session', session.id]"
       >
-        <div class="date-tile">
-          <span>{{ session.day | date:'MMM' }}</span
-          ><strong>{{ session.day | date:'dd' }}</strong>
+        <div
+          class="flex min-h-[62px] w-[54px] shrink-0 flex-col justify-center rounded-xl bg-secondary-container text-center text-on-secondary-container"
+        >
+          <span class="text-[10px] uppercase">{{ session.day | date:'MMM' }}</span
+          ><strong class="text-2xl">{{ session.day | date:'dd' }}</strong>
         </div>
-        <div class="row-copy">
-          <span class="row-kicker">{{
+        <div class="flex-1">
+          <span class="text-[10px] font-bold tracking-[0.04em] text-primary">{{
             session.tutorial?.course?.code || 'Tutorial session'
           }}</span>
-          <h3>{{ session.tutorial?.name || 'Study session' }}</h3>
-          <p>
+          <h3 class="my-[5px] text-[15px]">
+            {{ session.tutorial?.name || 'Study session' }}
+          </h3>
+          <p class="text-[11px] text-on-surface-variant">
             {{ session.day | date:'shortTime' }} · {{ session.duration }} min
             @if (session.venue) { · {{ session.venue }} }
           </p>
@@ -92,13 +139,17 @@
         ></span>
       </a>
       } @empty {
-      <div class="state">
+      <div class="flex flex-col items-center px-4 py-7 text-center">
         <span
-          class="state-icon icon-[material-symbols--event-available-outline]"
+          class="mb-4 text-[32px] text-primary icon-[material-symbols--event-available-outline]"
           aria-hidden="true"
         ></span>
-        <h3>No upcoming sessions</h3>
-        <p>Find a tutorial that fits your schedule.</p>
+        <h3 class="text-[17px]">No upcoming sessions</h3>
+        <p
+          class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+        >
+          Find a tutorial that fits your schedule.
+        </p>
         <a matButton="outlined" routerLink="/tutorials">Find a session</a>
       </div>
       } }
@@ -106,13 +157,22 @@
 
     <mat-card
       appearance="outlined"
-      class="panel papers-panel"
+      class="rounded-3xl border border-outline-variant bg-surface-container-lowest p-7 max-[480px]:p-5"
       aria-labelledby="papers-title"
       [attr.aria-busy]="pastQuestions.isLoading()"
     >
-      <div class="section-heading">
-        <div><h2 id="papers-title">Explore past papers</h2></div>
-        <a matButton="text" routerLink="/past-questions"
+      <div
+        class="mb-6 flex items-center justify-between gap-4 max-[480px]:flex-col max-[480px]:items-start"
+      >
+        <div>
+          <h2 id="papers-title" class="m-0 text-[22px] tracking-[-0.02em]">
+            Explore past papers
+          </h2>
+        </div>
+        <a
+          matButton="text"
+          routerLink="/past-questions"
+          class="flex items-center gap-1.5 text-[11px] font-semibold text-primary!"
           >View all papers
           <span
             aria-hidden="true"
@@ -121,38 +181,64 @@
         >
       </div>
       @if (pastQuestions.isLoading()) {
-      <div class="state" role="status">
+      <div
+        class="flex flex-col items-center px-4 py-7 text-center"
+        role="status"
+      >
         <mat-spinner [diameter]="28" aria-label="Loading past papers" />
-        <p>Loading past papers…</p>
+        <p
+          class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+        >
+          Loading past papers…
+        </p>
       </div>
       } @else if (pastQuestions.error()) {
-      <div class="state" role="status">
-        <h3>Past papers couldn’t load</h3>
-        <p>Try again to explore the archive.</p>
+      <div
+        class="flex flex-col items-center px-4 py-7 text-center"
+        role="status"
+      >
+        <h3 class="text-[17px]">Past papers couldn’t load</h3>
+        <p
+          class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+        >
+          Try again to explore the archive.
+        </p>
         <button matButton="outlined" (click)="pastQuestions.reload()">
           Try again
         </button>
       </div>
       } @else {
-      <div class="paper-grid">
+      <div class="grid grid-cols-3 gap-5 max-[760px]:grid-cols-1">
         @for (paper of pastQuestions.value().data; track paper.id) {
-        <mat-card appearance="outlined" class="paper-card"
+        <mat-card
+          appearance="outlined"
+          class="flex flex-col rounded-2xl border border-outline-variant bg-surface p-5 hover:bg-surface-container-low"
           ><a
-            class="paper-card-link"
+            class="flex h-full flex-col"
             [routerLink]="['/past-question', paper.id]"
           >
-            <div class="paper-top">
+            <div class="mb-6 flex items-center justify-between">
               <span
                 aria-hidden="true"
-                class="paper-icon icon-[material-symbols--description-outline]"
-              ></span><span class="year">{{ paper.year }}</span>
+                class="text-[32px] text-primary icon-[material-symbols--description-outline]"
+              ></span
+              ><span
+                class="rounded-[20px] bg-surface-container px-2.5 py-1.5 text-[11px]"
+                >{{ paper.year }}</span
+              >
             </div>
-            <span class="row-kicker">{{ paper.course.code }}</span>
-            <h3>{{ paper.course.title }}</h3>
-            <p>{{ paper.institution?.name }}</p>
-            <div class="paper-footer">
+            <span class="text-[10px] font-bold tracking-[0.04em] text-primary">{{
+              paper.course.code
+            }}</span>
+            <h3 class="my-2 text-[17px] leading-[1.4]">{{ paper.course.title }}</h3>
+            <p class="mb-6 text-[11px] leading-[1.6] text-on-surface-variant">
+              {{ paper.institution?.name }}
+            </p>
+            <div
+              class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-outline-variant pt-4 text-[11px] text-on-surface-variant"
+            >
               <span>{{ paper.solutions_count }} solutions</span
-              ><span class="paper-link"
+              ><span class="flex items-center gap-1.5 font-semibold text-primary"
                 >View paper
                 <span
                   aria-hidden="true"
@@ -163,9 +249,13 @@
           </a></mat-card
         >
         } @empty {
-        <div class="state">
-          <h3>Help build the archive</h3>
-          <p>Have a past paper? Share it with your fellow students.</p>
+        <div class="col-span-full flex flex-col items-center px-4 py-7 text-center">
+          <h3 class="text-[17px]">Help build the archive</h3>
+          <p
+            class="mt-2.5 mb-5 max-w-[340px] text-[13px] leading-[1.7] text-on-surface-variant"
+          >
+            Have a past paper? Share it with your fellow students.
+          </p>
           <a matButton="outlined" routerLink="/past-questions/new"
             >Upload a paper</a
           >

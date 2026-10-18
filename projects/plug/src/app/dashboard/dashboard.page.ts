@@ -24,7 +24,7 @@ import { environment } from "../../environments/environment";
   ],
   templateUrl: "./dashboard.page.ng.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: "./dashboard.page.scss",
+  styleUrl: "./dashboard.page.css",
 })
 export class DashboardPage {
   user = input.required<User>();
