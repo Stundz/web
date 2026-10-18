@@ -1,7 +1,6 @@
 import type { Plug } from "shared/models";
 import { HttpClient, httpResource } from "@angular/common/http";
 import {
-  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
@@ -39,7 +38,6 @@ import { environment } from "../../../../environments/environment";
     MatButtonModule,
   ],
   templateUrl: "./signup-form.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./signup-form.scss",
 })
 export class SignupForm {

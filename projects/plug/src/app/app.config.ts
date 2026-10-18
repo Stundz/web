@@ -1,7 +1,6 @@
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import {
   type ApplicationConfig,
-  enableProdMode,
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
@@ -29,10 +28,6 @@ import { Auth } from "shared/services";
 import { ENVIRONMENT } from "shared/types";
 import { environment } from "../environments/environment";
 import { routes } from "./app.routes";
-
-if (environment.production) {
-  enableProdMode();
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [

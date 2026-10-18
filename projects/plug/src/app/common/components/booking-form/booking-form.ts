@@ -1,7 +1,7 @@
 import type { Plug } from "shared/models";
 import { CurrencyPipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, inject, signal, ChangeDetectionStrategy } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import {
 	FormField,
 	FormRoot,
@@ -20,7 +20,6 @@ import { environment } from "../../../../environments/environment";
 	selector: "plug-booking-form",
 	imports: [MatButtonModule, MatInputModule, CurrencyPipe, FormField, FormRoot],
 	templateUrl: "./booking-form.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./booking-form.scss",
 })
 export class BookingForm {

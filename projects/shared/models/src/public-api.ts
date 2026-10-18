@@ -4,6 +4,11 @@ interface Model {
   updated_at: string;
 }
 
+export interface Role extends Model {
+  name: string;
+  title: string;
+}
+
 export interface User extends Model {
   first_name: string;
 
@@ -20,6 +25,8 @@ export interface User extends Model {
 
   /** Premifly related user data */
   premifly: Premifly.User;
+
+  roles?: Array<Role>;
 }
 
 interface BaseUser extends User {}

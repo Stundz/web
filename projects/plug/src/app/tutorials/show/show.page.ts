@@ -1,6 +1,5 @@
 import { DatePipe, DOCUMENT, NgPlural, NgPluralCase } from "@angular/common";
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -29,7 +28,6 @@ import { BookingForm } from "../../common/components/booking-form/booking-form";
     NgPluralCase,
   ],
   templateUrl: "./show.page.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./show.page.scss",
 })
 export class ShowPage {

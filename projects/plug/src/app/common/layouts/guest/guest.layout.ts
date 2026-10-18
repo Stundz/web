@@ -1,29 +1,10 @@
-import type { User as UserModel } from "shared/models";
-import { Component, inject, input, ChangeDetectionStrategy } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import {
-	ActivatedRoute,
-	Router,
-	RouterOutlet,
-} from "@angular/router";
-import { User } from "shared/services";
-import { ENVIRONMENT } from "shared/types";
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
 	selector: "app-guest",
-	imports: [
-		RouterOutlet,
-		MatButtonModule,
-	],
+	imports: [RouterOutlet],
 	templateUrl: "./guest.layout.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./guest.layout.scss",
 })
-export class GuestLayout {
-	user = input.required<UserModel | undefined>();
-	protected userService = inject(User);
-	private _router = inject(Router);
-	protected _route = inject(ActivatedRoute);
-
-	protected readonly environment = inject(ENVIRONMENT);
-}
+export class GuestLayout {}

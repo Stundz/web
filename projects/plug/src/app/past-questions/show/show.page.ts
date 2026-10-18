@@ -1,7 +1,6 @@
 import { isPlatformServer } from "@angular/common";
 import { HttpContext, HttpParams, httpResource } from "@angular/common/http";
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   type ElementRef,
@@ -27,7 +26,6 @@ import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
   selector: "plug-show-past-question",
   imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
   templateUrl: "./show.page.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./show.page.scss",
 })
 export class ShowPage {

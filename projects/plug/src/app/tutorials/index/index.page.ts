@@ -1,7 +1,6 @@
 import { NgOptimizedImage } from "@angular/common";
 import { httpResource } from "@angular/common/http";
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -55,7 +54,6 @@ import { Tutorial } from "../../common/services/tutorial";
   providers: [provideNativeDateAdapter()],
   templateUrl: "./index.page.ng.html",
   styleUrl: "./index.page.scss",
-  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     ngSkipHydration: "true",
   },

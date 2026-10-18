@@ -40,7 +40,6 @@
               }
             ],
             "styles": [
-              "projects/plug/src/material-theme.scss",
               "projects/plug/src/styles.css"
             ],
             "server": "projects/plug/src/main.server.ts",
@@ -54,8 +53,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.2MB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",

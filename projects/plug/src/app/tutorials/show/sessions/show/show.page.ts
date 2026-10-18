@@ -1,6 +1,6 @@
 import type { Plug } from "shared/models";
 import { DatePipe } from "@angular/common";
-import { Component, computed, input, ChangeDetectionStrategy } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { differenceInDays } from "date-fns";
@@ -10,7 +10,6 @@ import { differenceInDays } from "date-fns";
 	selector: "plug-show-session",
 	imports: [DatePipe, RouterLink, MatButtonModule],
 	templateUrl: "./show.page.ng.html",
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrl: "./show.page.scss",
 })
 export class ShowPage {

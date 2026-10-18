@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   DOCUMENT,
   effect,
@@ -48,7 +47,6 @@ import { environment } from "../environments/environment";
     MatIcon,
   ],
   templateUrl: "./app.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./app.css",
 })
 export class App {

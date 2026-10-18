@@ -1,31 +1,32 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  input,
-} from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, effect, Injector, inject, input } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import type { User } from "shared/models";
-
-import { SignupForm } from "../component/signup-form/signup-form";
 
 @Component({
   selector: "plug-app-layout",
   imports: [RouterOutlet],
   templateUrl: "./app.layout.ng.html",
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: "./app.layout.scss",
 })
 export class AppLayout {
   user = input.required<User>();
+  #injector = inject(Injector);
 
-  readonly dialog = inject(MatDialog);
+  #userEffect = effect(async () => {
+    if (
+      this.user() &&
+      !this.user().plug &&
+      !this.user()
+        .roles?.map((r) => r.name)
+        .includes("super-admin")
+    ) {
+      const [{ MatDialog }, { SignupForm }] = await Promise.all([
+        import("@angular/material/dialog"),
+        import("../component/signup-form/signup-form"),
+      ]);
 
-  #userEffect = effect(() => {
-    if (this.user() && !this.user().plug) {
-      this.dialog
+      const dialog = this.#injector.get(MatDialog);
+      dialog
         .open(SignupForm, {
           disableClose: true,
         })
