@@ -15,6 +15,7 @@ import {
 import { toSignal } from "@angular/core/rxjs-interop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatIcon } from "@angular/material/icon";
 import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import type { PDFDocumentProxy } from "pdfjs-dist";
@@ -24,7 +25,7 @@ import { environment } from "../../../environments/environment";
 import { PdfViewer } from "../../common/components/pdf-viewer/pdf-viewer";
 @Component({
   selector: "plug-show-past-question",
-  imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink],
+  imports: [PdfViewer, MatButtonModule, MatCardModule, RouterLink, MatIcon],
   templateUrl: "./show.page.ng.html",
   styleUrl: "./show.page.scss",
 })
