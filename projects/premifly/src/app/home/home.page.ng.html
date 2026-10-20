@@ -30,11 +30,11 @@
 <main class="relative z-10">
   <!-- Hero Section -->
   <section
-    class="grid gap-12 items-center py-16 mx-auto max-w-7xl md:grid-cols-2 md:py-24 px-gutter"
+    class="px-gutter mx-auto grid max-w-7xl items-center gap-12 py-16 md:grid-cols-2 md:py-24"
   >
     <div class="flex flex-col items-start space-y-6">
       <div
-        class="inline-flex gap-2 items-center py-1 px-3 tracking-wider uppercase rounded-full bg-surface-container-high text-primary font-label-md text-label-md"
+        class="bg-surface-container-high text-primary text-label-md inline-flex items-center gap-2 rounded-full px-3 py-1 font-label-md tracking-wider uppercase"
       >
         <span
           class="icon-[material-symbols--workspace-premium-outline] text-[14px]"
@@ -43,44 +43,44 @@
         Elite Access
       </div>
       <h1
-        class="tracking-tight leading-tight font-display-lg text-[48px] md:text-display-lg"
+        class="md:text-display-lg font-display-lg text-[48px] leading-tight tracking-tight"
       >
         Unlock Premium <br>
-        <span class="italic text-primary-container">for Less</span>
+        <span class="text-primary-container italic">for Less</span>
       </h1>
-      <p class="max-w-md font-body-lg text-body-lg text-on-surface-variant">
+      <p class="text-body-lg text-on-surface-variant max-w-md font-body-lg">
         Experience the finest digital entertainment and productivity tools with
         exclusive, consolidated subscriptions. High-tier access, fraction of the
         cost.
       </p>
-      <div class="flex flex-col gap-4 pt-4 w-full sm:flex-row sm:w-auto">
+      <div class="flex w-full flex-col gap-4 pt-4 sm:w-auto sm:flex-row">
         <a
           matButton="filled"
-          class="font-bold shadow-xl transition-all active:scale-95 font-label-lg text-label-lg shadow-primary-container/30"
+          class="text-label-lg shadow-primary-container/30 font-label-lg font-bold shadow-xl transition-all active:scale-95"
           [routerLink]="[user() ? 'dashboard' : 'subscribe' ]"
         >
           Get Started
         </a>
       </div>
     </div>
-    <div class="relative group">
+    <div class="group relative">
       <div
-        class="absolute -inset-4 transition-all duration-700 bg-primary-container/20 blur-3xl group-hover:bg-primary-container/30"
+        class="bg-primary-container/20 group-hover:bg-primary-container/30 absolute -inset-4 blur-3xl transition-all duration-700"
       ></div>
       <img
         alt="Premium Entertainment Concept"
-        class="object-cover relative w-full rounded-2xl border shadow-2xl border-white/5 aspect-video md:aspect-square"
+        class="relative aspect-video w-full rounded-2xl border border-white/5 object-cover shadow-2xl md:aspect-square"
         data-alt="A premium geometric digital illustration with sleek obsidian-colored shards and flowing ribbons of ruby red energy. The composition uses high-contrast lighting to create a sense of depth and luxury, mirroring a cinematic streaming environment. The background is a dark, textured charcoal with soft atmospheric dust particles catching the light. The overall mood is sophisticated, exclusive, and technologically advanced."
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqr7IPFS4QyPgmXHcBj6lP9_f-cVqwvrIj9cUdSPF3rMWekI7Rwxeh9YDRiSAfyMOnKJMXSZ7ruStYbN_WmS6TFS6uklZ874WgDsElFPRLhzuJMggDzY1r7LXjruuNDLYAhRGNDSBcVWkgpZ44OrAu9pF_BJ59wY_QhTp0U3ivgAuOw3sk7FRGu-9Lqm6CxhEoSaWRgSdCRDvlUSskSJPjAd8-eMSmt4sumpz-hxrrGDyUYfpy_j-idD5PPISmGIJiwtE4Tjjq32yk"
       >
       <div
-        class="flex absolute right-6 bottom-6 left-6 justify-between items-center p-4 rounded-xl border glass-card border-white/10"
+        class="glass-card absolute right-6 bottom-6 left-6 flex items-center justify-between rounded-xl border border-white/10 p-4"
       >
         <div>
-          <div class="font-bold text-primary font-label-md text-label-md">
+          <div class="text-primary text-label-md font-label-md font-bold">
             Current Savings
           </div>
-          <div class="font-bold text-title-lg font-title-lg">Up to 75% Off</div>
+          <div class="text-title-lg font-title-lg font-bold">Up to 75% Off</div>
         </div>
         <span
           class="icon-[material-symbols--trending-down] text-primary text-[32px]"
@@ -89,58 +89,58 @@
     </div>
   </section>
   <!-- Value Cards -->
-  <section class="py-20 bg-surface-container-lowest">
-    <div class="mx-auto max-w-7xl px-gutter">
+  <section class="bg-surface-container-lowest py-20">
+    <div class="px-gutter mx-auto max-w-7xl">
       <div class="grid gap-8 md:grid-cols-3">
         <!-- Save Big -->
         <div
-          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+          class="bg-surface-container group hover:bg-surface-container-high rounded-2xl p-8 transition-all duration-300"
         >
           <div
-            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+            class="bg-primary-container/10 text-primary mb-6 flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
           >
             <span class="icon-[material-symbols--savings-outline] text-[28px]"
               >savings</span
             >
           </div>
-          <h3 class="mb-3 font-title-lg text-title-lg">Save Big</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant">
+          <h3 class="text-title-lg mb-3 font-title-lg">Save Big</h3>
+          <p class="text-body-md text-on-surface-variant font-body-md">
             Our collective bargaining power brings you elite subscriptions at
             prices you won't find anywhere else on the web.
           </p>
         </div>
         <!-- All-in-One -->
         <div
-          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+          class="bg-surface-container group hover:bg-surface-container-high rounded-2xl p-8 transition-all duration-300"
         >
           <div
-            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+            class="bg-primary-container/10 text-primary mb-6 flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
           >
             <span
               class="icon-[material-symbols--auto-awesome-motion-outline] text-[28px]"
               >auto_awesome_motion</span
             >
           </div>
-          <h3 class="mb-3 font-title-lg text-title-lg">All-in-One</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant">
+          <h3 class="text-title-lg mb-3 font-title-lg">All-in-One</h3>
+          <p class="text-body-md text-on-surface-variant font-body-md">
             Manage all your premium accounts under one roof with a single,
             streamlined dashboard and unified billing system.
           </p>
         </div>
         <!-- Secure -->
         <div
-          class="p-8 rounded-2xl transition-all duration-300 bg-surface-container group hover:bg-surface-container-high"
+          class="bg-surface-container group hover:bg-surface-container-high rounded-2xl p-8 transition-all duration-300"
         >
           <div
-            class="flex justify-center items-center mb-6 w-12 h-12 rounded-xl transition-transform group-hover:scale-110 bg-primary-container/10 text-primary"
+            class="bg-primary-container/10 text-primary mb-6 flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
           >
             <span
               class="icon-[material-symbols--verified-user-outline] text-[28px]"
               >verified_user</span
             >
           </div>
-          <h3 class="mb-3 font-title-lg text-title-lg">Secure</h3>
-          <p class="font-body-md text-body-md text-on-surface-variant">
+          <h3 class="text-title-lg mb-3 font-title-lg">Secure</h3>
+          <p class="text-body-md text-on-surface-variant font-body-md">
             We prioritize your privacy and account security with military-grade
             encryption and 24/7 elite status monitoring.
           </p>
@@ -149,31 +149,31 @@
     </div>
   </section>
   <!-- Trending Deals -->
-  <section class="py-24 mx-auto max-w-7xl px-gutter">
+  <section class="px-gutter mx-auto max-w-7xl py-24">
     <div
-      class="flex flex-col gap-6 justify-between items-end mb-12 md:flex-row"
+      class="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row"
     >
       <div>
-        <h2 class="mb-2 font-headline-lg text-headline-lg">Trending Deals</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant">
+        <h2 class="text-headline-lg mb-2 font-headline-lg">Trending Deals</h2>
+        <p class="text-body-md text-on-surface-variant font-body-md">
           Get instant access to the world's most popular platforms.
         </p>
       </div>
       <div class="flex gap-2">
         <span
-          class="py-2 px-4 rounded-full cursor-pointer bg-primary-container text-on-primary-container font-label-md text-label-md"
+          class="bg-primary-container text-on-primary-container text-label-md cursor-pointer rounded-full px-4 py-2 font-label-md"
           >All</span
         >
         <span
-          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          class="bg-surface-container-high text-on-surface text-label-md hover:bg-surface-container-highest cursor-pointer rounded-full px-4 py-2 font-label-md transition-colors"
           >Streaming</span
         >
         <span
-          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          class="bg-surface-container-high text-on-surface text-label-md hover:bg-surface-container-highest cursor-pointer rounded-full px-4 py-2 font-label-md transition-colors"
           >AI Tools</span
         >
         <span
-          class="py-2 px-4 rounded-full transition-colors cursor-pointer bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest"
+          class="bg-surface-container-high text-on-surface text-label-md hover:bg-surface-container-highest cursor-pointer rounded-full px-4 py-2 font-label-md transition-colors"
           >Music</span
         >
       </div>
@@ -184,38 +184,38 @@
       <!-- Deal: Netflix -->
       <mat-card>
         <div
-          class="flex flex-col p-6 rounded-2xl transition-all cursor-pointer hover:shadow-2xl glass-card group hover:shadow-primary-container/10"
+          class="glass-card group hover:shadow-primary-container/10 flex cursor-pointer flex-col rounded-2xl p-6 transition-all hover:shadow-2xl"
         >
-          <div class="flex gap-4 items-center mb-6">
+          <div class="mb-6 flex items-center gap-4">
             <div
-              class="flex overflow-hidden justify-center items-center p-2 w-16 h-16 rounded-xl bg-black/30"
+              class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black/30 p-2"
             >
               <img
                 alt="Netflix"
-                class="object-contain w-full h-full mix-blend-difference"
+                class="h-full w-full object-contain mix-blend-difference"
                 data-alt="A clean, minimalist 3D rendering of the Netflix N logo in vibrant red, floating against a dark, textured cinematic background with subtle light flares and bokeh effects. The style is premium, modern, and aligned with a high-end streaming service aesthetic, focusing on luxury digital content."
                 [src]="service.icon"
               >
             </div>
             <div>
-              <h4 class="font-title-lg text-title-lg">{{ service.name }}</h4>
-              <div class="text-on-surface-variant font-label-md text-label-md">
+              <h4 class="text-title-lg font-title-lg">{{ service.name }}</h4>
+              <div class="text-on-surface-variant text-label-md font-label-md">
                 {{ service.slug }}
               </div>
             </div>
           </div>
-          <div class="flex gap-3 items-baseline mb-6">
-            <div class="font-bold text-[32px] text-primary">
+          <div class="mb-6 flex items-baseline gap-3">
+            <div class="text-primary text-[32px] font-bold">
               {{ service.price }}
-              <span class="font-normal text-label-md text-on-surface-variant"
+              <span class="text-label-md text-on-surface-variant font-normal"
                 >/mo</span
               >
             </div>
-            <div class="line-through text-label-md text-on-surface-variant">
+            <div class="text-label-md text-on-surface-variant line-through">
               $19.99
             </div>
             <div
-              class="py-1 px-2 ml-auto font-bold tracking-tighter text-green-400 uppercase rounded bg-green-500/10 text-[10px]"
+              class="ml-auto rounded bg-green-500/10 px-2 py-1 text-[10px] font-bold tracking-tighter text-green-400 uppercase"
             >
               -75% OFF
             </div>
@@ -233,21 +233,21 @@
     </div>
   </section>
   <!-- CTA Section -->
-  <section class="py-20 mx-auto max-w-7xl px-gutter">
+  <section class="px-gutter mx-auto max-w-7xl py-20">
     <div
-      class="overflow-hidden relative p-12 text-center border md:p-20 bg-linear-to-br rounded-[2.5rem] from-primary-container/40 to-surface-container border-primary-container/20"
+      class="from-primary-container/40 to-surface-container border-primary-container/20 relative overflow-hidden rounded-[2.5rem] border bg-linear-to-br p-12 text-center md:p-20"
     >
       <div
-        class="absolute top-0 right-0 w-96 h-96 rounded-full translate-x-1/2 -translate-y-1/2 bg-primary-container/20 blur-[100px]"
+        class="bg-primary-container/20 absolute top-0 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
       ></div>
       <div class="relative z-10">
         <h2
-          class="mb-6 md:leading-tight font-headline-lg text-headline-lg md:text-[48px]"
+          class="text-headline-lg mb-6 font-headline-lg md:text-[48px] md:leading-tight"
         >
           Ready for Elite Savings?
         </h2>
         <p
-          class="mx-auto mb-10 max-w-2xl font-body-lg text-body-lg text-on-surface-variant"
+          class="text-body-lg text-on-surface-variant mx-auto mb-10 max-w-2xl font-body-lg"
         >
           Join over 300 premium members who are already enjoying more for less.
           No contracts, cancel anytime.
