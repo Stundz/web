@@ -5,20 +5,25 @@
 /* components according to the Material 3 design spec. */
 /* Learn more about theming and how to use it for your application's */
 /* custom components at https://material.angular.dev/guide/theming */
-@import "tailwindcss";
-@import "../../shared/src/styles/theme.css";
-@import "../../shared/src/styles/utilities.css";
-@import "../../shared/src/styles/variants.css";
-@import "./theme" layer(theme);
+/* @import "tailwindcss"; */
+
+@layer theme, base, components, utilities;
+
+@import "../../shared/src/styles/theme.css" layer(theme);
+@import "./material.css" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "../../../dist/shared/styles/base.css";
+@import "../../../dist/shared/styles/utilities.css";
+@import "../../../dist/shared/styles/variants.css";
 @plugin "@iconify/tailwind4";
-@source "../../shared";
+@source "../../../dist/shared/components";
 
 @layer base {
   html,
   body {
     height: 100%;
 
-    @apply selection:bg-(--mat-sys-primary) selection:text-(--mat-sys-on-primary) scroll-smooth;
+    @apply selection:bg-primary selection:text-on-primary scroll-smooth;
   }
 
   body {
@@ -34,7 +39,7 @@
   input,
   textarea,
   select {
-    @apply bg-(--mat-sys-surface-container-low)/80 hover:bg-(--mat-sys-surface-container-low) text-(--mat-sys-on-surface-container-low) px-2 py-1;
+    @apply bg-(--mat-sys-surface-container-low)/80 hover:bg-surface-container-low text-(--mat-sys-on-surface-container-low) px-2 py-1;
   }
 }
 
