@@ -1,5 +1,6 @@
 {
   "name": "stundz-plug",
+  "tsconfig": "./tsconfig.app.json",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "../../dist/plug/browser",
