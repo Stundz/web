@@ -1,0 +1,26 @@
+/* Font asset: loaded locally with a monospace fallback. */
+@layer base {
+  @font-face {
+    font-family: "Nova Mono";
+    src: url("../fonts/NovaMono-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  :root {
+    --stundz-font-family: "Nova Mono", monospace;
+  }
+
+  html,
+  body {
+    font-family: var(--stundz-font-family);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+}

@@ -1,3 +1,5 @@
+@import "tailwindcss/utilities" layer(utilities);
+
 /* Opt-in utilities shared by Tailwind applications. */
 @utility hero-gradient {
   background: linear-gradient(
